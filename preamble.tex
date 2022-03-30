@@ -3,7 +3,8 @@
 \usepackage{marginnote}
 \usepackage[style=apa]{biblatex}
 \usepackage{enumitem}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb,amsbsy}
+\usepackage{bm}
 \usepackage[hidelinks]{hyperref}
 
 \fancypagestyle{main}{
@@ -21,6 +22,12 @@
 
 \addbibresource{../main.bib}
 
+\setitemize[3]{label={\scriptsize$\blacksquare$}}
+
+\DeclareMathOperator{\Hom}{Hom}
+
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
+\renewcommand{\vec}[1]{\mathbf{#1}}
 
 \usepackage{subfiles}

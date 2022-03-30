@@ -1,0 +1,102 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+
+\begin{document}
+
+
+
+
+\chapter{Multilinear Algebra}
+\section{Notes}
+\begin{itemize}
+    \item \marginnote{3/28:}Motivation for the course and an overview of \textcite{bib:DifferentialForms}.
+    \item \marginnote{3/30:}Plan:
+    \begin{itemize}
+        \item More (multi)linear algebra.
+    \end{itemize}
+    \item Dual spaces.
+    \item Let $V$ be an $n$-dimensional real vector space.
+    \item $\bm{\Hom(V,\pmb{\R})}$: The set of all homomorphisms (i.e., linear maps) from $V$ to $\R$. \emph{Also known as} $\bm{V^*}$.
+    \item \textbf{Dual basis} (for $V^*$): The set of linear transformations from $V$ to $\R$ defined by
+    \begin{equation*}
+        \vec{e}_j \mapsto
+        \begin{cases}
+            1 & j=i\\
+            0 & j\neq i
+        \end{cases}
+    \end{equation*}
+    where $\vec{e}_1,\dots,\vec{e}_n$ is a basis of $V$. \emph{Denoted by} $\vec{e}_1^*,\dots,\vec{e}_n^*$.
+    \item Check: $\vec{e}_1^*,\dots,\vec{e}_n^*$ are a basis for $V^*$.
+    \begin{itemize}
+        \item Are they linearly independent? Let $c_1\vec{e}_1^*+\cdots+c_n\vec{e}_n^*=0\in\Hom(V,\R)$. Then
+        \begin{equation*}
+            c_i = (c_1\vec{e}_1^*+\cdots+c_n\vec{e}_n^*)(\vec{e}_i) = 0\in\R
+        \end{equation*}
+        as desired.
+        \item Span? Let $\varphi\in\Hom(V,\R)$. Then we can verify that
+        \begin{equation*}
+            \varphi(\vec{e}_1)\vec{e}_1^*+\cdots+\varphi(\vec{e}_n)\vec{e}_n^* = \varphi
+        \end{equation*}
+        \begin{itemize}
+            \item We prove this by verifying the previous statement on the basis of $V$ (if two linear transformations have the same action on the basis of a vector space, they are equal).
+        \end{itemize}
+    \end{itemize}
+    \item With a choice of basis for $V$, we obtain an isomorphism $\varepsilon:V\to V^*$ with the mapping $\vec{e}_i\mapsto\vec{e}_i^*$ for all $i$.
+    \item The dual space is known as such because $(V^*)^*\cong V$, where $\cong$ is \textbf{canonical} (no choice of basis is needed).
+    \item One more property of dual spaces: \textbf{functoriality}.
+    \begin{itemize}
+        \item Given a linear transformation $A:V\to W$, we know that $A^*:W^*\to V^*$ where $A^*$ is the transpose of $A$. In particular, if $\varphi\in W^*$, then $\varphi\circ A:V\to\R$.
+        \item Claim: $A^*$ is linear.
+    \end{itemize}
+    \item \textbf{Functoriality}: If $A:V\to W$ and $B:W\to U$, then $B^*:U^*\to W^*$ and $A^*:W^*\to V^*$. The functoriality statement is that $(B\circ A)^*=A^*\circ B^*$.
+    \item $A^*$ is the \textbf{pullback} (or transpose) of $A$.
+    \item Let $\vec{v}_1,\dots,\vec{v}_n$ be a basis for $V$ and $\vec{w}_1,\dots,\vec{w}_m$ be a basis for $W$. Then $[A]_{\vec{v}_1,\dots,\vec{v}_n}^{\vec{w}_1,\dots,\vec{w}_m}=A$ is the matrix of the linear transformation $A$ with respect to these bases. Then if $\vec{v}_1^*,\dots,\vec{v}_n^*$ and $\vec{w}_1^*,\dots,\vec{w}_m^*$ are the corresponding dual bases, then $[A^*]_{\vec{v}_1^*,\dots,\vec{v}_n^*}^{\vec{w}_1^*,\dots,\vec{w}_m^*}=A^T$. We can and should verify this for ourselves.
+    \item This is over the real numbers, so $A^*$ is just the transpose because there are no complex numbers of which to take the conjugate!
+    \item A generalization: Tensors.
+    \item \textbf{$\bm{k}$-tensor}: A \textbf{multilinear} map
+    \begin{equation*}
+        T:\underbrace{V\times\cdots\times V}_{k\text{ times}}\to\R
+    \end{equation*}
+    \item \textbf{Multilinear} (map $T$): A function $T$ such that
+    \begin{align*}
+        T(\vec{v}_1,\dots,\vec{v}_i^1+\vec{v}_i^2,\dots,\vec{v}_k) &= T(\vec{v}_1,\dots,\vec{v}_i^1,\dots,\vec{v}_k)+T(\vec{v}_1,\dots,\vec{v}_i^2,\dots,\vec{v}_k)\\
+        T(\vec{v}_1,\dots,\lambda \vec{v}_i,\dots,\vec{v}_k) &= \lambda T(\vec{v}_1,\dots,\vec{v}_i,\dots,\vec{v}_k)
+    \end{align*}
+    for all $(\vec{v}_1,\dots,\vec{v}_k)\in V^k$.
+    \item The determinant is an $n$-tensor!
+    \item 1-tensors are just covectors.
+    \item $\bm{L^k(V)}$: The vector space of all $k$-tensors on $V$.
+    \item Calculating $\dim L^k(V)$. (Answer not given in this class.)
+    \item Let $A:V\to W$. Then $A^*:L^k(W)\to L^k(V)$.
+    \begin{itemize}
+        \item Check $(A\circ B)^*=B^*\circ A^*$.
+    \end{itemize}
+    \item \textbf{multi-index of $\bm{n}$ of length $\bm{k}$}: A $k$-tuple $(i_1,\dots,i_k)$ where each $i_j\in\N$ satisfies $1\leq i_j\leq n$ ($j=1,\dots,k$). \emph{Denoted by} $\bm{I}$.
+    \item Let $\vec{e}_1,\dots,\vec{e}_n$ be a basis for $V$.
+    \item \textbf{Tensor product} (of $T_1\in L^k(V)$, $T_2\in L^l(V)$): The function from $V^{k+l}$ to $\R$ defined by
+    \begin{equation*}
+        (\vec{v}_1,\dots,\vec{v}_{k+l}) \mapsto T_1(\vec{v}_1,\dots,\vec{v}_k)T_2(\vec{v}_{k+1},\dots,\vec{v}_{k+l})
+    \end{equation*}
+    \emph{Denoted by} $\bm{T_1\otimes T_2}$.
+    \item Claims:
+    \begin{enumerate}
+        \item $T_1\otimes T_2\in L^{k+l}(V)$.
+        \item $A^*(T_1\otimes T_2)=A^*(T_1)\otimes A^*(T_2)$.
+    \end{enumerate}
+    \item $\bm{\vec{e}_I^*}$: The function $\vec{e}_{i_1}^*\otimes\cdots\otimes\vec{e}_{i_k}^*$, where $I=(i_1,\dots,i_k)$ is a multi-index of $n$ of length $k$.
+    \item Claim: Letting $I$ range over all $n^k$ multi-indices of $n$ of length $k$, the $\vec{e}_I^*$ are a basis for $L^k(V)$.
+    \item If $V=\R$, then $V=\R\vec{e}_1$. If $V=\R^2$, then $V=\R\vec{e}_1\oplus\R\vec{e}_2$.
+    \item We know that $L^1(V)=V^*=R\vec{e}_1^*$. Thus, $\vec{e}_1^*\otimes\vec{e}_2^*:V\times V\to\R$. Thus, for example,
+    \begin{equation*}
+        (\vec{e}_1^*\otimes\vec{e}_2^*)((1,2),(3,4)) = \vec{e}_1^*(1,2)\cdot \vec{e}_2^*(3,4)
+        = 1\cdot 4
+        = 4
+    \end{equation*}
+\end{itemize}
+
+
+
+
+\end{document}
