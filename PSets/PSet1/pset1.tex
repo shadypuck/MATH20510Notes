@@ -2,17 +2,139 @@
 
 \pagestyle{main}
 \renewcommand{\leftmark}{Problem Set \thesection}
+\setenumerate[1]{leftmargin=4em}
+\setenumerate[2]{label={(\arabic*)}}
 
 \begin{document}
 
 
 
 
-\section{???}
-\emph{From \textcite{bib:Rudin}.}
-\subsection*{Chapter 10}
-\begin{enumerate}[label={\textbf{\arabic*.}}]
+\section{Multilinear Algebra}
+\emph{From \textcite{bib:DifferentialForms}.}
+\subsection*{Chapter 1}
+\begin{enumerate}[label={\textbf{1.2.\roman*.}}]
+    \setcounter{enumi}{3}
+    \item Let $U$, $V$, and $W$ be vector spaces and let $A:V\to W$ and $B:U\to V$ be linear mappings. Show that $(AB)^*=B^*A^*$.
+    \item Let $V=\R^2$ and let $W$ be the $x_1$-axis, i.e., the one-dimensional subspace
+    \begin{equation*}
+        \{(x_1,0)\mid x_1\in\R\}
+    \end{equation*}
+    of $\R^2$.
+    \begin{enumerate}
+        \item Show that the $W$-cosets are the lines $x_2=a$ parallel to the $x_1$-axis.
+        \item Show that the sum of the cosets $x_2=a$ and $x_2=b$ is the coset $x_2=a+b$.
+        \item Show that the scalar multiple of the coset $x_2=c$ by the number $\lambda$ is the coset $x_2=\lambda c$.
+    \end{enumerate}
     \item 
+    \begin{enumerate}
+        \item Let $(V^*)^*$ be the dual of the vector space $V^*$. For every $\vec{v}\in V$, let $\ev_\vec{v}:V^*\to\R$ be the \textbf{evaluation function} $\ev_\vec{v}(\ell)=\ell(\vec{v})$. Show that the $\ev_\vec{v}$ is a linear function on $V^*$, i.e., an element of $(V^*)^*$, and show that the map $\ev=\ev_{(-)}:V\to(V^*)^*$ defined by $\vec{v}\mapsto\ev_\vec{v}$ is a linear map of $V$ into $(V^*)^*$.
+        \item If $V$ is finite dimensional, show that the map $\ev$ is bijective. Conclude that there is a natural identification of $V$ with $(V^*)^*$, i.e., that $V$ and $(V^*)^*$ are two descriptions of the same object. (Hint: $\dim(V^*)^*=\dim V^*=\dim V$, so since $\dim(V)=\dim(\ker(A))+\dim(\im(A))$, it suffices to show that $\ev$ is injective.)
+    \end{enumerate}
+    \setcounter{enumi}{10}
+    \item Let $V$ be a vector space.
+    \begin{enumerate}
+        \item Let $B:V\times V\to\R$ be an inner product on $V$. For all $\vec{v}\in V$, let $\ell_\vec{v}:V\to\R$ be the function $\ell_\vec{v}(\vec{w})=B(\vec{v},\vec{w})$. Show that $\ell_\vec{v}$ is linear, and show that the map $L:V\to V^*$ defined by $\vec{v}\mapsto\ell_\vec{v}$ is a linear mapping.
+        \item If $V$ is finite dimensional, prove that $L$ is bijective. Conclude that if $V$ has an inner product, one gets from it a natural identification of $V$ with $V^*$. (Hint: Since $\dim V=\dim V^*$ and $\dim(V)=\dim(\ker(A))+\dim(\im(A))$, it suffices to show that $\ker(L)=0$. Now note that if $\vec{v}\neq\bm{0}$, then $\ell_\vec{v}(\vec{v})=B(\vec{v},\vec{v})$ is a positive number.)
+    \end{enumerate}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{1.3.\roman*.}}]
+    \item Verify that there are exactly $n^k$ multi-indices of length $k$.
+    \item Prove that the map $A^*:\lin[k]{W}\to\lin[k]{W}$ defined by $T\mapsto A^*T$ is linear.
+    \item Verify that
+    \begin{equation*}
+        A^*(T_1\otimes T_2) = A^*(T_1)\otimes A^*(T_2)
+    \end{equation*}
+    \item Verify that
+    \begin{equation*}
+        (AB)^*T = B^*(A^*T)
+    \end{equation*}
+    \setcounter{enumi}{6}
+    \item Let $T$ be a $k$-tensor and $\vec{v}$ be a vector. Define $T_\vec{v}:V^{k-1}\to\R$ by
+    \begin{equation*}
+        T_\vec{v}(\vec{v}_1,\dots,\vec{v}_{k-1}) = T(\vec{v},\vec{v}_1,\dots,\vec{v}_{k-1})
+    \end{equation*}
+    Show that $T_\vec{v}$ is a $(k-1)$-tensor.
+    \item Show that if $T_1$ is an $r$-tensor and $T_2$ is an $s$-tensor, then if $r>0$,
+    \begin{equation*}
+        (T_1\otimes T_2)_\vec{v} = (T_1)_\vec{v}\otimes T_2
+    \end{equation*}
+    \item Let $A:V\to W$ be a linear map, let $\vec{v}\in V$, and let $\vec{w}=A\vec{v}$. Show that for all $T\in\lin[k]{W}$,
+    \begin{equation*}
+        A^*(T_\vec{w}) = (A^*T)_\vec{v}
+    \end{equation*}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{1.4.\roman*.}}]
+    \item Show that there are exactly $k!$ permutations of order $k$. (Hint: Induction on $k$: Let $\sigma\in S_k$, and let $\sigma(k)=i$ ($1\leq i\leq k$). Show that $\tau_{i,k}\sigma$ leaves $k$ fixed and hence is, in effect, a permutation of $\Sigma_{k-1}$.)
+    \item Prove that if $\tau\in S_k$ is a transposition, $(-1)^\tau=-1$. Deduce from this that if $\sigma$ is the product of an odd number of transpositions, then $(-1)^\sigma=-1$, and if $\sigma$ is the product of an even number of transpositions, then $(-1)^\sigma=+1$.
+    \item Prove that the assignment $T\mapsto T^\sigma$ is a linear map $\lin[k]{V}\to\lin[k]{V}$.
+    \setcounter{enumi}{5}
+    \item Show that every one of the six elements of $S_3$ is either a transposition or can be written as a product of two transpositions.
+    \setcounter{enumi}{8}
+    \item Let $A:V\to W$ be a linear mapping. Show that if $T\in\alt[k]{W}$, then $A^*T\in\alt[k]{V}$.
+\end{enumerate}
+\begin{enumerate}[label={\textbf{1.5.\roman*.}}]
+    \item A $k$-tensor $T\in\lin[k]{V}$ is \textbf{symmetric} if $T^\sigma=T$ for all $\sigma\in S_k$. Show that the set $\sym[k]{V}$ of symmetric $k$-tensors is a vector subspace of $\lin[k]{V}$.
+\end{enumerate}
+\begin{enumerate}[label={\textbf{1.6.\roman*.}}]
+    \item Verify the following three equations, where $\lambda\in\R$.
+    \begin{enumerate}
+        \item $\lambda(\omega_1\wedge\omega_2)=(\lambda\omega_1)\wedge\omega_2=\omega_1\wedge(\lambda\omega_2)$.
+        \item $(\omega_1+\omega_2)\wedge\omega_3=\omega_1\wedge\omega_3+\omega_2\wedge\omega_3$.
+        \item $\omega_1\wedge(\omega_2+\omega_3)=\omega_1\wedge\omega_2+\omega_1\wedge\omega_3$.
+    \end{enumerate}
+    \item Verify the following multiplicative law for the wedge product.
+    \begin{equation*}
+        \omega_1\wedge\omega_2 = (-1)^{rs}\omega_2\wedge\omega_1
+    \end{equation*}
+    \stepcounter{enumi}
+    \item If $\omega,\mu\in\lam[r]{V^*}$, prove that
+    \begin{equation*}
+        (\omega+\mu)^k = \sum_{\ell=0}^k\binom{k}{\ell}\omega^\ell\wedge\mu^{k-\ell}
+    \end{equation*}
+    (Hint: As in freshman calculus, prove this binomial theorem by induction using the identity $\binom{k}{\ell}=\binom{k-1}{\ell-1}+\binom{k-1}{\ell}$.)
+\end{enumerate}
+\begin{enumerate}[label={\textbf{1.7.\roman*.}}]
+    \item Prove that if $T$ is the decomposable $k$-tensor $\ell_1\otimes\cdots\otimes\ell_k$, then
+    \begin{equation*}
+        \imath_\vec{v}T = \sum_{r=1}^k(-1)^{r-1}\ell_r(\vec{v})\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k
+    \end{equation*}
+    where the hat over $\ell_r$ means that $\ell_r$ is deleted from the tensor product.
+    \item Prove that if $T_1\in\lin[p]{V}$ and $T_2\in\lin[q]{V}$, then
+    \begin{equation*}
+        \imath_\vec{v}(T_1\otimes T_2) = \imath_\vec{v}T_1\otimes T_2+(-1)^pT_1\otimes\imath_\vec{v}T_2
+    \end{equation*}
+    \item Show that if $T\in\alt[k]{V}$, then $\imath_\vec{v}T=kT_\vec{v}$, where $T_\vec{v}$ is defined as in Exercise 1.3.vii. In particular, conclude that $\imath_\vec{v}T\in\alt[k-1]{V}$. (See Exercise 1.4.viii, which asserts that $T\in\alt[k]{V}$ implies $T_\vec{v}\in\alt[k-1]{V}$.)
+\end{enumerate}
+\begin{enumerate}[label={\textbf{1.8.\roman*.}}]
+    \item Verify the following assertions.
+    \begin{enumerate}
+        \item The map $A^*:\lam[k]{W^*}\to\lam[k]{V^*}$ sending $\omega\mapsto A^*\omega$ is linear.
+        \item If $\omega_i\in\lam[k_i]{W^*}$ ($i=1,2$), then
+        \begin{equation*}
+            A^*(\omega_1\wedge\omega_2) = A^*(\omega_1)\wedge A^*(\omega_2)
+        \end{equation*}
+        \item If $U$ is a vector space and $B:U\to V$ is a linear map, then for $\omega\in\lam[k]{W^*}$,
+        \begin{equation*}
+            B^*A^*\omega = (AB)^*\omega
+        \end{equation*}
+    \end{enumerate}
+    \item Deduce from the fact "$A:V\to V$ not surjective implies $\det(A)=0$" a well-known fact about determinants of $n\times n$ matrices: If two columns are equal, the determinant is zero.
+    \stepcounter{enumi}
+    \item Deduce from Exercise 1.8.i another well-known fact about determinants of $n\times n$ matrices: If $(b_{i,j})$ is the inverse of $[a_{i,j}]$, its determinant is the inverse of the determinant of $[a_{i,j}]$.
+    \item Extract from the formula $\det([a_{i,j}])=\sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)}$ the following well-known formula for determinants of $2\times 2$ matrices.
+    \begin{equation*}
+        \det
+        \begin{pmatrix}
+            a_{11} & a_{12}\\
+            a_{21} & a_{22}\\
+        \end{pmatrix}
+        = a_{11}a_{22}-a_{12}a_{21}
+    \end{equation*}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{1.9.\roman*.}}]
+    \item Prove that if $\vec{e}_1,\dots,\vec{e}_n$ is a positively oriented basis of $V$, then the basis $\vec{e}_1,\dots,\vec{e}_{i-1},-\vec{e}_i,\vec{e}_{i+1},\dots,\vec{e}_n$ is negatively oriented.
+    \item Show that the argument in the proof of Theorem 1.9.9 can be modified to prove that if $V$ and $W$ are oriented, then these orientations induce a natural orientation on $V/W$.
 \end{enumerate}
 
 

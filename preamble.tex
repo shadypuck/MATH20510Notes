@@ -1,4 +1,5 @@
 \usepackage[margin=1in]{geometry}
+\usepackage{csquotes}
 \usepackage{fancyhdr}
 \usepackage{marginnote}
 \usepackage[style=apa]{biblatex}
@@ -6,6 +7,8 @@
 \usepackage{amsmath,amssymb,amsbsy}
 \usepackage{bm}
 \usepackage[hidelinks]{hyperref}
+
+\MakeOuterQuote{"}
 
 \fancypagestyle{main}{
     \fancyhf{}
@@ -25,9 +28,15 @@
 \setitemize[3]{label={\scriptsize$\blacksquare$}}
 
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\im}{im}
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
-\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\lin}[2][]{\mathcal{L}^{#1}(#2)}
+\newcommand{\alt}[2][]{\mathcal{A}^{#1}(#2)}
+\newcommand{\sym}[2][]{\mathcal{S}^{#1}(#2)}
+\newcommand{\lam}[2][]{\Lambda^{#1}(#2)}
+\renewcommand{\vec}[1]{#1}
 
 \usepackage{subfiles}
