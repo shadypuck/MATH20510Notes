@@ -94,6 +94,106 @@
         = 1\cdot 4
         = 4
     \end{equation*}
+    \item \marginnote{4/1:}Plan: More multilinear algebra.
+    \begin{itemize}
+        \item Properties of the tensor product.
+        \item Sign of a permutation.
+        \item Alternating tensors (lead into differential forms down the road).
+    \end{itemize}
+    \item Recall: $V$ is an $n$-dimensional vector space over $\R$ with basis $e_1,\dots,e_n$. $\lin[k]{V}$ is the vector space of $k$-tensors on $V$. $\{e_I^*\mid I\text{ a multiindex of }n\text{ of length }k\}$ is a basis for $\lin[k]{V}$.
+    \item For example, if $V=\R^2$ and $T\in\lin[2]{V}$, then
+    \begin{equation*}
+        T(a_1e_1+a_2e_2,b_1e_1+b_2e_2) = a_1b_1T(e_1,e_1)+a_1b_2T(e_1,e_2)+a_2b_1T(e_2,e_1)+a_2b_2T(e_2,e_2)
+    \end{equation*}
+    \begin{itemize}
+        \item A basis of $\lin[2]{V}$ is
+        \begin{equation*}
+            \{e_1^*\otimes e_1^*,e_1^*\otimes e_2^*,e_2^*\otimes e_1^*,e_2^*\otimes e_2^*\}
+        \end{equation*}
+        \item Recall that some basic properties are
+        \begin{align*}
+            e_1^*\otimes e_2^*((1,2),(3,4)) &= 1\cdot 4 = 4&
+            e_2^*\otimes e_1^*((1,2),(3,4)) &= 2\cdot 3 = 6
+        \end{align*}
+        \item It follows by the initial decomposition of $T$ that
+        \begin{equation*}
+            T = a_1b_1e_1^*\otimes e_1^*+a_1b_2e_1^*\otimes e_2^*+a_2b_1e_2^*\otimes e_1^*+a_2b_2e_2^*\otimes e_2^*
+        \end{equation*}
+    \end{itemize}
+    \item Important consequence: To know the action of $T$ on an arbitrary pair of vectors, you need only know its action on the basis; a higher-dimensional generalization of the earlier property.
+    \item Note that
+    \begin{equation*}
+        e_I^*(e_J) = \delta_{IJ} =
+        \begin{cases}
+            1 & I=J\\
+            0 & I\neq J
+        \end{cases}
+    \end{equation*}
+    \item Basic properties of the tensor product.
+    \begin{enumerate}
+        \item \emph{Right-distributive}: If $T_1\in\lin[k]{V}$ and $T_2,T_3\in\lin[\ell]{V}$, then
+        \begin{equation*}
+            T_1\otimes(T_2+T_3) = T_1\otimes T_2+T_1\otimes T_3
+        \end{equation*}
+        \item \emph{Left-distributive}: If $T_1,T_2\in\lin[k]{V}$ and $T_3\in\lin[\ell]{V}$, then
+        \begin{equation*}
+            (T_1+T_2)\otimes T_3 = T_1\otimes T_3+T_2\otimes T_3
+        \end{equation*}
+        \item \emph{Associative}: If $T_1\in\lin[k]{V}$, $T_2\in\lin[\ell]{V}$, and $T_3\in\lin[m]{V}$, then
+        \begin{equation*}
+            T_1\otimes(T_2\otimes T_3) = (T_1\otimes T_2)\otimes T_2
+            = T_1\otimes T_2\otimes T_3
+        \end{equation*}
+        \item \emph{Scalar multiplication}: If $T_1\in\lin[k]{V}$, $T_2\in\lin[\ell]{V}$, and $\lambda\in\R$, then
+        \begin{equation*}
+            (\lambda T_1)\otimes T_2 = \lambda(T_1\otimes T_2)
+            = T_1\otimes(\lambda T_2)
+        \end{equation*}
+    \end{enumerate}
+    \item Note that the tensor product is not commutative.
+    \item Aside: Defining the sign of a permutation.
+    \item $\bm{S_A}$: The set of all automorphisms of $A$ (bijections from $A$ to $A$), where $A$ is a set.
+    \item $\bm{S_n}$: The set $S_{[n]}$.
+    \item Given $\sigma_1,\sigma_2\in S_n$, $\sigma_1\circ\sigma_2\in S_n$.
+    \begin{itemize}
+        \item Thus, $S_n$ is a \textbf{group}.
+    \end{itemize}
+    \item \textbf{Transposition}: A function $\tau\in S_n$ such that
+    \begin{equation*}
+        \tau(k) =
+        \begin{cases}
+            j & k=i\\
+            i & k=j\\
+            k & k\neq i,j
+        \end{cases}
+    \end{equation*}
+    for some $i,j\in[n]$. \emph{Denoted by} $\bm{\tau_{i,j}}$.
+    \item Theorem: An element of $S_n$ can be written as the product of transpositions (i.e., for all $\sigma\in S_n$, there exist $\tau_1,\dots,\tau_m\in S_n$ such that $\sigma=\tau_1\circ\cdots\circ\tau_m$).
+    \item \textbf{Sign} (of $\sigma\in S_n$): The number (mod 2) of transpositions whose product equals $\sigma$. \emph{Denoted by} $\bm{(-1)^\sigma}$, $\bm{\sgn(\sigma)}$.
+    \item Theorem: The sign of $\sigma$ is well-defined. Additionally,
+    \begin{equation*}
+        (-1)^{\sigma_1\sigma_2} = (-1)^{\sigma_1}\cdot(-1)^{\sigma_2}
+    \end{equation*}
+    \item Example: Consider the identity permutation. $(-1)^\sigma=+1$. We can think of this as the product of zero transpositions or, for instance, as the product of the two transpositions $\tau_{1,2}\circ\tau_{1,2}$. Another example would be $\tau_{2,3}\circ\tau_{1,2}\circ\tau_{1,2}\circ\tau_{2,3}$.
+    \item Theorem: Let $X_i$ be a rational or polynomial function for each $i\in\N$. Then
+    \begin{equation*}
+        (-1)^\sigma = \prod_{i<j}\frac{X_{\sigma(i)}-X_{\sigma(j)}}{X_i-X_j}
+    \end{equation*}
+    \item Example: For the permutation $\sigma=(1,2,3)$, we have
+    \begin{align*}
+        (-1)^\sigma &= \frac{X_{\sigma(1)}-X_{\sigma(2)}}{X_1-X_2}\cdot\frac{X_{\sigma(1)}-X_{\sigma(3)}}{X_1-X_3}\cdot\frac{X_{\sigma(2)}-X_{\sigma(3)}}{X_2-X_3}\\
+        &= \frac{X_2-X_3}{X_1-X_2}\cdot\frac{X_2-X_1}{X_1-X_3}\cdot\frac{X_3-X_1}{X_2-X_3}\\
+        &= \frac{-(X_1-X_2)}{X_1-X_2}\cdot\frac{-(X_1-X_3)}{X_1-X_3}\cdot\frac{X_2-X_3}{X_2-X_3}\\
+        &= -1\cdot -1\cdot 1\\
+        &= +1
+    \end{align*}
+    which squares with the fact that $\sigma=\tau_{1,2}\circ\tau_{2,3}$.
+    \item Claims to verify with the above formula:
+    \begin{enumerate}
+        \item $\sgn(\sigma)\in\{\pm 1\}$.
+        \item $\sgn(\tau_{i,j})=-1$.
+        \item $\sgn(\sigma_1\sigma_2)=\sgn(\sigma_1)\sgn(\sigma_2)$.
+    \end{enumerate}
 \end{itemize}
 
 
