@@ -73,7 +73,7 @@
     \begin{itemize}
         \item Check $(A\circ B)^*=B^*\circ A^*$.
     \end{itemize}
-    \item \textbf{multi-index of $\bm{n}$ of length $\bm{k}$}: A $k$-tuple $(i_1,\dots,i_k)$ where each $i_j\in\N$ satisfies $1\leq i_j\leq n$ ($j=1,\dots,k$). \emph{Denoted by} $\bm{I}$.
+    \item \textbf{Multi-index of $\bm{n}$ of length $\bm{k}$}: A $k$-tuple $(i_1,\dots,i_k)$ where each $i_j\in\N$ satisfies $1\leq i_j\leq n$ ($j=1,\dots,k$). \emph{Denoted by} $\bm{I}$.
     \item Let $\vec{e}_1,\dots,\vec{e}_n$ be a basis for $V$.
     \item \textbf{Tensor product} (of $T_1\in L^k(V)$, $T_2\in L^l(V)$): The function from $V^{k+l}$ to $\R$ defined by
     \begin{equation*}
@@ -94,6 +94,88 @@
         = 1\cdot 4
         = 4
     \end{equation*}
+\end{itemize}
+
+
+
+\section{Chapter 1: Multilinear Algebar}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{3/31:}\textcite{bib:DifferentialForms} defines real vector spaces, the operations on them, their basic properties, and the zero vector.
+    \item \textbf{Linearly independent} (vectors $v_1,\dots,v_k$): A finite set of vectors $v_1,\dots,v_k\in V$ such that the map from $\R^k$ to $V$ defined by $(c_1,\dots,c_k)\mapsto c_1v_1+\cdots+c_kv_k$ is injective.
+    \item \textbf{Spanning} (vectors $v_1,\dots,v_k$): We require that the above map is surjective.
+    \item \textcite{bib:DifferentialForms} defines basis, finite-dimensional vector space, dimension, subspace, linear map, and kernel.
+    \item \textbf{Image} (of $A:V\to W$): The range space of $A$, a subspace of $W$. \emph{Also known as} $\bm{\im(A)}$.
+    \item \textcite{bib:DifferentialForms} defines the matrix of a linear map.
+    \item \textbf{Inner product} (on $V$): A map $B:V\times V\to\R$ with the following three properties.
+    \begin{itemize}
+        \item \emph{Bilinearity}: For vectors $v,v_1,v_2,w\in V$ and $\lambda\in\R$, we have
+        \begin{equation*}
+            B(v_1+v_2,w) = B(v_1,w)+B(v_2,w)
+        \end{equation*}
+        and
+        \begin{equation*}
+            B(\lambda v,w) = \lambda B(v,w)
+        \end{equation*}
+        \item \emph{Symmetry}: For vectors $v,w\in V$, we have $B(v,w)=B(w,v)$.
+        \item \emph{Positivity}: For every vector $v\in V$, we have $B(v,v)\geq 0$. Moreover, if $v\neq 0$, then $B(v,v)>0$.
+    \end{itemize}
+    \item \textbf{$\bm{W}$-coset}: A set of the form $\{v+w\mid w\in W\}$, where $W$ is a subspace $V$ and $v\in V$. \emph{Denoted by} $\bm{v+W}$.
+    \begin{itemize}
+        \item If $v_1-v_2\in W$, then $v_1+W=v_2+W$.
+        \item It follows that the distinct $W$-cosets decompose $V$ into a disjoint collection of subsets of $V$.
+    \end{itemize}
+    \item \textbf{Quotient space} (of $V$ by $W$): The set of distinct $W$-cosets in $V$, along with the following definitions of vector addition and scalar multiplication.
+    \begin{align*}
+        (v_1+W)+(v_2+W) &= (v_1+v_2)+W&
+        \lambda(v+W) &= (\lambda v)+W
+    \end{align*}
+    \emph{Denoted by} $\bm{V/W}$.
+    \item \textbf{Quotient map}: The linear map $\pi:V\to V/W$ defined by
+    \begin{equation*}
+        \pi(v) = v+W
+    \end{equation*}
+    \begin{itemize}
+        \item $\pi$ is surjective.
+        \item Note that $\ker(\pi)=W$ since for all $w\in W$, $\pi(w)=w+W=0+W$, which is the zero vector in $V/W$.
+    \end{itemize}
+    \item If $V,W$ are finite dimensional, then
+    \begin{equation*}
+        \dim(V/W) = \dim(V)-\dim(W)
+    \end{equation*}
+    \item Proposition 1.2.9: Let $A:V\to U$ be a linear map. If $W\subset\ker(A)$, then there exists a unique linear map $A^\sharp:V/W\to U$ with the property that $A=A^\sharp\circ\pi$, where $\pi:V\to V/W$ is the quotient map.
+    \begin{itemize}
+        \item This proposition rephrases in terms of quotient spaces the fact that if $w\in W$, then $A(v+w)=Av$.
+    \end{itemize}
+    \item \textbf{Dual space} (of $V$): The set of all linear functions $\ell:V\to\R$, along with the following definitions of vector addition and scalar multiplication.
+    \begin{align*}
+        (\ell_1+\ell_2)(v) &= \ell_1(v)+\ell_2(v)&
+        (\lambda\ell)(v) &= \lambda\cdot\ell(v)
+    \end{align*}
+    \emph{Denoted by} $V^*$.
+    \item \textbf{Dual basis} (of $e_1,\dots,e_n$ a basis of $V$): The basis of $V^*$ consisting of the $n$ functions that take every $v=c_1e_1+\cdots+c_ne_n$ to one of the $c_i$. \emph{Denoted by} $\bm{e_1^*,...,e_n^*}$. \emph{Given by}
+    \begin{equation*}
+        e_i^*(v) = c_i
+    \end{equation*}
+    for all $v\in V$.
+    \item Claim 1.2.12: If $V$ is an $n$-dimensional vector space with basis $e_1,\dots,e_n$, then $e_1^*,\dots,e_n^*$ is a basis of $V^*$.
+    \begin{proof}
+        We will first prove that $e_1^*,\dots,e_n^*$ spans $V^*$. Let $\ell\in V^*$ be arbitrary. Set $\lambda_i=\ell(e_i)$ for all $i\in[n]$. Define $\ell'=\sum_{i=1}^n\lambda_ie_i^*$. Then
+        \begin{equation*}
+            \ell'(e_j) = \sum_{i=1}^n\lambda_ie_i^*(e_j)
+            = \lambda_j\cdot 1
+            = \ell(e_j)
+        \end{equation*}
+        for all $j\in[n]$. Therefore, since $\ell,\ell'$ take identical values on the basis of $V$, $\ell=\ell'$, as desired.\par
+        We now prove that $e_1^*,\dots,e_n^*$ spans $V^*$. Let $\sum_{i=1}^n\lambda_ie_i^*=0$. Then for all $j\in[n]$,
+        \begin{equation*}
+            \lambda_j = (\sum_{i=1}^n\lambda_ie_i^*)(e_j)
+            = 0
+        \end{equation*}
+        as desired.
+    \end{proof}
+    \item \textbf{Transpose} (of $A$): The map from $W^*$ to $V^*$ defined by $\ell\mapsto A^*\ell=\ell\circ A$ for all $\ell\in W^*$.
+    \item Claim 1.2.15: If $e_1,\dots,e_n$ is a basis of $V$, $f_1,\dots,f_m$ is a basis of $W$, $e_1^*,\dots,e_n^*$ and $f_1^*,\dots,f_m^*$ are the corresponding dual bases, and $[a_{i,j}]$ is the $m\times n$ matrix of $A$ with respect to $\{e_i\},\{f_i\}$, then the linear map $A^*$ is defined in terms of $\{f_i^*\},\{e_i^*\}$ by the transpose matrix $(a_{j,i})$.
 \end{itemize}
 
 
