@@ -194,6 +194,92 @@
         \item $\sgn(\tau_{i,j})=-1$.
         \item $\sgn(\sigma_1\sigma_2)=\sgn(\sigma_1)\sgn(\sigma_2)$.
     \end{enumerate}
+    \item \marginnote{4/4:}Plan:
+    \begin{itemize}
+        \item More multilinear algebra.
+        \item Alternating $k$-tensors --- 2 views:
+        \begin{enumerate}
+            \item As a subspace of $\lin[k]{V}$.
+            \item As a quotient of $\lin[k]{V}$.
+        \end{enumerate}
+        \item Next time: Operators as alternating tensors.
+        \begin{itemize}
+            \item Wedge products.
+            \item Interior products.
+            \item Pullbacks.
+        \end{itemize}
+    \end{itemize}
+    \item Recall: $\dim V=n$, $e_1,\dots,e_n$ a basis, $\lin[k]{V}$ the space of $k$-tensors, $\sigma\in S_k$ implies $(-1)^\sigma\in\{\pm 1\}$, key property: $(-1)^{\sigma_1\sigma_2}=(-1)^{\sigma_1}(-1)^{\sigma_2}$.
+    \item $\bm{T^\sigma}$: The $k$-tensor over $V$ defined by
+    \begin{equation*}
+        T^\sigma(v_1,\dots,v_k) = T(v_{\bar{\sigma}(1)},\dots,v_{\bar{\sigma}(k)})
+    \end{equation*}
+    where $T\in\lin[k]{V}$, $\sigma\in S_k$, and $\bar{\sigma}$ denotes the inverse of $\sigma$.
+    \item Example: $n=2$, $k=2$. Let $T=e_1^*\otimes e_2^*\in\lin[2]{V}$. Let $\sigma=\tau_{1,2}$. Then $T^\sigma=e_2^*\otimes e_1^*$.
+    \item Another property is $e_I^\sigma=e_{\sigma(I)}^*$.
+    \item Properties:
+    \begin{enumerate}
+        \item $T^{\sigma_1\sigma_2}=(T^{\sigma_1})^{\sigma_2}$.
+        \item $(T_1+T_2)^\sigma=T_1^\sigma+T_2^\sigma$.
+        \item $(cT)^\sigma=cT^\sigma$.
+    \end{enumerate}
+    \item Thus, you can view $\sigma:\lin[k]{V}\to\lin[k]{V}$ as a linear map!
+    \item \textbf{Alternating $\bm{k}$-tensor}: A tensor $T\in\lin[k]{V}$ such that $T^\sigma=(-1)^\sigma T$ for all $\sigma\in S_k$.
+    \begin{itemize}
+        \item Equivalently, $T^\tau=-T$ for all $\tau\in S_k$.
+    \end{itemize}
+    \item An example of an alternating $2$-tensor when $\dim V=2$ is $T=e_1^*\otimes e_2^*-e_2^*\otimes e_1^*$.
+    \begin{itemize}
+        \item Naturally, $T^\tau_{1,2}=-T$, and $\tau_{1,2}$ is the unique transposition in $S_2$.
+    \end{itemize}
+    \item $e_1^*\otimes e_2^*$ is \emph{not} an alternating 2-tensor since $(e_1^*\otimes e_2^*)^\tau=e_2^*\otimes e_1^*\neq(-1)^\tau(e_1^*\otimes e_2^*)$.
+    \item We can look at $n=2$, $k=1$ for ourselves.
+    \item Note: If $T-1,T_2$ are both alternating $k$-tensors, then $T_1+T_2$ is also alternating, as is $cT_1$ for all $c\in\R$.
+    \item $\bm{\alt[k]{V}}$: The vector space of alternating $k$-tensors.
+    \item $\bm{\Alt(T)}$: The function $\Alt:\lin[k]{V}\to\lin[k]{V}$ defined by
+    \begin{equation*}
+        \Alt(T) = \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma
+    \end{equation*}
+    \item Properties:
+    \begin{enumerate}
+        \item $\im(\Alt)=\alt[k]{V}$.
+        \item $\lin[k]{V}/\ker(\Alt)=\lam[k]{V^*}$ is isomorphic to $\alt[k]{V}$.
+        \item $\Alt(T)^\sigma=(-1)^\sigma\Alt(T)$.
+        \begin{itemize}
+            \item Proof:
+            \begin{align*}
+                \Alt(T)^{\sigma'} &= \left( \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma \right)^{\sigma'}\\
+                &= \sum_{\sigma\in S_k}(-1)^\sigma T^{\sigma\sigma'}\\
+                &= (-1)^{\sigma'}\sum_{\sigma\in S_k}(-1)^{\sigma'}(-1)^\sigma T^{\sigma\sigma'}\\
+                &= (-1)^{\sigma'}\sum_{\sigma\in S_k}(-1)^{\sigma\sigma'}T^{\sigma\sigma'}\\
+                &= (-1)^{\sigma'}\Alt(T)
+            \end{align*}
+            \item The last equality holds because summing over all $\sigma$ is the same as summing over all $\sigma'\circ\sigma$.
+            \item This implies $\im(\Alt)\leq\alt[k]{V}$.
+        \end{itemize}
+        \item If $T\in\alt[k]{T}$, $\Alt(T)=k!T$.
+        \begin{itemize}
+            \item We have
+            \begin{align*}
+                \Alt(T) &= \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma\\
+                &= \sum_{\sigma\in S_k}(-1)^\sigma(-1)^\sigma T\\
+                &= \sum_{\sigma\in S_k}T\\
+                &= k!T
+            \end{align*}
+            where $T^\sigma=(-1)^\sigma T$ since $T\in\alt[k]{V}$ by definition.
+            \item This implies that $\im(\Alt)=\alt[k]{V}$: $\Alt(\frac{1}{k!}T)=T\in\alt[k]{V}$.
+        \end{itemize}
+        \item $\Alt(T^\sigma)=\Alt(T)^\sigma$.
+        \item $\Alt:\lin[k]{V}\to\lin[k]{V}$ is linear.
+    \end{enumerate}
+    \item Warning: Some people take $\Alt(T)=\frac{1}{k!}\sum_{\sigma\in S_k}(-1)^\sigma T^\sigma$\footnote{Klug prefers this convention, but the text takes the other one.}.
+    \item Example: $n=k=2$. We have
+    \begin{equation*}
+        \Alt(e_1^*\otimes e_2^*) = e_1^*\otimes e_2^*-e_2^*\otimes e_1^*
+    \end{equation*}
+    \item \textbf{Non-repeating} (multi-index $I$): A multi-index $I$ such that $i_{j_1}\neq i_{j_2}$ for all $j_1\neq j_2$.
+    \item \textbf{Increasing} (multi-index $I$): A multi-index $I$ such that $i_1<\cdots<i_k$.
+    \item Claim: $\{\Alt(e_I^*)\}$ where $I$ is non-repeating and increasing is a basis for $\alt[k]{V}$. There are $\binom{n}{k}$ of these; thus, $\dim\alt[k]{V}=\binom{n}{k}$.
 \end{itemize}
 
 
@@ -269,7 +355,7 @@
         for all $j\in[n]$. Therefore, since $\ell,\ell'$ take identical values on the basis of $V$, $\ell=\ell'$, as desired.\par
         We now prove that $e_1^*,\dots,e_n^*$ spans $V^*$. Let $\sum_{i=1}^n\lambda_ie_i^*=0$. Then for all $j\in[n]$,
         \begin{equation*}
-            \lambda_j = (\sum_{i=1}^n\lambda_ie_i^*)(e_j)
+            \lambda_j = \left( \sum_{i=1}^n\lambda_ie_i^* \right)(e_j)
             = 0
         \end{equation*}
         as desired.
