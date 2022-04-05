@@ -362,6 +362,102 @@
     \end{proof}
     \item \textbf{Transpose} (of $A$): The map from $W^*$ to $V^*$ defined by $\ell\mapsto A^*\ell=\ell\circ A$ for all $\ell\in W^*$.
     \item Claim 1.2.15: If $e_1,\dots,e_n$ is a basis of $V$, $f_1,\dots,f_m$ is a basis of $W$, $e_1^*,\dots,e_n^*$ and $f_1^*,\dots,f_m^*$ are the corresponding dual bases, and $[a_{i,j}]$ is the $m\times n$ matrix of $A$ with respect to $\{e_i\},\{f_i\}$, then the linear map $A^*$ is defined in terms of $\{f_i^*\},\{e_i^*\}$ by the transpose matrix $(a_{j,i})$.
+    \item \marginnote{4/4:}$\bm{V^k}$: The set of all $k$-tuples $(v_1,\dots,v_k)$ where $v_1,\dots,v_k\in V$ a vector space.
+    \begin{itemize}
+        \item Note that
+        \begin{equation*}
+            V^k = \underbrace{V\oplus\cdots\oplus V}_{k\text{ times}}
+        \end{equation*}
+        where "$\oplus$" denotes the direct sum.
+    \end{itemize}
+    \item \textbf{Linear} (function in its $i^\text{th}$ variable): A function $T:V^k\to\R$ such that the map from $V$ to $\R$ defined by $v\mapsto T(v_1,\dots,v_{i-1},v,v_{i+1},\dots,v_k)$ is linear, where all $v_j$ save $v_i$ are fixed.
+    \item \textbf{$\bm{k}$-linear} (function $T$): A function $T:V^k\to\R$ that is linear in its $i^\text{th}$ variable for $i=1,\dots,k$. \emph{Also known as} \textbf{$\bm{k}$-tensor}.
+    \item $\bm{\lin[k]{V}}$: The set of all $k$-tensors in $V$.
+    \begin{itemize}
+        \item Since the sum $T_1+T_2$ of two $k$-linear functions $T_1,T_2:V^k\to\R$ is just another $k$-linear function, and $\lambda T_1$ is $k$-linear for all $\lambda\in\R$, we have that $\lin[k]{V}$ is a vector space.
+    \end{itemize}
+    \item Convention: 0-tensors are just the real numbers. Mathematically, we define
+    \begin{equation*}
+        \lin[0]{V} = \R
+    \end{equation*}
+    \item Note that $\lin[1]{V}=V^*$.
+    \item Defines multi-indices of $n$ of length $k$.
+    \item Lemma 1.3.5: If $n,k\in\N$, then there are exactly $n^k$ multi-indices of $n$ of length $k$.
+    \item $\bm{T_I}$: The real number $T(e_{i_1},\dots,e_{i_k})$, where $T\in\lin[k]{V}$, $e_1,\dots,e_n$ is a basis of $V$, and $I$ is a multi-index of $n$ of length $k$.
+    \item Proposition 1.3.7: The real numbers $T_I$ determine $T$, i.e., if $T,T'$ are $k$-tensors and $T_I=T_I'$ for all $I$, then $T=T'$.
+    \begin{proof}
+        We induct on $n$. For the base case $n=1$, $T\in(\R^k)^*$ and we have already proven this result. Now suppose inductively that the assertion is true for $n-1$. For each $e_i$, let $T_i$ be the $(k-1)$-tensor defined by
+        \begin{equation*}
+            (v_1,\dots,v_{n-1}) \mapsto T(v_1,\dots,v_{n-1},e_i)
+        \end{equation*}
+        Then for an arbitrary $v=c_1e_1+\cdots+c_ne_n$,
+        \begin{equation*}
+            T(v_1,\dots,v_{n-1},v) = \sum_{i=1}^nc_iT_i(v_1,\dots,v_{n-1})
+        \end{equation*}
+        so the $T_i$'s determine $T$. Applying the inductive hypothesis completes the proof.
+    \end{proof}
+    \item \textbf{Tensor product}: The tensor $T_1\otimes T_2$ defined by
+    \begin{equation*}
+        (T_1\otimes T_2)(v_1,\dots,v_{k+\ell}) = T_1(v_1,\dots,v_k)T_2(v_{k+1},\dots,v_{k+\ell})
+    \end{equation*}
+    where $T_1\in\lin[k]{V}$ and $T_2\in\lin[\ell]{V}$.
+    \item Note that by the definition of 0-tensors as real numbers, if $a\in\R$ and $T\in\lin[k]{V}$, then
+    \begin{equation*}
+        a\otimes T = T\otimes a = aT
+    \end{equation*}
+    \item Proposition 1.3.9: Associativity, distributivity of scalar multiplication, and left and right distributive laws for the tensor product.
+    \item \textbf{Decomposable} ($k$-tensor): A $k$-tensor $T$ for which there exist $\ell_1,\dots,\ell_k\in V^*$ such that
+    \begin{equation*}
+        T = \ell_1\otimes\cdots\otimes\ell_k
+    \end{equation*}
+    \item Defines $e_I^*$.
+    \item Theorem 1.3.13: $V$ a vector space with basis $e_1,\dots,e_n$ and $0\leq k\leq n$ implies the $k$-tensors $e_I^*$ form a basis of $\lin[k]{V}$.
+    \begin{proof}
+        Spanning: Let $T\in\lin[k]{V}$ be arbitrary. Define
+        \begin{equation*}
+            T' = \sum_IT_Ie_I^*
+        \end{equation*}
+        Since
+        \begin{equation*}
+            T_J' = T'(e_{j_1},\dots,e_{j_k})
+            = \sum_IT_Ie_I^*(e_{j_1},\dots,e_{j_k})
+            = T_Je_J^*(e_{j_1},\dots,e_{j_k})
+            = T_J
+        \end{equation*}
+        for all $J$, Proposition 1.3.7 asserts that $T=T'$. Therefore, since every $T_I\in\R$, $T=T'\in\spn(e_I^*)$.\par
+        Linear independence: Suppose
+        \begin{equation*}
+            T = \sum_Ic_Ie_I^* = 0
+        \end{equation*}
+        for some set of constants $c_I\in\R$. Then
+        \begin{equation*}
+            0 = T(e_{j_1},\dots,e_{j_k})
+            = \sum_Ic_Ie_I^*(e_{j_1},\dots,e_{j_k})
+            = c_J
+        \end{equation*}
+        for all $J$, as desired.
+    \end{proof}
+    \item Corollary 1.3.15: If $\dim V=n$, then $\dim(\lin[k]{V})=n^k$.
+    \begin{proof}
+        Follows immediately from Lemma 1.3.5.
+    \end{proof}
+    \item \textbf{Pullback} (of $T$ by the map $A$): The $k$-tensor $A^*T:V^k\to\R$ defined by
+    \begin{equation*}
+        (A^*T)(v_1,\dots,v_k) = T(Av_1,\dots,Av_k)
+    \end{equation*}
+    where $V,W$ are finite-dimensional vector spaces, $A:V\to W$ is linear, and $T\in\lin[k]{W}$.
+    \item Proposition 1.3.18: The map $A^*:\lin[k]{W}\to\lin[k]{V}$ defined by $T\mapsto A^*T$ is linear.
+    \item Identities:
+    \begin{itemize}
+        \item If $T_1\in\lin[k]{W}$ and $T_2\in\lin[m]{W}$, then
+        \begin{equation*}
+            A^*(T_1\otimes T_2) = A^*(T_1)\otimes A^*(T_2)
+        \end{equation*}
+        \item If $U$ is a vector space, $B:U\to V$ is linear, and $T\in\lin[k]{W}$, then
+        \begin{equation*}
+            (AB)^*T = B^*(A^*T)
+        \end{equation*}
+    \end{itemize}
 \end{itemize}
 
 
