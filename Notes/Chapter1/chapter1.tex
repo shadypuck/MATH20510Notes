@@ -280,6 +280,116 @@
     \item \textbf{Non-repeating} (multi-index $I$): A multi-index $I$ such that $i_{j_1}\neq i_{j_2}$ for all $j_1\neq j_2$.
     \item \textbf{Increasing} (multi-index $I$): A multi-index $I$ such that $i_1<\cdots<i_k$.
     \item Claim: $\{\Alt(e_I^*)\}$ where $I$ is non-repeating and increasing is a basis for $\alt[k]{V}$. There are $\binom{n}{k}$ of these; thus, $\dim\alt[k]{V}=\binom{n}{k}$.
+    \item \marginnote{4/6:}Klug will be in Texas on Monday and thus is cancelling class on Monday. Homework is now due next Friday. We'll have weekly homeworks going forward after that.
+    \item Plan:
+    \begin{itemize}
+        \item $\Alt:\lin[k]{V}\twoheadrightarrow\alt[k]{V}$\footnote{The two-headed right arrow denotes a surjective map.}.
+        \item Goal: Identify $\ker(\Alt)=\ide[k]{V}$, where $\ide[k]{V}$ is the space of \textbf{redundant} $k$-tensors\footnote{The $\mathcal{I}$ in $\ide[k]{V}$ stands for "ideal."}.
+        \item Then: Operations on alternating tensors, e.g.,
+        \begin{itemize}
+            \item Wedge product.
+            \item Interior product.
+            \item Orientations.
+        \end{itemize}
+    \end{itemize}
+    \item Claim: $\{\Alt(e_I^*)\mid I\text{ non-repeating, increasing multi-index}\}$ is a basis for $\alt[k]{V}$.
+    \begin{itemize}
+        \item Left as an exercise to us.
+    \end{itemize}
+    \item \textbf{Redundant} ($k$-tensor): A $k$-tensor of the form
+    \begin{equation*}
+        \ell_1\otimes\cdots\otimes\ell_i\otimes\ell_i\otimes\ell_{i+2}\otimes\cdots\otimes\ell_k
+    \end{equation*}
+    where $\ell_1,\dots,\ell_k\in V^*$.
+    \item $\bm{\ide[k]{V}}$: The span of all redundant $k$-tensors.
+    \begin{itemize}
+        \item Note that not every $k$-tensor in $\ide[k]{V}$ is a redundant.
+    \end{itemize}
+    \item \textbf{Decomposable} ($k$-tensor): A $k$-tensor of the form $\ell_1\otimes\cdots\otimes\ell_k$ for $\ell_i\in\lin[1]{V}$.
+    \begin{itemize}
+        \item It often suffices to prove things for decomposable tensors.
+    \end{itemize}
+    \item Properties.
+    \begin{enumerate}
+        \item If $T\in\ide[k]{V}$, then $\Alt(T)=0$, i.e., $\ide[k]{V}\leq\ker(\Alt)$.
+        \begin{itemize}
+            \item "Proof by example": If $T=\ell_1\otimes\ell_1\otimes\ell_2\otimes\ell_3$, then $T^{\tau_{1,2}}=T$. It follows from the properties of $\Alt$ that
+            \begin{align*}
+                \Alt(T) &= \Alt(T^{\tau_{1,2}})
+                = (-1)^{\tau_{1,2}}\Alt(T)
+                = -\Alt(T)\\
+                2\Alt(T) &= 0\\
+                \Alt(T) &= 0
+            \end{align*}
+        \end{itemize}
+        \item If $T\in\ide[r]{V}$ and $T'\in\lin[s]{V}$, then
+        \begin{equation*}
+            T\otimes T'\in\ide[r+s]{V}
+        \end{equation*}
+        Similarly, if $T\in\lin[r]{V}$ and $T\in\ide[s]{V}$, then
+        \begin{equation*}
+            T\otimes T'\in\ide[r+s]{V}
+        \end{equation*}
+        \begin{itemize}
+            \item Proof: It suffices to assume that $T$ is redundant. Obviously adding more tensors to the direct product will not change the redundancy of the initial tensor. Example: $\ell_1\otimes\ell_1\otimes\ell_2$ is just as redundant as $\ell_1\otimes\ell_1\otimes\ell_2\otimes T$.
+        \end{itemize}
+        \item If $T\in\lin[k]{V}$ and $\sigma\in S_k$, then
+        \begin{equation*}
+            T^\sigma = (-1)^\sigma T+S
+        \end{equation*}
+        for some $S\in\ide[k]{V}$.
+        \begin{itemize}
+            \item Proof by example: It suffices to check this for decomposable tensors (a tensor is just a sum of decomposable tensors). Take $k=2$. Let $T=\ell_1\otimes\ell_2$. Let $\sigma=\tau_{1,2}$. Then
+            \begin{equation*}
+                T^\sigma-(-1)^\sigma T = \ell_2\otimes\ell_1+\ell_1\otimes\ell_2
+                = (\ell_1+\ell_2)\otimes(\ell_1+\ell_2)-\ell_1\otimes\ell_1-\ell_2\otimes\ell_2
+            \end{equation*}
+            \item Actual proof: It suffices to assume $T$ is decomposable. We induct on the number of transpositions needed to write $\sigma$ as a product of \textbf{adjacent} transpositions.
+            \item Base case: $\sigma=\tau_{i,i+1}$. Then
+            \begin{equation*}
+                \begin{split}
+                    T^{\tau_{i,i+1}}+T ={}& \ell_1\otimes\cdots\otimes(\ell_i+\ell_{i+1})\otimes(\ell_i+\ell_{i+1})\otimes\cdots\otimes\ell_k\\
+                    &-\ell_1\otimes\cdots\otimes\ell_i\otimes\ell_i\otimes\cdots\otimes\ell_k\\
+                    &-\ell_1\otimes\cdots\otimes\ell_{i+1}\otimes\ell_{i+1}\otimes\cdots\otimes\ell_k
+                \end{split}
+            \end{equation*}
+            \item Inductive step: If $\sigma=\beta\tau$, then
+            \begin{align*}
+                T^\sigma &= T^{\beta\tau}\\
+                &= (-1)^\tau T^\beta+\text{stuff in }\ide[k]{V}\\
+                &= (-1)^\tau[(-1)^\beta T+\text{stuff in }\ide[k]{V}]+\text{stuff in }\ide[k]{V}
+            \end{align*}
+        \end{itemize}
+        \item If $T\in\lin[k]{V}$, then
+        \begin{equation*}
+            \Alt(T) = k!T+W
+        \end{equation*}
+        for some $W\in\ide[k]{V}$.
+        \begin{itemize}
+            \item We have that
+            \begin{align*}
+                \Alt(T) &= \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma\\
+                &= \sum_{\sigma\in S_k}(-1)^\sigma[(-1)^\sigma T+S_\sigma]\\
+                &= \sum_{\sigma\in S_k}T+\sum_{\sigma\in S_k}(-1)^\sigma S_\sigma\\
+                &= k!T+W
+            \end{align*}
+        \end{itemize}
+        \item $\ide[k]{V}=\ker(\Alt)$.
+        \begin{itemize}
+            \item We have that $\ide[k]{V}\leq\ker(\Alt)$ by property 1.
+            \item Now suppose $T\in\ker(\Alt)$. Then $\Alt(T)=0$. Then by property 4,
+            \begin{align*}
+                \Alt(T) &= k!T+W\\
+                0 &= k!T+W\\
+                T &= -\frac{1}{k!}W \in \ide[k]{V}
+            \end{align*}
+        \end{itemize}
+    \end{enumerate}
+    \item Warning: If $T\in\alt[r]{V}$ and $T'\in\alt[s]{V}$, then we do not necessarily have $T\otimes T'\in\alt[r+s]{V}$.
+    \begin{itemize}
+        \item Example: $e_1^*,e_2^*\in\alt[1]{V}$ have $e_1^*\otimes e_2^*\notin\alt[2]{V}$.
+    \end{itemize}
+    \item \textbf{Adjacent} (transposition): A transposition of the form $\tau_{i,i+1}$.
 \end{itemize}
 
 
