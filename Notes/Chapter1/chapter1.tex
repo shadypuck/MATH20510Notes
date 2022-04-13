@@ -482,6 +482,100 @@
         \end{align*}
         \item $n=4$. We have $e_1^*\wedge(3e_1^*+2e_2^*+3e_2^*)=3(e_1^*\wedge e_1^*)+2(e_1^*\wedge e_2^*)+3(e_1^*\wedge e_3^*)$. We also have $(e_1^*\wedge e_2^*)\wedge(e_1^*\wedge e_2^*)=0$.
     \end{enumerate}
+    \item \marginnote{4/13:}Plan:
+    \begin{itemize}
+        \item Finish multilinear algebra.
+        \item Basis for $\lam[k]{V^*}$.
+        \item Talk a bit about pullbacks and the determinant.
+        \item \textbf{Orientations} of vector spaces.
+        \item The \textbf{interior product}.
+    \end{itemize}
+    \item Basis for $\lam[k]{V^*}$.
+    \begin{itemize}
+        \item Recall that $\{\Alt(e_I^*)\mid I\text{ is a nonrepeating, increasing partition of $n$ into $k$ parts}\}$ is a basis for $\alt[k]{V}$.
+    \end{itemize}
+    \item $\Alt$ is an isomorphism from $\lam[k]{V^*}$ to $\alt[k]{V}$.
+    \item If we have an injective map from $\alt[k]{V}$ to $\lin[k]{V}$ and $\pi$ a projection map from $\lin[k]{V}$ to the quotient space $\alt[k]{V^*}$ gives rise to $\pi|_{\alt[k]{V}}$.
+    \item Claim:
+    \begin{enumerate}
+        \item $\pi|_{\alt[k]{V}}$ is an isomorphism.
+        \item $\pi(\Alt(e_I^*))=k!\pi(e_I^*)$.
+    \end{enumerate}
+    (2) implies that $\{\pi(e_I^*)=e_{i_1}^*\wedge\cdots\wedge e_{i_k}^*,\ I\text{ non-repeating and increasing}\}$ is a basis for $\lam[k]{V^*}$.
+    \item Examples:
+    \begin{enumerate}
+        \item $n=2=\dim V$, $V=\R e_1\oplus\R e_2$.
+        \begin{itemize}
+            \item $\lam[0]{V^*}=\R$ since $\binom{n}{0}=1$.
+            \item $\lam[1]{V^*}=\R e_1^*\oplus\R e_2^*$ since $\binom{n}{1}=2$.
+            \item $\lam[2]{V^*}=\R e_1^*\wedge e_2^*$ since $\binom{n}{2}=1$.
+            \begin{itemize}
+                \item For the second to last one, note that $e_1^*\wedge e_2^*=-e_2^*\wedge e_1^*$.
+            \end{itemize}
+            \item $\lam[3]{V^*}=0$ since $\binom{2}{3}=0$.
+            \begin{itemize}
+                \item For the last one, note that all $e_1^*\wedge e_1^*\wedge e_2^*=0$.
+            \end{itemize}
+        \end{itemize}
+        \item $n=3$, $V=\R e_1\oplus\R e_2\oplus\R e_3$.
+        \begin{itemize}
+            \item $\binom{n}{0}=1$: $\lam[0]{V^*}=\R$.
+            \item $\binom{n}{1}=3$: $\lam[1]{V^*}=\R e_1^*\oplus\R e_2^*\oplus\R e_3^*$.
+            \item $\binom{n}{2}=3$: $\lam[2]{V^*}=\R e_1^*\wedge e_2^*\oplus\R e_2^*\wedge e_3^*\oplus\R e_1^*\wedge e_3^*$.
+            \item $\binom{n}{3}=1$: $\lam[3]{V^*}=\R e_1^*\wedge e_2^*\wedge e_3^*$.
+            \item $\binom{n}{m}=0$ ($m>n$): $\lam[m]{V^*}=\lam[4]{V^*}=0$.
+        \end{itemize}
+    \end{enumerate}
+    \item If $A:V\to W$, $\omega_1\in\lam[k]{W^*}$, $\omega_2\in\lam[\ell]{W^*}$, then
+    \begin{equation*}
+        A^*(\omega_1\wedge\omega_2) = A^*\omega_1\wedge A^*\omega_2
+    \end{equation*}
+    \item \textbf{Determinant}: Let $\dim V=n$. Let $A:V\to V$ be a linear transformation. This induces a pullback $A^*:\lam[n]{V^*}\to\lam[n]{V^*}$. The top exterior power $k=n$ implies $\binom{k}{n}=1$. We define $\det(A)$ to be the unique real number such that $A^*(v)=\det(A)v$.
+    \item This determinant is the one we know.
+    \begin{itemize}
+        \item $A^*$ sends $e_1^*\wedge\cdots\wedge e_n^*$ to $A^*e_1^*\wedge\cdots\wedge A^*e_n^*$ which equals $A^*(e_1^*\wedge\cdots\wedge e_n^*)$ or $\det(A)$
+    \end{itemize}
+    \item Sanity check.
+    \begin{enumerate}
+        \item $\det(\id)=1$.
+        \begin{itemize}
+            \item $\id(e_1^*\wedge\cdots\wedge e_n^*)=\id e_1^*\wedge\cdots\wedge\id e_n^*=1\cdot e_1^*\wedge\cdots\wedge e_n^*$.
+        \end{itemize}
+        \item If $A$ is not an isomorphism, then $\det(A)=0$.
+        \begin{itemize}
+            \item If $A$ is not an isomorphism, then there exists $v_1\in\ker A$ with $v_1\neq 0$. Let $v_1^*,\dots,v_n^*$ be a basis of $V^*$. So the pullback of this wedge is the wedge of the pullbacks, but $A^*v_1^*=0$, so
+            \begin{equation*}
+                A^*(v_1^*\wedge\cdots\wedge v_n^*) = (A^*v_1^*)\wedge\cdots\wedge(A^*v_n^*)
+                = 0\wedge\cdots\wedge(A^*v_n^*)
+                = 0
+                = 0\cdot v_1^*\wedge\cdots\wedge v_n^*
+            \end{equation*}
+        \end{itemize}
+        \item $\det(AB)=\det(A)\det(B)$.
+        \begin{itemize}
+            \item Let $A:V\to V$ and $B:V\to V$.
+            \item We have $(AB)^*=B^*A^*$; in particular, $n=k$, $V=W=U=V$.
+        \end{itemize}
+    \end{enumerate}
+    \item Recall: If we pick a basis for $V$, $e_1,\dots,e_n$.
+    \begin{itemize}
+        \item Implies $[a_{ij}]=[A]_{e_1,\dots,e_n}^{e_1,\dots,e_n}$.
+    \end{itemize}
+    \item Does $\det(A)=\det([a_{ij}])=\sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)}$?
+    \begin{itemize}
+        \item If $A:V\to V$, we know that $A^*:\lam[n]{V^*}\to\lam[n]{V^*}$ takes $e_1^*\wedge\cdots\wedge e_n^*\mapsto A^*(e_1^*\wedge\cdots\wedge e_n^*)$. We WTS
+        \begin{equation*}
+            A^*(e_1^*\wedge\cdots\wedge e_n^*) = \left[ \sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)} \right]e_1^*\wedge\cdots\wedge e_n^*
+        \end{equation*}
+        \item We have that
+        \begin{align*}
+            A^*(e_1^*\wedge\cdots\wedge e_n^*) &= A^*e_1^*\wedge\cdots\wedge A^*e_n^*\\
+            &= \left( \sum_{i_1=1}^na_{i_1,1}e_{i_1}^* \right)\wedge\cdots\wedge\left( \sum_{i_n=1}^na_{i_n,n}e_{i_n}^* \right)\\
+            &= \sum_{i_1,\dots,i_n}a_{i_1,1}\cdots a_{i_n,n}e_{i_1}^*\wedge\cdots\wedge e_{i_n}^*\\
+            &= \left[ \sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)} \right]e_1^*\wedge\cdots\wedge e_n^*
+        \end{align*}
+        where the sign arises from the need to reorder $e_{i_1}^*\wedge\cdots\wedge e_{i_n}^*$ and the antisymmetry of the wedge product.
+    \end{itemize}
 \end{itemize}
 
 
