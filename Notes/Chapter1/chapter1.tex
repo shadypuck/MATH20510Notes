@@ -576,11 +576,78 @@
         \end{align*}
         where the sign arises from the need to reorder $e_{i_1}^*\wedge\cdots\wedge e_{i_n}^*$ and the antisymmetry of the wedge product.
     \end{itemize}
+    \item \marginnote{4/15:}Plan:
+    \begin{itemize}
+        \item Orientations.
+        \item Interior product.
+    \end{itemize}
+    \item \textbf{Interior product}: We know that $\lam[k]{V^*}\cong\alt[k]{V}$. Fix $v\in V$. Define $\iota_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
+    \begin{itemize}
+        \item Wrong way: We take $\iota_v:\lin[k]{V}\to\lin[k-1]{V}$.
+        \begin{equation*}
+            T \mapsto \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_r,\dots,v_{k-1})
+        \end{equation*}
+        \item Right way: First define $\varphi_v:\alt[k]{V}\to\alt[k-1]{V}$ by
+        \begin{equation*}
+            T \mapsto T_v(v_1,\dots,v_{k-1})=T(v,v_1,\dots,v_{k-1})
+        \end{equation*}
+        \begin{itemize}
+            \item Check: $T_{v_1+v_2}=T_{v_1}+T_{v_2}$. $T_{\lambda v}=\lambda T_v$. $\varphi_v^{k-1}\circ\varphi_v^k=0$ implies $\varphi_v\circ\varphi_w=-\varphi_w\circ\varphi_v$.
+        \end{itemize}
+    \end{itemize}
+    \item Properties:
+    \begin{enumerate}
+        \setcounter{enumi}{-1}
+        \item $\iota_vT\in\lin[k-1]{V}$.
+        \item $\iota_v$ is a linear map. This is all happening in the set $\Hom(\lin[k]{V},\lin[k-1]{V})$.
+        \item $\iota_{v_1+v_2}=\iota_{v_1}+\iota_{v_2}$; $\iota_{\lambda v}=\lambda\iota_v$.
+        \item "Product rule": If $T_1\in\lin[p]{V}$ and $T_1\in\lin[q]{V}$, then $\iota_v(T_1\otimes T_2)=\iota_vT_1\otimes T_2+(-1)^pT_1\otimes\iota_vT_2$.
+        \item We have
+        \begin{equation*}
+            \iota_v(\ell_1\otimes\cdots\otimes\ell_k) = \sum_{r=1}^k(-1)^{r-1}\ell_r(v)\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k
+        \end{equation*}
+        \item $\iota_v\circ\iota_v=0\in\Hom(\lin[k]{V},\lin[k-2]{V})$.
+        \begin{itemize}
+            \item Note that this is related to $d^2=0$ from the first day of class (alongside $\int_m\dd{w}=\int_{\partial m}w$).
+            \item Proof: We induct on $k$. It suffices to prove the result for $T$ decomposable.
+            \item Trivial base case for $k=1$.
+            \item We have that
+            \begin{align*}
+                (\iota_v\circ\iota_v)(\ell_1\otimes\cdots\otimes\ell_{k-1}\otimes\ell) &= \iota_v(\iota_vT\otimes\ell+(-1)^{k-1}\ell(v)T)\\
+                &= \iota_v(\iota_vT\otimes\ell)+(-1)^{k-1}\ell(v)\iota_vT\\
+                &= (-1)^{k-2}\ell(v)\iota_vT+(-1)^{k-1}\ell(v)\iota_vT\\
+                &= (-1)^{k-2}\ell(v)\iota_vT-(-1)^{k-2}\ell(v)\iota_vT\\
+                &= 0
+            \end{align*}
+        \end{itemize}
+        \item If $T\in\ide[k]{V}$, then $\iota_vT\in\ide[k-1]{V}$.
+        \begin{itemize}
+            \item Thus, $\iota_v$ induces a map $\iota_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
+            \item Proof: It suffices to check this for decomposables.
+        \end{itemize}
+        \item $\iota_{v_1}\circ\iota_{v_2}=-\iota_{v_2}\circ\iota_{v_1}$.
+    \end{enumerate}
+    \item Orientations:
+    \begin{itemize}
+        \item A vector space $V$ should have two orientations.
+        \item Two bases $e_1,\dots,e_n$ and $f_1,\dots,f_n$ are \textbf{orientation equivalent} if $T:V\to V$ an isomorphism has positive determinant. Otherwise, they are \textbf{orientation-inequivalent}.
+        \item An orientation on $V$ is a choice of equivalence classes of bases under the equivalence relation on bases.
+        \item $T:V\to W$ given orientations, $T$ preserves or reverses orientations.
+    \end{itemize}
+    \item Fancy orientations.
+    \begin{itemize}
+        \item An orientation on a 1D vector space $L$ is a division into two halves.
+        \item Def: An orientation of $V$ is an orientation of $\lam[n]{V^*}$.
+    \end{itemize}
+    \item We can prove that they're both the same.
+    \begin{itemize}
+        \item If $W$ and $V$ are both oriented, then $V/W$ gets a canonical orientation.
+    \end{itemize}
 \end{itemize}
 
 
 
-\section{Chapter 1: Multilinear Algebar}
+\section{Chapter 1: Multilinear Algebra}
 \emph{From \textcite{bib:DifferentialForms}.}
 \begin{itemize}
     \item \marginnote{3/31:}\textcite{bib:DifferentialForms} defines real vector spaces, the operations on them, their basic properties, and the zero vector.
@@ -1243,70 +1310,70 @@
     \begin{proof}
         Follows from the facts that the $\psi_I$ for $I$ strictly increasing constitute a basis of $\alt[k]{V}$ by Proposition 1.4.26 and $\pi$ is an isomorphism $\alt[k]{V}\to\lam[k]{V^*}$.
     \end{proof}
-    \item $\bm{\imath_vT}$: The $(k-1)$-tensor defined by
+    \item $\bm{\iota_vT}$: The $(k-1)$-tensor defined by
     \begin{equation*}
-        (\imath_vT)(v_1,\dots,v_{k-1}) = \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_{r-1},v,v_r,\dots,v_{k-1})
+        (\iota_vT)(v_1,\dots,v_{k-1}) = \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_{r-1},v,v_r,\dots,v_{k-1})
     \end{equation*}
     where $T\in\lin[k]{V}$, $k\in\N_0$, $V$ is a vector space, and $v\in V$.
     \item If $v=v_1+v_2$, then
     \begin{equation*}
-        \imath_vT = \imath_{v_1}T+\imath_{v_2}T
+        \iota_vT = \iota_{v_1}T+\iota_{v_2}T
     \end{equation*}
     \item If $T=T_1+T_2$, then
     \begin{equation*}
-        \imath_vT = \imath_vT_1+\imath_vT_2
+        \iota_vT = \iota_vT_1+\iota_vT_2
     \end{equation*}
     \item Lemma 1.7.4: If $T=\ell_1\otimes\cdots\otimes\ell_k$, then
     \begin{equation*}
-        \imath_vT = \sum_{r=1}^k(-1)^{r-1}\ell_r(v)\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k
+        \iota_vT = \sum_{r=1}^k(-1)^{r-1}\ell_r(v)\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k
     \end{equation*}
     where the hat over $\ell_r$ means that $\ell_r$ is deleted from the tensor product.
     \item Lemma 1.7.6: $T_1\in\lin[p]{V}$ and $T_2\in\lin[q]{V}$ imply
     \begin{equation*}
-        \imath_v(T_1\otimes T_2) = \imath_vT_1\otimes T_2+(-1)^pT_1\otimes\imath_vT_2
+        \iota_v(T_1\otimes T_2) = \iota_vT_1\otimes T_2+(-1)^pT_1\otimes\iota_vT_2
     \end{equation*}
     \item Lemma 1.7.8: $T\in\lin[k]{V}$ implies that for all $v\in V$, we have
     \begin{equation*}
-        \imath_v(\imath_vT) = 0
+        \iota_v(\iota_vT) = 0
     \end{equation*}
     \begin{proof}
         It suffices by linearity to prove this for decomposable tensors. We induct on $k$. For the base case $k=1$, the claim is trivially true. Now suppose inductively that we have proven the claim for $k-1$. Consider $\ell_1\otimes\cdots\otimes\ell_k$. Taking $T=\ell_1\otimes\cdots\otimes\ell_{k-1}$ and $\ell=\ell_k$, we obtain
         \begin{equation*}
-            \imath_v(\imath_v(T\otimes\ell)) = \imath_v(\imath_vT)\otimes\ell+(-1)^{k-2}\ell(v)\imath_vT+(-1)^{k-1}\ell(v)\imath_vT
+            \iota_v(\iota_v(T\otimes\ell)) = \iota_v(\iota_vT)\otimes\ell+(-1)^{k-2}\ell(v)\iota_vT+(-1)^{k-1}\ell(v)\iota_vT
         \end{equation*}
         The first term is zero by the inductive hypothesis, and the second two cancel each other out, as desired.
     \end{proof}
     \item Claim 1.7.10: For all $v_1,v_2\in V$, we have that
     \begin{equation*}
-        \imath_{v_1}\imath_{v_2} = -\imath_{v_2}\imath_{v_1}
+        \iota_{v_1}\iota_{v_2} = -\iota_{v_2}\iota_{v_1}
     \end{equation*}
     \begin{proof}
-        Let $v=v_1+v_2$. Then $\imath_v=\imath_{v_1}+\imath_{v_2}$. Therefore,
+        Let $v=v_1+v_2$. Then $\iota_v=\iota_{v_1}+\iota_{v_2}$. Therefore,
         \begin{align*}
-            0 &= \imath_v\imath_v\tag*{Lemma 1.7.8}\\
-            &= (\imath_{v_1}+\imath_{v_2})(\imath_{v_1}+\imath_{v_2})\\
-            &= \imath_{v_1}\imath_{v_1}+\imath_{v_1}\imath_{v_2}+\imath_{v_2}\imath_{v_1}+\imath_{v_2}\imath_{v_2}\\
-            &= \imath_{v_1}\imath_{v_2}+\imath_{v_2}\imath_{v_1}\tag*{Lemma 1.7.8}
+            0 &= \iota_v\iota_v\tag*{Lemma 1.7.8}\\
+            &= (\iota_{v_1}+\iota_{v_2})(\iota_{v_1}+\iota_{v_2})\\
+            &= \iota_{v_1}\iota_{v_1}+\iota_{v_1}\iota_{v_2}+\iota_{v_2}\iota_{v_1}+\iota_{v_2}\iota_{v_2}\\
+            &= \iota_{v_1}\iota_{v_2}+\iota_{v_2}\iota_{v_1}\tag*{Lemma 1.7.8}
         \end{align*}
         yielding the desired result.
     \end{proof}
-    \item Lemma 1.7.11: If $T\in\lin[k]{V}$ is redundant, then so is $\imath_vT$.
+    \item Lemma 1.7.11: If $T\in\lin[k]{V}$ is redundant, then so is $\iota_vT$.
     \begin{proof}
         Let $T=T_1\otimes\ell\otimes\ell\otimes T_2$ where $\ell\in V^*$, $T_1\in\lin[p]{V}$, and $T_2\in\lin[q]{V}$. By Lemma 1.7.6, we have that
         \begin{equation*}
-            \imath_vT = \imath_vT_1\otimes\ell\otimes\ell\otimes T_2+(-1)^pT_1\otimes\imath_v(\ell\otimes\ell)\otimes T_2+(-1)^{p+2}T_1\otimes\ell\otimes\ell\otimes\imath_vT_2
+            \iota_vT = \iota_vT_1\otimes\ell\otimes\ell\otimes T_2+(-1)^pT_1\otimes\iota_v(\ell\otimes\ell)\otimes T_2+(-1)^{p+2}T_1\otimes\ell\otimes\ell\otimes\iota_vT_2
         \end{equation*}
-        Thus, since the first and third terms above are redundant and $\imath_v(\ell\otimes\ell)=\ell(v)\ell-\ell(v)\ell=0$ by Lemma 1.7.4, we have the desired result.
+        Thus, since the first and third terms above are redundant and $\iota_v(\ell\otimes\ell)=\ell(v)\ell-\ell(v)\ell=0$ by Lemma 1.7.4, we have the desired result.
     \end{proof}
-    \item $\bm{\imath_v\omega}$: The $\ide[k]{V}$-coset $\pi(\imath_vT)$, where $\omega=\pi(T)$.
-    \item Proves that $\imath_v\omega$ does not depend on the choice of $T$.
-    \item \textbf{Inner product operation}: The linear map $\imath_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
+    \item $\bm{\iota_v\omega}$: The $\ide[k]{V}$-coset $\pi(\iota_vT)$, where $\omega=\pi(T)$.
+    \item Proves that $\iota_v\omega$ does not depend on the choice of $T$.
+    \item \textbf{Inner product operation}: The linear map $\iota_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
     \item The inner product has the following important identities.
     \begin{align*}
-        \imath_{(v_1+v_2)}\omega &= \imath_{v_1}\omega+\imath_{v_2}\omega\\
-        \imath_v(\omega_1\wedge\omega_2) &= \imath_v\omega_1\wedge\omega_2+(-1)^p\omega_1\wedge\omega_2\\
-        \imath_v(\imath_v\omega) &= 0\\
-        \imath_{v_1}\imath_{v_2}\omega &= -\imath_{v_2}\imath_{v_1}\omega
+        \iota_{(v_1+v_2)}\omega &= \iota_{v_1}\omega+\iota_{v_2}\omega\\
+        \iota_v(\omega_1\wedge\omega_2) &= \iota_v\omega_1\wedge\omega_2+(-1)^p\omega_1\wedge\omega_2\\
+        \iota_v(\iota_v\omega) &= 0\\
+        \iota_{v_1}\iota_{v_2}\omega &= -\iota_{v_2}\iota_{v_1}\omega
     \end{align*}
 \end{itemize}
 
