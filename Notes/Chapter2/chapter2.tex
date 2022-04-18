@@ -1,0 +1,120 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+\stepcounter{chapter}
+
+\begin{document}
+
+
+
+
+\chapter{Differential Forms}
+\section{Notes}
+\begin{itemize}
+    \item \marginnote{4/18:}Office Hours on Wednesday, 4:00-5:00 PM.
+    \item Plan:
+    \begin{itemize}
+        \item An impressionistic overview of what (differential) forms do/are.
+        \item Tangent spaces.
+        \item Vector fields/integral curves.
+        \item 1-forms; a warm-up to $k$-forms.
+    \end{itemize}
+    \item Impressionistic overview of the rest of \textcite{bib:DifferentialForms}.
+    \begin{itemize}
+        \item An open subset $U\subset\R^n$; $n=2$ and $n=3$ are nice.
+        \item Sometimes, we'll have some functions $F:U\to V$; this is where pullbacks come into play.
+        \item At every point $p\in U$, we'll define a vector space (the tangent space $T_p\R^n$). Associated to that vector space you get our whole slew of associated spaces (the dual space $T_p^*\R^n$, and all of the higher exterior powers $\lam[k]{T_p^*\R^n}$).
+        \item We let $\omega\in\ome[k]{U}$ be a $k$-form in the space of $k$-forms.
+        \item $\omega$ assigns (smoothly) to every point $p\in U$ an element of $\lam[k]{T_p^*\R^n}$.
+        \item Question: What really is a $k$-form?
+        \begin{itemize}
+            \item Answer: Something that can be integrated on $k$-dimensional subsets.
+            \item If $k=1$, i.e., $\omega\in\ome[1]{U}$, then $U$ can be integrated over curves.
+        \end{itemize}
+        \item If we take $k=0$, then $\ome[0]{U}=C^\infty(U)$, i.e., the set of all smooth functions $f:U\to\R$.
+        \begin{itemize}
+            \item \textcite{bib:DifferentialForms} doesn't, but Klug will and we should distinguish between functions $F:U\to V$ and $f:U\to\R$.
+        \end{itemize}
+        \item We will soon construct a map $d:\ome[0]{U}\to\ome[1]{U}$ (the \textbf{exterior derivative}) that is rather like the gradient but not quite.
+        \begin{itemize}
+            \item $d$ is linear.
+            \item Maps from vector spaces are heretofore assumed to be linear unless stated otherwise.
+        \end{itemize}
+        \item The 1-forms in $\im(d)$ are special: $\int_\gamma\dd{f}=f(\gamma(b))-f(\gamma(a))$ only depends on the endpoints of $\gamma:[a,b]\to U$! The integral is \emph{path-independent}.
+        \item A generalization of this fact is that instead of integrating along the surface $M$, we can integrate along the boundary curve:
+        \begin{equation*}
+            \int_M\dd{\omega} = \int_{\partial M}\omega
+        \end{equation*}
+        This is \textbf{Stokes' theorem}.
+        \begin{itemize}
+            \item $M$ is a $k$-dimensional subset of $U\subset\R^n$.
+        \end{itemize}
+        \item Note that we have all manner of functions $d$ that we could differentiate between (because they are functions) but nobody does.
+        \begin{equation*}
+            0 \rightarrow \ome[0]{U}
+            \xrightarrow{d} \ome[1]{U}
+            \xrightarrow{d} \ome[2]{U}
+            \xrightarrow{d} \cdots
+            \xrightarrow{d} \ome[n]{U}
+            \xrightarrow{d} 0
+        \end{equation*}
+        \item Theorem: $d^2=d\circ d=0$.
+        \begin{itemize}
+            \item Corollary: $\im(d^{n-1})\subset\ker(d^n)$.
+        \end{itemize}
+        \item We'll define $H^k_{dR}(U)=\ker(d)/\im(d)$.
+        \begin{itemize}
+            \item These will be finite dimensional, even though all the individual vector spaces will be infinite dimensional.
+            \item These will tell us about the shape of $U$; basically, if all of these equal zero, $U$ is simply connected. If some are nonzero, $U$ has some holes.
+        \end{itemize}
+        \item For small values of $n$ and $k$, this $d$ will have some nice geometric interpretations (div, grad, curl, n'at).
+        \item We'll have additional operations on forms such as the wedge product.
+    \end{itemize}
+    \item \textbf{Tangent space} (of $p$): The following set. \emph{Denoted by} $\bm{T_p\pmb{\R}^n}$. \emph{Given by}
+    \begin{equation*}
+        T_p\R^n = \{(p,v):v\in\R^n\}
+    \end{equation*}
+    \begin{itemize}
+        \item This is naturally a vector space with addition and scalar multiplication defined as follows.
+        \begin{align*}
+            (p,v_1)+(p,v_2) &= (p,v_1+v_2)&
+            \lambda(p,v) &= (p,\lambda v)
+        \end{align*}
+        \item The point is that
+        \begin{equation*}
+            T_p\R^n \neq T_q\R^n
+        \end{equation*}
+        for $p\neq q$ even though the spaces are isomorphic.
+        \item Aside: $F:U\to V$ differentiable and $p\in U$ induce a map $\dd{F_p}:T_p\R^n\to T_{F(p)}\R^m$ called the "derivative at $p$."
+        \begin{itemize}
+            \item We will see that the matrix of this map is the Jacobian.
+        \end{itemize}
+        \item Chain rule: If $U\xrightarrow{F}V\xrightarrow{G}W$, then
+        \begin{equation*}
+            \dd{(G\circ F)_p} = \dd{G}_{F(p)}\circ\dd{F_p}
+        \end{equation*}
+    \end{itemize}
+    \item This is round 1 of our discussion on tangent spaces.
+    \item Round 2, later on, will be submanifolds such as $T_pM$: The tangent space to a point $p$ of a manifold $M$.
+    \item \textbf{Vector field} (on $U$): A function that assigns to each $p\in U$ an element of $T_p\R^n$.
+    \begin{itemize}
+        \item A constant vector field would be $p\mapsto(p,v)$, visualized as a field of vectors at every $p$ all pointing the same direction. For example, we could take $v=(1,1)$.
+        \emph{picture}
+        \item Special case: $v=e_1,e_2,\dots,e_n$. Here we use the notation $e_i=\dv*{x_i}$.
+        \item Example: $n=2$, $U=\R^2\setminus\{(0,0)\}$. We could take a vector field that spins us around in circles.
+        \item Notice that for all $p$, $\dv*{x_1}|_p,\dots,\dv*{x_n}|_p\in T_p\R^n$ are a basis.
+        \begin{itemize}
+            \item Thus, any vector field $v$ on $U$ can be written uniquely as
+            \begin{equation*}
+                v = f_1\dv{x_1}+\cdots+f_n\dv{x_n}
+            \end{equation*}
+            where the $f_1,\dots,f_n$ are functions $f_i:U\to\R$.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+
+
+
+\end{document}
