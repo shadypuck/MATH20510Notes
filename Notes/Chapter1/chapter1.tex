@@ -1375,6 +1375,150 @@
         \iota_v(\iota_v\omega) &= 0\\
         \iota_{v_1}\iota_{v_2}\omega &= -\iota_{v_2}\iota_{v_1}\omega
     \end{align*}
+    \item \marginnote{4/18:}As we developed the pullback $A^*T\in\lin[k]{V}$, we now look to develop a pullback on $\lam[k]{V^*}$.
+    \item Lemma 1.8.1: If $T\in\ide[k]{W}$, then $A^*T\in\ide[k]{V}$.
+    \begin{proof}
+        It suffices to prove this for redundant $k$-tensors. Let $T=\ell_1\otimes\cdots\otimes\ell_k$ be such that $\ell_i=\ell_{i+1}$. Then we have that
+        \begin{align*}
+            A^*T &= A^*(\ell_1\otimes\cdots\otimes\ell_k)\\
+            &= A^*\ell_1\otimes\cdots\otimes A^*\ell_k\tag*{Exercise 1.3.iii}
+        \end{align*}
+        where $A^*\ell_i=A^*\ell_{i+1}$ so that $A^*T\in\ide[k]{V}$, as desired.
+    \end{proof}
+    \item $\bm{A^*\omega}$: The $\ide[k]{W}$-coset $\pi(A^*T)$, where $\omega=\pi(T)$.
+    \item Claim 1.8.3: $A^*\omega$ is well-defined.
+    \begin{proof}
+        Suppose $\omega=\pi(T)=\pi(T')$. Then $T=T'+S$ where $S\in\ide[k]{W}$. It follows that $A^*T=A^*T'+A^*S$, but since $A^*S\in\ide[k]{V}$ (Lemma 1.8.1), we have that
+        \begin{equation*}
+            \pi(A^*T) = \pi(A^*T')
+        \end{equation*}
+        as desired.
+    \end{proof}
+    \item Proposition 1.8.4. The map $A^*:\lam[k]{W^*}\to\lam[k]{V^*}$ sending $\omega\mapsto A^*\omega$ is linear. Moreover,
+    \begin{enumerate}
+        \item If $\omega_i\in\lam[k_i]{W^*}$ ($i=1,2$), then
+        \begin{equation*}
+            A^*(\omega_1\wedge\omega_2) = A^*(\omega_1)\wedge A^*(\omega_2)
+        \end{equation*}
+        \item If $U$ is a vector space and $B:U\to V$ is a linear map, then for $\omega\in\lam[k]{W^*}$,
+        \begin{equation*}
+            B^*A^*\omega = (AB)^*\omega
+        \end{equation*}
+    \end{enumerate}
+    (Hint: This proposition follows immediately from Exercises 1.3.iii-1.3.iv.)
+    \item \textbf{Determinant} (of $A$): The number $a$ such that $A^*\omega=a\omega$, where $A^*:\lam[n]{V^*}\to\lam[n]{V^*}$. \emph{Denoted by} $\textbf{det}\,\bm{(A)}$.
+    \item Proposition 1.8.7: If $A$ and $B$ are linear mappings of $V$ into $V$, then
+    \begin{equation*}
+        \det(AB) = \det(A)\det(B)
+    \end{equation*}
+    \begin{proof}
+        Proposition 1.8.4(2) implies that
+        \begin{align*}
+            \det(AB)\omega &= (AB)^*\omega\\
+            &= B^*(A^*\omega)\\
+            &= \det(B)A^*\omega\\
+            &= \det(B)\det(A)\omega
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item $\textbf{id}_{\bm{V}}$: The identity map on $V$.
+    \item Proposition 1.8.8: $\det(\id_V)=1$.
+    \begin{itemize}
+        \item Hint: $\id_V^*$ is the identity map on $\lam[n]{V^*}$.
+    \end{itemize}
+    \item Proposition 1.8.9: If $A:V\to V$ is not surjective, then $\det(A)=0$.
+    \begin{proof}
+        Let $W=\im(A)$. If $A$ is not onto, $\dim W<n$, implying that $\lam[n]{W^*}=0$. Now let $A=i_WB$ where $i_W$ is the inclusion map of $W$ into $V$ and $B$ is the mapping $A$ regarded as a mapping from $V$ to $W$. It follows by Proposition 1.8.4(1) that if $\omega\in\lam[n]{V^*}$, then
+        \begin{equation*}
+            A^*\omega = B^*i_W^*\omega
+        \end{equation*}
+        where $i_W^*\omega=0$ as an element of $\lam[n]{W^*}$.
+    \end{proof}
+    \item Deriving the typical formula for the determinant.
+    \begin{itemize}
+        \item Let $V,W$ be $n$-dimensional vector spaces with respective bases $e_1,\dots,e_n$ and $f_1,\dots,f_n$.
+        \item Denote the corresponding dual bases by $e_1^*,\dots,e_n^*$ and $f_1^*,\dots,f_n^*$.
+        \item Let $A:V\to W$. Recall that if the matrix of $A$ is $[a_{i,j}]$, then the matrix of $A^*:W^*\to V^*$ is $(a_{j,i})$, i.e., if
+        \begin{equation*}
+            Ae_j = \sum_{i=1}^na_{i,j}f_i
+        \end{equation*}
+        then
+        \begin{equation*}
+            A^*f_j^* = \sum_{i=1}^na_{j,i}e_i^*
+        \end{equation*}
+        \item It follows that
+        \begin{align*}
+            A^*(f_1^*\wedge\cdots\wedge f_n^*) &= A^*f_1^*\wedge\cdots\wedge A^*f_n^*\\
+            &= \sum_{1\leq k_1,\dots,k_n\leq n}(a_{1,k_1}e_{k_1}^*)\wedge\cdots\wedge(a_{n,k_n}e_{k_n}^*)\\
+            &= \sum_{1\leq k_1,\dots,k_n\leq n}a_{1,k_1}\cdots a_{n,k_n}e_{k_1}^*\wedge\cdots\wedge e_{k_n}^*
+        \end{align*}
+        \item At this point, we are summing over all possible lists of length $n$ containing the numbers between 1 and $n$ at each index.
+        \begin{itemize}
+            \item However, any list in which a number repeats will lead to a wedge product of a linear functional with itself, making that term equal to zero.
+            \item Thus, it is only necessary to sum over those terms that are non-repeating.
+            \item But the terms that are non repeating are exactly the permutations $\sigma\in S_n$.
+        \end{itemize}
+        \item Thus,
+        \begin{align*}
+            A^*(f_1^*\wedge\cdots\wedge f_n^*) &= \sum_{\sigma\in S_n}a_{1,\sigma(1)}\cdots a_{n,\sigma(n)}(e_1^*\wedge\cdots\wedge e_n^*)^\sigma\\
+            &= \sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)}e_1^*\wedge\cdots\wedge e_n^*\\
+            &= \det([a_{i,j}])e_1^*\wedge\cdots\wedge e_n^*
+        \end{align*}
+        \item If $V=W$ and $e_i=f_i$ ($i=1,\dots,n$), then we may define $\omega=e_1^*\wedge\cdots\wedge e_n^*=f_1^*\wedge\cdots\wedge f_n^*\in\lam[k]{V^*}$ to obtain
+        \begin{align*}
+            A^*\omega &= \det([a_{i,j}])\omega
+        \end{align*}
+        which proves that
+        \begin{equation*}
+            \det(A) = \det([a_{i,j}])
+        \end{equation*}
+        as desired.
+    \end{itemize}
+    \item \textbf{Orientation} (of $\ell$): A choice of one of the disconnected components of $\ell\setminus\{0\}$, where $\ell\subset\R^2$ is a straight line through the origin.
+    \item \textbf{Orientation} (of $L$): A choice of one of the connected components of $L\setminus\{0\}$, where $L$ is a one-dimensional vector space.
+    \item \textbf{Positive component} (of $L\setminus\{0\}$): The component chosen in the orientation of $L$. \emph{Denoted by} $\bm{L_+}$.
+    \item \textbf{Negative component} (of $L\setminus\{0\}$): The component chosen in the orientation of $L$. \emph{Denoted by} $\bm{L_-}$.
+    \item \textbf{Positively oriented} ($v\in L$): A vector $v\in L$ such that $v\in L_+$.
+    \item \textbf{Orientation} (of $V$) An orientation of the one-dimensional vector space $\lam[n]{V^*}$, where $V$ is an $n$-dimensional vector space.
+    \item "One important way of assigning an orientation to $V$ is to choose a basis $e_1,\dots,e_n$ of $V$. Then if $e_1^*,\dots,e_n^*$ is the dual basis, we can orient $\lam[n]{V^*}$ by requiring that $e_1^*\wedge\cdots\wedge e_n^*$ be in the positive component of $\lam[n]{V^*}$" \parencite[29]{bib:DifferentialForms}.
+    \item \textbf{Positively oriented} (ordered basis $e_1,\dots,e_n$ of $V$): An ordered basis $e_1,\dots,e_n\in V$ such that $e_1^*\wedge\cdots\wedge e_n^*\in\lam[n]{V^*}_+$.
+    \item Proposition 1.9.7: If $e_1,\dots,e_n$ is positively oriented, then $f_1,\dots,f_n$ is positively oriented iff $\det[a_{i,j}]>0$ where $e_j=\sum_{i=1}^na_{i,j}f_i$.
+    \begin{proof}
+        We have that
+        \begin{equation*}
+            f_1^*\wedge\cdots\wedge f_n^* = \det[a_{i,j}]e_1^*\wedge\cdots\wedge e_n^*
+        \end{equation*}
+    \end{proof}
+    \item Corollary 1.9.8: If $e_1,\dots,e_n$ is a positively oriented basis of $V$, then the basis
+    \begin{equation*}
+        e_1,\dots,e_{i-1},-e_i,e_{i+1},\dots,e_n
+    \end{equation*}
+    is negatively oriented.
+    \item Theorem 1.9.9: Given orientations on $V$ and $V/W$ (where $\dim V=n>1$, $W\leq V$, and $\dim W=k<n$), one gets from these orientations a natural orientation on $W$.
+    \begin{proof}
+        The orientations on $V$ and $V/W$ come prepackaged with a basis. We first apply an orientation to $W$ based on these bases, and then show that any choice of basis for $V,V/W$ induces a basis with the same orientation on $W$. Let's begin.\par
+        Let $r=n-k$, and let $\pi:V\to V/W$. By Exercises 1.2.i and 1.2.ii, we may choose a basis $e_1,\dots,e_n$ of $V$ such that $e_{r+1},\dots,e_n$ is a basis of $W$. It follows that $\pi(e_1),\dots,\pi(e_r)$ is a basis of $V/W$. WLOG\footnote{If the first basis is negatively oriented, we may substitute $-e_1$ for $e_1$. If the second basis is negatively oriented, we may substitute $-e_n$ for $e_n$.}, take $\pi(e_1),\dots,\pi(e_r)$ and $e_1,\dots,e_n$ to be positively oriented on $V/W$ and $V$, respectively. Assign to $W$ the orientation associated with $e_{r+1},\dots,e_n$.\par
+        Now suppose $f_1,\dots,f_n$ is another basis of $V$ such that $f_{r+1},\dots,f_n$ is a basis of $W$. Let $A=[a_{i,j}]$ express $e_1,\dots,e_n$ as linear combinations of $f_1,\dots,f_n$, i.e., let
+        \begin{equation*}
+            e_j = \sum_{i=1}^na_{i,j}f_i
+        \end{equation*}
+        for all $j=1,\dots,n$. Now as will be explained below, $A$ must have the form
+        \begin{equation*}
+            A =
+            \begin{pmatrix}
+                B & C\\
+                0 & D\\
+            \end{pmatrix}
+        \end{equation*}
+        where $B$ is the $r\times r$ matrix expressing $\pi(e_1),\dots,\pi(e_r)$ as linear combinations of $\pi(f_1),\dots,\pi(f_r)$, and $D$ is the $k\times k$ matrix expressing the basis vectors $e_{r+1},\dots,e_n$ as linear combinations of $f_{r+1},\dots,f_n$. We have just explained $B$ and $D$. We don't particularly care about $C$ or have a good way of defining its structure. We can, however, take the block labeled zero to be the $k\times r$ zero matrix by Proposition 1.2.9; in particular, since these components of these vectors will be fed into $\pi$ and fall within $W$, they can moved around wherever without altering the identities of the $W$-cosets to which they pertain. Having justified this structure for $A$, we see that we can take
+        \begin{equation*}
+            \det(A) = \det(B)\det(D)
+        \end{equation*}
+        It follows by Proposition 1.9.7 as well as the positivity of $\det(A)$ and $\det(B)$ that $\det(D)$ is positive, and hence the orientation of $e_{r+1},\dots,e_n$ and $f_{r+1},\dots,f_n$ are one and the same.
+    \end{proof}
+    \item \textbf{Orientation-preserving} (map $A$): A bijective linear map $A:V_1\to V_2$, where $V_1,V_2$ are oriented $n$-dimensional vector spaces, such that for all $\omega\in\lam[n]{V_2^*}_+$, we have that $A^*\omega\in\lam[n]{V_1^*}_+$.
+    \item If $V_1=V_2$, $A$ is orientation-preserving iff $\det(A)>0$.
+    \item Proposition 1.9.14: Let $V_1,V_2,V_3$ be oriented $n$-dimensional vector spaces, and let $A_1:V_1\to V_2$ and $A_2:V_2\to V_3$ be bijective linear maps. Then if $A_1,A_2$ are orientation preserving, so is $A_2\circ A_1$.
 \end{itemize}
 
 
