@@ -112,6 +112,83 @@
             where the $f_1,\dots,f_n$ are functions $f_i:U\to\R$.
         \end{itemize}
     \end{itemize}
+    \item \marginnote{4/20:}Plan:
+    \begin{itemize}
+        \item Vector fields and their integral curves.
+        \item Lie derivatives.
+        \item 1-forms and $k$-forms.
+        \item $\ome[0]{U}\xrightarrow{d}\ome[1]{U}$.
+    \end{itemize}
+    \item Notation.
+    \begin{itemize}
+        \item $U\subset\R^n$.
+        \item $v$ denotes a vector field on $U$.
+        \begin{itemize}
+            \item Note that the set of all vector fields on $U$ constitute the vector space ??.
+        \end{itemize}
+        \item $v_p\in T_p\R^n$.
+        \item $\omega_p\in\lam[k]{T_p^*\R^n}$.
+        \item $\dv*{x_i}|_p=(p,e_i)\in T_p\R^n$.
+    \end{itemize}
+    \item Recall that any vector field $v$ on $U$ can be written uniquely as
+    \begin{equation*}
+        v = g_1\dv{x_1}+\cdots+g_n\dv{x_n}
+    \end{equation*}
+    where the $g_i:U\to\R$.
+    \item \textbf{Smooth} (vector field): A vector field $v$ for which all $g_i$ are smooth.
+    \item From now on, we assume unless stated otherwise that all vector fields are smooth.
+    \item \textbf{Lie derivative} (of $f$ wrt. $v$): The function $L_vf:U\to\R$ defined by $p\mapsto D_{v_p}(f)(p)$, where $v$ is a vector field on $U$ and $f:U\to\R$ (always smooth).
+    \begin{itemize}
+        \item Recall that $D_{v_p}(f)(p)$ denotes the directional derivative of $f$ in the direction $v_p$ at $p$.
+        \item As some examples, we have
+        \begin{align*}
+            L_{\dv*{x_i}}f &= \dv{f}{x_i}&
+            L_{(g_1\dv{x_1}+\cdots+g_n\dv{x_n})}f &= g_1\dv{f}{x_1}+\cdots+g_n\dv{f}{x_n}
+        \end{align*}
+    \end{itemize}
+    \item Property.
+    \begin{enumerate}
+        \item Product rule: $L_v(f_1f_2)=(L_vf_1)f_2+f_1(L_vf_2)$.
+    \end{enumerate}
+    \item Later: Geometric meaning to the expression $L_vf=0$.
+    \begin{itemize}
+        \item Satisfied iff $f$ is constant on the integral curves of $v$. As if $f$ "flows along" the vector field.
+    \end{itemize}
+    \item We define $T_p^*\R^n=(T_p\R^n)^*$.
+    \item 1-forms:
+    \begin{itemize}
+        \item A (differential) 1-form on $U\subset\R^n$ is a function $\omega:p\mapsto\omega_p\in T_p^*\R^n$.
+        \item A "co-vector field"
+    \end{itemize}
+    \item Notation: $\dd{x_i}$ is the 1-form that at $p$ is $(p,e_i^*)\in T_p^*\R^n$.
+    \item For example, if $U=\R^2$ and $\omega=\dd{x_1}$, then we have the vector field of "unit vectors pointing to the right at each point."
+    \item Note: Given any 1-form $\omega$ on $U$, we can write $\omega$ uniquely as
+    \begin{equation*}
+        \omega = g_1\dd{x_1}+\cdots+g_n\dd{x_n}
+    \end{equation*}
+    for some set of smooth $g_i:U\to\R$.
+    \item Notation:
+    \begin{itemize}
+        \item $\ome[1]{U}$ is the set of all smooth 1-forms.
+        \item Notice that $\ome[1]{U}$ is a vector space.
+    \end{itemize}
+    \item Given $\omega\in\ome[1]{U}$ and a vector field $v$ on $U$, we can define $\omega(v):U\to\R$ by $p\mapsto\omega_p(v_p)$.
+    \item If $U=\R^2$, we have that
+    \begin{align*}
+        \dd{x}\left( \dv{x} \right) &= 1&
+        \dd{x}\left( \dv{y} \right) &= 0
+    \end{align*}
+    \item Note that $\dd{x},\dd{y}$ are not a basis for $\ome[1]{U}$ since the latter is infinite dimensional.
+    \item Exterior derivative for 0/1 forms.
+    \begin{itemize}
+        \item Let $d:\ome[0]{U}\to\ome[1]{U}$ take $f:U\to\R$ to $\pdv{f}{x_1}\dd{x_1}+\cdots+\pdv{f}{x_n}\dd{x_n}$.
+        \item This represents the gradient as a 1-form.
+    \end{itemize}
+    \item Check:
+    \begin{enumerate}
+        \item Linear.
+        \item $\dd{x_i}=\dd{(x_i)}$, where $x_i:\R^n\to\R$ is the $i^\text{th}$ coordinate function.
+    \end{enumerate}
 \end{itemize}
 
 
