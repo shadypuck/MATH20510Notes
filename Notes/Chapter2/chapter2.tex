@@ -189,6 +189,73 @@
         \item Linear.
         \item $\dd{x_i}=\dd{(x_i)}$, where $x_i:\R^n\to\R$ is the $i^\text{th}$ coordinate function.
     \end{enumerate}
+    \item \marginnote{4/22:}Plan:
+    \begin{itemize}
+        \item Clear up a bit of notational confusion.
+        \item Discuss integral curves of vectors fields.
+        \item $k$-forms.
+        \item Exterior derivatives $d:\ome[k]{U}\to\ome[k+1]{U}$ (definition and properties).
+    \end{itemize}
+    \item Notation:
+    \begin{itemize}
+        \item $F:\R^n\to\R^m$ smooth.
+        \item We are used to denoting derivatives by big $D$: $DF_p:T_p\R^n\to T_{f(p)}\R^m$ where bases of the two spaces are $e_1,\dots,e_n$ and $e_1,\dots,e_m$ has matrix equal to the Jacobian:
+        \begin{equation*}
+            [DF_p] =
+            \begin{bmatrix}
+                {\dv{F_i}{x_j}}(p)
+            \end{bmatrix}
+        \end{equation*}
+        \item The book often uses small $d$: $f:U\to\R$ has $df_p:T_p\R^n\to T_{f(p)}\R$, where the latter set is isomorphic to $\R$.
+        \item $df:p\to df_p\in T_p^*\R^n$.
+        \item Klug said
+        \begin{equation*}
+            \dd{f} = \sum_{i=1}^n\pdv{f}{x_i}\dd{x_i}
+        \end{equation*}
+        \item Homework 1 defined $\dd{f}=df$?
+        \item Sometimes three perspectives help you keep this all straight:
+        \begin{enumerate}
+            \item Abstract nonsense: The definition of the derivative.
+            \item How do I compute it: Apply the formula.
+            \item What is it: E.g., magnitude of the directional derivative in the direction of steepest ascent.
+        \end{enumerate}
+    \end{itemize}
+    \item For the homework,
+    \begin{itemize}
+        \item Let $\omega$ be a 1-form in $\ome[1]{U}$.
+        \item Let $\gamma:[a,b]\to U$ be a curve in $U$.
+        \item Then $\dd{\gamma_p}=\gamma_p':T_p\R\to T_{\gamma(p)}\R^n$ is a function that takes in points of the curve and spits out tangent vectors.
+        \item Integrating swallows 1-forms and spits out numbers.
+        \begin{equation*}
+            \int_\gamma\omega = \int_a^b\omega(\gamma'(t))\dd{t}
+        \end{equation*}
+        \item Problem: If $\omega=\dd{f}$, then
+        \begin{equation*}
+            \int_\gamma\omega = f(\gamma(b))-f(\gamma(a))
+        \end{equation*}
+        regardless of the path.
+        \item Question: Given a 1-form $\omega$, is $\omega=\dd{f}$ for some $f$?
+        \item Homework: Explicit $U$, $\omega$, closed $\gamma$ such that $\int_\gamma\omega\neq 0$ implies that $\omega\neq\dd{f}$. This motivates and leads into the de Rham cohomology.
+    \end{itemize}
+    \item Aside: It won't hurt (for now) to think of 1-forms as vector fields.
+    \item Integral curves: Let $U\subset\R^n$, $v$ be a (smooth) vector field on $U$. A curve $\gamma:(a,b)\to U$ is an \textbf{integral curve} for $v$ if $\gamma'(t)=v_{\gamma(t)}$.
+    \item Examples:
+    \begin{itemize}
+        \item If $U=\R^2$ and $\gamma=\dv*{x}$, then the integral curve is the line from left to right traveling at unit speed. The curve has to always have as it's tangent vector the unit vector pointing right (which is the vector at every point in the vector field).
+        \item Vector fields flow everything around. An integral curve is the trajectory of a particle subjected to the vector field as a force field.
+    \end{itemize}
+    \item Main points:
+    \begin{enumerate}
+        \item These integral curves always exist (locally) and often exist globally (cases in which they do are called \textbf{complete vector fields}).
+        \item They are unique given a starting point $p\in U$.
+    \end{enumerate}
+    \item An incomplete vector field is one such as the "all roads lead to Rome" vector field where everything always points inward. This is because integral curves cannot be defined for all "time" (real numbers, positive and negative).
+    \item The proofs are in the book; they require an existence/uniqueness result for ODEs and the implicit function theorem.
+    \item Aside: $f:U\to\R$, $v$ a vector field, implies that $L_vf=0$ means that $f$ is constant along all the integral curves of $v$. This also means that $f$ is integral for $v$.
+    \item \textbf{Pullback} (of 1-forms): If $F:U\to V$, $d:\ome[0]{U}\to\ome[1]{U}$, and $d:\ome[0]{V}\to\ome[1]{V}$, then we get an induced map $F^*:\ome[0]{V}\to\ome[0]{U}$. If $f:V\to\R$, then $f\circ F$ is involved.
+    \begin{itemize}
+        \item We're basically saying that if we have $\Hom(A,X)$ (the set of all functions from $A$ to $X$) and $\Hom(B,X)$, then if we have $F:A\to B$, we get an induced map $F^*:\Hom(B,X)\to\Hom(A,X)$ that is precomposed with $F$.
+    \end{itemize}
 \end{itemize}
 
 
