@@ -1,0 +1,145 @@
+\documentclass[../psets.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\leftmark}{Problem Set \thesection}
+\setenumerate[1]{leftmargin=4em}
+\setenumerate[2]{label={(\arabic*)}}
+\stepcounter{section}
+
+\begin{document}
+
+
+
+
+\section{Differential Forms}
+\emph{From \textcite{bib:DifferentialForms}.}
+\subsection*{Chapter 2}
+\begin{enumerate}[label={\textbf{2.1.\roman*.}}]
+    \item \marginnote{4/29:}Let $U$ be an open subset of $\R^n$. If $f:U\to\R$ is a $C^\infty$ function, then
+    \begin{equation*}
+        \dd{f}=\sum_{i=1}^n\pdv{f}{x_i}\dd{x_i}
+    \end{equation*}
+    \item Let $U$ be an open subset of $\R^n$, $\bm{v}$ a vector field on $U$, and $f_1,f_2\in C^1(U)$. Then
+    \begin{equation*}
+        L_{\bm{v}}(f_1\cdot f_2) = L_{\bm{v}}(f_1)\cdot f_2+f_1\cdot L_{\bm{v}}(f_2)
+    \end{equation*}
+    \item Let $U$ be an open subset of $\R^n$ and $\bm{v}_1,\bm{v}_2$ vector fields on $U$. Show that there is a unique vector field $\bm{w}$ on $U$ with the property
+    \begin{equation*}
+        L_{\bm{w}}\phi = L_{\bm{v}_1}(L_{\bm{v}_2}\phi)-L_{\bm{v}_2}(L_{\bm{v}_1}\phi)
+    \end{equation*}
+    for all $\phi\in C^\infty(U)$.
+    \item The vector field $\bm{w}$ in Exercise 2.1.iii is called the \textbf{Lie bracket} of the vector fields $\bm{v}_1$ and $\bm{v}_2$ and is denoted by $[\bm{v}_1,\bm{v}_2]$. Verify that the Lie bracket is \textbf{skew-symmetric}, i.e.,
+    \begin{equation*}
+        [\bm{v}_1,\bm{v}_2] = -[\bm{v}_2,\bm{v}_1]
+    \end{equation*}
+    and satisfies the \textbf{Jacobi identity}
+    \begin{equation*}
+        [\bm{v}_1,[\bm{v}_2,\bm{v}_3]]+[\bm{v}_2,[\bm{v}_3,\bm{v}_1]]+[\bm{v}_3,[\bm{v}_1,\bm{v}_2]] = 0
+    \end{equation*}
+    Thus, the Lie bracket defines the structure of a \textbf{Lie algebra}. (Hint: Prove analogous identities for $L_{\bm{v}_1}$, $L_{\bm{v}_2}$, and $L_{\bm{v}_3}$.)
+    \setcounter{enumi}{6}
+    \item Let $U$ be an open subset of $\R^n$, and let $\gamma:[a,b]\to U$, $t\mapsto(\gamma_1(t),\dots,\gamma_n(t))$ be a $C^1$ curve. Given a $C^\infty$ one-form $\omega=\sum_{i=1}^nf_i\dd{x_i}$ on $U$, define the \textbf{line integral} of $\omega$ over $\gamma$ to be the integral
+    \begin{equation*}
+        \int_\gamma\omega = \sum_{i=1}^n\int_a^bf_i(\gamma(t))\dv{\gamma_i}{t}\dd{t}
+    \end{equation*}
+    Show that if $\omega=\dd{f}$ for some $f\in C^\infty(U)$,
+    \begin{equation*}
+        \int_\gamma\omega = f(\gamma(b))-f(\gamma(a))
+    \end{equation*}
+    In particular, conclude that if $\gamma$ is a closed curve, i.e., $\gamma(a)=\gamma(b)$, this integral is zero.
+    \item Let $\omega$ be the $C^\infty$ one-form on $\R^2\setminus\{0\}$ defined by
+    \begin{equation*}
+        \omega = \frac{x_1\dd{x_2}-x_2\dd{x_1}}{x_1^2+x_2^2}
+    \end{equation*}
+    and let $\gamma:[0,2\pi]\to\R^2\setminus\{0\}$ be the closed curve $t\mapsto(\cos t,\sin t)$. Compute the line integral $\int_\gamma\omega$ and note that $\int_\gamma\omega\neq 0$. Conclude that $\omega$ is not of the form $\dd{f}$ for $f\in C^\infty(\R^2\setminus\{0\})$.
+\end{enumerate}
+\begin{enumerate}[label={\textbf{2.2.\roman*.}}]
+    \item For $i=1,2$, let $U_i$ be an open subset of $\R^{n_i}$, $\bm{v}_i$ a vector field on $U_i$, and $f:U_1\to U_2$ a $C^\infty$-map. If $\bm{v}_1$ and $\bm{v}_2$ are $f$-related, every integral curve $\gamma:I\to U_1$ of $\bm{v}_1$ gets mapped by $f$ onto an integral curve $f\circ\gamma:I\to U_2$ of $\bm{v}_2$.
+    \item Let $U,V$ be open subsets of $\R^n$ and $f:U\to V$ an $C^k$ map.
+    \begin{enumerate}
+        \item Show that for $\phi\in C^\infty(V)$, the pullback can be rewritten
+        \begin{equation*}
+            f^*\dd{\phi} = \dd{f^*\phi}
+        \end{equation*}
+        \item Let $\mu$ be the one-form
+        \begin{equation*}
+            \mu = \sum_{i=1}^m\phi_i\dd{x_i}
+        \end{equation*}
+        on $V$ for all $\phi_i\in C^\infty(V)$. Show that if $f=(f_1,\dots,f_m)$, then
+        \begin{equation*}
+            f^*\mu = \sum_{i=1}^mf^*\phi_i\dd{f_i}
+        \end{equation*}
+        \item Show that if $\mu$ is $C^\infty$ and $f$ is $C^\infty$, $f^*\mu$ is $C^\infty$.
+    \end{enumerate}
+    \stepcounter{enumi}
+    \item 
+    \begin{enumerate}
+        \item Let $U=\R^2$ and let $\bm{v}$ be the vector field $x_1\pdv*{x_2}-x_2\pdv*{x_1}$. Show that the curve
+        \begin{equation*}
+            t \mapsto (r\cos(t+\theta),r\sin(t+\theta))
+        \end{equation*}
+        for $t\in\R$ is the unique integral curve of $\bm{v}$ passing through the point $(r\cos\theta,r\sin\theta)$ at $t=0$.
+        \item Let $U=\R^n$ and let $\bm{v}$ be the constant vector field $\sum_{i=1}^nc_i\pdv*{x_i}$. Show that the curve
+        \begin{equation*}
+            t \mapsto a+t(c_1,\dots,c_n)
+        \end{equation*}
+        for $t\in\R$ is the unique integral curve of $\bm{v}$ passing through $a\in\R^n$ at $t=0$.
+        \item Let $U=\R^n$ and let $\bm{v}$ be the vector field $\sum_{i=1}^nx_i\pdv*{x_i}$. Show that the curve
+        \begin{equation*}
+            t \mapsto \e[t](a_1,\dots,a_n)
+        \end{equation*}
+        for $t\in\R$ is the unique integral curve of $\bm{v}$ passing through $a$ at $t=0$.
+    \end{enumerate}
+    \setcounter{enumi}{7}
+    \item Let $\bm{v}$ be the vector field on $\R$ given by $x^2\dv*{x}$. Show that the curve
+    \begin{equation*}
+        x(t) = \frac{a}{a-at}
+    \end{equation*}
+    is an integral curve of $\bm{v}$ with initial point $x(0)=a$. Conclude that for $a>0$, the curve
+    \begin{equation*}
+        x(t) = \frac{a}{1-at}
+    \end{equation*}
+    on $0<t<1/a$ is a maximal integral curve. (In particular, conclude that $\bm{v}$ is not complete.)
+\end{enumerate}
+\begin{enumerate}[label={\textbf{2.3.\roman*.}}]
+    \item Let $\omega\in\ome[2]{\R^4}$ be the 2-form $\dd{x_1}\wedge\dd{x_2}+\dd{x_3}\wedge\dd{x_4}$. Compute $\omega\wedge\omega$.
+    \item Let $\omega_1,\omega_2,\omega_3\in\ome[1]{\R^3}$ be the 1-forms
+    \begin{align*}
+        \omega_1 &= x_2\dd{x_3}-x_3\dd{x_2}\\
+        \omega_2 &= x_3\dd{x_1}-x_1\dd{x_3}\\
+        \omega_3 &= x_1\dd{x_2}-x_2\dd{x_1}
+    \end{align*}
+    Compute the following.
+    \begin{enumerate}
+        \item $\omega_1\wedge\omega_2$.
+        \item $\omega_2\wedge\omega_3$.
+        \item $\omega_3\wedge\omega_1$.
+        \item $\omega_1\wedge\omega_2\wedge\omega_3$.
+    \end{enumerate}
+    \item Let $U$ be an open subset of $\R^n$ and $f_1,\dots,f_n\in C^\infty(U)$. Show that
+    \begin{equation*}
+        \dd{f_1}\wedge\cdots\wedge\dd{f_n} = \det\left[ \pdv{f_i}{x_j} \right]\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    \item Let $U$ be an open subset of $\R^n$. Show that every $(n-1)$-form $\omega\in\ome[n-1]{U}$ can be written uniquely as a sum
+    \begin{equation*}
+        \sum_{i=1}^nf_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    where $f_i\in C^\infty(U)$ and $\widehat{\dd{x_i}}$ indicates that $\dd{x_i}$ is to be omitted from the wedge product $\dd{x_1}\wedge\cdots\wedge\dd{x_n}$.
+    \item Let $\mu=\sum_{i=1}^nx_i\dd{x_i}$. Show that there exists an $(n-1)$-form $\omega\in\ome[n-1]{\R^n\setminus\{0\}}$ with the property
+    \begin{equation*}
+        \mu\wedge\omega = \dd{x_1}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    \item Let $J$ be the multi-index $(j_1,\dots,j_k)$ and let $\dd{x_J}=\dd{x_{j_1}}\wedge\cdots\wedge\dd{x_{j_k}}$. Show that $\dd{x_J}=0$ if $j_r=j_s$ for some $r\neq s$ and show that if the numbers $j_1,\dots,j_k$ are all distinct, then
+    \begin{equation*}
+        \dd{x_J} = (-1)^\sigma\dd{x_I}
+    \end{equation*}
+    where $I=(i_1,\dots,i_k)$ is the strictly increasing rearrangement of $(j_1,\dots,j_k)$ and $\sigma$ is the permutation
+    \begin{equation*}
+        (j_1,\dots,j_k) \mapsto (i_1,\dots,i_k)
+    \end{equation*}
+\end{enumerate}
+
+
+
+
+\end{document}
