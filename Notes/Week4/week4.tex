@@ -2,7 +2,7 @@
 
 \pagestyle{main}
 \renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
-\stepcounter{chapter}
+\setcounter{chapter}{3}
 
 \begin{document}
 
@@ -10,7 +10,7 @@
 
 
 \chapter{Differential Forms}
-\section{Notes}
+\section{Overview of Differential Forms}
 \begin{itemize}
     \item \marginnote{4/18:}Office Hours on Wednesday, 4:00-5:00 PM.
     \item Plan:
@@ -112,6 +112,12 @@
             where the $f_1,\dots,f_n$ are functions $f_i:U\to\R$.
         \end{itemize}
     \end{itemize}
+\end{itemize}
+
+
+
+\section{The Lie Derivative and 1-Forms}
+\begin{itemize}
     \item \marginnote{4/20:}Plan:
     \begin{itemize}
         \item Vector fields and their integral curves.
@@ -189,6 +195,12 @@
         \item Linear.
         \item $\dd{x_i}=\dd{(x_i)}$, where $x_i:\R^n\to\R$ is the $i^\text{th}$ coordinate function.
     \end{enumerate}
+\end{itemize}
+
+
+
+\section{Integral Curves}
+\begin{itemize}
     \item \marginnote{4/22:}Plan:
     \begin{itemize}
         \item Clear up a bit of notational confusion.
@@ -255,222 +267,6 @@
     \item \textbf{Pullback} (of 1-forms): If $F:U\to V$, $d:\ome[0]{U}\to\ome[1]{U}$, and $d:\ome[0]{V}\to\ome[1]{V}$, then we get an induced map $F^*:\ome[0]{V}\to\ome[0]{U}$. If $f:V\to\R$, then $f\circ F$ is involved.
     \begin{itemize}
         \item We're basically saying that if we have $\Hom(A,X)$ (the set of all functions from $A$ to $X$) and $\Hom(B,X)$, then if we have $F:A\to B$, we get an induced map $F^*:\Hom(B,X)\to\Hom(A,X)$ that is precomposed with $F$.
-    \end{itemize}
-    \item \marginnote{4/27:}Announcements.
-    \begin{itemize}
-        \item No class this Friday, next Monday.
-        \item Midterm next Friday.
-        \begin{itemize}
-            \item Up through Chapter 2.
-            \item The exam will likely be computationally heavy.
-            \item Compute $\dd$, pullbacks, interior products, Lie derivatives, etc.
-            \item Emphasis on Chapter 2 as opposed to Chapter 1 even though it all builds on itself.
-            \item He'll probably cook up a few problems too.
-        \end{itemize}
-        \item There is a recorded lecture for us.
-        \begin{itemize}
-            \item On Chapter 3 content.
-            \item We'll cover Chapter 3 in kind of an impressionistic way as it is.
-        \end{itemize}
-        \item There are also some notes on the physics stuff.
-    \end{itemize}
-    \item Vector calculus operations.
-    \begin{itemize}
-        \item In one dimension, you have functions, and you take derivatives.
-        \begin{itemize}
-            \item The derivative operation does essentially map $\Omega^0\to\Omega^1$ or $C^\infty(\R)\to C^\infty(\R)$.
-        \end{itemize}
-        \item In two dimensions, ...
-        \begin{itemize}
-            \item $\dd^2=0$ reflects the fact that gradient vector fields are curl-free.
-        \end{itemize}
-        \item If you want to understand the 2D-curl business\dots
-        \begin{itemize}
-            \item $\crl(v):\R^2\to\R$ is intuitively about balls spinning around in a vector field.
-            \item There's also a nice formula to compute it.
-            \item And then there's a connection with $\dd:\Omega^1\to\Omega^2$.
-        \end{itemize}
-        \item In 3D, you can take top-dimensional forms (which are just functions) and bottom-dimensional forms (which are by definition functions) and you can work out an identification between them.
-        \item Note that $\crl:\mathfrak{X}(\R^2)\to C^\infty(\R^2)$, where $\mathfrak{X}(\R^2)$ is the space of vector fields.
-    \end{itemize}
-    \item The musical operator $\sharp$ identifies forms with vector fields, i.e., $\sharp:\Omega^1\to\mathfrak{X}(\R^2)$.
-    \item Properties of exterior derivatives $\dd:\ome[k]{U}\to\ome[k+1]{U}$.
-    \begin{enumerate}
-        \item $\dd{(\omega_1+\omega_2)}=\dd{\omega_1}+\dd{\omega_2}$ and $\dd{(\lambda\omega)}=\lambda\dd{\omega}$.
-        \item Product rule $\dd{(\omega_1\wedge\omega_2)}=\dd{\omega_1}\wedge\omega_2+(-1)^k\omega_1\wedge\dd{\omega_2}$.
-        \begin{itemize}
-            \item Special case $k=\ell=0$. Then
-            \begin{equation*}
-                \dd{(fg)} = g\dd{f}+f\dd{g}
-            \end{equation*}
-            which is the usual product rule for gradient.
-            \item Claim:
-            \begin{equation*}
-                \dd{\left( \sum_If_I\dd{x_I} \right)} = \sum_I\dd{f_I}\wedge\dd{x_I}
-            \end{equation*}
-            \begin{itemize}
-                \item Let $\omega_1\in\Omega^k$ and $\omega_2\in\Omega^\ell$ be defined by
-                \begin{align*}
-                    \omega_1 &= \sum_If_I\dd{x_I}&
-                    \omega_2 &= \sum_Jg_J\dd{x_J}
-                \end{align*}
-                where we're summing over all $I$ such that $|I|=k$ and all $J$ such that $|J|=\ell$. Then
-                \begin{align*}
-                    \omega_1\wedge\omega_2 &= \sum_{I,J}f_Ig_J\dd{x_I}\wedge\dd{x_J}
-                    \dd{(\omega_1\wedge\omega_2)} &= \sum_{I,J}\dd{(f_Ig_J)}\wedge\dd{x_I}\wedge\dd{x_J}
-                \end{align*}
-                \item Note that
-                \begin{equation*}
-                    \dd{(f_Ig_J)} = g_J\dd{f_I}+f_I\dd{g_J}
-                \end{equation*}
-                and
-                \begin{equation*}
-                    \dd{g_J}\wedge\dd{x_I} = (-1)^k\dd{x_I}\wedge\dd{g_J}
-                \end{equation*}
-                \item These identities allow us to take the previous equation to
-                \begin{align*}
-                    \dd{(\omega_1\wedge\omega_2)} &= \sum_{I,J}g_J\dd{f_I}\wedge\dd{x_I}\wedge\dd{x_J}+(-1)^kf_I\dd{x_I}\wedge\dd{g_J}\wedge\dd{x_J}\\
-                    &= \sum_{I,J}(\dd{f_I}\wedge\dd{x_I})\wedge(g_J\dd{x_J})+\sum_{I,J}(f_I\dd{x_I})\wedge(dd{g_J}\wedge\dd{x_J})\\
-                    &= \dd{\omega_1}\wedge\omega_2+(-1)^k\omega_1\dd{\omega_2}
-                \end{align*}
-            \end{itemize}
-        \end{itemize}
-        \item $\dd^2=0$.
-        \begin{itemize}
-            \item Let $\omega=\sum_If_I\dd{x_I}$.
-            \item Then
-            \begin{align*}
-                \dd^2(\omega) &= \dd(\dd{\omega})\\
-                &= \dd(\sum_I\dd{f_I}\wedge\dd{x_I})\\
-                &= \sum_I\dd(\dd{f_I}\wedge\dd{x_I})\tag*{Property 1}\\
-                &= \sum_I\dd(\dd{f_I})\wedge\dd{x_I}\tag*{Property 2}
-            \end{align*}
-            so it suffices to just show that $\dd^2f=0$ for all $f\in\Omega^0$.
-            \item We know that $\dd{f}=\sum_{i=1}^n\pdv*{f}{x_i}\dd{x_i}$. Thus,
-            \begin{align*}
-                \dd(\dd{f}) &= \sum_i\dd(\pdv{f}{x_i})\wedge\dd{x_i}\\
-                &= \sum_{i,j}\pdv{f}{x_j}{x_i}\dd{x_j}\wedge\dd{x_i}\\
-                &= 0
-            \end{align*}
-            \item The last equality holds because of commuting partial derivatives for smooth $f$, and the fact that changing order introduces a negative sign by some property.
-        \end{itemize}
-    \end{enumerate}
-    \item In fact, if we fix $\dd^0:\ome[0]{U}\to\ome[1]{U}$ to be the "gradient," then these properties characterize the function $\dd$ on its domain and codomain. In particular, $\dd$ is the unique function on its domain and codomain that satisfies these properties.
-    \begin{itemize}
-        \item We define it by
-        \begin{equation*}
-            \dd{\left( \sum_If_I\dd{x_I} \right)} = \sum_I\dd{f_I}\wedge\dd{x_I}
-        \end{equation*}
-        \item The above properties characterize it axiomatically.
-        \item We can prove this uniqueness theorem.
-    \end{itemize}
-    \item \textbf{Closed} (form): A form $\omega\in\ome[k]{U}$ such that $\dd{\omega}=0$.
-    \item \textbf{Exact} (form): A form $\omega\in\ome[k]{U}$ such that $\omega=\dd{\eta}$ for some $\eta\in\ome[k-1]{U}$.
-    \item $\dd^2=0$ implies closed and exact implies closed.
-    \item \textbf{Poincar\'{e} lemma}: Locally closed forms are exact.
-    \item \marginnote{5/4:}Klug got his flight to his wedding paid for by giving a talk at a nearby institution!
-    \item Homework 3 now due Monday (the stuff will be on the exam though).
-    \item Office hours today from 5:00-6:00.
-    \item Exam Friday.
-    \item Next week will be Chapter 3.
-    \begin{itemize}
-        \item Integration of top-dimensional forms, i.e., if we're in 2D space, we'll integrate 2D forms; in 3D space, we'll integrate 3D forms, etc.
-    \end{itemize}
-    \item Pullbacks of $k$-forms.
-    \begin{itemize}
-        \item Let $F:U\to V$ be smooth where $U\subset\R^n$ and $V\subset\R^m$.
-        \item This induces $F^*:\ome[k]{V}\to\ome[k]{U}$.
-        \item We have $\dd{F_p}:T_p\R^n\to T_{F(p)}\R^m$, which also induces $\dd{F_p^*}:\lam[k]{T_{F(p)}^*\R^m}\to\lam[k]{T_p^*\R^n}$.
-        \item Note that $F^*$ maps $\omega\mapsto F^*\omega$ where $F^*\omega_p=\dd{F_p^*\omega_{F(p)}}$.
-    \end{itemize}
-    \item In formulas\dots
-    \begin{align*}
-        \omega &= \sum_I\varphi_I\dd{x_I}&
-        F^*\omega &= \sum_IF^*\varphi_I\dd{F_I}
-    \end{align*}
-    \begin{itemize}
-        \item $\varphi_I$ is just a function.
-        \item Recall that $F^*\varphi_I=\varphi_I\circ F:U\to\R$.
-        \item If $I=(i_1,\dots,i_k)$, then $\dd{F_I}=\dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}$.
-        \item Recall that $F_{i_j}:U\to\R$ sends $x\mapsto x_{i_j}$ (the component of $F$).
-        \item There is a derivation that gets you from the above abstract definition of the pullback to the below concrete form.
-    \end{itemize}
-    \item Note that $\dd{F_p}$ is the kind of thing we worked on last quarter?
-    \item Properties of the pullback (let $U\xrightarrow{F}V\xrightarrow{G}W$).
-    \begin{enumerate}
-        \item $F^*$ is linear.
-        \item $F^*(\omega_1\wedge\omega_2)=F^*\omega_1\wedge F^*\omega_2$.
-        \item $(F\circ G)^*=G^*\circ F^*$.
-        \item $\dd\circ F^*=F^*\circ\dd$.
-        \emph{picture; Commutative diagram}
-    \end{enumerate}
-    \item Properties 1-3 follow from our Chapter 1 pointwise properties.
-    \begin{itemize}
-        \item They also yield the explicit formula for $F^*\omega$ given above.
-    \end{itemize}
-    \item Property 4:
-    \begin{itemize}
-        \item First: Recall that the following diagram holds.
-        \emph{picture}
-        \item Check: $\dd{F_I}=F^*\dd{x_I}$ where $\dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}$ where $I=(i_1,\dots,i_k)$.
-        \item Now we prove the property by taking
-        \begin{align*}
-            \dd{F_I} &= F^*(\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_k}})\\
-            &= F^*\dd{x_{i_1}}\wedge\cdots\wedge F^*\dd{x_{i_k}}\tag*{Property 2}\\
-            &= \dd(F^*x_{i_1})\wedge\cdots\wedge\dd{(F^*x_{i_k})}\\
-            &= \dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}
-        \end{align*}
-        \item Now we have that if $\omega=\sum_I\varphi_I\dd{x_I}$, then
-        \begin{align*}
-            \dd(F^*\omega) &= \dd(\sum_IF^*\varphi_I\dd{F_I})\\
-            &= \sum_I\dd(F^*\varphi_I\wedge\dd{F_I})\\
-            &= \sum_I\dd(F^*\varphi_I)\wedge\dd{F_I}\\
-            &= \sum_IF^*\dd{\varphi_I}\wedge F^*\dd{x_I}\\
-            &= \sum_IF^*(\dd{\varphi_I}\wedge\dd{x_I})\\
-            &= F^*\left( \sum_I\dd{\varphi_I}\wedge\dd{x_I} \right)\\
-            &= F^*\dd{\omega}
-        \end{align*}
-        where the second equality holds by the linearity of $\dd$ and we insert the wedge because multiplication is the same as wedging a zero-form, the third equality holds by the product rule $\dd^2=0$, the fourth equality holds because $\dd$ and $F^*$ commute for 0-forms, and the fifth equality holds by Property 2.
-    \end{itemize}
-    \item $\dd^2=0$ generalizes curl and all of those identities.
-    \item Two other operations.
-    \item \textbf{Interior product}: Given $v$ a vector field on $U$, we have $\iota_v:\ome[k]{U}\to\ome[k-1]{U}$ that sends $\omega\mapsto\iota_v\omega$.
-    \begin{itemize}
-        \item Its properties follow from the properties of the pointwise stuff.
-        \begin{enumerate}
-            \item $\iota_v(\omega_1+\omega_2)=\iota_v\omega_1+\iota_v\omega_2$.
-            \item $\iota_v(\omega_1\wedge\omega_2)=\cdots$.
-            \item $\iota_v\circ\iota_w=-\iota_w\circ\iota_v$.
-        \end{enumerate}
-    \end{itemize}
-    \item \textbf{Lie derivative}: If $v$ is a vector field on $U$, then $L_v:\ome[k]{U}\to\ome[k]{U}$ sends $\omega\mapsto\dd{\iota_v\omega}+\iota_v\dd{\omega}$.
-    \begin{itemize}
-        \item Note that we use $\iota$ to drop the index and $\dd$ to raise it back up, and then vice versa.
-    \end{itemize}
-    \item Check: Agrees with previous definition for $\Omega^0$.
-    \item Cartan's magic formula is what we're taking to be the definition of the Lie derivative.
-    \item Properties.
-    \begin{enumerate}
-        \item $L_v\circ\dd=\dd\circ L_v$.
-        \item $L_v(\omega\wedge\eta)=L_v\omega\wedge\eta+\omega\wedge L_v\eta$.
-        \begin{itemize}
-            \item Proof:
-            \begin{align*}
-                \dd(\iota_v\dd+\dd\iota_v) &= \dd\iota_v\dd\\
-                &= \iota_v(\iota_v\dd+\dd\iota_v)
-            \end{align*}
-        \end{itemize}
-    \end{enumerate}
-    \item We should find an explicit formula for the Lie derivative.
-    \begin{itemize}
-        \item Your vector field will be of the form
-        \begin{equation*}
-            v = \sum f_i\pdv*{x_i}
-        \end{equation*}
-        \item Your form will be of the form
-        \begin{equation*}
-            \omega = \sum\varphi_I\dd{x_I}
-        \end{equation*}
     \end{itemize}
 \end{itemize}
 

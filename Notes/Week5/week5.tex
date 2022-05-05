@@ -1,0 +1,132 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+\setcounter{chapter}{4}
+
+\begin{document}
+
+
+
+
+\chapter{Differentiation}
+\section{Vector Calculus Operations}
+\begin{itemize}
+    \item \marginnote{4/27:}Announcements.
+    \begin{itemize}
+        \item No class this Friday, next Monday.
+        \item Midterm next Friday.
+        \begin{itemize}
+            \item Up through Chapter 2.
+            \item The exam will likely be computationally heavy.
+            \item Compute $\dd$, pullbacks, interior products, Lie derivatives, etc.
+            \item Emphasis on Chapter 2 as opposed to Chapter 1 even though it all builds on itself.
+            \item He'll probably cook up a few problems too.
+        \end{itemize}
+        \item There is a recorded lecture for us.
+        \begin{itemize}
+            \item On Chapter 3 content.
+            \item We'll cover Chapter 3 in kind of an impressionistic way as it is.
+        \end{itemize}
+        \item There are also some notes on the physics stuff.
+    \end{itemize}
+    \item Vector calculus operations.
+    \begin{itemize}
+        \item In one dimension, you have functions, and you take derivatives.
+        \begin{itemize}
+            \item The derivative operation does essentially map $\Omega^0\to\Omega^1$ or $C^\infty(\R)\to C^\infty(\R)$.
+        \end{itemize}
+        \item In two dimensions, ...
+        \begin{itemize}
+            \item $\dd^2=0$ reflects the fact that gradient vector fields are curl-free.
+        \end{itemize}
+        \item If you want to understand the 2D-curl business\dots
+        \begin{itemize}
+            \item $\crl(v):\R^2\to\R$ is intuitively about balls spinning around in a vector field.
+            \item There's also a nice formula to compute it.
+            \item And then there's a connection with $\dd:\Omega^1\to\Omega^2$.
+        \end{itemize}
+        \item In 3D, you can take top-dimensional forms (which are just functions) and bottom-dimensional forms (which are by definition functions) and you can work out an identification between them.
+        \item Note that $\crl:\mathfrak{X}(\R^2)\to C^\infty(\R^2)$, where $\mathfrak{X}(\R^2)$ is the space of vector fields.
+    \end{itemize}
+    \item The musical operator $\sharp$ identifies forms with vector fields, i.e., $\sharp:\Omega^1\to\mathfrak{X}(\R^2)$.
+    \item Properties of exterior derivatives $\dd:\ome[k]{U}\to\ome[k+1]{U}$.
+    \begin{enumerate}
+        \item $\dd{(\omega_1+\omega_2)}=\dd{\omega_1}+\dd{\omega_2}$ and $\dd{(\lambda\omega)}=\lambda\dd{\omega}$.
+        \item Product rule $\dd{(\omega_1\wedge\omega_2)}=\dd{\omega_1}\wedge\omega_2+(-1)^k\omega_1\wedge\dd{\omega_2}$.
+        \begin{itemize}
+            \item Special case $k=\ell=0$. Then
+            \begin{equation*}
+                \dd{(fg)} = g\dd{f}+f\dd{g}
+            \end{equation*}
+            which is the usual product rule for gradient.
+            \item Claim:
+            \begin{equation*}
+                \dd{\left( \sum_If_I\dd{x_I} \right)} = \sum_I\dd{f_I}\wedge\dd{x_I}
+            \end{equation*}
+            \begin{itemize}
+                \item Let $\omega_1\in\Omega^k$ and $\omega_2\in\Omega^\ell$ be defined by
+                \begin{align*}
+                    \omega_1 &= \sum_If_I\dd{x_I}&
+                    \omega_2 &= \sum_Jg_J\dd{x_J}
+                \end{align*}
+                where we're summing over all $I$ such that $|I|=k$ and all $J$ such that $|J|=\ell$. Then
+                \begin{align*}
+                    \omega_1\wedge\omega_2 &= \sum_{I,J}f_Ig_J\dd{x_I}\wedge\dd{x_J}
+                    \dd{(\omega_1\wedge\omega_2)} &= \sum_{I,J}\dd{(f_Ig_J)}\wedge\dd{x_I}\wedge\dd{x_J}
+                \end{align*}
+                \item Note that
+                \begin{equation*}
+                    \dd{(f_Ig_J)} = g_J\dd{f_I}+f_I\dd{g_J}
+                \end{equation*}
+                and
+                \begin{equation*}
+                    \dd{g_J}\wedge\dd{x_I} = (-1)^k\dd{x_I}\wedge\dd{g_J}
+                \end{equation*}
+                \item These identities allow us to take the previous equation to
+                \begin{align*}
+                    \dd{(\omega_1\wedge\omega_2)} &= \sum_{I,J}g_J\dd{f_I}\wedge\dd{x_I}\wedge\dd{x_J}+(-1)^kf_I\dd{x_I}\wedge\dd{g_J}\wedge\dd{x_J}\\
+                    &= \sum_{I,J}(\dd{f_I}\wedge\dd{x_I})\wedge(g_J\dd{x_J})+\sum_{I,J}(f_I\dd{x_I})\wedge(dd{g_J}\wedge\dd{x_J})\\
+                    &= \dd{\omega_1}\wedge\omega_2+(-1)^k\omega_1\dd{\omega_2}
+                \end{align*}
+            \end{itemize}
+        \end{itemize}
+        \item $\dd^2=0$.
+        \begin{itemize}
+            \item Let $\omega=\sum_If_I\dd{x_I}$.
+            \item Then
+            \begin{align*}
+                \dd^2(\omega) &= \dd(\dd{\omega})\\
+                &= \dd(\sum_I\dd{f_I}\wedge\dd{x_I})\\
+                &= \sum_I\dd(\dd{f_I}\wedge\dd{x_I})\tag*{Property 1}\\
+                &= \sum_I\dd(\dd{f_I})\wedge\dd{x_I}\tag*{Property 2}
+            \end{align*}
+            so it suffices to just show that $\dd^2f=0$ for all $f\in\Omega^0$.
+            \item We know that $\dd{f}=\sum_{i=1}^n\pdv*{f}{x_i}\dd{x_i}$. Thus,
+            \begin{align*}
+                \dd(\dd{f}) &= \sum_i\dd(\pdv{f}{x_i})\wedge\dd{x_i}\\
+                &= \sum_{i,j}\pdv{f}{x_j}{x_i}\dd{x_j}\wedge\dd{x_i}\\
+                &= 0
+            \end{align*}
+            \item The last equality holds because of commuting partial derivatives for smooth $f$, and the fact that changing order introduces a negative sign by some property.
+        \end{itemize}
+    \end{enumerate}
+    \item In fact, if we fix $\dd^0:\ome[0]{U}\to\ome[1]{U}$ to be the "gradient," then these properties characterize the function $\dd$ on its domain and codomain. In particular, $\dd$ is the unique function on its domain and codomain that satisfies these properties.
+    \begin{itemize}
+        \item We define it by
+        \begin{equation*}
+            \dd{\left( \sum_If_I\dd{x_I} \right)} = \sum_I\dd{f_I}\wedge\dd{x_I}
+        \end{equation*}
+        \item The above properties characterize it axiomatically.
+        \item We can prove this uniqueness theorem.
+    \end{itemize}
+    \item \textbf{Closed} (form): A form $\omega\in\ome[k]{U}$ such that $\dd{\omega}=0$.
+    \item \textbf{Exact} (form): A form $\omega\in\ome[k]{U}$ such that $\omega=\dd{\eta}$ for some $\eta\in\ome[k-1]{U}$.
+    \item $\dd^2=0$ implies closed and exact implies closed.
+    \item \textbf{Poincar\'{e} lemma}: Locally closed forms are exact.
+\end{itemize}
+
+
+
+
+\end{document}

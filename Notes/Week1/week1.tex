@@ -1,0 +1,704 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+
+\begin{document}
+
+
+
+
+\chapter{Tensors}
+\section{Course Motivation}
+\begin{itemize}
+    \item \marginnote{3/28:}Motivation for the course and an overview of \textcite{bib:DifferentialForms}.
+\end{itemize}
+
+
+
+\section{Defining Tensors and Their Operations}
+\begin{itemize}
+    \item \marginnote{3/30:}Plan:
+    \begin{itemize}
+        \item More (multi)linear algebra.
+    \end{itemize}
+    \item Dual spaces.
+    \item Let $V$ be an $n$-dimensional real vector space.
+    \item $\bm{\Hom(V,\pmb{\R})}$: The set of all homomorphisms (i.e., linear maps) from $V$ to $\R$. \emph{Also known as} $\bm{V^*}$.
+    \item \textbf{Dual basis} (for $V^*$): The set of linear transformations from $V$ to $\R$ defined by
+    \begin{equation*}
+        \vec{e}_j \mapsto
+        \begin{cases}
+            1 & j=i\\
+            0 & j\neq i
+        \end{cases}
+    \end{equation*}
+    where $\vec{e}_1,\dots,\vec{e}_n$ is a basis of $V$. \emph{Denoted by} $\vec{e}_1^*,\dots,\vec{e}_n^*$.
+    \item Check: $\vec{e}_1^*,\dots,\vec{e}_n^*$ are a basis for $V^*$.
+    \begin{itemize}
+        \item Are they linearly independent? Let $c_1\vec{e}_1^*+\cdots+c_n\vec{e}_n^*=0\in\Hom(V,\R)$. Then
+        \begin{equation*}
+            c_i = (c_1\vec{e}_1^*+\cdots+c_n\vec{e}_n^*)(\vec{e}_i) = 0\in\R
+        \end{equation*}
+        as desired.
+        \item Span? Let $\varphi\in\Hom(V,\R)$. Then we can verify that
+        \begin{equation*}
+            \varphi(\vec{e}_1)\vec{e}_1^*+\cdots+\varphi(\vec{e}_n)\vec{e}_n^* = \varphi
+        \end{equation*}
+        \begin{itemize}
+            \item We prove this by verifying the previous statement on the basis of $V$ (if two linear transformations have the same action on the basis of a vector space, they are equal).
+        \end{itemize}
+    \end{itemize}
+    \item With a choice of basis for $V$, we obtain an isomorphism $\varepsilon:V\to V^*$ with the mapping $\vec{e}_i\mapsto\vec{e}_i^*$ for all $i$.
+    \item The dual space is known as such because $(V^*)^*\cong V$, where $\cong$ is \textbf{canonical} (no choice of basis is needed).
+    \item One more property of dual spaces: \textbf{functoriality}.
+    \begin{itemize}
+        \item Given a linear transformation $A:V\to W$, we know that $A^*:W^*\to V^*$ where $A^*$ is the transpose of $A$. In particular, if $\varphi\in W^*$, then $\varphi\circ A:V\to\R$.
+        \item Claim: $A^*$ is linear.
+    \end{itemize}
+    \item \textbf{Functoriality}: If $A:V\to W$ and $B:W\to U$, then $B^*:U^*\to W^*$ and $A^*:W^*\to V^*$. The functoriality statement is that $(B\circ A)^*=A^*\circ B^*$.
+    \item $A^*$ is the \textbf{pullback} (or transpose) of $A$.
+    \item Let $\vec{v}_1,\dots,\vec{v}_n$ be a basis for $V$ and $\vec{w}_1,\dots,\vec{w}_m$ be a basis for $W$. Then $[A]_{\vec{v}_1,\dots,\vec{v}_n}^{\vec{w}_1,\dots,\vec{w}_m}=A$ is the matrix of the linear transformation $A$ with respect to these bases. Then if $\vec{v}_1^*,\dots,\vec{v}_n^*$ and $\vec{w}_1^*,\dots,\vec{w}_m^*$ are the corresponding dual bases, then $[A^*]_{\vec{v}_1^*,\dots,\vec{v}_n^*}^{\vec{w}_1^*,\dots,\vec{w}_m^*}=A^T$. We can and should verify this for ourselves.
+    \item This is over the real numbers, so $A^*$ is just the transpose because there are no complex numbers of which to take the conjugate!
+    \item A generalization: Tensors.
+    \item \textbf{$\bm{k}$-tensor}: A \textbf{multilinear} map
+    \begin{equation*}
+        T:\underbrace{V\times\cdots\times V}_{k\text{ times}}\to\R
+    \end{equation*}
+    \item \textbf{Multilinear} (map $T$): A function $T$ such that
+    \begin{align*}
+        T(\vec{v}_1,\dots,\vec{v}_i^1+\vec{v}_i^2,\dots,\vec{v}_k) &= T(\vec{v}_1,\dots,\vec{v}_i^1,\dots,\vec{v}_k)+T(\vec{v}_1,\dots,\vec{v}_i^2,\dots,\vec{v}_k)\\
+        T(\vec{v}_1,\dots,\lambda \vec{v}_i,\dots,\vec{v}_k) &= \lambda T(\vec{v}_1,\dots,\vec{v}_i,\dots,\vec{v}_k)
+    \end{align*}
+    for all $(\vec{v}_1,\dots,\vec{v}_k)\in V^k$.
+    \item The determinant is an $n$-tensor!
+    \item 1-tensors are just covectors.
+    \item $\bm{\lin[k]{V}}$: The vector space of all $k$-tensors on $V$.
+    \item Calculating $\dim \lin[k]{V}$. (Answer not given in this class.)
+    \item Let $A:V\to W$. Then $A^*:\lin[k]{W}\to\lin[k]{V}$.
+    \begin{itemize}
+        \item Check $(A\circ B)^*=B^*\circ A^*$.
+    \end{itemize}
+    \item \textbf{Multi-index of $\bm{n}$ of length $\bm{k}$}: A $k$-tuple $(i_1,\dots,i_k)$ where each $i_j\in\N$ satisfies $1\leq i_j\leq n$ ($j=1,\dots,k$). \emph{Denoted by} $\bm{I}$.
+    \item Let $\vec{e}_1,\dots,\vec{e}_n$ be a basis for $V$.
+    \item \textbf{Tensor product} (of $T_1\in \lin[k]{V}$, $T_2\in L^l(V)$): The function from $V^{k+l}$ to $\R$ defined by
+    \begin{equation*}
+        (\vec{v}_1,\dots,\vec{v}_{k+l}) \mapsto T_1(\vec{v}_1,\dots,\vec{v}_k)T_2(\vec{v}_{k+1},\dots,\vec{v}_{k+l})
+    \end{equation*}
+    \emph{Denoted by} $\bm{T_1\otimes T_2}$.
+    \item Claims:
+    \begin{enumerate}
+        \item $T_1\otimes T_2\in L^{k+l}(V)$.
+        \item $A^*(T_1\otimes T_2)=A^*(T_1)\otimes A^*(T_2)$.
+    \end{enumerate}
+    \item $\bm{\vec{e}_I^*}$: The function $\vec{e}_{i_1}^*\otimes\cdots\otimes\vec{e}_{i_k}^*$, where $I=(i_1,\dots,i_k)$ is a multi-index of $n$ of length $k$.
+    \item Claim: Letting $I$ range over all $n^k$ multi-indices of $n$ of length $k$, the $\vec{e}_I^*$ are a basis for $\lin[k]{V}$.
+    \item If $V=\R$, then $V=\R\vec{e}_1$. If $V=\R^2$, then $V=\R\vec{e}_1\oplus\R\vec{e}_2$.
+    \item We know that $L^1(V)=V^*=R\vec{e}_1^*$. Thus, $\vec{e}_1^*\otimes\vec{e}_2^*:V\times V\to\R$. Thus, for example,
+    \begin{equation*}
+        (\vec{e}_1^*\otimes\vec{e}_2^*)((1,2),(3,4)) = \vec{e}_1^*(1,2)\cdot \vec{e}_2^*(3,4)
+        = 1\cdot 4
+        = 4
+    \end{equation*}
+\end{itemize}
+
+
+
+\section{The Tensor Product and Permutations}
+\begin{itemize}
+    \item \marginnote{4/1:}Plan: More multilinear algebra.
+    \begin{itemize}
+        \item Properties of the tensor product.
+        \item Sign of a permutation.
+        \item Alternating tensors (lead into differential forms down the road).
+    \end{itemize}
+    \item Recall: $V$ is an $n$-dimensional vector space over $\R$ with basis $e_1,\dots,e_n$. $\lin[k]{V}$ is the vector space of $k$-tensors on $V$. $\{e_I^*\mid I\text{ a multiindex of }n\text{ of length }k\}$ is a basis for $\lin[k]{V}$.
+    \item For example, if $V=\R^2$ and $T\in\lin[2]{V}$, then
+    \begin{equation*}
+        T(a_1e_1+a_2e_2,b_1e_1+b_2e_2) = a_1b_1T(e_1,e_1)+a_1b_2T(e_1,e_2)+a_2b_1T(e_2,e_1)+a_2b_2T(e_2,e_2)
+    \end{equation*}
+    \begin{itemize}
+        \item A basis of $\lin[2]{V}$ is
+        \begin{equation*}
+            \{e_1^*\otimes e_1^*,e_1^*\otimes e_2^*,e_2^*\otimes e_1^*,e_2^*\otimes e_2^*\}
+        \end{equation*}
+        \item Recall that some basic properties are
+        \begin{align*}
+            e_1^*\otimes e_2^*((1,2),(3,4)) &= 1\cdot 4 = 4&
+            e_2^*\otimes e_1^*((1,2),(3,4)) &= 2\cdot 3 = 6
+        \end{align*}
+        \item It follows by the initial decomposition of $T$ that
+        \begin{equation*}
+            T = a_1b_1e_1^*\otimes e_1^*+a_1b_2e_1^*\otimes e_2^*+a_2b_1e_2^*\otimes e_1^*+a_2b_2e_2^*\otimes e_2^*
+        \end{equation*}
+    \end{itemize}
+    \item Important consequence: To know the action of $T$ on an arbitrary pair of vectors, you need only know its action on the basis; a higher-dimensional generalization of the earlier property.
+    \item Note that
+    \begin{equation*}
+        e_I^*(e_J) = \delta_{IJ} =
+        \begin{cases}
+            1 & I=J\\
+            0 & I\neq J
+        \end{cases}
+    \end{equation*}
+    \item Basic properties of the tensor product.
+    \begin{enumerate}
+        \item \emph{Right-distributive}: If $T_1\in\lin[k]{V}$ and $T_2,T_3\in\lin[\ell]{V}$, then
+        \begin{equation*}
+            T_1\otimes(T_2+T_3) = T_1\otimes T_2+T_1\otimes T_3
+        \end{equation*}
+        \item \emph{Left-distributive}: If $T_1,T_2\in\lin[k]{V}$ and $T_3\in\lin[\ell]{V}$, then
+        \begin{equation*}
+            (T_1+T_2)\otimes T_3 = T_1\otimes T_3+T_2\otimes T_3
+        \end{equation*}
+        \item \emph{Associative}: If $T_1\in\lin[k]{V}$, $T_2\in\lin[\ell]{V}$, and $T_3\in\lin[m]{V}$, then
+        \begin{equation*}
+            T_1\otimes(T_2\otimes T_3) = (T_1\otimes T_2)\otimes T_2
+            = T_1\otimes T_2\otimes T_3
+        \end{equation*}
+        \item \emph{Scalar multiplication}: If $T_1\in\lin[k]{V}$, $T_2\in\lin[\ell]{V}$, and $\lambda\in\R$, then
+        \begin{equation*}
+            (\lambda T_1)\otimes T_2 = \lambda(T_1\otimes T_2)
+            = T_1\otimes(\lambda T_2)
+        \end{equation*}
+    \end{enumerate}
+    \item Note that the tensor product is not commutative.
+    \item Aside: Defining the sign of a permutation.
+    \item $\bm{S_A}$: The set of all automorphisms of $A$ (bijections from $A$ to $A$), where $A$ is a set.
+    \item $\bm{S_n}$: The set $S_{[n]}$.
+    \item Given $\sigma_1,\sigma_2\in S_n$, $\sigma_1\circ\sigma_2\in S_n$.
+    \begin{itemize}
+        \item Thus, $S_n$ is a \textbf{group}.
+    \end{itemize}
+    \item \textbf{Transposition}: A function $\tau\in S_n$ such that
+    \begin{equation*}
+        \tau(k) =
+        \begin{cases}
+            j & k=i\\
+            i & k=j\\
+            k & k\neq i,j
+        \end{cases}
+    \end{equation*}
+    for some $i,j\in[n]$. \emph{Denoted by} $\bm{\tau_{i,j}}$.
+    \item Theorem: An element of $S_n$ can be written as the product of transpositions (i.e., for all $\sigma\in S_n$, there exist $\tau_1,\dots,\tau_m\in S_n$ such that $\sigma=\tau_1\circ\cdots\circ\tau_m$).
+    \item \textbf{Sign} (of $\sigma\in S_n$): The number (mod 2) of transpositions whose product equals $\sigma$. \emph{Denoted by} $\bm{(-1)^\sigma}$, $\bm{\sgn(\sigma)}$.
+    \item Theorem: The sign of $\sigma$ is well-defined. Additionally,
+    \begin{equation*}
+        (-1)^{\sigma_1\sigma_2} = (-1)^{\sigma_1}\cdot(-1)^{\sigma_2}
+    \end{equation*}
+    \item Example: Consider the identity permutation. $(-1)^\sigma=+1$. We can think of this as the product of zero transpositions or, for instance, as the product of the two transpositions $\tau_{1,2}\circ\tau_{1,2}$. Another example would be $\tau_{2,3}\circ\tau_{1,2}\circ\tau_{1,2}\circ\tau_{2,3}$.
+    \item Theorem: Let $X_i$ be a rational or polynomial function for each $i\in\N$. Then
+    \begin{equation*}
+        (-1)^\sigma = \prod_{i<j}\frac{X_{\sigma(i)}-X_{\sigma(j)}}{X_i-X_j}
+    \end{equation*}
+    \item Example: For the permutation $\sigma=(1,2,3)$, we have
+    \begin{align*}
+        (-1)^\sigma &= \frac{X_{\sigma(1)}-X_{\sigma(2)}}{X_1-X_2}\cdot\frac{X_{\sigma(1)}-X_{\sigma(3)}}{X_1-X_3}\cdot\frac{X_{\sigma(2)}-X_{\sigma(3)}}{X_2-X_3}\\
+        &= \frac{X_2-X_3}{X_1-X_2}\cdot\frac{X_2-X_1}{X_1-X_3}\cdot\frac{X_3-X_1}{X_2-X_3}\\
+        &= \frac{-(X_1-X_2)}{X_1-X_2}\cdot\frac{-(X_1-X_3)}{X_1-X_3}\cdot\frac{X_2-X_3}{X_2-X_3}\\
+        &= -1\cdot -1\cdot 1\\
+        &= +1
+    \end{align*}
+    which squares with the fact that $\sigma=\tau_{1,2}\circ\tau_{2,3}$.
+    \item Claims to verify with the above formula:
+    \begin{enumerate}
+        \item $\sgn(\sigma)\in\{\pm 1\}$.
+        \item $\sgn(\tau_{i,j})=-1$.
+        \item $\sgn(\sigma_1\sigma_2)=\sgn(\sigma_1)\sgn(\sigma_2)$.
+    \end{enumerate}
+\end{itemize}
+
+
+
+\section{Chapter 1: Multilinear Algebra}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{3/31:}\textcite{bib:DifferentialForms} defines real vector spaces, the operations on them, their basic properties, and the zero vector.
+    \item \textbf{Linearly independent} (vectors $v_1,\dots,v_k$): A finite set of vectors $v_1,\dots,v_k\in V$ such that the map from $\R^k$ to $V$ defined by $(c_1,\dots,c_k)\mapsto c_1v_1+\cdots+c_kv_k$ is injective.
+    \item \textbf{Spanning} (vectors $v_1,\dots,v_k$): We require that the above map is surjective.
+    \item \textcite{bib:DifferentialForms} defines basis, finite-dimensional vector space, dimension, subspace, linear map, and kernel.
+    \item \textbf{Image} (of $A:V\to W$): The range space of $A$, a subspace of $W$. \emph{Also known as} $\bm{\im(A)}$.
+    \item \textcite{bib:DifferentialForms} defines the matrix of a linear map.
+    \item \textbf{Inner product} (on $V$): A map $B:V\times V\to\R$ with the following three properties.
+    \begin{itemize}
+        \item \emph{Bilinearity}: For vectors $v,v_1,v_2,w\in V$ and $\lambda\in\R$, we have
+        \begin{equation*}
+            B(v_1+v_2,w) = B(v_1,w)+B(v_2,w)
+        \end{equation*}
+        and
+        \begin{equation*}
+            B(\lambda v,w) = \lambda B(v,w)
+        \end{equation*}
+        \item \emph{Symmetry}: For vectors $v,w\in V$, we have $B(v,w)=B(w,v)$.
+        \item \emph{Positivity}: For every vector $v\in V$, we have $B(v,v)\geq 0$. Moreover, if $v\neq 0$, then $B(v,v)>0$.
+    \end{itemize}
+    \item \textbf{$\bm{W}$-coset}: A set of the form $\{v+w\mid w\in W\}$, where $W$ is a subspace $V$ and $v\in V$. \emph{Denoted by} $\bm{v+W}$.
+    \begin{itemize}
+        \item If $v_1-v_2\in W$, then $v_1+W=v_2+W$.
+        \item It follows that the distinct $W$-cosets decompose $V$ into a disjoint collection of subsets of $V$.
+    \end{itemize}
+    \item \textbf{Quotient space} (of $V$ by $W$): The set of distinct $W$-cosets in $V$, along with the following definitions of vector addition and scalar multiplication.
+    \begin{align*}
+        (v_1+W)+(v_2+W) &= (v_1+v_2)+W&
+        \lambda(v+W) &= (\lambda v)+W
+    \end{align*}
+    \emph{Denoted by} $\bm{V/W}$.
+    \item \textbf{Quotient map}: The linear map $\pi:V\to V/W$ defined by
+    \begin{equation*}
+        \pi(v) = v+W
+    \end{equation*}
+    \begin{itemize}
+        \item $\pi$ is surjective.
+        \item Note that $\ker(\pi)=W$ since for all $w\in W$, $\pi(w)=w+W=0+W$, which is the zero vector in $V/W$.
+    \end{itemize}
+    \item If $V,W$ are finite dimensional, then
+    \begin{equation*}
+        \dim(V/W) = \dim(V)-\dim(W)
+    \end{equation*}
+    \item Proposition 1.2.9: Let $A:V\to U$ be a linear map. If $W\subset\ker(A)$, then there exists a unique linear map $A^\sharp:V/W\to U$ with the property that $A=A^\sharp\circ\pi$, where $\pi:V\to V/W$ is the quotient map.
+    \begin{itemize}
+        \item This proposition rephrases in terms of quotient spaces the fact that if $w\in W$, then $A(v+w)=Av$.
+    \end{itemize}
+    \item \textbf{Dual space} (of $V$): The set of all linear functions $\ell:V\to\R$, along with the following definitions of vector addition and scalar multiplication.
+    \begin{align*}
+        (\ell_1+\ell_2)(v) &= \ell_1(v)+\ell_2(v)&
+        (\lambda\ell)(v) &= \lambda\cdot\ell(v)
+    \end{align*}
+    \emph{Denoted by} $V^*$.
+    \item \textbf{Dual basis} (of $e_1,\dots,e_n$ a basis of $V$): The basis of $V^*$ consisting of the $n$ functions that take every $v=c_1e_1+\cdots+c_ne_n$ to one of the $c_i$. \emph{Denoted by} $\bm{e_1^*,...,e_n^*}$. \emph{Given by}
+    \begin{equation*}
+        e_i^*(v) = c_i
+    \end{equation*}
+    for all $v\in V$.
+    \item Claim 1.2.12: If $V$ is an $n$-dimensional vector space with basis $e_1,\dots,e_n$, then $e_1^*,\dots,e_n^*$ is a basis of $V^*$.
+    \begin{proof}
+        We will first prove that $e_1^*,\dots,e_n^*$ spans $V^*$. Let $\ell\in V^*$ be arbitrary. Set $\lambda_i=\ell(e_i)$ for all $i\in[n]$. Define $\ell'=\sum_{i=1}^n\lambda_ie_i^*$. Then
+        \begin{equation*}
+            \ell'(e_j) = \sum_{i=1}^n\lambda_ie_i^*(e_j)
+            = \lambda_j\cdot 1
+            = \ell(e_j)
+        \end{equation*}
+        for all $j\in[n]$. Therefore, since $\ell,\ell'$ take identical values on the basis of $V$, $\ell=\ell'$, as desired.\par
+        We now prove that $e_1^*,\dots,e_n^*$ is linearly independent. Let $\sum_{i=1}^n\lambda_ie_i^*=0$. Then for all $j\in[n]$,
+        \begin{equation*}
+            \lambda_j = \left( \sum_{i=1}^n\lambda_ie_i^* \right)(e_j)
+            = 0
+        \end{equation*}
+        as desired.
+    \end{proof}
+    \item \textbf{Transpose} (of $A$): The map from $W^*$ to $V^*$ defined by $\ell\mapsto\ell\circ A$ for all $\ell\in W^*$. \emph{Denoted by} $\bm{A^*}$.
+    \item Claim 1.2.15: If $e_1,\dots,e_n$ is a basis of $V$, $f_1,\dots,f_m$ is a basis of $W$, $e_1^*,\dots,e_n^*$ and $f_1^*,\dots,f_m^*$ are the corresponding dual bases, and $[a_{i,j}]$ is the $m\times n$ matrix of $A$ with respect to $\{e_j\},\{f_i\}$, then the linear map $A^*$ is defined in terms of $\{f_i^*\},\{e_j^*\}$ by the transpose matrix $(a_{j,i})$.
+    \begin{proof}
+        Let $[c_{j,i}]$ be the $n\times m$ matrix of $A^*$ with respect to $\{f_i^*\},\{e_j^*\}$. We seek to prove that $a_{i,j}=c_{j,i}$ ($1\leq i\leq m$, $1\leq j\leq n$).\par
+        By the definition of $[a_{i,j}]$ and $[c_{j,i}]$, we have that
+        \begin{align*}
+            A^*f_i^* &= \sum_{k=1}^nc_{k,i}e_k^*&
+            Ae_j &= \sum_{k=1}^ma_{k,j}f_k
+        \end{align*}
+        It follows that
+        \begin{equation*}
+            [A^*f_i^*](e_j) = \left[ \sum_{k=1}^nc_{k,i}e_k^* \right](e_j)
+            = c_{j,i}
+        \end{equation*}
+        and
+        \begin{equation*}
+            [A^*f_i^*](e_j) = f_i^*(Ae_j)
+            = f_i^*\left( \sum_{k=1}^ma_{k,j}f_k \right)
+            = a_{i,j}
+        \end{equation*}
+        so transitivity implies the desired result.
+    \end{proof}
+    \item \marginnote{4/4:}$\bm{V^k}$: The set of all $k$-tuples $(v_1,\dots,v_k)$ where $v_1,\dots,v_k\in V$ a vector space.
+    \begin{itemize}
+        \item Note that
+        \begin{equation*}
+            V^k = \underbrace{V\times\cdots\times V}_{k\text{ times}}
+        \end{equation*}
+        where "$\times$" denotes the Cartesian product.
+    \end{itemize}
+    \item \textbf{Linear} (function in its $i^\text{th}$ variable): A function $T:V^k\to\R$ such that the map from $V$ to $\R$ defined by $v\mapsto T(v_1,\dots,v_{i-1},v,v_{i+1},\dots,v_k)$ is linear, where all $v_j$ save $v_i$ are fixed.
+    \item \textbf{$\bm{k}$-linear} (function $T$): A function $T:V^k\to\R$ that is linear in its $i^\text{th}$ variable for $i=1,\dots,k$. \emph{Also known as} \textbf{$\bm{k}$-tensor}.
+    \item $\bm{\lin[k]{V}}$: The set of all $k$-tensors in $V$.
+    \begin{itemize}
+        \item Since the sum $T_1+T_2$ of two $k$-linear functions $T_1,T_2:V^k\to\R$ is just another $k$-linear function, and $\lambda T_1$ is $k$-linear for all $\lambda\in\R$, we have that $\lin[k]{V}$ is a vector space.
+    \end{itemize}
+    \item Convention: 0-tensors are just the real numbers. Mathematically, we define
+    \begin{equation*}
+        \lin[0]{V} = \R
+    \end{equation*}
+    \item Note that $\lin[1]{V}=V^*$.
+    \item Defines multi-indices of $n$ of length $k$.
+    \item Lemma 1.3.5: If $n,k\in\N$, then there are exactly $n^k$ multi-indices of $n$ of length $k$.
+    \item $\bm{T_I}$: The real number $T(e_{i_1},\dots,e_{i_k})$, where $T\in\lin[k]{V}$, $e_1,\dots,e_n$ is a basis of $V$, and $I$ is a multi-index of $n$ of length $k$.
+    \item Proposition 1.3.7: The real numbers $T_I$ determine $T$, i.e., if $T,T'$ are $k$-tensors and $T_I=T_I'$ for all $I$, then $T=T'$.
+    \begin{proof}
+        We induct on $n$. For the base case $n=1$, $T\in(\R^k)^*$ and we have already proven this result. Now suppose inductively that the assertion is true for $n-1$. For each $e_i$, let $T_i$ be the $(k-1)$-tensor defined by
+        \begin{equation*}
+            (v_1,\dots,v_{n-1}) \mapsto T(v_1,\dots,v_{n-1},e_i)
+        \end{equation*}
+        Then for an arbitrary $v=c_1e_1+\cdots+c_ne_n$,
+        \begin{equation*}
+            T(v_1,\dots,v_{n-1},v) = \sum_{i=1}^nc_iT_i(v_1,\dots,v_{n-1})
+        \end{equation*}
+        so the $T_i$'s determine $T$. Applying the inductive hypothesis completes the proof.
+    \end{proof}
+    \item \textbf{Tensor product}: The function $\otimes:\lin[k]{V}\times\lin[\ell]{V}\to\lin[k+\ell]{V}$ defined by
+    \begin{equation*}
+        (T_1\otimes T_2)(v_1,\dots,v_{k+\ell}) = T_1(v_1,\dots,v_k)T_2(v_{k+1},\dots,v_{k+\ell})
+    \end{equation*}
+    for all $T_1\in\lin[k]{V}$ and $T_2\in\lin[\ell]{V}$.
+    \item Note that by the definition of 0-tensors as real numbers, if $a\in\R$ and $T\in\lin[k]{V}$, then
+    \begin{equation*}
+        a\otimes T = T\otimes a = aT
+    \end{equation*}
+    \item Proposition 1.3.9: Associativity, distributivity of scalar multiplication, and left and right distributive laws for the tensor product.
+    \item \textbf{Decomposable} ($k$-tensor): A $k$-tensor $T$ for which there exist $\ell_1,\dots,\ell_k\in V^*$ such that
+    \begin{equation*}
+        T = \ell_1\otimes\cdots\otimes\ell_k
+    \end{equation*}
+    \item Defines $e_I^*$.
+    \item Theorem 1.3.13: $V$ a vector space with basis $e_1,\dots,e_n$ and $0\leq k\leq n$ implies the $k$-tensors $e_I^*$ form a basis of $\lin[k]{V}$.
+    \begin{proof}
+        Spanning: Let $T\in\lin[k]{V}$ be arbitrary. Define
+        \begin{equation*}
+            T' = \sum_IT_Ie_I^*
+        \end{equation*}
+        Since
+        \begin{equation*}
+            T_J' = T'(e_{j_1},\dots,e_{j_k})
+            = \sum_IT_Ie_I^*(e_{j_1},\dots,e_{j_k})
+            = T_Je_J^*(e_{j_1},\dots,e_{j_k})
+            = T_J
+        \end{equation*}
+        for all $J$, Proposition 1.3.7 asserts that $T=T'$. Therefore, since every $T_I\in\R$, $T=T'\in\spn(e_I^*)$.\par
+        Linear independence: Suppose
+        \begin{equation*}
+            T = \sum_Ic_Ie_I^* = 0
+        \end{equation*}
+        for some set of constants $c_I\in\R$. Then
+        \begin{equation*}
+            0 = T(e_{j_1},\dots,e_{j_k})
+            = \sum_Ic_Ie_I^*(e_{j_1},\dots,e_{j_k})
+            = c_J
+        \end{equation*}
+        for all $J$, as desired.
+    \end{proof}
+    \item Corollary 1.3.15: If $\dim V=n$, then $\dim(\lin[k]{V})=n^k$.
+    \begin{proof}
+        Follows immediately from Lemma 1.3.5.
+    \end{proof}
+    \item \textbf{Pullback} (of $T$ by the map $A$): The $k$-tensor $A^*T:V^k\to\R$ defined by
+    \begin{equation*}
+        (A^*T)(v_1,\dots,v_k) = T(Av_1,\dots,Av_k)
+    \end{equation*}
+    where $V,W$ are finite-dimensional vector spaces, $A:V\to W$ is linear, and $T\in\lin[k]{W}$.
+    \item Proposition 1.3.18: The map $A^*:\lin[k]{W}\to\lin[k]{V}$ defined by $T\mapsto A^*T$ is linear.
+    \item Identities:
+    \begin{itemize}
+        \item If $T_1\in\lin[k]{W}$ and $T_2\in\lin[m]{W}$, then
+        \begin{equation*}
+            A^*(T_1\otimes T_2) = A^*(T_1)\otimes A^*(T_2)
+        \end{equation*}
+        \item If $U$ is a vector space, $B:U\to V$ is linear, and $T\in\lin[k]{W}$, then $(AB)^*T=B^*(A^*T)$. Hence,
+        \begin{equation*}
+            (AB)^* = B^*A^*
+        \end{equation*}
+    \end{itemize}
+    \item \marginnote{4/13:}$\bm{\Sigma_k}$: The set containing the natural numbers 1 through $k$. \emph{Given by}
+    \begin{equation*}
+        \Sigma_k = \{1,2,\dots,k\}
+    \end{equation*}
+    \item \textbf{Permutation of order $\bm{k}$}: A bijection on $\Sigma_k$. \emph{Denoted by} $\bm{\sigma}$.
+    \item \textbf{Product} (of $\sigma_1,\sigma_2$): The composition $\sigma_1\circ\sigma_2$, i.e., the map
+    \begin{equation*}
+        i \mapsto \sigma_1(\sigma_2(i))
+    \end{equation*}
+    \emph{Denoted by} $\bm{\sigma_1\sigma_2}$.
+    \item \textbf{Inverse} (of $\sigma$): The permutation of order $k$ which is the inverse bijection of $\sigma$. \emph{Denoted by} $\bm{\sigma^{-1}}$.
+    \item \textbf{Permutation group} (of $\Sigma_k$): The set of all permutations of order $k$. \emph{Also known as} \textbf{symmetric group on $\bm{k}$ letters}. \emph{Denoted by} $\bm{S_k}$.
+    \item Lemma 1.4.2: The group $S_k$ has $k!$ elements.
+    \item \textbf{Transposition}: A permutation of order $k$ defined by
+    \begin{equation*}
+        \ell \mapsto
+        \begin{cases}
+            j & \ell=i\\
+            i & \ell=j\\
+            \ell & \ell\neq i,j
+        \end{cases}
+    \end{equation*}
+    for all $\ell\in\Sigma_k$, where $i,j\in\Sigma_k$. \emph{Denoted by} $\bm{\tau_{i,j}}$.
+    \item \textbf{Elementary transposition}: A transposition of the form $\pi_{i,i+1}$.
+    \item Theorem 1.4.4: Every $\sigma\in S_k$ can be written as a product of (a finite number of) transpositions.
+    \begin{proof}
+        We induct on $k$.\par
+        For the base case $k=2$, the identity permutation of $S_2$ is the "product" of zero transpositions, and the only other permutation is a transposition (the "product" of one transposition, namely itself).\par
+        Now suppose inductively that we have proven the claim for $k-1$. Let $\sigma\in S_k$ be arbitrary. Suppose $\sigma(k)=i$. Then $\tau_{i,k}\sigma(k)=k$. Since $(\tau_{i,k}\sigma)|_{\Sigma_{k-1}}\in S_{k-1}$, we have by the inductive hypothesis that $(\tau_{i,k}\sigma)|_{\Sigma_{k-1}}=\tau_1\cdots\tau_m$ for some set of permutations $\tau_1,\dots,\tau_m\in S_{k-1}$. For each $\tau_j$ ($1\leq j\leq m$), define $\tau_j'\in S_k$
+        \begin{equation*}
+            \tau_j'(\ell) =
+            \begin{cases}
+                \tau_j(\ell) & \ell<k\\
+                \ell & \ell=k
+            \end{cases}
+        \end{equation*}
+        It follows that
+        \begin{align*}
+            \tau_{i,k}\sigma &= \tau_1'\cdots\tau_m'\\
+            \sigma &= \tau_{i,k}\tau_1'\cdots\tau_m'
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Theorem 1.4.5: Every transposition can be written as a product of elementary transpositions.
+    \begin{proof}
+        Let $\tau_{i,j}\in S_k$, and let $i<j$ WLOG. Then we have that
+        \begin{equation*}
+            \tau_{i,j} = \prod_{\ell=i}^{i-1}\tau_{\ell,\ell+1}
+        \end{equation*}
+        as desired.
+    \end{proof}
+    \item Corollary 1.4.6: Every permutation can be written as a product of elementary transpositions.
+    \item \textbf{Sign} (of $\sigma$): The number $\pm 1$ assigned to $\sigma$ by the expression
+    \begin{equation*}
+        \prod_{i<j}\frac{x_{\sigma(i)}-x_{\sigma(j)}}{x_i-x_j}
+    \end{equation*}
+    where $x_1,\dots,x_k$ are coordinate functions on $\R^k$. \emph{Denoted by} $\bm{(-1)^\sigma}$.
+    \item Claim 1.4.9: The sign defines a group homomorphism $S_k\to\{\pm 1\}$. That is, for $\sigma_1,\sigma_2\in S_k$, we have
+    \begin{equation*}
+        (-1)^{\sigma_1\sigma_2} = (-1)^{\sigma_1}(-1)^{\sigma_2}
+    \end{equation*}
+    \begin{proof}
+        For all $i<j$, define $p,q$ such that $p$ is the lesser of $\sigma_2(i),\sigma_2(j)$ and $q$ is the greater of $\sigma_2(i),\sigma_2(j)$. Formally,
+        \begin{align*}
+            p &=
+            \begin{cases}
+                \sigma_2(i) & \sigma_2(i)<\sigma_2(j)\\
+                \sigma_2(j) & \sigma_2(j)<\sigma_2(i)
+            \end{cases}&
+            q &=
+            \begin{cases}
+                \sigma_2(j) & \sigma_2(i)<\sigma_2(j)\\
+                \sigma_2(i) & \sigma_2(j)<\sigma_2(i)
+            \end{cases}
+        \end{align*}
+        It follows that if $\sigma_2(i)<\sigma_2(j)$, then
+        \begin{equation*}
+            \frac{x_{\sigma_1\sigma_2(i)}-x_{\sigma_1\sigma_2(j)}}{x_{\sigma_2(i)}-x_{\sigma_2(j)}} = \frac{x_{\sigma_1(p)}-x_{\sigma_1(q)}}{x_p-x_q}
+        \end{equation*}
+        and if $\sigma_2(j)<\sigma_2(i)$, then
+        \begin{equation*}
+            \frac{x_{\sigma_1\sigma_2(i)}-x_{\sigma_1\sigma_2(j)}}{x_{\sigma_2(i)}-x_{\sigma_2(j)}} = \frac{x_{\sigma_1(q)}-x_{\sigma_1(p)}}{x_q-x_p}
+            = \frac{x_{\sigma_1(p)}-x_{\sigma_1(q)}}{x_p-x_q}
+        \end{equation*}
+        Therefore,
+        \begin{align*}
+            (-1)^{\sigma_1\sigma_2} &= \prod_{i<j}\frac{x_{\sigma_1\sigma_2(i)}-x_{\sigma_1\sigma_2(j)}}{x_i-x_j}\\
+            &= \prod_{i<j}\frac{x_{\sigma_1\sigma_2(i)}-x_{\sigma_1\sigma_2(j)}}{x_{\sigma_2(i)}-x_{\sigma_2(j)}}\cdot\frac{x_{\sigma_2(i)}-x_{\sigma_2(j)}}{x_i-x_j}\\
+            &= \prod_{i<j}\frac{x_{\sigma_1(p)}-x_{\sigma_1(q)}}{x_p-x_q}\cdot\prod_{i<j}\frac{x_{\sigma_2(i)}-x_{\sigma_2(j)}}{x_i-x_j}\\
+            &= (-1)^{\sigma_1}(-1)^{\sigma_2}
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Proposition 1.4.11: If $\sigma$ is the product of an odd number of transpositions, then $(-1)^\sigma=-1$, and if $\sigma$ is the product of an even number of transpositions, then $(-1)^\sigma=+1$.
+    \begin{proof}
+        Follows from the fact that $(-1)^\sigma=-1$ (see Exercise 1.4.ii).
+    \end{proof}
+    \item $\bm{T^\sigma}$: The $k$-tensor defined by
+    \begin{equation*}
+        T^\sigma(v_1,\dots,v_k) = T(v_{\sigma^{-1}(1)},\dots,v_{\sigma^{-1}(k)})
+    \end{equation*}
+    where $T\in\lin[k]{V}$, $V$ is an $n$-dimensional vector space, and $\sigma\in S_k$.
+    \item Proposition 1.4.14:
+    \begin{enumerate}
+        \item If $T=\ell_1\otimes\cdots\otimes\ell_k$ ($\ell_i\in V^*$), then $T^\sigma=\ell_{\sigma(1)}\otimes\cdots\otimes\ell_{\sigma(k)}$.
+        \begin{proof}
+            If $v_1,\dots,v_k\in V$, then
+            \begin{align*}
+                T^\sigma(v_1,\dots,v_k) &= T(v_{\sigma^{-1}(1)},\dots,v_{\sigma^{-1}(k)})\\
+                &= [\ell_1\otimes\cdots\otimes\ell_k](v_{\sigma^{-1}(1)},\dots,v_{\sigma^{-1}(k)})\\
+                &= \ell_1(v_{\sigma^{-1}(1)})\cdots\ell_k(v_{\sigma^{-1}(k)})\\
+                &= \ell_{\sigma(1)}(v_1)\cdots\ell_{\sigma(k)}(v_2)\\
+                &= [\ell_{\sigma(1)}\otimes\cdots\otimes\ell_{\sigma(k)}](v_1,\dots,v_k)
+            \end{align*}
+            as desired. Note that we can justify the fourth equality by nothing that if $\sigma^{-1}(i)=q$, then the $i^\text{th}$ term in the product is $\ell_{\sigma(q)}(v_q)$, so since $\sigma$ is a bijection, the product can be arranged to the form on the right-hand side of equality four.
+        \end{proof}
+        \item The assignment $T\mapsto T^\sigma$ is a linear map from $\lin[k]{V}\to\lin[k]{V}$.
+        \begin{proof}
+            See Exercise 1.4.iii.
+        \end{proof}
+        \item If $\sigma_1,\sigma_2\in S_k$, we have $T^{\sigma_1\sigma_2}=(T^{\sigma_1})^{\sigma_2}$.
+        \begin{proof}
+            Let $T=\ell_1\otimes\cdots\otimes\ell_k$\footnote{What gives us the right to assume $T$ is decomposable?}. Then
+            \begin{equation*}
+                T^{\sigma_1} = \ell_{\sigma_1(1)}\otimes\cdots\otimes\ell_{\sigma_1(k)}
+                = \ell_1'\otimes\cdots\otimes\ell_k'
+            \end{equation*}
+            and thus
+            \begin{equation*}
+                (T^{\sigma_1})^{\sigma_2} = \ell_{\sigma_2(1)}'\otimes\cdots\otimes\ell_{\sigma_2(k)}'
+            \end{equation*}
+            Let $\sigma_2(i)=j$. Then since $\ell_p'=\ell_{\sigma_1(p)}$ by definition, we have that $\ell_{\sigma_2(j)}'=\ell_{\sigma_1(\sigma_2(j))}$. Therefore,
+            \begin{align*}
+                (T^{\sigma_1})^{\sigma_2} &= \ell_{\sigma_2(1)}'\otimes\cdots\otimes\ell_{\sigma_2(k)}'\\
+                &= \ell_{\sigma_1(\sigma_2(1))}\otimes\cdots\otimes\ell_{\sigma_1(\sigma_2(k))}\\
+                &= \ell_{\sigma_1\sigma_2(1)}\otimes\cdots\otimes\ell_{\sigma_1\sigma_2(k)}\\
+                &= T^{\sigma_1\sigma_2}
+            \end{align*}
+            as desired.
+        \end{proof}
+    \end{enumerate}
+    \item \textbf{Alternating} ($k$-tensor): A $k$-tensor $T\in\lin[k]{V}$ such that $T^\sigma=(-1)^\sigma T$ for all $\sigma\in S_k$.
+    \item $\bm{\alt[k]{V}}$: The set of all alternating $k$-tensors in $\lin[k]{V}$.
+    \begin{itemize}
+        \item Proposition 1.4.14(2) implies that $(T_1+T_2)^\sigma=T_1^\sigma+T_2^\sigma$ and $(\lambda T)^\sigma=\lambda T^\sigma$; it follows that $\alt[k]{V}$ is a vector space.
+    \end{itemize}
+    \item \textbf{Alternation operation}: The function from $\lin[k]{V}\to\lin[k]{V}$ defined by
+    \begin{equation*}
+        T \mapsto \sum_{\tau\in S_k}(-1)^\tau T^\tau
+    \end{equation*}
+    \emph{Denoted by} $\bm{\Alt{}}$.
+    \item Proposition 1.4.17: For $T\in\lin[k]{V}$ and $\sigma\in S_k$, we have that
+    \begin{enumerate}
+        \item $\Alt(T)^\sigma=(-1)^\sigma\Alt T$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \Alt(T)^\sigma &= \left( \sum_{\tau\in S_k}(-1)^\tau T^\tau \right)^\sigma\\
+                &= \sum_{\tau\in S_k}(-1)^\tau(T^\tau)^\sigma\tag*{Proposition 1.4.14(2)}\\
+                &= \sum_{\tau\in S_k}(-1)^\tau T^{\tau\sigma}\tag*{Proposition 1.4.14(3)}\\
+                &= (-1)^\sigma\sum_{\tau\in S_k}(-1)^{\tau\sigma}T^{\tau\sigma}\\
+                &= (-1)^\sigma\sum_{\tau\sigma\in S_k}(-1)^{\tau\sigma}T^{\tau\sigma}\\
+                &= (-1)^\sigma\Alt T
+            \end{align*}
+            as desired.
+        \end{proof}
+        \item If $T\in\alt[k]{V}$, then $\Alt T=k!T$.
+        \begin{proof}
+            Since $T\in\alt[k]{V}$, we know that $T^\sigma=(-1)^\sigma T$. Therefore,
+            \begin{equation*}
+                \Alt T = \sum_{\tau\in S_k}(-1)^\tau T^\tau
+                = \sum_{\tau\in S_k}(-1)^\tau(-1)^\tau T
+                = \sum_{\tau\in S_k}T
+                = k!T
+            \end{equation*}
+            where the last equality holds because the cardinality of $S_k$ is $k!$.
+        \end{proof}
+        \item $\Alt(T^\sigma)=\Alt(T)^\sigma$.
+        \begin{proof}
+            We have that
+            \begin{equation*}
+                \Alt(T^\sigma) = \sum_{\tau\in S_k}(-1)^\tau T^{\tau\sigma}
+                = (-1)^\sigma\sum_{\tau\in S_k}(-1)^{\tau\sigma}T^{\tau\sigma}
+                = (-1)^\sigma\Alt(T)
+                = \Alt(T)^\sigma
+            \end{equation*}
+            as desired.
+        \end{proof}
+        \item The alternation operation is linear.
+        \begin{proof}
+            Follows by Proposition 1.4.14.
+        \end{proof}
+    \end{enumerate}
+    \item \textbf{Repeating} (multi-index $I$): A multi-index $I$ of length $k$ such that $i_r=i_s$ for some $r\neq s$.
+    \item \textbf{Strictly increasing} (multi-index $I$): A multi-index $I$ of length $k$ such that $i_1<i_2<\cdots<i_r$.
+    \item $\bm{I^\sigma}$: The multi-index of length $k$ defined by
+    \begin{equation*}
+        I^\sigma = (i_{\sigma(1)},\dots,i_{\sigma(k)})
+    \end{equation*}
+    \item If $I$ is non-repeating, there is a unique $\sigma\in S_k$ such that $I^\sigma$ is strictly increasing.
+    \item $\bm{\psi_I}$: The following $k$-tensor. \emph{Given by}
+    \begin{equation*}
+        \psi_I = \Alt(e_I^*)
+    \end{equation*}
+    \item Proposition 1.4.20:
+    \begin{enumerate}
+        \item $\psi_{I^\sigma}=(-1)^\sigma\psi_I$.
+        \begin{proof}
+            We have that
+            \begin{equation*}
+                \psi_{I^\sigma} = \Alt(e_{I^\sigma}^*)
+                = \Alt[(e_I^*)^\sigma]
+                = \Alt(e_I^*)^\sigma
+                = (-1)^\sigma\Alt(e_I^*)
+                = (-1)^\sigma\psi_I
+            \end{equation*}
+            as desired.
+        \end{proof}
+        \item If $I$ is repeating, then $\psi_I=0$.
+        \begin{proof}
+            Suppose $I=(i_1,\dots,i_k)$ is such that $i_r=i_s$ for some distinct $r,s\in\Sigma_k$. Then $e_I^*=e_{I^{\tau_{i_r,i_s}}}^*$, so
+            \begin{equation*}
+                \psi_I = \psi_{I^{\tau_{i_r,i_s}}}
+                = (-1)^{\tau_{i_r,i_s}}\psi_I
+                = -\psi_I
+            \end{equation*}
+            Therefore, we must have $\psi_I=0$, as desired.
+        \end{proof}
+        \item If $I$ and $J$ are strictly increasing, then
+        \begin{equation*}
+            \psi_I(e_{j_1},\dots,e_{j_k}) =
+            \begin{cases}
+                1 & I=J\\
+                0 & I\neq J
+            \end{cases}
+        \end{equation*}
+        \begin{proof}
+            We have by definition that
+            \begin{equation*}
+                \psi_I(e_{j_1},\dots,e_{j_k}) = \sum_\tau(-1)^\tau e_{I^\tau}^*(e_{j_1},\dots,e_{j_k})
+            \end{equation*}
+            This combined with the facts that
+            \begin{equation*}
+                e_{I^\tau}^*(e_{j_1},\dots,e_{j_k}) =
+                \begin{cases}
+                    1 & I^\tau=J\\
+                    0 & I^\tau\neq J
+                \end{cases}
+            \end{equation*}
+            $I^\tau$ is strictly increasing iff $I^\tau=I$, and the above equation is nonzero iff $I^\tau=I=J$ implies the desired result.
+        \end{proof}
+    \end{enumerate}
+    \item Conclusion 1.4.22: If $T\in\alt[k]{V}$, then we can write $T$ as a sum
+    \begin{equation*}
+        T = \sum_Ic_I\psi_I
+    \end{equation*}
+    with $I$'s strictly increasing.
+    \begin{proof}
+        Let $T\in\alt[k]{V}$ be arbitrary. By Theorem 1.3.13,
+        \begin{equation*}
+            T = \sum_Ja_Je_J^*
+        \end{equation*}
+        for some set of $a_J\in\R$. It follows since $\Alt(T)=k!T$ that
+        \begin{equation*}
+            T = \frac{1}{k!}\sum a_J\Alt(e_J^*)
+            = \sum b_J\psi_J
+        \end{equation*}
+        We can disregard all repeating terms in the sum since they are zero by Proposition 1.4.20(2); for every non-repeating term $J$, we can write $J=I^\sigma$, where $I$ is strictly increasing and hence $\psi_J=(-1)^\sigma\psi_I$.
+    \end{proof}
+    \item Claim 1.4.24: The $c_I$'s of Conclusion 1.4.22 are unique.
+    \begin{proof}
+        For $J$ strictly increasing, we have
+        \begin{equation*}
+            T_J = T(e_{j_1},\dots,e_{j_k})
+            = \sum_Ic_I\psi_I(e_{j_1},\dots,e_{j_k})
+            = c_J
+        \end{equation*}
+    \end{proof}
+    \item Proposition 1.4.26: The alternating tensors $\psi_I$ with $I$ strictly increasing are a basis for $\alt[k]{V}$.
+    \begin{proof}
+        Spanning: See Conclusion 1.4.22.\par
+        Linear independence: See Claim 1.4.24.
+    \end{proof}
+    \item We have that
+    \begin{equation*}
+        \dim\alt[k]{V} = \binom{n}{k}
+        = \frac{n!}{(n-k)!k!}
+    \end{equation*}
+    \begin{itemize}
+        \item Hint in proving this claim: "Show that every strictly increasing multi-index of length $k$ determines a $k$-element subset of $\{1,\dots,n\}$ and vice versa." \parencite[16]{bib:DifferentialForms}.
+        \item Note also that if $k>n$, every multi-index has a repeat somewhere, meaning that $\dim\alt[k]{V}=\binom{n}{k}=0$.
+    \end{itemize}
+\end{itemize}
+
+
+
+
+\end{document}

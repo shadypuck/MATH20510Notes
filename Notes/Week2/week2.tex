@@ -1,0 +1,504 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+\stepcounter{chapter}
+
+\begin{document}
+
+
+
+
+\chapter{Tensor Classifications}
+\section{Alternating Tensors}
+\begin{itemize}
+    \item \marginnote{4/4:}Plan:
+    \begin{itemize}
+        \item More multilinear algebra.
+        \item Alternating $k$-tensors --- 2 views:
+        \begin{enumerate}
+            \item As a subspace of $\lin[k]{V}$.
+            \item As a quotient of $\lin[k]{V}$.
+        \end{enumerate}
+        \item Next time: Operators as alternating tensors.
+        \begin{itemize}
+            \item Wedge products.
+            \item Interior products.
+            \item Pullbacks.
+        \end{itemize}
+    \end{itemize}
+    \item Recall: $\dim V=n$, $e_1,\dots,e_n$ a basis, $\lin[k]{V}$ the space of $k$-tensors, $\sigma\in S_k$ implies $(-1)^\sigma\in\{\pm 1\}$, key property: $(-1)^{\sigma_1\sigma_2}=(-1)^{\sigma_1}(-1)^{\sigma_2}$.
+    \item $\bm{T^\sigma}$: The $k$-tensor over $V$ defined by
+    \begin{equation*}
+        T^\sigma(v_1,\dots,v_k) = T(v_{\bar{\sigma}(1)},\dots,v_{\bar{\sigma}(k)})
+    \end{equation*}
+    where $T\in\lin[k]{V}$, $\sigma\in S_k$, and $\bar{\sigma}$ denotes the inverse of $\sigma$.
+    \item Example: $n=2$, $k=2$. Let $T=e_1^*\otimes e_2^*\in\lin[2]{V}$. Let $\sigma=\tau_{1,2}$. Then $T^\sigma=e_2^*\otimes e_1^*$.
+    \item Another property is $e_I^\sigma=e_{\sigma(I)}^*$.
+    \item Properties:
+    \begin{enumerate}
+        \item $T^{\sigma_1\sigma_2}=(T^{\sigma_1})^{\sigma_2}$.
+        \item $(T_1+T_2)^\sigma=T_1^\sigma+T_2^\sigma$.
+        \item $(cT)^\sigma=cT^\sigma$.
+    \end{enumerate}
+    \item Thus, you can view $\sigma:\lin[k]{V}\to\lin[k]{V}$ as a linear map!
+    \item \textbf{Alternating $\bm{k}$-tensor}: A tensor $T\in\lin[k]{V}$ such that $T^\sigma=(-1)^\sigma T$ for all $\sigma\in S_k$.
+    \begin{itemize}
+        \item Equivalently, $T^\tau=-T$ for all $\tau\in S_k$.
+    \end{itemize}
+    \item An example of an alternating $2$-tensor when $\dim V=2$ is $T=e_1^*\otimes e_2^*-e_2^*\otimes e_1^*$.
+    \begin{itemize}
+        \item Naturally, $T^{\tau_{1,2}}=-T$, and $\tau_{1,2}$ is the unique transposition in $S_2$.
+    \end{itemize}
+    \item $e_1^*\otimes e_2^*$ is \emph{not} an alternating 2-tensor since $(e_1^*\otimes e_2^*)^\tau=e_2^*\otimes e_1^*\neq(-1)^\tau(e_1^*\otimes e_2^*)$.
+    \item We can look at $n=2$, $k=1$ for ourselves.
+    \item Note: If $T_1,T_2$ are both alternating $k$-tensors, then $T_1+T_2$ is also alternating, as is $cT_1$ for all $c\in\R$.
+    \item $\bm{\alt[k]{V}}$: The vector space of alternating $k$-tensors.
+    \item $\bm{\Alt(T)}$: The function $\Alt:\lin[k]{V}\to\lin[k]{V}$ defined by
+    \begin{equation*}
+        \Alt(T) = \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma
+    \end{equation*}
+    \item Properties:
+    \begin{enumerate}
+        \item $\im(\Alt)=\alt[k]{V}$.
+        \item $\lin[k]{V}/\ker(\Alt)=\lam[k]{V^*}$ is isomorphic to $\alt[k]{V}$.
+        \item $\Alt(T)^\sigma=(-1)^\sigma\Alt(T)$.
+        \begin{itemize}
+            \item Proof:
+            \begin{align*}
+                \Alt(T)^{\sigma'} &= \left( \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma \right)^{\sigma'}\\
+                &= \sum_{\sigma\in S_k}(-1)^\sigma T^{\sigma\sigma'}\\
+                &= (-1)^{\sigma'}\sum_{\sigma\in S_k}(-1)^{\sigma'}(-1)^\sigma T^{\sigma\sigma'}\\
+                &= (-1)^{\sigma'}\sum_{\sigma\in S_k}(-1)^{\sigma\sigma'}T^{\sigma\sigma'}\\
+                &= (-1)^{\sigma'}\Alt(T)
+            \end{align*}
+            \item The last equality holds because summing over all $\sigma$ is the same as summing over all $\sigma'\circ\sigma$.
+            \item This implies $\im(\Alt)\leq\alt[k]{V}$.
+        \end{itemize}
+        \item If $T\in\alt[k]{T}$, $\Alt(T)=k!T$.
+        \begin{itemize}
+            \item We have
+            \begin{align*}
+                \Alt(T) &= \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma\\
+                &= \sum_{\sigma\in S_k}(-1)^\sigma(-1)^\sigma T\\
+                &= \sum_{\sigma\in S_k}T\\
+                &= k!T
+            \end{align*}
+            where $T^\sigma=(-1)^\sigma T$ since $T\in\alt[k]{V}$ by definition.
+            \item This implies that $\im(\Alt)=\alt[k]{V}$: $\Alt(\frac{1}{k!}T)=T\in\alt[k]{V}$.
+        \end{itemize}
+        \item $\Alt(T^\sigma)=\Alt(T)^\sigma$.
+        \item $\Alt:\lin[k]{V}\to\lin[k]{V}$ is linear.
+    \end{enumerate}
+    \item Warning: Some people take $\Alt(T)=\frac{1}{k!}\sum_{\sigma\in S_k}(-1)^\sigma T^\sigma$\footnote{Klug prefers this convention, but the text takes the other one.}.
+    \item Example: $n=k=2$. We have
+    \begin{equation*}
+        \Alt(e_1^*\otimes e_2^*) = e_1^*\otimes e_2^*-e_2^*\otimes e_1^*
+    \end{equation*}
+    \item \textbf{Non-repeating} (multi-index $I$): A multi-index $I$ such that $i_{j_1}\neq i_{j_2}$ for all $j_1\neq j_2$.
+    \item \textbf{Increasing} (multi-index $I$): A multi-index $I$ such that $i_1<\cdots<i_k$.
+    \item Claim: $\{\Alt(e_I^*)\}$ where $I$ is non-repeating and increasing is a basis for $\alt[k]{V}$. There are $\binom{n}{k}$ of these; thus, $\dim\alt[k]{V}=\binom{n}{k}$.
+\end{itemize}
+
+
+
+\section{Redundant Tensors and Alternatization}
+\begin{itemize}
+    \item \marginnote{4/6:}Klug will be in Texas on Monday and thus is cancelling class on Monday. Homework is now due next Friday. We'll have weekly homeworks going forward after that.
+    \item Plan:
+    \begin{itemize}
+        \item $\Alt:\lin[k]{V}\twoheadrightarrow\alt[k]{V}$\footnote{The two-headed right arrow denotes a surjective map.}.
+        \item Goal: Identify $\ker(\Alt)=\ide[k]{V}$, where $\ide[k]{V}$ is the space of \textbf{redundant} $k$-tensors\footnote{The $\mathcal{I}$ in $\ide[k]{V}$ stands for "ideal."}.
+        \item Then: Operations on alternating tensors, e.g.,
+        \begin{itemize}
+            \item Wedge product.
+            \item Interior product.
+            \item Orientations.
+        \end{itemize}
+    \end{itemize}
+    \item Claim: $\{\Alt(e_I^*)\mid I\text{ non-repeating, increasing multi-index}\}$ is a basis for $\alt[k]{V}$.
+    \begin{itemize}
+        \item Left as an exercise to us.
+    \end{itemize}
+    \item \textbf{Redundant} ($k$-tensor): A $k$-tensor of the form
+    \begin{equation*}
+        \ell_1\otimes\cdots\otimes\ell_i\otimes\ell_i\otimes\ell_{i+2}\otimes\cdots\otimes\ell_k
+    \end{equation*}
+    where $\ell_1,\dots,\ell_k\in V^*$.
+    \item $\bm{\ide[k]{V}}$: The span of all redundant $k$-tensors.
+    \begin{itemize}
+        \item Note that not every $k$-tensor in $\ide[k]{V}$ is a redundant.
+    \end{itemize}
+    \item \textbf{Decomposable} ($k$-tensor): A $k$-tensor of the form $\ell_1\otimes\cdots\otimes\ell_k$ for $\ell_i\in\lin[1]{V}$.
+    \begin{itemize}
+        \item It often suffices to prove things for decomposable tensors.
+    \end{itemize}
+    \item Properties.
+    \begin{enumerate}
+        \item If $T\in\ide[k]{V}$, then $\Alt(T)=0$, i.e., $\ide[k]{V}\leq\ker(\Alt)$.
+        \begin{itemize}
+            \item "Proof by example": If $T=\ell_1\otimes\ell_1\otimes\ell_2\otimes\ell_3$, then $T^{\tau_{1,2}}=T$. It follows from the properties of $\Alt$ that
+            \begin{align*}
+                \Alt(T) &= \Alt(T^{\tau_{1,2}})
+                = (-1)^{\tau_{1,2}}\Alt(T)
+                = -\Alt(T)\\
+                2\Alt(T) &= 0\\
+                \Alt(T) &= 0
+            \end{align*}
+        \end{itemize}
+        \item If $T\in\ide[r]{V}$ and $T'\in\lin[s]{V}$, then
+        \begin{equation*}
+            T\otimes T'\in\ide[r+s]{V}
+        \end{equation*}
+        Similarly, if $T\in\lin[r]{V}$ and $T\in\ide[s]{V}$, then
+        \begin{equation*}
+            T\otimes T'\in\ide[r+s]{V}
+        \end{equation*}
+        \begin{itemize}
+            \item Proof: It suffices to assume that $T$ is redundant. Obviously adding more tensors to the direct product will not change the redundancy of the initial tensor. Example: $\ell_1\otimes\ell_1\otimes\ell_2$ is just as redundant as $\ell_1\otimes\ell_1\otimes\ell_2\otimes T$.
+        \end{itemize}
+        \item If $T\in\lin[k]{V}$ and $\sigma\in S_k$, then
+        \begin{equation*}
+            T^\sigma = (-1)^\sigma T+S
+        \end{equation*}
+        for some $S\in\ide[k]{V}$.
+        \begin{itemize}
+            \item Proof by example: It suffices to check this for decomposable tensors (a tensor is just a sum of decomposable tensors). Take $k=2$. Let $T=\ell_1\otimes\ell_2$. Let $\sigma=\tau_{1,2}$. Then
+            \begin{equation*}
+                T^\sigma-(-1)^\sigma T = \ell_2\otimes\ell_1+\ell_1\otimes\ell_2
+                = (\ell_1+\ell_2)\otimes(\ell_1+\ell_2)-\ell_1\otimes\ell_1-\ell_2\otimes\ell_2
+            \end{equation*}
+            \item Actual proof: It suffices to assume $T$ is decomposable. We induct on the number of transpositions needed to write $\sigma$ as a product of \textbf{adjacent} transpositions.
+            \item Base case: $\sigma=\tau_{i,i+1}$. Then
+            \begin{equation*}
+                \begin{split}
+                    T^{\tau_{i,i+1}}+T ={}& \ell_1\otimes\cdots\otimes(\ell_i+\ell_{i+1})\otimes(\ell_i+\ell_{i+1})\otimes\cdots\otimes\ell_k\\
+                    &-\ell_1\otimes\cdots\otimes\ell_i\otimes\ell_i\otimes\cdots\otimes\ell_k\\
+                    &-\ell_1\otimes\cdots\otimes\ell_{i+1}\otimes\ell_{i+1}\otimes\cdots\otimes\ell_k
+                \end{split}
+            \end{equation*}
+            \item Inductive step: If $\sigma=\beta\tau$, then
+            \begin{align*}
+                T^\sigma &= T^{\beta\tau}\\
+                &= (-1)^\tau T^\beta+\text{stuff in }\ide[k]{V}\\
+                &= (-1)^\tau[(-1)^\beta T+\text{stuff in }\ide[k]{V}]+\text{stuff in }\ide[k]{V}
+            \end{align*}
+        \end{itemize}
+        \item If $T\in\lin[k]{V}$, then
+        \begin{equation*}
+            \Alt(T) = k!T+W
+        \end{equation*}
+        for some $W\in\ide[k]{V}$.
+        \begin{itemize}
+            \item We have that
+            \begin{align*}
+                \Alt(T) &= \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma\\
+                &= \sum_{\sigma\in S_k}(-1)^\sigma[(-1)^\sigma T+S_\sigma]\\
+                &= \sum_{\sigma\in S_k}T+\sum_{\sigma\in S_k}(-1)^\sigma S_\sigma\\
+                &= k!T+W
+            \end{align*}
+        \end{itemize}
+        \item $\ide[k]{V}=\ker(\Alt)$.
+        \begin{itemize}
+            \item We have that $\ide[k]{V}\leq\ker(\Alt)$ by property 1.
+            \item Now suppose $T\in\ker(\Alt)$. Then $\Alt(T)=0$. Then by property 4,
+            \begin{align*}
+                \Alt(T) &= k!T+W\\
+                0 &= k!T+W\\
+                T &= -\frac{1}{k!}W \in \ide[k]{V}
+            \end{align*}
+        \end{itemize}
+    \end{enumerate}
+    \item Warning: If $T\in\alt[r]{V}$ and $T'\in\alt[s]{V}$, then we do not necessarily have $T\otimes T'\in\alt[r+s]{V}$.
+    \begin{itemize}
+        \item Example: $e_1^*,e_2^*\in\alt[1]{V}$ have $e_1^*\otimes e_2^*\notin\alt[2]{V}$.
+    \end{itemize}
+    \item \textbf{Adjacent} (transposition): A transposition of the form $\tau_{i,i+1}$.
+\end{itemize}
+
+
+
+\section{The Wedge Product}
+\begin{itemize}
+    \item \marginnote{4/8:}Recall that $\alt[k]{V}\hookrightarrow\lin[k]{V}$\footnote{The hooked right arrow denotes an injective map.}
+    \item Functoriality: $(A\circ B)^*=B^*\circ A^*$.
+    \begin{itemize}
+        \item $A^*$ takes $\lin[k]{W}\to\lin[k]{V}$ and $\alt[k]{W}\to\alt[k]{V}$.
+    \end{itemize}
+    \item $\dim(\lam[k]{V})=\binom{n}{k}$.
+    \begin{itemize}
+        \item Special case $k=n$: $\dim\lam[n]{V}=1$.
+        \item If $A:V\to V$ induces a map $\lam[n]{V^*}\to\lam[n]{V^*}$ defined by the determinant.
+    \end{itemize}
+    \item Aside: $\lam[k]{V}$ is "exterior powers."
+    \item Plan: Wedge products + basis for $\lam[k]{V}$.
+    \item \textbf{Wedge product}: A function $\wedge:\lam[k]{V^*}\times\lam[\ell]{V^*}\to\lam[k+\ell]{V}$. 
+    \begin{itemize}
+        \item We denote elements of $\lam[k]{V^*}$ by $\omega_1,\omega_2$, etc.
+    \end{itemize}
+    \item If $\pi:\lin[k]{V}\to\lam[k]{V^*}$ sends $T\mapsto\omega$, $\omega_1=\pi(T_1)$, and $\omega_2=\pi(T_2)$, then $\omega_1\wedge\omega_2=\pi(T_1\otimes T_2)$.
+    \begin{itemize}
+        \item Note that $\ker(\pi)=\ide[k]{V}$.
+    \end{itemize}
+    \item Properties.
+    \begin{enumerate}
+        \item This is well defined, i.e., this does not depend on the choice of $T_1,T_2$.
+        \begin{itemize}
+            \item Consider $T_1+W_1,T_2+W_2$ with $W_1,W_2\in\ide[k]{V}$.
+            \item We check that $\pi[(T_1+W_1)\otimes(T_2+W_2)]=\pi(T_1\otimes T_2)$.
+            \item Since $W_1\otimes T_2,T_1\otimes W_2,W_1\otimes W_2\in\ide[k+\ell]{V}$, we have that
+            \begin{align*}
+                \pi[(T_1+W_1)\otimes(T_2+W_2)] &= \pi(T_1\otimes T_2+W_1\otimes T_2+T_1\otimes W_2+W_1\otimes W_2)\\
+                &= \pi(T_1\otimes T_2)+\pi(W_1\otimes T_2)+\pi(T_1\otimes W_2)+\pi(W_1\otimes W_2)\\
+                &= \pi(T_1\otimes T_2)
+            \end{align*}
+        \end{itemize}
+        \item Associative: We have that
+        \begin{equation*}
+            \omega_1\wedge(\omega_2\wedge\omega_3)=(\omega_1\wedge\omega_2)\wedge\omega_3=\omega_1\wedge\omega_2\wedge\omega_3
+        \end{equation*}
+        \begin{itemize}
+            \item Follows from the definition of $\wedge$ in terms of $\pi$ and properties of the tensor product.
+        \end{itemize}
+        \item Distributive: We have that
+        \begin{align*}
+            (\omega_1+\omega_2)\wedge\omega_3 &= \omega_1\wedge\omega_3+\omega_2\wedge\omega_3&
+            \omega_1\wedge(\omega_2+\omega_3) &= \omega_1\wedge\omega_2+\omega_1\wedge\omega_3
+        \end{align*}
+        \begin{itemize}
+            \item Follows from the definition of $\wedge$ in terms of $\pi$ and properties of the tensor product.
+        \end{itemize}
+        \item Linear: We have that
+        \begin{equation*}
+            (c\omega_1)\wedge\omega_2 = c(\omega_1\wedge\omega_2)
+            = \omega_1\wedge(c\omega_2)
+        \end{equation*}
+        \begin{itemize}
+            \item Follows from the definition of $\wedge$ in terms of $\pi$ and properties of the tensor product.
+        \end{itemize}
+        \item Anticommutative: We have that
+        \begin{equation*}
+            \omega_1\wedge\omega_2 = (-1)^{k\ell}\omega_2\wedge\omega_1
+        \end{equation*}
+        \begin{itemize}
+            \item It suffices to assume that $w_1=\ell_1\wedge\cdots\wedge\ell_k,w_2=\ell_1'\wedge\cdots\wedge\ell_\ell'$.
+            \begin{itemize}
+                \item We have
+                \begin{align*}
+                    (\ell_1\wedge\cdots\wedge\ell_k)\wedge(\ell_1'\wedge\cdots\wedge\ell_\ell') = (-1)^k(\ell_1'\wedge\cdots\wedge\ell_\ell')\wedge(\ell_1\wedge\cdots\wedge\ell_k)
+                \end{align*}
+            \end{itemize}
+            \item Let $\ell_1,\dots,\ell_k\in\lam[1]{V^*}=V^*=\lin[1]{V}$.
+            \item Recall that $\ide[1]{V}=\{0\}$.
+            \item Claim: $\ell_{\sigma(1)}\wedge\cdots\wedge\ell_{\sigma(k)}=(-1)^\sigma\ell_1\wedge\cdots\wedge\ell_k$ for all $\sigma\in S_k$.
+            \begin{itemize}
+                \item Recall that $T^\sigma=(-1)^\sigma T+W$ for some $W\in\ide[k]{V}$.
+                \item Let $T=\ell_1\otimes\cdots\otimes\ell_k$.
+                \item Then
+                \begin{align*}
+                    (\ell_1\otimes\cdots\otimes\ell_k)^\sigma &= \ell_{\sigma(1)}\otimes\cdots\otimes\ell_{\sigma(k)}\\
+                    &= (-1)^\sigma\ell_1\otimes\cdots\otimes\ell_k+W
+                \end{align*}
+                \item Then hit both sides by $\pi$, noting that $\pi(W)=0$.
+            \end{itemize}
+        \end{itemize}
+    \end{enumerate}
+    \item Example:
+    \begin{enumerate}
+        \item $n=2$, $k=\ell=1$. Consider $e_1^*,e_2^*\in\lin[1]{V}=V^*=\alt[1]{V}=\lam[1]{V^*}$. Then
+        \begin{align*}
+            e_1^*\wedge e_2^* &= (-1)e_2^*\wedge e_1^*&
+            e_1^*\wedge e_1^* &= 0 = e_2^*\wedge e_2^*
+        \end{align*}
+        \item $n=4$. We have $e_1^*\wedge(3e_1^*+2e_2^*+3e_2^*)=3(e_1^*\wedge e_1^*)+2(e_1^*\wedge e_2^*)+3(e_1^*\wedge e_3^*)$. We also have $(e_1^*\wedge e_2^*)\wedge(e_1^*\wedge e_2^*)=0$.
+    \end{enumerate}
+\end{itemize}
+
+
+
+\section{Chapter 1: Multilinear Algebra}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{4/14:}Having discussed $\im(\Alt)=\alt[k]{V}$ in some detail now, we move onto $\ker(\Alt)$.
+    \item \textbf{Redundant} (decomposable $k$-tensor): A decomposable $k$-tensor $\ell_1\otimes\cdots\otimes\ell_k$ such that for some $i\in[k-1]$, $\ell_i=\ell_{i+1}$.
+    \item $\bm{\ide[k]{V}}$: The linear span of the set of redundant $k$-tensors.
+    \item Convention: There are no redundant 1-tensors. Mathematically, we define
+    \begin{equation*}
+        \ide[1]{V} = 0
+    \end{equation*}
+    \item Proposition 1.5.2: $T\in\ide[k]{V}$ implies $\Alt(T)=0$.
+    \begin{proof}
+        Let $T=\ell_1\otimes\cdots\otimes\ell_k$ with $\ell_i=\ell_{i+1}$. Then if $\sigma=\tau_{i,i+1}$, we have that $T^\sigma=T$ and $(-1)^\sigma=-1$. Therefore,
+        \begin{align*}
+            \Alt(T) &= \Alt(T^\sigma)\\
+            &= \Alt(T)^\sigma\tag*{Proposition 1.4.17(3)}\\
+            &= (-1)^\sigma\Alt(T)\tag*{Proposition 1.4.17(1)}\\
+            &= -\Alt(T)
+        \end{align*}
+        so we must have that $\Alt(T)=0$, as desired.
+    \end{proof}
+    \item Proposition 1.5.3: $T\in\ide[r]{V}$ and $T'\in\lin[s]{V}$ imply $T\otimes T',T'\otimes T\in\ide[r+s]{V}$.
+    \begin{proof}
+        We first justify why we need only prove this claim for $T'$ decomposable. As an element of $\lin[s]{V}$, we know that $T'=\sum a_Ie_I^*$ for some set of $a_I\in\R$. Since each $e_I^*$ is decomposable, this means that $T'$ is a linear combination of decomposable tensors. This combined with the fact that the tensor product is linear means that
+        \begin{equation*}
+            T\otimes T' = T\otimes\sum a_Ie_I^*
+            = \sum a_I(T\otimes e_I^*)
+        \end{equation*}
+        and similarly for $T'\otimes T$. Thus, if we can prove that each $T\otimes e_I^*\in\ide[r+s]{V}$, it will follow since $\ide[k]{V}$ is a vector space that $\sum a_I(T\otimes e_I^*)=T\otimes T'\in\ide[r+s]{V}$. In other words, we need only prove that $T\otimes T'\in\ide[r+s]{V}$ for $T'$ decomposable, as desired.\par
+        Let $T=\ell_1\otimes\cdots\otimes\ell_r$ with $\ell_i=\ell_{i+1}$, and let $T'=\ell_1'\otimes\cdots\otimes\ell_s'$. It follows that
+        \begin{equation*}
+            T\otimes T' = (\ell_1\otimes\cdots\otimes\ell_i\otimes\ell_{i+1}\otimes\cdots\otimes\ell_r)\otimes(\ell_1'\otimes\cdots\otimes\ell_s')
+        \end{equation*}
+        is redundant and hence in $\ide[r+s]{V}$, as desired. The argument is symmetric for $T'\otimes T$.
+    \end{proof}
+    \item Proposition 1.5.4: $T\in\lin[k]{V}$ and $\sigma\in S_k$ imply
+    \begin{equation*}
+        T^\sigma = (-1)^\sigma T+S
+    \end{equation*}
+    where $S\in\ide[k]{V}$.
+    \begin{proof}
+        As with Proposition 1.5.3, the linearity of $\sigma:\lin[k]{V}\to\lin[k]{V}$ allows us to assume that $T$ is decomposable.\par
+        By Theorem 1.4.5, $\sigma$ can be written as a product of $m$ elementary transpositions. To prove the claim, we induct on $m$.\par
+        For the base case $m=1$, let $\sigma=\tau_{i,i+1}$. If $T_1=\ell_1\otimes\cdots\otimes\ell_{i-1}$ and $T_2=\ell_{i+2}\otimes\cdots\otimes\ell_k$, then
+        \begin{align*}
+            T^\sigma-(-1)^\sigma T &= T_1\otimes(\ell_{i+1}\otimes\ell_i\pm\ell_i\otimes\ell_{i+1})\otimes T_2\\
+            &= T_1\otimes[(\ell_i+\ell_{i+1})\otimes(\ell_i+\ell_{i+1})\mp\ell_i\otimes\ell_i\mp\ell_{i+1}\otimes\ell_{i+1}]\otimes T_2
+        \end{align*}
+        i.e., $T^\sigma-(-1)^\sigma T$ is the sum of three redundant $k$-tensors, and thus a redundant $k$-tensor in and of itself, as desired. Note that even though only the middle portion is explicitly redundant, Proposition 1.5.3 allows us to call the whole tensor product redundant.\par
+        Now suppose inductively that we have proven the claim for $m-1$. Let $\sigma=\tau\beta$ where $\beta$ is the product of $m-1$ elementary transpositions and $\tau$ is an elementary transposition. Then
+        \begin{align*}
+            T^\sigma &= (T^\beta)^\tau\tag*{Proposition 1.4.14(3)}\\
+            &= (-1)^\tau T^\beta+\cdots\tag*{Base case}\\
+            &= (-1)^\tau(-1)^\beta T+\cdots\tag*{Inductive hypothesis}\\
+            &= (-1)^\sigma T+\cdots\tag*{Claim 1.4.9}
+        \end{align*}
+        where the dots are elements of $\ide[k]{V}$.
+    \end{proof}
+    \item Corollary 1.5.6: $T\in\lin[k]{V}$ implies
+    \begin{equation*}
+        \Alt(T) = k!T+W
+    \end{equation*}
+    where $W\in\ide[k]{V}$.
+    \begin{proof}
+        By definition,
+        \begin{equation*}
+            \Alt(T) = \sum_{\sigma\in S_k}(-1)^\sigma T^\sigma
+        \end{equation*}
+        By Proposition 1.5.4,
+        \begin{equation*}
+            T^\sigma = (-1)^\sigma T+W_\sigma
+        \end{equation*}
+        for all $\sigma\in S_k$ with each $W_\sigma\in\ide[k]{V}$. It follows by combining the above two results that
+        \begin{equation*}
+            \Alt(T) = \sum_{\sigma\in S_k}(-1)^\sigma[(-1)^\sigma T+W_\sigma]
+            = \sum_{\sigma\in S_k}T+\sum_{\sigma\in S_k}(-1)^\sigma W_\sigma
+            = k!T+W
+        \end{equation*}
+        where $W=\sum_{\sigma\in S_k}(-1)^\sigma W_\sigma$ is an element of $\ide[k]{V}$ as a linear combination of elements of $\ide[k]{V}$.
+    \end{proof}
+    \item Corollary 1.5.8: Let $V$ be a vector space and $k\geq 1$. Then
+    \begin{equation*}
+        \ide[k]{V} = \ker(\Alt:\lin[k]{V}\to\alt[k]{V})
+    \end{equation*}
+    \begin{proof}
+        Suppose first that $T\in\ide[k]{V}$. Then by Proposition 1.5.2, $\Alt(T)=0$, so $T\in\ker(\Alt)$, as desired.\par
+        Now suppose that $T\in\ker(\Alt)$. Then $\Alt(T)=0$, so by Corollary 1.5.6,
+        \begin{align*}
+            0 &= k!T+W\\
+            T &= -\frac{1}{k!}W
+        \end{align*}
+        Therefore, as a scalar multiple of an element of $\ide[k]{V}$, $T\in\ide[k]{V}$.
+    \end{proof}
+    \item Theorem 1.5.9: Every $T\in\lin[k]{V}$ has a unique decomposition $T=T_1+T_2$ where $T_1\in\alt[k]{V}$ and $T_2\in\ide[k]{V}$.
+    \begin{proof}
+        By Corollary 1.5.6, we have that
+        \begin{align*}
+            \Alt(T) &= k!T+W\\
+            T &= \underbrace{\left( \frac{1}{k!}\Alt(T) \right)}_{T_1}+\underbrace{\left( -\frac{1}{k!}W \right)}_{T_2}
+        \end{align*}
+        As to uniqueness, suppose $0=T_1+T_2$ where $T_1\in\alt[k]{V}$ and $T_2\in\ide[k]{V}$. Then
+        \begin{align*}
+            0 &= \Alt(0)
+                = \Alt(T_1+T_2)
+                = \Alt(T_1)+\Alt(T_2)
+                = k!T_1+0
+                = k!T_1\\
+            T_1 &= 0
+        \end{align*}
+        so $T_2=0$, too.
+    \end{proof}
+    \item $\bm{\lam[k]{V^*}}$: The quotient of the vector space $\lin[k]{V}$ by the subspace $\ide[k]{V}$. \emph{Given by}
+    \begin{equation*}
+        \lam[k]{V^*} = \lin[k]{V}/\ide[k]{V}
+    \end{equation*}
+    \item The quotient map $\pi:\lin[k]{V}\to\lam[k]{V^*}$ defined by $T\mapsto T+\ide[k]{V}$ is onto and has $\ker(\pi)=\ide[k]{V}$.
+    \item Theorem 1.5.13: $\pi:\lin[k]{V}\to\lam[k]{V^*}$ maps $\alt[k]{V}$ bijectively onto $\lam[k]{V^*}$.
+    \begin{proof}
+        Theorem 1.5.9 implies that every $T+\ide[k]{V}$ contains a unique $T_1\in\alt[k]{V}$. Thus, for every element of $\lam[k]{V^*}$, there is a unique element of $\alt[k]{V}$ which gets mapped onto it by $\pi$.
+    \end{proof}
+    \item Note that since $\alt[k]{V}$ and $\lam[k]{V}$ are in bijective correspondence, many texts do not distinguish between them. There are some advantages to making the distinction, though.
+    \item The tensor product and pullback operatios give rise to similar operations on the spaces $\lam[k]{V^*}$.
+    \item \textbf{Wedge product}: The function $\wedge:\lam[k_1]{V^*}\times\lam[k_2]{V^*}\to\lam[k_1+k_2]{V^*}$ defined by
+    \begin{equation*}
+        \omega_1\wedge\omega_2 = \pi(T_1\otimes T_2)
+    \end{equation*}
+    where for $i=1,2$, $\omega_i\in\lam[k_i]{V^*}$, and $\omega_i=\pi(T_i)$ for some $T_i\in\lin[k_i]{V}$.
+    \begin{itemize}
+        \item Note that it is Theorem 1.5.13 that allows us to find $T_i$ such that $\omega_i=\pi(T_i)$.
+    \end{itemize}
+    \item Claim 1.6.3: The wedge product is well-defined, i.e., it does not depend on our choices of $T_i$.
+    \begin{proof}
+        We prove WLOG that $\wedge$ is well defined with respect to $T_1$. Suppose $\omega_1=\pi(T_1)=\pi(T_1')$. Then by the definition of the quotient map, $T_1'=T_1+W_1$ for some $W_1\in\ide[k_1]{V}$. But this means that
+        \begin{equation*}
+            T_1'\otimes T_2 = (T_1+W_1)\otimes T_2
+            = T_1\otimes T_2+W_1\otimes T_2
+        \end{equation*}
+        where $W_1\otimes T_2\in\ide[k_1+k_2]{V}$ by Proposition 1.5.3. It follows that
+        \begin{equation*}
+            \pi(T_1'\otimes T_2) = \pi(T_1\otimes T_2)
+        \end{equation*}
+    \end{proof}
+    \item The wedge product also generalizes to higher orders, obeying associativity, scalar multiplication, and distributivity.
+    \item \textbf{Decomposable element} (of $\lam[k]{V^*}$): An element of $\lam[k]{V^*}$ of the form $\ell_1\wedge\cdots\wedge\ell_k$ where $\ell_1,\dots,\ell_k\in V^*$.
+    \item Claim 1.6.8: The following wedge product identity holds for decomposable elements of $\lam[k]{V^*}$.
+    \begin{equation*}
+        \ell_{\sigma(1)}\wedge\cdots\wedge\ell_{\sigma(k)} = (-1)^\sigma\ell_1\wedge\cdots\wedge\ell_k
+    \end{equation*}
+    \begin{proof}
+        Let $T=\ell_1\otimes\cdots\otimes\ell_k$. It follows by Proposition 1.4.14(1) that $T^\sigma=\ell_{\sigma(1)}\otimes\cdots\otimes\ell_{\sigma(k)}$. Therefore, we have that
+        \begin{align*}
+            \ell_{\sigma(1)}\wedge\cdots\wedge\ell_{\sigma(k)} &= \pi(\ell_{\sigma(1)}\otimes\cdots\otimes\ell_{\sigma(k)})\\
+            &= \pi(T^\sigma)\\
+            &= \pi[(-1)^\sigma T+W]\\
+            &= (-1)^\sigma\pi(T)\\
+            &= (-1)^\sigma\pi(\ell_1\otimes\cdots\otimes\ell_k)\\
+            &= (-1)^\sigma\ell_1\wedge\cdots\wedge\ell_k
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item An important consequence of Claim 1.6.8 is that
+    \begin{equation*}
+        \ell_1\wedge\ell_2 = -\ell_2\wedge\ell_1
+    \end{equation*}
+    \item Theorem 1.6.10: If $\omega_1\in\lam[r]{V^*}$ and $\omega_2\in\lam[s]{V^*}$, then
+    \begin{equation*}
+        \omega_1\wedge\omega_2 = (-1)^{rs}\omega_2\wedge\omega_1
+    \end{equation*}
+    \begin{itemize}
+        \item This can be deduced from Claim 1.6.8.
+        \item Hint: It suffices to prove this for decomposable elements, i.e., for $\omega_1=\ell_1\wedge\cdots\wedge\ell_r$ and $\omega_2=\ell_1'\wedge\cdots\wedge\ell_s'$.
+    \end{itemize}
+    \item Theorem 1.6.13: The elements
+    \begin{equation*}
+        e_{i_1}^*\wedge\cdots\wedge e_{i_k}^* = \pi(e_I^*) = \pi(e_{i_1}^*\otimes\cdots\otimes e_{i_k}^*)
+    \end{equation*}
+    with $I$ strictly increasing are basis vectors of $\lam[k]{V^*}$.
+    \begin{proof}
+        Follows from the facts that the $\psi_I$ for $I$ strictly increasing constitute a basis of $\alt[k]{V}$ by Proposition 1.4.26 and $\pi$ is an isomorphism $\alt[k]{V}\to\lam[k]{V^*}$.
+    \end{proof}
+\end{itemize}
+
+
+
+
+\end{document}

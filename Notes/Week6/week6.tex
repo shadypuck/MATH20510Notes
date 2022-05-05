@@ -1,0 +1,124 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+\setcounter{chapter}{5}
+
+\begin{document}
+
+
+
+
+\chapter{Operations on Forms}
+\section{The Pullback}
+\begin{itemize}
+    \item \marginnote{5/4:}Klug got his flight to his wedding paid for by giving a talk at a nearby institution!
+    \item Homework 3 now due Monday (the stuff will be on the exam though).
+    \item Office hours today from 5:00-6:00.
+    \item Exam Friday.
+    \item Next week will be Chapter 3.
+    \begin{itemize}
+        \item Integration of top-dimensional forms, i.e., if we're in 2D space, we'll integrate 2D forms; in 3D space, we'll integrate 3D forms, etc.
+    \end{itemize}
+    \item Pullbacks of $k$-forms.
+    \begin{itemize}
+        \item Let $F:U\to V$ be smooth where $U\subset\R^n$ and $V\subset\R^m$.
+        \item This induces $F^*:\ome[k]{V}\to\ome[k]{U}$.
+        \item We have $\dd{F_p}:T_p\R^n\to T_{F(p)}\R^m$, which also induces $\dd{F_p^*}:\lam[k]{T_{F(p)}^*\R^m}\to\lam[k]{T_p^*\R^n}$.
+        \item Note that $F^*$ maps $\omega\mapsto F^*\omega$ where $F^*\omega_p=\dd{F_p^*\omega_{F(p)}}$.
+    \end{itemize}
+    \item In formulas\dots
+    \begin{align*}
+        \omega &= \sum_I\varphi_I\dd{x_I}&
+        F^*\omega &= \sum_IF^*\varphi_I\dd{F_I}
+    \end{align*}
+    \begin{itemize}
+        \item $\varphi_I$ is just a function.
+        \item Recall that $F^*\varphi_I=\varphi_I\circ F:U\to\R$.
+        \item If $I=(i_1,\dots,i_k)$, then $\dd{F_I}=\dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}$.
+        \item Recall that $F_{i_j}:U\to\R$ sends $x\mapsto x_{i_j}$ (the component of $F$).
+        \item There is a derivation that gets you from the above abstract definition of the pullback to the below concrete form.
+    \end{itemize}
+    \item Note that $\dd{F_p}$ is the kind of thing we worked on last quarter?
+    \item Properties of the pullback (let $U\xrightarrow{F}V\xrightarrow{G}W$).
+    \begin{enumerate}
+        \item $F^*$ is linear.
+        \item $F^*(\omega_1\wedge\omega_2)=F^*\omega_1\wedge F^*\omega_2$.
+        \item $(F\circ G)^*=G^*\circ F^*$.
+        \item $\dd\circ F^*=F^*\circ\dd$.
+        \emph{picture; Commutative diagram}
+    \end{enumerate}
+    \item Properties 1-3 follow from our Chapter 1 pointwise properties.
+    \begin{itemize}
+        \item They also yield the explicit formula for $F^*\omega$ given above.
+    \end{itemize}
+    \item Property 4:
+    \begin{itemize}
+        \item First: Recall that the following diagram holds.
+        \emph{picture}
+        \item Check: $\dd{F_I}=F^*\dd{x_I}$ where $\dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}$ where $I=(i_1,\dots,i_k)$.
+        \item Now we prove the property by taking
+        \begin{align*}
+            \dd{F_I} &= F^*(\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_k}})\\
+            &= F^*\dd{x_{i_1}}\wedge\cdots\wedge F^*\dd{x_{i_k}}\tag*{Property 2}\\
+            &= \dd(F^*x_{i_1})\wedge\cdots\wedge\dd{(F^*x_{i_k})}\\
+            &= \dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}
+        \end{align*}
+        \item Now we have that if $\omega=\sum_I\varphi_I\dd{x_I}$, then
+        \begin{align*}
+            \dd(F^*\omega) &= \dd(\sum_IF^*\varphi_I\dd{F_I})\\
+            &= \sum_I\dd(F^*\varphi_I\wedge\dd{F_I})\\
+            &= \sum_I\dd(F^*\varphi_I)\wedge\dd{F_I}\\
+            &= \sum_IF^*\dd{\varphi_I}\wedge F^*\dd{x_I}\\
+            &= \sum_IF^*(\dd{\varphi_I}\wedge\dd{x_I})\\
+            &= F^*\left( \sum_I\dd{\varphi_I}\wedge\dd{x_I} \right)\\
+            &= F^*\dd{\omega}
+        \end{align*}
+        where the second equality holds by the linearity of $\dd$ and we insert the wedge because multiplication is the same as wedging a zero-form, the third equality holds by the product rule $\dd^2=0$, the fourth equality holds because $\dd$ and $F^*$ commute for 0-forms, and the fifth equality holds by Property 2.
+    \end{itemize}
+    \item $\dd^2=0$ generalizes curl and all of those identities.
+    \item Two other operations.
+    \item \textbf{Interior product}: Given $v$ a vector field on $U$, we have $\iota_v:\ome[k]{U}\to\ome[k-1]{U}$ that sends $\omega\mapsto\iota_v\omega$.
+    \begin{itemize}
+        \item Its properties follow from the properties of the pointwise stuff.
+        \begin{enumerate}
+            \item $\iota_v(\omega_1+\omega_2)=\iota_v\omega_1+\iota_v\omega_2$.
+            \item $\iota_v(\omega_1\wedge\omega_2)=\cdots$.
+            \item $\iota_v\circ\iota_w=-\iota_w\circ\iota_v$.
+        \end{enumerate}
+    \end{itemize}
+    \item \textbf{Lie derivative}: If $v$ is a vector field on $U$, then $L_v:\ome[k]{U}\to\ome[k]{U}$ sends $\omega\mapsto\dd{\iota_v\omega}+\iota_v\dd{\omega}$.
+    \begin{itemize}
+        \item Note that we use $\iota$ to drop the index and $\dd$ to raise it back up, and then vice versa.
+    \end{itemize}
+    \item Check: Agrees with previous definition for $\Omega^0$.
+    \item Cartan's magic formula is what we're taking to be the definition of the Lie derivative.
+    \item Properties.
+    \begin{enumerate}
+        \item $L_v\circ\dd=\dd\circ L_v$.
+        \item $L_v(\omega\wedge\eta)=L_v\omega\wedge\eta+\omega\wedge L_v\eta$.
+        \begin{itemize}
+            \item Proof:
+            \begin{align*}
+                \dd(\iota_v\dd+\dd\iota_v) &= \dd\iota_v\dd\\
+                &= \iota_v(\iota_v\dd+\dd\iota_v)
+            \end{align*}
+        \end{itemize}
+    \end{enumerate}
+    \item We should find an explicit formula for the Lie derivative.
+    \begin{itemize}
+        \item Your vector field will be of the form
+        \begin{equation*}
+            v = \sum f_i\pdv*{x_i}
+        \end{equation*}
+        \item Your form will be of the form
+        \begin{equation*}
+            \omega = \sum\varphi_I\dd{x_I}
+        \end{equation*}
+    \end{itemize}
+\end{itemize}
+
+
+
+
+\end{document}

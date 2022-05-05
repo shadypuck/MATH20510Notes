@@ -1,0 +1,403 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+\setcounter{chapter}{2}
+
+\begin{document}
+
+
+
+
+\chapter{Multilinear Spaces, Operations, and Conventions}
+\section{Exterior Powers Basis and the Determinant}
+\begin{itemize}
+    \item \marginnote{4/13:}Plan:
+    \begin{itemize}
+        \item Finish multilinear algebra.
+        \item Basis for $\lam[k]{V^*}$.
+        \item Talk a bit about pullbacks and the determinant.
+        \item \textbf{Orientations} of vector spaces.
+        \item The \textbf{interior product}.
+    \end{itemize}
+    \item Basis for $\lam[k]{V^*}$.
+    \begin{itemize}
+        \item Recall that $\{\Alt(e_I^*)\mid I\text{ is a nonrepeating, increasing partition of $n$ into $k$ parts}\}$ is a basis for $\alt[k]{V}$.
+    \end{itemize}
+    \item $\Alt$ is an isomorphism from $\lam[k]{V^*}$ to $\alt[k]{V}$.
+    \item If we have an injective map from $\alt[k]{V}$ to $\lin[k]{V}$ and $\pi$ a projection map from $\lin[k]{V}$ to the quotient space $\alt[k]{V^*}$ gives rise to $\pi|_{\alt[k]{V}}$.
+    \item Claim:
+    \begin{enumerate}
+        \item $\pi|_{\alt[k]{V}}$ is an isomorphism.
+        \item $\pi(\Alt(e_I^*))=k!\pi(e_I^*)$.
+    \end{enumerate}
+    (2) implies that $\{\pi(e_I^*)=e_{i_1}^*\wedge\cdots\wedge e_{i_k}^*,\ I\text{ non-repeating and increasing}\}$ is a basis for $\lam[k]{V^*}$.
+    \item Examples:
+    \begin{enumerate}
+        \item $n=2=\dim V$, $V=\R e_1\oplus\R e_2$.
+        \begin{itemize}
+            \item $\lam[0]{V^*}=\R$ since $\binom{n}{0}=1$.
+            \item $\lam[1]{V^*}=\R e_1^*\oplus\R e_2^*$ since $\binom{n}{1}=2$.
+            \item $\lam[2]{V^*}=\R e_1^*\wedge e_2^*$ since $\binom{n}{2}=1$.
+            \begin{itemize}
+                \item For the second to last one, note that $e_1^*\wedge e_2^*=-e_2^*\wedge e_1^*$.
+            \end{itemize}
+            \item $\lam[3]{V^*}=0$ since $\binom{2}{3}=0$.
+            \begin{itemize}
+                \item For the last one, note that all $e_1^*\wedge e_1^*\wedge e_2^*=0$.
+            \end{itemize}
+        \end{itemize}
+        \item $n=3$, $V=\R e_1\oplus\R e_2\oplus\R e_3$.
+        \begin{itemize}
+            \item $\binom{n}{0}=1$: $\lam[0]{V^*}=\R$.
+            \item $\binom{n}{1}=3$: $\lam[1]{V^*}=\R e_1^*\oplus\R e_2^*\oplus\R e_3^*$.
+            \item $\binom{n}{2}=3$: $\lam[2]{V^*}=\R e_1^*\wedge e_2^*\oplus\R e_2^*\wedge e_3^*\oplus\R e_1^*\wedge e_3^*$.
+            \item $\binom{n}{3}=1$: $\lam[3]{V^*}=\R e_1^*\wedge e_2^*\wedge e_3^*$.
+            \item $\binom{n}{m}=0$ ($m>n$): $\lam[m]{V^*}=\lam[4]{V^*}=0$.
+        \end{itemize}
+    \end{enumerate}
+    \item If $A:V\to W$, $\omega_1\in\lam[k]{W^*}$, $\omega_2\in\lam[\ell]{W^*}$, then
+    \begin{equation*}
+        A^*(\omega_1\wedge\omega_2) = A^*\omega_1\wedge A^*\omega_2
+    \end{equation*}
+    \item \textbf{Determinant}: Let $\dim V=n$. Let $A:V\to V$ be a linear transformation. This induces a pullback $A^*:\lam[n]{V^*}\to\lam[n]{V^*}$. The top exterior power $k=n$ implies $\binom{k}{n}=1$. We define $\det(A)$ to be the unique real number such that $A^*(v)=\det(A)v$.
+    \item This determinant is the one we know.
+    \begin{itemize}
+        \item $A^*$ sends $e_1^*\wedge\cdots\wedge e_n^*$ to $A^*e_1^*\wedge\cdots\wedge A^*e_n^*$ which equals $A^*(e_1^*\wedge\cdots\wedge e_n^*)$ or $\det(A)$
+    \end{itemize}
+    \item Sanity check.
+    \begin{enumerate}
+        \item $\det(\id)=1$.
+        \begin{itemize}
+            \item $\id(e_1^*\wedge\cdots\wedge e_n^*)=\id e_1^*\wedge\cdots\wedge\id e_n^*=1\cdot e_1^*\wedge\cdots\wedge e_n^*$.
+        \end{itemize}
+        \item If $A$ is not an isomorphism, then $\det(A)=0$.
+        \begin{itemize}
+            \item If $A$ is not an isomorphism, then there exists $v_1\in\ker A$ with $v_1\neq 0$. Let $v_1^*,\dots,v_n^*$ be a basis of $V^*$. So the pullback of this wedge is the wedge of the pullbacks, but $A^*v_1^*=0$, so
+            \begin{equation*}
+                A^*(v_1^*\wedge\cdots\wedge v_n^*) = (A^*v_1^*)\wedge\cdots\wedge(A^*v_n^*)
+                = 0\wedge\cdots\wedge(A^*v_n^*)
+                = 0
+                = 0\cdot v_1^*\wedge\cdots\wedge v_n^*
+            \end{equation*}
+        \end{itemize}
+        \item $\det(AB)=\det(A)\det(B)$.
+        \begin{itemize}
+            \item Let $A:V\to V$ and $B:V\to V$.
+            \item We have $(AB)^*=B^*A^*$; in particular, $n=k$, $V=W=U=V$.
+        \end{itemize}
+    \end{enumerate}
+    \item Recall: If we pick a basis for $V$, $e_1,\dots,e_n$.
+    \begin{itemize}
+        \item Implies $[a_{ij}]=[A]_{e_1,\dots,e_n}^{e_1,\dots,e_n}$.
+    \end{itemize}
+    \item Does $\det(A)=\det([a_{ij}])=\sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)}$?
+    \begin{itemize}
+        \item If $A:V\to V$, we know that $A^*:\lam[n]{V^*}\to\lam[n]{V^*}$ takes $e_1^*\wedge\cdots\wedge e_n^*\mapsto A^*(e_1^*\wedge\cdots\wedge e_n^*)$. We WTS
+        \begin{equation*}
+            A^*(e_1^*\wedge\cdots\wedge e_n^*) = \left[ \sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)} \right]e_1^*\wedge\cdots\wedge e_n^*
+        \end{equation*}
+        \item We have that
+        \begin{align*}
+            A^*(e_1^*\wedge\cdots\wedge e_n^*) &= A^*e_1^*\wedge\cdots\wedge A^*e_n^*\\
+            &= \left( \sum_{i_1=1}^na_{i_1,1}e_{i_1}^* \right)\wedge\cdots\wedge\left( \sum_{i_n=1}^na_{i_n,n}e_{i_n}^* \right)\\
+            &= \sum_{i_1,\dots,i_n}a_{i_1,1}\cdots a_{i_n,n}e_{i_1}^*\wedge\cdots\wedge e_{i_n}^*\\
+            &= \left[ \sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)} \right]e_1^*\wedge\cdots\wedge e_n^*
+        \end{align*}
+        where the sign arises from the need to reorder $e_{i_1}^*\wedge\cdots\wedge e_{i_n}^*$ and the antisymmetry of the wedge product.
+    \end{itemize}
+\end{itemize}
+
+
+
+\section{The Interior Product and Orientations}
+\begin{itemize}
+    \item \marginnote{4/15:}Plan:
+    \begin{itemize}
+        \item Orientations.
+        \item Interior product.
+    \end{itemize}
+    \item \textbf{Interior product}: We know that $\lam[k]{V^*}\cong\alt[k]{V}$. Fix $v\in V$. Define $\iota_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
+    \begin{itemize}
+        \item Wrong way: We take $\iota_v:\lin[k]{V}\to\lin[k-1]{V}$.
+        \begin{equation*}
+            T \mapsto \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_r,\dots,v_{k-1})
+        \end{equation*}
+        \item Right way: First define $\varphi_v:\alt[k]{V}\to\alt[k-1]{V}$ by
+        \begin{equation*}
+            T \mapsto T_v(v_1,\dots,v_{k-1})=T(v,v_1,\dots,v_{k-1})
+        \end{equation*}
+        \begin{itemize}
+            \item Check: $T_{v_1+v_2}=T_{v_1}+T_{v_2}$. $T_{\lambda v}=\lambda T_v$. $\varphi_v^{k-1}\circ\varphi_v^k=0$ implies $\varphi_v\circ\varphi_w=-\varphi_w\circ\varphi_v$.
+        \end{itemize}
+    \end{itemize}
+    \item Properties:
+    \begin{enumerate}
+        \setcounter{enumi}{-1}
+        \item $\iota_vT\in\lin[k-1]{V}$.
+        \item $\iota_v$ is a linear map. This is all happening in the set $\Hom(\lin[k]{V},\lin[k-1]{V})$.
+        \item $\iota_{v_1+v_2}=\iota_{v_1}+\iota_{v_2}$; $\iota_{\lambda v}=\lambda\iota_v$.
+        \item "Product rule": If $T_1\in\lin[p]{V}$ and $T_1\in\lin[q]{V}$, then $\iota_v(T_1\otimes T_2)=\iota_vT_1\otimes T_2+(-1)^pT_1\otimes\iota_vT_2$.
+        \item We have
+        \begin{equation*}
+            \iota_v(\ell_1\otimes\cdots\otimes\ell_k) = \sum_{r=1}^k(-1)^{r-1}\ell_r(v)\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k
+        \end{equation*}
+        \item $\iota_v\circ\iota_v=0\in\Hom(\lin[k]{V},\lin[k-2]{V})$.
+        \begin{itemize}
+            \item Note that this is related to $d^2=0$ from the first day of class (alongside $\int_m\dd{w}=\int_{\partial m}w$).
+            \item Proof: We induct on $k$. It suffices to prove the result for $T$ decomposable.
+            \item Trivial base case for $k=1$.
+            \item We have that
+            \begin{align*}
+                (\iota_v\circ\iota_v)(\ell_1\otimes\cdots\otimes\ell_{k-1}\otimes\ell) &= \iota_v(\iota_vT\otimes\ell+(-1)^{k-1}\ell(v)T)\\
+                &= \iota_v(\iota_vT\otimes\ell)+(-1)^{k-1}\ell(v)\iota_vT\\
+                &= (-1)^{k-2}\ell(v)\iota_vT+(-1)^{k-1}\ell(v)\iota_vT\\
+                &= (-1)^{k-2}\ell(v)\iota_vT-(-1)^{k-2}\ell(v)\iota_vT\\
+                &= 0
+            \end{align*}
+        \end{itemize}
+        \item If $T\in\ide[k]{V}$, then $\iota_vT\in\ide[k-1]{V}$.
+        \begin{itemize}
+            \item Thus, $\iota_v$ induces a map $\iota_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
+            \item Proof: It suffices to check this for decomposables.
+        \end{itemize}
+        \item $\iota_{v_1}\circ\iota_{v_2}=-\iota_{v_2}\circ\iota_{v_1}$.
+    \end{enumerate}
+    \item Orientations:
+    \begin{itemize}
+        \item A vector space $V$ should have two orientations.
+        \item Two bases $e_1,\dots,e_n$ and $f_1,\dots,f_n$ are \textbf{orientation equivalent} if $T:V\to V$ an isomorphism has positive determinant. Otherwise, they are \textbf{orientation-inequivalent}.
+        \item An orientation on $V$ is a choice of equivalence classes of bases under the equivalence relation on bases.
+        \item $T:V\to W$ given orientations, $T$ preserves or reverses orientations.
+    \end{itemize}
+    \item Fancy orientations.
+    \begin{itemize}
+        \item An orientation on a 1D vector space $L$ is a division into two halves.
+        \item Def: An orientation of $V$ is an orientation of $\lam[n]{V^*}$.
+    \end{itemize}
+    \item We can prove that they're both the same.
+    \begin{itemize}
+        \item If $W$ and $V$ are both oriented, then $V/W$ gets a canonical orientation.
+    \end{itemize}
+\end{itemize}
+
+
+
+\section{Chapter 1: Multilinear Algebra}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{4/14:}$\bm{\iota_vT}$: The $(k-1)$-tensor defined by
+    \begin{equation*}
+        (\iota_vT)(v_1,\dots,v_{k-1}) = \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_{r-1},v,v_r,\dots,v_{k-1})
+    \end{equation*}
+    where $T\in\lin[k]{V}$, $k\in\N_0$, $V$ is a vector space, and $v\in V$.
+    \item If $v=v_1+v_2$, then
+    \begin{equation*}
+        \iota_vT = \iota_{v_1}T+\iota_{v_2}T
+    \end{equation*}
+    \item If $T=T_1+T_2$, then
+    \begin{equation*}
+        \iota_vT = \iota_vT_1+\iota_vT_2
+    \end{equation*}
+    \item Lemma 1.7.4: If $T=\ell_1\otimes\cdots\otimes\ell_k$, then
+    \begin{equation*}
+        \iota_vT = \sum_{r=1}^k(-1)^{r-1}\ell_r(v)\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k
+    \end{equation*}
+    where the hat over $\ell_r$ means that $\ell_r$ is deleted from the tensor product.
+    \item Lemma 1.7.6: $T_1\in\lin[p]{V}$ and $T_2\in\lin[q]{V}$ imply
+    \begin{equation*}
+        \iota_v(T_1\otimes T_2) = \iota_vT_1\otimes T_2+(-1)^pT_1\otimes\iota_vT_2
+    \end{equation*}
+    \item Lemma 1.7.8: $T\in\lin[k]{V}$ implies that for all $v\in V$, we have
+    \begin{equation*}
+        \iota_v(\iota_vT) = 0
+    \end{equation*}
+    \begin{proof}
+        It suffices by linearity to prove this for decomposable tensors. We induct on $k$. For the base case $k=1$, the claim is trivially true. Now suppose inductively that we have proven the claim for $k-1$. Consider $\ell_1\otimes\cdots\otimes\ell_k$. Taking $T=\ell_1\otimes\cdots\otimes\ell_{k-1}$ and $\ell=\ell_k$, we obtain
+        \begin{equation*}
+            \iota_v(\iota_v(T\otimes\ell)) = \iota_v(\iota_vT)\otimes\ell+(-1)^{k-2}\ell(v)\iota_vT+(-1)^{k-1}\ell(v)\iota_vT
+        \end{equation*}
+        The first term is zero by the inductive hypothesis, and the second two cancel each other out, as desired.
+    \end{proof}
+    \item Claim 1.7.10: For all $v_1,v_2\in V$, we have that
+    \begin{equation*}
+        \iota_{v_1}\iota_{v_2} = -\iota_{v_2}\iota_{v_1}
+    \end{equation*}
+    \begin{proof}
+        Let $v=v_1+v_2$. Then $\iota_v=\iota_{v_1}+\iota_{v_2}$. Therefore,
+        \begin{align*}
+            0 &= \iota_v\iota_v\tag*{Lemma 1.7.8}\\
+            &= (\iota_{v_1}+\iota_{v_2})(\iota_{v_1}+\iota_{v_2})\\
+            &= \iota_{v_1}\iota_{v_1}+\iota_{v_1}\iota_{v_2}+\iota_{v_2}\iota_{v_1}+\iota_{v_2}\iota_{v_2}\\
+            &= \iota_{v_1}\iota_{v_2}+\iota_{v_2}\iota_{v_1}\tag*{Lemma 1.7.8}
+        \end{align*}
+        yielding the desired result.
+    \end{proof}
+    \item Lemma 1.7.11: If $T\in\lin[k]{V}$ is redundant, then so is $\iota_vT$.
+    \begin{proof}
+        Let $T=T_1\otimes\ell\otimes\ell\otimes T_2$ where $\ell\in V^*$, $T_1\in\lin[p]{V}$, and $T_2\in\lin[q]{V}$. By Lemma 1.7.6, we have that
+        \begin{equation*}
+            \iota_vT = \iota_vT_1\otimes\ell\otimes\ell\otimes T_2+(-1)^pT_1\otimes\iota_v(\ell\otimes\ell)\otimes T_2+(-1)^{p+2}T_1\otimes\ell\otimes\ell\otimes\iota_vT_2
+        \end{equation*}
+        Thus, since the first and third terms above are redundant and $\iota_v(\ell\otimes\ell)=\ell(v)\ell-\ell(v)\ell=0$ by Lemma 1.7.4, we have the desired result.
+    \end{proof}
+    \item $\bm{\iota_v\omega}$: The $\ide[k]{V}$-coset $\pi(\iota_vT)$, where $\omega=\pi(T)$.
+    \item Proves that $\iota_v\omega$ does not depend on the choice of $T$.
+    \item \textbf{Inner product operation}: The linear map $\iota_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
+    \item The inner product has the following important identities.
+    \begin{align*}
+        \iota_{(v_1+v_2)}\omega &= \iota_{v_1}\omega+\iota_{v_2}\omega\\
+        \iota_v(\omega_1\wedge\omega_2) &= \iota_v\omega_1\wedge\omega_2+(-1)^p\omega_1\wedge\omega_2\\
+        \iota_v(\iota_v\omega) &= 0\\
+        \iota_{v_1}\iota_{v_2}\omega &= -\iota_{v_2}\iota_{v_1}\omega
+    \end{align*}
+    \item \marginnote{4/18:}As we developed the pullback $A^*T\in\lin[k]{V}$, we now look to develop a pullback on $\lam[k]{V^*}$.
+    \item Lemma 1.8.1: If $T\in\ide[k]{W}$, then $A^*T\in\ide[k]{V}$.
+    \begin{proof}
+        It suffices to prove this for redundant $k$-tensors. Let $T=\ell_1\otimes\cdots\otimes\ell_k$ be such that $\ell_i=\ell_{i+1}$. Then we have that
+        \begin{align*}
+            A^*T &= A^*(\ell_1\otimes\cdots\otimes\ell_k)\\
+            &= A^*\ell_1\otimes\cdots\otimes A^*\ell_k\tag*{Exercise 1.3.iii}
+        \end{align*}
+        where $A^*\ell_i=A^*\ell_{i+1}$ so that $A^*T\in\ide[k]{V}$, as desired.
+    \end{proof}
+    \item $\bm{A^*\omega}$: The $\ide[k]{W}$-coset $\pi(A^*T)$, where $\omega=\pi(T)$.
+    \item Claim 1.8.3: $A^*\omega$ is well-defined.
+    \begin{proof}
+        Suppose $\omega=\pi(T)=\pi(T')$. Then $T=T'+S$ where $S\in\ide[k]{W}$. It follows that $A^*T=A^*T'+A^*S$, but since $A^*S\in\ide[k]{V}$ (Lemma 1.8.1), we have that
+        \begin{equation*}
+            \pi(A^*T) = \pi(A^*T')
+        \end{equation*}
+        as desired.
+    \end{proof}
+    \item Proposition 1.8.4. The map $A^*:\lam[k]{W^*}\to\lam[k]{V^*}$ sending $\omega\mapsto A^*\omega$ is linear. Moreover,
+    \begin{enumerate}
+        \item If $\omega_i\in\lam[k_i]{W^*}$ ($i=1,2$), then
+        \begin{equation*}
+            A^*(\omega_1\wedge\omega_2) = A^*(\omega_1)\wedge A^*(\omega_2)
+        \end{equation*}
+        \item If $U$ is a vector space and $B:U\to V$ is a linear map, then for $\omega\in\lam[k]{W^*}$,
+        \begin{equation*}
+            B^*A^*\omega = (AB)^*\omega
+        \end{equation*}
+    \end{enumerate}
+    (Hint: This proposition follows immediately from Exercises 1.3.iii-1.3.iv.)
+    \item \textbf{Determinant} (of $A$): The number $a$ such that $A^*\omega=a\omega$, where $A^*:\lam[n]{V^*}\to\lam[n]{V^*}$. \emph{Denoted by} $\textbf{det}\,\bm{(A)}$.
+    \item Proposition 1.8.7: If $A$ and $B$ are linear mappings of $V$ into $V$, then
+    \begin{equation*}
+        \det(AB) = \det(A)\det(B)
+    \end{equation*}
+    \begin{proof}
+        Proposition 1.8.4(2) implies that
+        \begin{align*}
+            \det(AB)\omega &= (AB)^*\omega\\
+            &= B^*(A^*\omega)\\
+            &= \det(B)A^*\omega\\
+            &= \det(B)\det(A)\omega
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item $\textbf{id}_{\bm{V}}$: The identity map on $V$.
+    \item Proposition 1.8.8: $\det(\id_V)=1$.
+    \begin{itemize}
+        \item Hint: $\id_V^*$ is the identity map on $\lam[n]{V^*}$.
+    \end{itemize}
+    \item Proposition 1.8.9: If $A:V\to V$ is not surjective, then $\det(A)=0$.
+    \begin{proof}
+        Let $W=\im(A)$. If $A$ is not onto, $\dim W<n$, implying that $\lam[n]{W^*}=0$. Now let $A=i_WB$ where $i_W$ is the inclusion map of $W$ into $V$ and $B$ is the mapping $A$ regarded as a mapping from $V$ to $W$. It follows by Proposition 1.8.4(1) that if $\omega\in\lam[n]{V^*}$, then
+        \begin{equation*}
+            A^*\omega = B^*i_W^*\omega
+        \end{equation*}
+        where $i_W^*\omega=0$ as an element of $\lam[n]{W^*}$.
+    \end{proof}
+    \item Deriving the typical formula for the determinant.
+    \begin{itemize}
+        \item Let $V,W$ be $n$-dimensional vector spaces with respective bases $e_1,\dots,e_n$ and $f_1,\dots,f_n$.
+        \item Denote the corresponding dual bases by $e_1^*,\dots,e_n^*$ and $f_1^*,\dots,f_n^*$.
+        \item Let $A:V\to W$. Recall that if the matrix of $A$ is $[a_{i,j}]$, then the matrix of $A^*:W^*\to V^*$ is $(a_{j,i})$, i.e., if
+        \begin{equation*}
+            Ae_j = \sum_{i=1}^na_{i,j}f_i
+        \end{equation*}
+        then
+        \begin{equation*}
+            A^*f_j^* = \sum_{i=1}^na_{j,i}e_i^*
+        \end{equation*}
+        \item It follows that
+        \begin{align*}
+            A^*(f_1^*\wedge\cdots\wedge f_n^*) &= A^*f_1^*\wedge\cdots\wedge A^*f_n^*\\
+            &= \sum_{1\leq k_1,\dots,k_n\leq n}(a_{1,k_1}e_{k_1}^*)\wedge\cdots\wedge(a_{n,k_n}e_{k_n}^*)\\
+            &= \sum_{1\leq k_1,\dots,k_n\leq n}a_{1,k_1}\cdots a_{n,k_n}e_{k_1}^*\wedge\cdots\wedge e_{k_n}^*
+        \end{align*}
+        \item At this point, we are summing over all possible lists of length $n$ containing the numbers between 1 and $n$ at each index.
+        \begin{itemize}
+            \item However, any list in which a number repeats will lead to a wedge product of a linear functional with itself, making that term equal to zero.
+            \item Thus, it is only necessary to sum over those terms that are non-repeating.
+            \item But the terms that are non repeating are exactly the permutations $\sigma\in S_n$.
+        \end{itemize}
+        \item Thus,
+        \begin{align*}
+            A^*(f_1^*\wedge\cdots\wedge f_n^*) &= \sum_{\sigma\in S_n}a_{1,\sigma(1)}\cdots a_{n,\sigma(n)}(e_1^*\wedge\cdots\wedge e_n^*)^\sigma\\
+            &= \sum_{\sigma\in S_n}(-1)^\sigma a_{1,\sigma(1)}\cdots a_{n,\sigma(n)}e_1^*\wedge\cdots\wedge e_n^*\\
+            &= \det([a_{i,j}])e_1^*\wedge\cdots\wedge e_n^*
+        \end{align*}
+        \item If $V=W$ and $e_i=f_i$ ($i=1,\dots,n$), then we may define $\omega=e_1^*\wedge\cdots\wedge e_n^*=f_1^*\wedge\cdots\wedge f_n^*\in\lam[k]{V^*}$ to obtain
+        \begin{align*}
+            A^*\omega &= \det([a_{i,j}])\omega
+        \end{align*}
+        which proves that
+        \begin{equation*}
+            \det(A) = \det([a_{i,j}])
+        \end{equation*}
+        as desired.
+    \end{itemize}
+    \item \textbf{Orientation} (of $\ell$): A choice of one of the disconnected components of $\ell\setminus\{0\}$, where $\ell\subset\R^2$ is a straight line through the origin.
+    \item \textbf{Orientation} (of $L$): A choice of one of the connected components of $L\setminus\{0\}$, where $L$ is a one-dimensional vector space.
+    \item \textbf{Positive component} (of $L\setminus\{0\}$): The component chosen in the orientation of $L$. \emph{Denoted by} $\bm{L_+}$.
+    \item \textbf{Negative component} (of $L\setminus\{0\}$): The component chosen in the orientation of $L$. \emph{Denoted by} $\bm{L_-}$.
+    \item \textbf{Positively oriented} ($v\in L$): A vector $v\in L$ such that $v\in L_+$.
+    \item \textbf{Orientation} (of $V$) An orientation of the one-dimensional vector space $\lam[n]{V^*}$, where $V$ is an $n$-dimensional vector space.
+    \item "One important way of assigning an orientation to $V$ is to choose a basis $e_1,\dots,e_n$ of $V$. Then if $e_1^*,\dots,e_n^*$ is the dual basis, we can orient $\lam[n]{V^*}$ by requiring that $e_1^*\wedge\cdots\wedge e_n^*$ be in the positive component of $\lam[n]{V^*}$" \parencite[29]{bib:DifferentialForms}.
+    \item \textbf{Positively oriented} (ordered basis $e_1,\dots,e_n$ of $V$): An ordered basis $e_1,\dots,e_n\in V$ such that $e_1^*\wedge\cdots\wedge e_n^*\in\lam[n]{V^*}_+$.
+    \item Proposition 1.9.7: If $e_1,\dots,e_n$ is positively oriented, then $f_1,\dots,f_n$ is positively oriented iff $\det[a_{i,j}]>0$ where $e_j=\sum_{i=1}^na_{i,j}f_i$.
+    \begin{proof}
+        We have that
+        \begin{equation*}
+            f_1^*\wedge\cdots\wedge f_n^* = \det[a_{i,j}]e_1^*\wedge\cdots\wedge e_n^*
+        \end{equation*}
+    \end{proof}
+    \item Corollary 1.9.8: If $e_1,\dots,e_n$ is a positively oriented basis of $V$, then the basis
+    \begin{equation*}
+        e_1,\dots,e_{i-1},-e_i,e_{i+1},\dots,e_n
+    \end{equation*}
+    is negatively oriented.
+    \item Theorem 1.9.9: Given orientations on $V$ and $V/W$ (where $\dim V=n>1$, $W\leq V$, and $\dim W=k<n$), one gets from these orientations a natural orientation on $W$.
+    \begin{proof}
+        The orientations on $V$ and $V/W$ come prepackaged with a basis. We first apply an orientation to $W$ based on these bases, and then show that any choice of basis for $V,V/W$ induces a basis with the same orientation on $W$. Let's begin.\par
+        Let $r=n-k$, and let $\pi:V\to V/W$. By Exercises 1.2.i and 1.2.ii, we may choose a basis $e_1,\dots,e_n$ of $V$ such that $e_{r+1},\dots,e_n$ is a basis of $W$. It follows that $\pi(e_1),\dots,\pi(e_r)$ is a basis of $V/W$. WLOG\footnote{If the first basis is negatively oriented, we may substitute $-e_1$ for $e_1$. If the second basis is negatively oriented, we may substitute $-e_n$ for $e_n$.}, take $\pi(e_1),\dots,\pi(e_r)$ and $e_1,\dots,e_n$ to be positively oriented on $V/W$ and $V$, respectively. Assign to $W$ the orientation associated with $e_{r+1},\dots,e_n$.\par
+        Now suppose $f_1,\dots,f_n$ is another basis of $V$ such that $f_{r+1},\dots,f_n$ is a basis of $W$. Let $A=[a_{i,j}]$ express $e_1,\dots,e_n$ as linear combinations of $f_1,\dots,f_n$, i.e., let
+        \begin{equation*}
+            e_j = \sum_{i=1}^na_{i,j}f_i
+        \end{equation*}
+        for all $j=1,\dots,n$. Now as will be explained below, $A$ must have the form
+        \begin{equation*}
+            A =
+            \begin{pmatrix}
+                B & C\\
+                0 & D\\
+            \end{pmatrix}
+        \end{equation*}
+        where $B$ is the $r\times r$ matrix expressing $\pi(e_1),\dots,\pi(e_r)$ as linear combinations of $\pi(f_1),\dots,\pi(f_r)$, and $D$ is the $k\times k$ matrix expressing the basis vectors $e_{r+1},\dots,e_n$ as linear combinations of $f_{r+1},\dots,f_n$. We have just explained $B$ and $D$. We don't particularly care about $C$ or have a good way of defining its structure. We can, however, take the block labeled zero to be the $k\times r$ zero matrix by Proposition 1.2.9; in particular, since these components of these vectors will be fed into $\pi$ and fall within $W$, they can moved around wherever without altering the identities of the $W$-cosets to which they pertain. Having justified this structure for $A$, we see that we can take
+        \begin{equation*}
+            \det(A) = \det(B)\det(D)
+        \end{equation*}
+        It follows by Proposition 1.9.7 as well as the positivity of $\det(A)$ and $\det(B)$ that $\det(D)$ is positive, and hence the orientation of $e_{r+1},\dots,e_n$ and $f_{r+1},\dots,f_n$ are one and the same.
+    \end{proof}
+    \item \textbf{Orientation-preserving} (map $A$): A bijective linear map $A:V_1\to V_2$, where $V_1,V_2$ are oriented $n$-dimensional vector spaces, such that for all $\omega\in\lam[n]{V_2^*}_+$, we have that $A^*\omega\in\lam[n]{V_1^*}_+$.
+    \item If $V_1=V_2$, $A$ is orientation-preserving iff $\det(A)>0$.
+    \item Proposition 1.9.14: Let $V_1,V_2,V_3$ be oriented $n$-dimensional vector spaces, and let $A_1:V_1\to V_2$ and $A_2:V_2\to V_3$ be bijective linear maps. Then if $A_1,A_2$ are orientation preserving, so is $A_2\circ A_1$.
+\end{itemize}
+
+
+
+
+\end{document}
