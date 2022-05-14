@@ -128,5 +128,122 @@
 
 
 
+\section{Chapter 2: Differential Forms}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{5/5:}As we formed the $k^\text{th}$ exterior powers $\lam[k]{V^*}$, we can form the $k^\text{th}$ exterior powers $\lam[k]{T_p^*\R^n}$.
+    \begin{itemize}
+        \item Since $\lam[1]{T_p^*\R^n}=T_p^*\R^n$, we can think of a one-form as a function which takes its value at $p$ in the space $\lam[1]{T_p^*\R^n}$.
+    \end{itemize}
+    \item \textbf{$\bm{k}$-form} (on $U$): A function which assigns to each point $p\in U$ an element $\omega_p\in\lam[k]{T_p^*\R^n}$, where $U\subset\R^n$ is open.
+    \item We can use the wedge product to construct $k$-forms.
+    \begin{itemize}
+        \item Let $\omega_1,\dots,\omega_k$ be one-forms. Then $\omega_1\wedge\cdots\wedge\omega_k$ is the $k$-form whose value at $p$ is the wedge product
+        \begin{equation*}
+            (\omega_1\wedge\cdots\wedge\omega_k)_p = (\omega_1)_p\wedge\cdots\wedge(\omega_k)_p
+        \end{equation*}
+        \item Let $f_1,\dots,f_k$ be real-valued functions in $C^\infty(U)$. Suppose $\omega_i=\dd f_i$. Then we may obtain the $k$-form whose value at $p$ is
+        \begin{equation*}
+            (\dd f_1\wedge\cdots\wedge\dd f_k)_p = (\dd f_1)_p\wedge\cdots\wedge(\dd f_k)_p
+        \end{equation*}
+    \end{itemize}
+    \item Since $(\dd x_1)_p,\dots,(\dd x_n)_p$ are a basis of $T_p^*\R^n$, the wedge products
+    \begin{equation*}
+        (\dd x_I)_p = (\dd x_{i_1})_p\wedge\cdots\wedge(\dd x_{i_k})_p
+    \end{equation*}
+    where $I=(i_1,\dots,i_k)$ is a strictly increasing multi-index of $n$ of length $k$ form a basis of $\lam[k]{T_p^*\R^n}$.
+    \item Thus, every $\omega_p\in\lam[k]{T_p^*\R^n}$ has a unique decomposition
+    \begin{equation*}
+        \omega_p = \sum_Ic_I(\dd x_I)_p
+    \end{equation*}
+    where every $c_I\in\R$.
+    \item Similarly, every $k$-form $\omega$ on $U$ has a unique decomposition
+    \begin{equation*}
+        \omega = \sum_If_I\dd{x_I}
+    \end{equation*}
+    where every $f_I:U\to\R$.
+    \item \textbf{Class $\bm{C^r}$} ($k$-form): A $k$-form $\omega$ for which every $f_I$ in its decomposition is in $C^r(U)$.
+    \item From here on out, we assume unless otherwise stated that all $k$-forms we consider are of class $C^\infty$.
+    \item $\bm{\ome[k]{U}}$: The set of $k$-forms of class $C^\infty$ on $U$.
+    \item $\bm{f\omega}$: The $k$-form defined as follows, where $f\in C^\infty(U)$ and $\omega\in\ome[k]{U}$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto f(p)\omega_p
+    \end{equation*}
+    \item \textbf{Sum} (of $\omega_1,\omega_2$): The $k$-form defined as follows, where $\omega_1,\omega_2\in\ome[k]{U}$. \emph{Denoted by} $\bm{\omega_1+\omega_2}$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto (\omega_1)_p+(\omega_2)_p
+    \end{equation*}
+    \item \textbf{Wedge product} (of $\omega_1,\omega_2$): The $(k_1+k_2)$-form defined as follows, where $\omega_1\in\ome[k_1]{U}$ and $\omega_2\in\ome[k_2]{U}$. \emph{Denoted by} $\bm{\omega_1\wedge\omega_2}$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto (\omega_1)_p\wedge(\omega_2)_p
+    \end{equation*}
+    \item \textbf{Zero-form}: A function which assigns to each $p\in U$ an element of $\lam[0]{T_p^*\R^n}=\R$. \emph{Also known as} \textbf{real-valued function}.
+    \item It follows from the definition of zero-forms that
+    \begin{equation*}
+        \ome[0]{U} = C^\infty(U)
+    \end{equation*}
+    \item \textbf{Exterior differentiation operation}: The operator from $\ome[0]{U}\to\ome[1]{U}$ which associates to a function $f\in C^\infty(U)$ the 1-form $\dd f$. \emph{Denoted by} $\mathbf{d}$.
+    \item We now seek to define a generalized version of the exterior differentiation operation; in particular, we would like to define an analogous function $\dd:\ome[k]{U}\to\ome[k+1]{U}$.
+    \item Desired properties of exterior differentiation.
+    \begin{enumerate}
+        \item If $\omega_1,\omega_2\in\ome[k]{U}$, then
+        \begin{equation*}
+            \dd(\omega_1+\omega_2) = \dd\omega_1+\dd\omega_2
+        \end{equation*}
+        \item If $\omega_1\in\ome[k]{U}$ and $\omega_2\in\ome[\ell]{U}$, then
+        \begin{equation*}
+            \dd(\omega_1\wedge\omega_2) = \dd\omega_1\wedge\omega_2+(-1)^k\omega_1\wedge\dd\omega_2
+        \end{equation*}
+        \item If $\omega\in\ome[k]{U}$, then
+        \begin{equation*}
+            \dd(\dd\omega) = 0
+        \end{equation*}
+    \end{enumerate}
+    \item Consequences of these properties.
+    \item Lemma 2.4.5: Let $U\subset\R^n$ open. If $f_1,\dots,f_k\in C^\infty(U)$, then
+    \begin{equation*}
+        \dd(\dd f_1\wedge\cdots\wedge\dd f_k) = 0
+    \end{equation*}
+    \begin{proof}
+        We induct on $k$. For the base case $k=1$, we have that $\dd(\dd f_1)=0$ by Property 3. Now suppose inductively that we have proven the claim for $k-1$ functions; we now seek to prove it for $k$ functions. Let $\mu=\dd f_1\wedge\cdots\wedge\dd f_{k-1}$. Then by the induction hypothesis, $\dd\mu=0$. Therefore,
+        \begin{align*}
+            \dd(\dd f_1\wedge\cdots\wedge\dd f_k) &= \dd(\mu\wedge\dd f_k)\\
+            &= \dd\mu\wedge\dd f_k+(-1)^{k-1}\mu\wedge\dd(\dd f_k)\tag*{Property 2}\\
+            &= 0
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item A special case of Lemma 2.4.5 is that
+    \begin{equation*}
+        \dd(\dd x_I) = 0
+    \end{equation*}
+    \item Now since every $k$-form $\omega\in\ome[k]{U}$ has a unique decomposition in terms of the $\dd x_I$, Property 2 and the above equation reveal that
+    \begin{equation*}
+        \dd\omega = \sum_I\dd f_I\wedge\dd x_I
+    \end{equation*}
+    \item Therefore, if there exists an operator $\dd$ satisfying Properties 1-3, then $\dd$ necessarily has the above form. All that's left is to show that the operator defined above has these properties.
+    \item Proposition 2.4.10: Let $U\subset\R^n$ be open. There is a unique operator $\dd:\ome[*]{U}\to\ome[*+1]{U}$ satisfying Properties 1-3.
+    \begin{proof}
+        ...
+    \end{proof}
+    \item \textbf{Closed} ($k$-form): A $k$-form $\omega\in\ome[k]{U}$ for which $\dd\omega=0$.
+    \item \textbf{Exact} ($k$-form): A $k$-form $\omega\in\ome[k]{U}$ such that $\omega=\dd\mu$ for some $\mu\in\ome[k-1]{U}$.
+    \item Property 3 implies that every exact $k$-form is closed.
+    \begin{itemize}
+        \item The converse is not true even for 1-forms (see Exercise 2.1.iii).
+        \item "It is a very interesting (and hard) question to determine if an open set $U$ has the following property: For $k>0$, every closed $k$-form is exact" \parencite[49]{bib:DifferentialForms}.
+        \begin{itemize}
+            \item Note that we do not consider zero-forms since there are no $(-1)$-forms for which to define exactness.
+        \end{itemize}
+    \end{itemize}
+    \item If $f\in C^\infty(U)$ and $\dd f=0$, then $f$ is constant on connected components of $U$ (see Exercise 2.2.iii).
+    \item Lemma 2.4.16 (Poincar\'{e} lemma): If $\omega$ is a closed form on $U$ of degree $k>0$, then for every point $p\in U$, there exists a neighborhood of $p$ on which $\omega$ is exact.
+    \begin{proof}
+        See Exercises 2.4.v and 2.4.vi.
+    \end{proof}
+\end{itemize}
+
+
+
 
 \end{document}

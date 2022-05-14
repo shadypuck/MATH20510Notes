@@ -272,5 +272,452 @@
 
 
 
+\section{Chapter 2: Differential Forms}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{5/5:}Goals for this chapter.
+    \begin{itemize}
+        \item Generalize to $n$ dimensions the basic operations of 3D vector calculus (\textbf{divergence}, \textbf{gradient}, and \textbf{curl}).
+        \begin{itemize}
+            \item $\dvv$ and $\grd$ are pretty straightforward, but $\crl$ is more subtle.
+        \end{itemize}
+        \item Substitute \textbf{differential forms} for \textbf{vector fields} to discover to a natural generalization of the operations, in particular, where all three operations are special cases of \textbf{exterior differentiation}.
+    \end{itemize}
+    \item Introducing vector fields and their dual objects (\textbf{one-forms}).
+    \item \textbf{Tangent space} (to $\R^n$ at $p$): The set of pairs $(p,v)$ for all $v\in\R^n$. \emph{Denoted by} $\bm{T_p\pmb{\R}^n}$. \emph{Given by}
+    \begin{equation*}
+        T_p\R^n = \{(p,v)\mid v\in\R^n\}
+    \end{equation*}
+    \item Operations on the tangent space.
+    \begin{itemize}
+        \item Directly, we identify $T_p\R^n\cong\R^n$ by $(p,v)\mapsto v$ to make $T_p\R^n$ a vector space.
+        \item Explicitly, we define
+        \begin{align*}
+            (p,v_1)+(p,v_2) &= (p,v_1+v_2)&
+            \lambda(p,v) &= (p,\lambda v)
+        \end{align*}
+        for all $v,v_1,v_2\in\R^n$ and $\lambda\in\R$.
+    \end{itemize}
+    \item \textbf{Derivative} (of $f$ at $p$): The linear map from $\R^n\to\R^m$ defined by the following $m\times n$ matrix, where $U\subset\R^n$ is open and $f:U\to\R^m$ is a $C^1$-mapping. \emph{Denoted by} $\bm{Df(p)}$. \emph{Given by}
+    \begin{equation*}
+        Df(p) =
+        \begin{bmatrix}
+            \displaystyle{\pdv{f_i}{x_j}}(p)
+        \end{bmatrix}
+    \end{equation*}
+    \item $\bm{\mathbf{d}f_p}$: The linear map from $T_p\R^n\to T_q\R^m$ defined as follows, where $U\subset\R^n$ open, $f:U\to\R^m$ is a $C^1$-mapping, and $q=f(p)$. \emph{Given by}
+    \begin{equation*}
+        \dd f_p(p,v) = (q,Df(p)v)
+    \end{equation*}
+    \begin{itemize}
+        \item \textcite{bib:DifferentialForms} also refer to this as the "base-pointed" version of the derivative of $f$ at $p$.
+    \end{itemize}
+    \item The chain rule for the base-pointed version, where $U\subset\R^n$ open, $f:U\to\R^n$ is a $C^1$-mapping, $\im(f)\subset V$ open, and $g:V\to\R^k$ is a $C^1$-mapping.
+    \begin{equation*}
+        \dd g_q\circ\dd f_p = \dd(f\circ g)_p
+    \end{equation*}
+    \item \textbf{Vector field} (on $\R^3$): A function which attaches to each point $p\in\R^3$ a base-pointed arrow $(p,v)\in T_p\R^3$.
+    \begin{itemize}
+        \item These vector fields are the typical subject of vector calculus.
+    \end{itemize}
+    \item \textbf{Vector field} (on $U$): A function which assigns to each point $p\in U$ a vector in $T_p\R^n$, where $U\subset\R^n$ is open. \emph{Denoted by} $\bm{v}$.
+    \begin{itemize}
+        \item We denote the value of $\bm{v}$ at $p$ by either $\bm{v}(p)$ or $\bm{v}_p$.
+    \end{itemize}
+    \item \textbf{Constant} (vector field): A vector field of the form $p\mapsto(p,v)$, where $v\in\R^n$ is fixed.
+    \item $\bm{\partial/\partial x_i}$: The constant vector field having $v=e_i$.
+    \item $\bm{f\pmb{v}}$: The vector field defined on $U$ as follows, where $f:U\to\R$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto f(p)\bm{v}(p)
+    \end{equation*}
+    \begin{itemize}
+        \item Note that we are invoking our definition of scalar multiplication on $T_p\R^n$ here.
+    \end{itemize}
+    \item \textbf{Sum} (of $\bm{v}_1,\bm{v}_2$): The vector field on $U$ defined as follows. \emph{Denoted by} $\bm{\pmb{v}_1+\pmb{v}_2}$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto \bm{v}_1(p)+\bm{v}_2(p)
+    \end{equation*}
+    \begin{itemize}
+        \item Note that we are invoking our definition of addition on $T_p\R^n$ here.
+    \end{itemize}
+    \item The list of vectors $(\pdv*{x_1})_p,\dots,(\pdv*{x_n})_p$ constitutes a basis of $T_p\R^n$.
+    \begin{itemize}
+        \item Recall that $(\pdv*{x_i})_p=(p,e_i)$.
+        \item Thus, if $\bm{v}$ is a vector field on $U$, it has a unique decomposition
+        \begin{equation*}
+            \bm{v} = \sum_{i=1}^ng_i\pdv{x_i}
+        \end{equation*}
+        where each $g_i:U\to\R$.
+    \end{itemize}
+    \item $\bm{C^\infty}$ (vector field): A vector field such that $g_i\in C^\infty(U)$ for all $g_i$'s in its unique decomposition.
+    \item \textbf{Lie derivative} (of $f$ with respect to $\bm{v}$): The function from $U\to\R$ defined as follows, where $U\subset\R^n$, $f:U\to\R$ is a $C^1$-mapping, and $\bm{v}(p)=(p,v)$. \emph{Denoted by} $\bm{L_{\pmb{v}}f}$. \emph{Given by}
+    \begin{equation*}
+        L_{\bm{v}}f(p) = Df(p)v
+    \end{equation*}
+    \begin{itemize}
+        \item A more explicit formula for the Lie derivative is
+        \begin{equation*}
+            L_{\bm{v}}f = \sum_{i=1}^ng_i\pdv{f}{x_i}
+        \end{equation*}
+        \item The vector field decides the direction in which we take the derivative at each point. Instead of having to take a derivative everywhere in one direction at a time, we can now take a derivative in a different direction at every point!
+    \end{itemize}
+    \item Lemma 2.1.11: Let $U$ be an open subset of $\R^n$, $\bm{v}$ a vector field on $U$, and $f_1,f_2\in C^1(U)$. Then
+    \begin{equation*}
+        L_{\bm{v}}(f_1\cdot f_2) = L_{\bm{v}}(f_1)\cdot f_2+f_1\cdot L_{\bm{v}}(f_2)
+    \end{equation*}
+    \begin{proof}
+        See Exercise 2.1.ii.
+    \end{proof}
+    \item \textbf{Cotangent space} (to $\R^n$ at $p$): The dual vector space to $T_p\R^n$. \emph{Denoted by} $\bm{T_p^*\pmb{\R}^n}$. \emph{Given by}
+    \begin{equation*}
+        T_p^*\R^n = (T_p\R^n)^*
+    \end{equation*}
+    \item \textbf{Cotangent vector} (to $\R^n$ at $p$): An element of $T_p^*\R^n$.
+    \item \textbf{Differential one-form} (on $U$): A function which assigns to each point $p\in U$ a cotangent vector. \emph{Also known as} \textbf{one-form} (on $U$). \emph{Denoted by} $\bm{\omega}$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto \omega_p
+    \end{equation*}
+    \item Note that by identifying $T_p\R\cong\R$, we have that $\dd f_p\in T_p^*\R^n$, assuming that $f:U\to\R$.
+    \begin{itemize}
+        \item Geometric example: Consider $f:\R^2\to\R$ such that $f\in C^1$. By the latter condition, we know that the graph of $f$ is a "smooth" surface in $\R^3$, i.e., one without any abrupt changes in derivative (consider the graph of the piecewise function defined by $-x^2$ for $x<0$ and $x^2$ for $x\geq 0$, for example). What $\dd f_p$ does is take a point $(p_1,p_2,q)$, where $q=f(p)$, on the surface and a vector $v$ with tail at $(p,q)$, and give us a number representing the magnitude of the instantaneous change of $f$ at $p$ in the direction $v$. Thus, $\dd f_p$ contains, in a sense, all of the information concerning the rate of change of $f$ at $p$.
+    \end{itemize}
+    \item $\bm{\mathbf{d}f}$: The one-form on $U$ defined as follows. \emph{Given by}
+    \begin{equation*}
+        p \mapsto \dd f_p
+    \end{equation*}
+    \begin{itemize}
+        \item Continuing with the geometric example: What $\dd f$ does is take every point $p$ across the surface and return all of the information concerning the rate of change of $f$ at $p$ (packaged neatly by $\dd f_p$).
+    \end{itemize}
+    \item \textbf{Pointwise product} (of $\phi$ with $\omega$): The one-form on $U$ defined as follows, where $\phi:U\to\R$ and $\omega$ is a one-form. \emph{Denoted by} $\bm{\phi\omega}$. \emph{Given by}
+    \begin{equation*}
+        (\phi\omega)_p = \phi(p)\omega_p
+    \end{equation*}
+    \item \textbf{Pointwise sum} (of $\omega_1,\omega_2$): The one-form on $U$ defined as follows. \emph{Denoted by} $\bm{\omega_1+\omega_2}$. \emph{Given by}
+    \begin{equation*}
+        (\omega_1+\omega_2)_p = (\omega_1)_p+(\omega_2)_p
+    \end{equation*}
+    \item $\bm{x_i}$: The function from $U\to\R$ defined as follows. \emph{Given by}
+    \begin{equation*}
+        x_i(u_1,\dots,u_n) = u_i
+    \end{equation*}
+    \begin{itemize}
+        \item $x_i$ is constantly increasing in the $x_i$-direction, and constant in every other direction.
+    \end{itemize}
+    \item $\bm{(\mathbf{d}x_i)_p}$: The linear map from $T_p\R^n\to\R$ (i.e., the cotangent vector in $T_p^*\R^n$) defined as follows. \emph{Given by}
+    \begin{equation*}
+        (\dd x_i)_p(p,a_1x_1+\cdots+a_nx_n) = a_1
+    \end{equation*}
+    \begin{itemize}
+        \item Naturally, the instantaneous change in $x_i$ at any point $p$ in the direction $\bm{v}(p)$ will just be the magnitude of $\bm{v}(p)$ in the $x_i$-direction.
+        \item It follows immediately that
+        \begin{equation*}
+            (\dd x_i)_p\left( \pdv{x_j} \right)_p = \delta_{ij}
+        \end{equation*}
+    \end{itemize}
+    \item Consequently, the list of cotangent vectors $(\dd x_1)_p,\dots,(\dd x_n)_p$ constitutes a basis of $T_p^*\R^n$ that is \textbf{dual} to the basis $(\pdv*{x_1})_p,\dots,(\pdv*{x_n})_p$ of $T_p\R^n$.
+    \item $\bm{\mathbf{d}x_i}$: The one-form on $U$ defined as follows. \emph{Given by}
+    \begin{equation*}
+        p \mapsto (\dd x_i)_p
+    \end{equation*}
+    \begin{itemize}
+        \item Thus, if $\omega_p:T_p\R^n\to\R$, it has a unique decomposition
+        \begin{equation*}
+            \omega_p = \sum_{i=1}^nf_i(p)(\dd x_i)_p
+        \end{equation*}
+        where every $f_i:U\to\R$.
+        \item Similarly, $\omega:U\to T_p^*\R^n$ has a unique decomposition
+        \begin{equation*}
+            \omega = \sum_{i=1}^nf_i\dd x_i
+        \end{equation*}
+    \end{itemize}
+    \item \textbf{Smooth} (one-form): A one form for which the associated functions $f_1,\dots,f_n\in C^\infty$. \emph{Also known as} $\bm{C^\infty}$ (one-form).
+    \item Lemma 2.1.18: Let $U$ be an open subset of $\R^n$. If $f:U\to\R$ is a $C^\infty$ function, then
+    \begin{equation*}
+        \dd f = \sum_{i=1}^n\pdv{f}{x_i}\dd{x_i}
+    \end{equation*}
+    \item \textbf{Interior product} (of $\bm{v}$ with $\omega$): The function which combines a point $p\in U$, the vector $\bm{v}(p)\in T_p\R^n$, and the functional $\omega_p\in T_p^*\R^n$ to yield a real number. \emph{Denoted by} $\bm{\iota_{\pmb{v}(p)}\omega_p}$.
+    \item Examples.
+    \begin{itemize}
+        \item If
+        \begin{align*}
+            \bm{v} &= \sum_{i=1}^ng_i\pdv{x_i}&
+            \omega &= \sum_{i=1}^nf_i\dd x_i
+        \end{align*}
+        then
+        \begin{equation*}
+            \iota_{\bm{v}}\omega = \sum_{i=1}^nf_ig_i
+        \end{equation*}
+        \begin{itemize}
+            \item We use multiplication and the fact that $(\dd x_i)_p(\pdv*{x_j})_p=\delta_{ij}$ to obtain this result.
+            \item If $\bm{v},\omega\in C^\infty$, so is $\iota_{\bm{v}}\omega$, where $C^\infty$ refers to three different sets of smooth objects (vector fields, one-forms, and functions, respectively\footnote{Technically, these objects are all types of functions, though, so it is fair to call them all smooth.}).
+        \end{itemize}
+        \item As with $f$, if $\phi\in C^\infty(U)$, then
+        \begin{equation*}
+            \dd\phi = \sum_{i=1}^n\pdv{\phi}{x_i}\dd x_i
+        \end{equation*}
+        \item It follows if $\bm{v}$ is defined as in the first example that
+        \begin{equation*}
+            \iota_{\bm{v}}\dd\phi = \sum_{i=1}^ng_i\pdv{\phi}{x_i}
+            = L_{\bm{v}}\phi
+        \end{equation*}
+    \end{itemize}
+    \item \textbf{Integral curve} (of $\bm{v}$): A $C^1$ curve $\gamma:(a,b)\to U$ such that for all $t\in(a,b)$,
+    \begin{equation*}
+        \bm{v}(\gamma(t)) = (\gamma(t),{\textstyle\dv{\gamma}{t}}(t))
+    \end{equation*}
+    where $U\subset\R^n$ is open and $\bm{v}$ is a vector field on $U$.
+    \begin{itemize}
+        \item An equivalent condition if $\bm{v}=\sum_{i=1}^ng_i\dv*{x_i}$ and $g:U\to\R^n$ is defined by $(g_1,\dots,g_n)$ is that $\gamma$ satisfies the system of differential equations
+        \begin{equation*}
+            \dv{\gamma}{t} = g(\gamma(t))
+        \end{equation*}
+    \end{itemize}
+    \item Theorem 2.2.4 (existence of integral curves): Let $U\subset\R^n$ open, $\bm{v}$ a vector field on $U$. If $p_0\in U$ and $a\in\R$, then there exist $I=(a-T,a+T)$ for some $T\in\R$, $U_0=N_r(p_0)\subset U$, and $\gamma_p:I\to U$ such that $\gamma_p(a)=p$ for all $p\in U_0$.
+    \item Theorem 2.2.5 (uniqueness of integral curves): Let $U\subset\R^n$ open, $\bm{v}$ a vector field on $U$, and $\gamma_1:I_1\to U$ and $\gamma_2:I_2\to U$ integral curves for $\bm{v}$. If $a\in I_1\cap I_2$ and $\gamma_1(a)=\gamma_2(a)$, then
+    \begin{equation*}
+        \gamma_1|_{I_1\cap I_2} = \gamma_2|_{I_1\cap I_2}
+    \end{equation*}
+    and the curve $\gamma:I_1\cup I_2\to U$ defined by
+    \begin{equation*}
+        \gamma(t) =
+        \begin{cases}
+            \gamma_1(t) & t\in I_1\\
+            \gamma_2(t) & t\in I_2
+        \end{cases}
+    \end{equation*}
+    is an integral curve for $\bm{v}$.
+    \item Theorem 2.2.6 (smooth dependence on initial data): Let $V\subset U\subset\R^n$ open, $\bm{v}$ a $C^\infty$-vector field on $V$, $I\subset\R$ an open interval, and $a\in I$. Let $h:V\times I\to U$ have the following properties.
+    \begin{enumerate}
+        \item $h(p,a)=p$.
+        \item For all $p\in V$, the curve $\gamma_p:I\to U$ defined by $\gamma_p(t)=h(p,t)$ is an integral curve of $\bm{v}$.
+    \end{enumerate}
+    Then $h\in C^\infty$.
+    \item \textbf{Autonomous} (system of ODEs): A system of ODEs that does not explicitly depend on the independent variable.
+    \item $\dv*{\gamma}{t}=g(\gamma(t))$ is autonomous since $g$ does not depend on $t$.
+    \item Theorem 2.2.7: Let $I=(a,b)$. For all $c\in\R$, define $I_c=(a-c,b-c)$. If $\gamma:I\to U$ is an integral curve, then the reparameterized curve $\gamma_c:I_c\to U$ defined by
+    \begin{equation*}
+        \gamma_c(t) = \gamma(t+c)
+    \end{equation*}
+    is an integral curve.
+    \begin{itemize}
+        \item Note that this is truly just a reparameterization; we still have, for instance,
+        \begin{align*}
+            \gamma_c(a-c) &= \gamma(a-c+c) = \gamma(a)&
+            \gamma_c(b-c) &= \gamma(b-c+c) = \gamma(b)
+        \end{align*}
+    \end{itemize}
+    \item \textbf{Integral} (of the system $\dv*{\gamma}{t}=g(\gamma(t))$): A $C^1$-function $\phi:U\to\R$ such that for every integral curve $\gamma(t)$, the function $t\mapsto\phi(\gamma(t))$ is constant.
+    \begin{itemize}
+        \item An alternate condition is that for all $t$,
+        \begin{equation*}
+            0 = \dv{t}\phi(\gamma(t))
+            = (D\phi)_{\gamma(t)}\left( \dv{y}{t} \right)
+            = (D\phi)_{\gamma(t)}(v)
+            = L_v\phi(p)
+        \end{equation*}
+        where $\bm{v}(p)=(p,v)$.
+    \end{itemize}
+    \item Theorem 2.2.9: Let $U\subset\R^n$ open, $\phi\in C^1(u)$. Then $\phi$ is an integral of the system $\dv*{\gamma}{t}=g(\gamma(t))$ iff $L_{\bm{v}}\phi=0$.
+    \item \textbf{Complete} (vector field): A vector field $\bm{v}$ on $U$ such that for every $p\in U$, there exists an integral curve $\gamma:\R\to U$ with $\gamma(0)=p$.
+    \begin{itemize}
+        \item Alternatively, for every $p$, there exists an integral curve that starts at $p$ and exists for all time.
+    \end{itemize}
+    \item \textbf{Maximal} (integral curve): An integral curve $\gamma:[0,b)\to U$ with $\gamma(0)=p$ such that it cannot be extended to an interval $[0,b')$ with $b'>b$.
+    \item For a maximal curve, either\dots
+    \begin{enumerate}
+        \item $b=+\infty$;
+        \item $|\gamma(t)|\to +\infty$ as $t\to b$;
+        \item The limit set of $\{\gamma(t)\mid 0\leq t<b\}$ contains points on the boundary of $U$.
+    \end{enumerate}
+    \item Eliminating 2 and 3, as can be done with the following lemma, provides a means of proving that $\gamma$ exists for all positive time.
+    \item Lemma 2.2.11: The scenarios 2 and 3 above cannot happen if there exists a proper $C^1$-function $\phi:U\to\R$ with $L_{\bm{v}}\phi=0$.
+    \begin{proof}
+        Suppose there exists $\phi\in C^1$ such that $L_{\bm{v}}\phi=0$. Then $\phi$ is constant on $\gamma(t)$ (say with value $c\in\R$) by definition. But then since $\{c\}\subset\R$ is compact and $\phi\in C^1$, $\phi^{-1}(c)\subset U$ is compact and, importantly, contains $\im(\gamma)$. The compactness of this set implies that $\gamma$ can neither "run off to infinity" as in scenario 2 or "run off the boundary" as in scenario 3.
+    \end{proof}
+    \item Theorem 2.2.12: If there exists a proper $C^1$-function $\phi:U\to\R$ with the property $L_{\bm{v}}\phi=0$, then the vector field $\bm{v}$ is complete.
+    \begin{proof}
+        Apply a similar argument to the interval $(-b,0]$ and join the two results.
+    \end{proof}
+    \item Example: Let $U=\R^2$ and let $\bm{v}$ be the vector field
+    \begin{equation*}
+        \bm{v} = x^3\pdv{y}-y\pdv{x}
+    \end{equation*}
+    Then $\phi(x,y)=2y^2+x^4$ is a proper function with the above property.
+    \begin{itemize}
+        \item Note that indeed, as per Theorem 2.2.12, we have that
+        \begin{align*}
+            L_{\bm{v}}\phi &= x^3\pdv{\phi}{y}-y\pdv{\phi}{x}\\
+            &= x^3\cdot 4y-y\cdot 4x^3\\
+            &= 0
+        \end{align*}
+    \end{itemize}
+    \item We now build up to an alternate completeness condition (Theorem 2.2.15).
+    \item \textbf{Support} (of $\bm{v}$): The following set. \emph{Denoted by} $\bm{\supp(\pmb{v})}$. \emph{Given by}
+    \begin{equation*}
+        \supp(\bm{v}) = \overline{\{q\in U\mid\bm{v}(q)\neq 0\}}
+    \end{equation*}
+    \item \textbf{Compactly supported} (vector field $\bm{v}$): A vector field $\bm{v}$ for which $\supp(\bm{v})$ is compact.
+    \item Theorem 2.2.15: If $\bm{v}$ is compactly supported, then $\bm{v}$ is complete.
+    \begin{proof}
+        Let $p\in U$ be such that $\bm{v}(p)=0$. Define $\gamma_0:(-\infty,\infty)\to U$ by $\gamma_0(t)=p$ for all $t\in(-\infty,\infty)$. Since
+        \begin{equation*}
+            \dv{\gamma_0}{t} = 0 = \bm{v}(p) = \bm{v}(\gamma(t))
+        \end{equation*}
+        we know that $\gamma_0$ is an integral curve of $\bm{v}$.\par
+        Now consider an arbitrary integral curve $\gamma:(-a,b)\to U$ having the property $\gamma(t_0)=p$ for some $t_0\in(-a,b)$. It follows by Theorem 2.2.5 that $\gamma$ and $\gamma_0$ coincide on the interval $(-a,a)$.\par
+        By hypothesis, $\supp(\bm{v})$ is compact. Basic set theory tells us that for $\gamma$ arbitrary, either $\gamma(t)\in\supp(\bm{v})$ for all $t$ or there exists $t_0$ such that $\gamma(t_0)\in U\setminus\supp(\bm{v})$. But then by the definition of $\supp(\bm{v})$, $\bm{v}(\gamma(t_0))=0$. Thus, letting $p=\gamma(t_0)$, we have an associated $\gamma_0$ that $\gamma$ "runs along" while outside the support. It follows that in either case, $\gamma$ cannot go off to $\infty$ or go off the boundary of $U$ as $t\to b$.
+    \end{proof}
+    \item \textbf{Bump function}: A function $f:\R^n\to\R$ which is both smooth and compactly supported.
+    \item $\bm{C_0^\infty(\pmb{\R}^n)}$: The vector space of all bump functions with domain $\R^n$.
+    \item An application of Theorem 2.2.15.
+    \begin{itemize}
+        \item Suppose $\bm{v}$ is a vector field on $U$ and we want to inspect the integral curves of $\bm{v}$ on some $A\subset U$ compact. Let $\rho\in C_0^\infty(U)$ be such that $\rho(p)=1$ for all $p\in N_r(A)$, where $N_r(A)$ is some neighborhood of the set $A$. Then the vector field $\bm{w}=\rho\bm{v}$ is compactly supported and hence complete. However, it is also identical to $\bm{v}$ on $A$, so its integral curves on $A$ coincide with those of $\bm{v}$ on $A$.
+    \end{itemize}
+    \item $\bm{f_t}$: The map from $U\to U$ defined as follows, where $\bm{v}$ is complete. \emph{Given by}
+    \begin{equation*}
+        f_t(p) = \gamma_p(t)
+    \end{equation*}
+    \begin{itemize}
+        \item Note that it is the fact that $\bm{v}$ is complete that justifies the existence of an integral curve $\gamma_p:\R\to U$ with $\gamma_p(0)=p$ for all $p\in U$.
+    \end{itemize}
+    \item Properties of $f_t$.
+    \begin{enumerate}
+        \item $\bm{v}\in C^\infty$ implies $f_t\in C^\infty$.
+        \begin{proof}
+            By Theorem 2.2.6.
+        \end{proof}
+        \item $f_0=\id_U$.
+        \begin{proof}
+            We have
+            \begin{equation*}
+                f_0(p) = \gamma_p(0) = p = \id_U(p)
+            \end{equation*}
+            as desired.
+        \end{proof}
+        \item $f_t\circ f_a=f_{t+a}$.
+        \begin{proof}
+            Let $q=f_a(p)$. Since $\bm{v}$ is complete and $q\in U$, there exists $\gamma_q$ such that $\gamma_q(0)=q$. It follows that $\gamma_p(a)=f_a(p)=q=\gamma_q(0)$. Thus, by Theorem 2.2.7, $\gamma_q(t)$ and $\gamma_p(t+a)$ are both integral curves of $\bm{v}$ with the same initial point. Therefore,
+            \begin{equation*}
+                (f_t\circ f_a)(p) = f_t(q)
+                = \gamma_q(t)
+                = \gamma_p(t+a)
+                = f_{t+a}(p)
+            \end{equation*}
+            for all $t$, as desired.
+        \end{proof}
+        \item $f_t\circ f_{-t}=\id_U$.
+        \begin{proof}
+            See properties 2 and 3.
+        \end{proof}
+        \item $f_{-t}=f_t^{-1}$.
+        \begin{proof}
+            See property 4.
+        \end{proof}
+    \end{enumerate}
+    \item Thus, $f_t$ is a $C^\infty$ \textbf{diffeomorphism}.
+    \begin{itemize}
+        \item "Hence, if $\bm{v}$ is complete, it generates a \textbf{one-parameter group} $f_t$ ($-\infty<t<\infty$) of $C^\infty$-diffeomorphisms of $U$" \parencite[40]{bib:DifferentialForms}.
+    \end{itemize}
+    \item \textbf{Diffeomorphism}: An isomorphism of smooth manifolds. In particular, it is an invertible function that maps one differentiable manifold to another such that both the function and its inverse are differentiable.
+    \item \textbf{One-parameter group}: A continuous group homomorphism $\varphi:\R\to G$ from the real line $\R$ (as an additive group) to some other topological group $G$.
+    \item If $\bm{v}$ is not complete, there is an analogous result, but it is trickier to formulate.
+    \item \textbf{$\bm{f}$-related} (vector fields $\bm{v},\bm{w}$): Two vector fields $\bm{v},\bm{w}$ such that
+    \begin{equation*}
+        \dd f_p(\bm{v}(p)) = \bm{w}(f(p))
+    \end{equation*}
+    for all $p\in U$, where $\bm{v}$ is a $C^\infty$-vector field on $U\subset\R^n$ open, $\bm{w}$ is a $C^\infty$-vector field on $W\subset\R^m$ open, and $f:U\to W$ is a $C^\infty$ map.
+    \begin{itemize}
+        \item An alternate formulation is that in terms of coordinates,
+        \begin{equation*}
+            w_i(q) = \sum_{j=1}^n\pdv{f_i}{x_j}(p)v_j(p)
+        \end{equation*}
+        where
+        \begin{align*}
+            \bm{v} &= \sum_{i=1}^nv_i\pdv{x_i}
+            \bm{w} &= \sum_{j=1}^mw_j\pdv{y_i}
+        \end{align*}
+        for $v_i\in C^k(U)$ and $w_j\in C^k(W)$.
+    \end{itemize}
+    \item If $m=n$ and $f$ is a $C^\infty$ diffeomorphism, then $\bm{w}$ is the vector field defined by the equation
+    \begin{equation*}
+        w_i = \sum_{j=1}^n\left( \pdv{f_i}{x_j}v_j \right)\circ f^{-1}
+    \end{equation*}
+    \item Theorem 2.2.18: If $f:U\to W$ is a $C^\infty$ diffeomorphism and $\bm{v}$ is a $C^\infty$ vector field on $U$, then there exists a unique $C^\infty$ vector field $\bm{w}$ on $W$ having the property that $\bm{v}$ and $\bm{w}$ are $f$-related.
+    \begin{proof}
+        See the above.
+    \end{proof}
+    \item \textbf{Pushforward} (of $\bm{v}$ by $f$): The vector field $\bm{w}$ shown to exist by Theorem 2.2.18. \emph{Denoted by} $\bm{f_*\pmb{v}}$.
+    \item Theorem 2.2.20: Let $U_1,U_2\subset\R^n$ open, $\bm{v}_1,\bm{v}_2$ vector fields on $U_1,U_2$, and $f:U_1\to U_2$ a $C^\infty$ map. If $\bm{v}_1,\bm{v}_2$ are $f$-related, every integral curve $\gamma:I\to U_1$ of $\bm{v}_1$ gets mapped by $f$ onto an integral curve $f\circ\gamma:I\to U_2$ of $\bm{v}_2$.
+    \begin{proof}
+        We want to show that
+        \begin{equation*}
+            \bm{v}_2((f\circ\gamma)(t)) = \left( (f\circ\gamma)(t),\eval{\textstyle\dv{t}(f\circ\gamma)}_t \right)
+        \end{equation*}
+        We are given that
+        \begin{align*}
+            \bm{v}_1(\gamma(t)) &= \left( \gamma(t),\eval{\textstyle\dv{\gamma}{t}}_t \right)&
+            \dd f_p(\bm{v}_1(p)) &= \bm{v}_2(f(p))
+        \end{align*}
+        Let $p=\gamma(t)$ and $q=f(p)$. Then
+        \begin{align*}
+            \bm{v}_2((f\circ\gamma)(t)) &= \bm{v}_2(f(p))\\
+            &= \dd f_p(\bm{v}_1(p))\\
+            &= \dd f_p(\bm{v}_1(\gamma(t)))\\
+            &= \dd f_p\left( \gamma(t),\eval{\textstyle\dv{\gamma}{t}}_t \right)\\
+            &= \dd f_p\left( p,\eval{\textstyle\dv{\gamma}{t}}_t \right)\\
+            &= \left( q,Df(p)\left( \eval{\textstyle\dv{\gamma}{t}}_t \right) \right)\\
+            % &= \left( f(\gamma(t)),\dd f_p\left( \eval{\textstyle\dv{\gamma}{t}}_t \right) \right)\\
+            &= \left( (f\circ\gamma)(t),\eval{\textstyle\dv{t}(f\circ\gamma)}_t \right)
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Corollary 2.2.21: In the setting of Theorem 2.2.20, suppose $\bm{v}_1,\bm{v}_2$ are complete. Let $(f_{i,t})_{t\in\R}:U_i\to U_i$ be the one-parameter group of diffeomorphisms generated by $\bm{v}_i$. Then
+    \begin{equation*}
+        f\circ f_{1,t} = f_{2,t}\circ f
+    \end{equation*}
+    \begin{proof}
+        We have that
+        \begin{align*}
+            (f\circ f_{1,t})(p) &= (f\circ\gamma_p)(t)
+        \end{align*}
+        By Theorem 2.2.20, the above is an integral curve of $\bm{v}_2$. Let $f(p)=q$. Then
+        \begin{align*}
+            (f_{2,t}\circ f)(p) &= f_{2,t}(q)\\
+            &= \gamma_q(t)
+        \end{align*}
+        ...\par
+        \textcite{bib:DifferentialForms} proves that if $\phi\in C^\infty(U_2)$ and $f^*\phi=\phi\circ f$, then
+        \begin{equation*}
+            f^*L_{\bm{v}_2}\phi = L_{\bm{v}_1}f^*\phi
+        \end{equation*}
+        by virtue of the observations that if $f(p)=q$, then at the point $p$, the right-hand side above is $(\dd\phi)_q\circ\dd f_p(\bm{v}_1(p))$ by the chain rule and by definition the left hand side is $\dd\phi_q(\bm{v}_2(q))$. Moreover, by definition, $\bm{v}_2(q)=\dd f_p(\bm{v}_1(p))$ so the two sides are the same.
+    \end{proof}
+    \item Theorem 2.2.22: For $i=1,2,3$, let $U_i\subset\R^{n_i}$ open and $\bm{v}_i$ a vector field on $U_i$. For $i=1,2$, let $f_i:U_i\to U_{i+1}$ be a $C^\infty$ map. If $\bm{v}_1,\bm{v}_2$ are $f_1$-related and $\bm{v}_2,\bm{v}_3$ are $f_2$-related, then $\bm{v}_1,\bm{v}_3$ are $(f_2\circ f_1)$-related. In particular, if $f_1,f_2$ are diffeomorphisms, we have
+    \begin{equation*}
+        (f_2)_*(f_1)_*\bm{v}_1 = (f_2\circ f_1)_*\bm{v}_1
+    \end{equation*}
+    \item \textbf{Pullback} (of $\mu$ on $U$): The function from $U\to T_p^*\R^n$ defined as follows, where $U\subset\R^n$ and $V\subset\R^m$ are open, $f:U\to V$ is a $C^\infty$ map, and $\mu$ is a one-form on $V$. \emph{Denoted by} $\bm{f^*\mu}$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto \mu_{f(p)}\circ\dd{f_p}
+    \end{equation*}
+    \item If $\phi:V\to\R$ is a $C^\infty$ map and $\mu=\dd{\phi}$, then
+    \begin{equation*}
+        \mu_q\circ\dd f_p = \dd\phi_q\circ\dd f_p
+        = \dd(\phi\circ f)_p
+    \end{equation*}
+    \begin{itemize}
+        \item In other words,
+        \begin{equation*}
+            f^*\mu = \dd\phi\circ f
+        \end{equation*}
+    \end{itemize}
+    \item Theorem 2.2.24: If $\mu$ is a $C^\infty$ one-form on $V$, its pullback $f^*\mu$ is $C^\infty$.
+    \begin{proof}
+        See Exercise 2.2.ii.
+    \end{proof}
+\end{itemize}
+
+
+
 
 \end{document}
