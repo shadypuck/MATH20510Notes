@@ -17,17 +17,86 @@
 \begin{enumerate}[label={\textbf{2.1.\roman*.}}]
     \item \marginnote{4/29:}Let $U$ be an open subset of $\R^n$. If $f:U\to\R$ is a $C^\infty$ function, then
     \begin{equation*}
-        \dd{f}=\sum_{i=1}^n\pdv{f}{x_i}\dd{x_i}
+        \dd{f} = \sum_{i=1}^n\pdv{f}{x_i}\dd{x_i}
     \end{equation*}
+    \begin{proof}
+        The object on the left side of the above equality is a one-form. The object on the right side of the equality is the pointwise sum of $n$ pointwise products of the functions $\pdv{f}{x_i}:U\to\R$ with the one-forms $\dd{x_i}$; thus, it is a one-form, too.\par
+        We want to prove that these two one-forms are equal. But under which definition of equality are we working? Each one-form is technically just a function from $U\to T_p^*\R^n$. Thus, we need only verify that both one-forms have the same action on every $p\in U$.\par
+        Let $p\in U$ be arbitrary. We now seek to verify that
+        \begin{equation*}
+            \dd f_p = \left( \sum_{i=1}^n\pdv{f}{x_i}\dd{x_i} \right)_p
+        \end{equation*}
+        But once again, both sides are functions; specifically, they are both cotangent vectors to $\R^n$ at $p$. Thus, we need to verify that both cotangent vectors have the same action on every $(p,v)\in T_p\R^n$.\par
+        Let $(p,v)\in T_p\R^n$ be arbitrary. Additionally, let $v=(v_1,\dots,v_n)$. Then
+        \begin{align*}
+            \dd f_p(p,v) &= Df(p)v\\
+            &= \sum_{i=1}^n\eval{\pdv{f}{x_i}}_pv_i\\
+            &= \sum_{i=1}^n\eval{\pdv{f}{x_i}}_p(\dd{x_i})_p(p,v)\\
+            &= \sum_{i=1}^n\left( \pdv{f}{x_i}\dd{x_i} \right)_p(p,v)\\
+            &= \left( \sum_{i=1}^n\pdv{f}{x_i}\dd{x_i} \right)_p(p,v)
+        \end{align*}
+        as desired.
+    \end{proof}
     \item Let $U$ be an open subset of $\R^n$, $\bm{v}$ a vector field on $U$, and $f_1,f_2\in C^1(U)$. Then
     \begin{equation*}
         L_{\bm{v}}(f_1\cdot f_2) = L_{\bm{v}}(f_1)\cdot f_2+f_1\cdot L_{\bm{v}}(f_2)
     \end{equation*}
+    \begin{proof}
+        Let
+        \begin{equation*}
+            \bm{v} = \sum_{i=1}^ng_i\pdv{x_i}
+        \end{equation*}
+        By the definition of the Lie derivative, we have that
+        \begingroup
+        \allowdisplaybreaks
+        \begin{align*}
+            L_{\bm{v}}(f_1\cdot f_2) &= \sum_{i=1}^ng_i\pdv{x_i}(f_1\cdot f_2)\\
+            &= \sum_{i=1}^ng_i\left( \pdv{f_1}{x_i}\cdot f_2+f_1\cdot\pdv{f_2}{x_i} \right)\\
+            &= f_2\cdot\sum_{i=1}^ng_i\pdv{f_1}{x_i}+f_1\cdot\sum_{i=1}^ng_i\pdv{f_2}{x_i}\\
+            &= L_{\bm{v}}(f_1)\cdot f_2+f_1\cdot L_{\bm{v}}(f_2)
+        \end{align*}
+        \endgroup
+        as desired.
+    \end{proof}
     \item Let $U$ be an open subset of $\R^n$ and $\bm{v}_1,\bm{v}_2$ vector fields on $U$. Show that there is a unique vector field $\bm{w}$ on $U$ with the property
     \begin{equation*}
         L_{\bm{w}}\phi = L_{\bm{v}_1}(L_{\bm{v}_2}\phi)-L_{\bm{v}_2}(L_{\bm{v}_1}\phi)
     \end{equation*}
     for all $\phi\in C^\infty(U)$.
+    \begin{proof}
+        Let $\phi\in C^\infty(U)$ be arbitrary. Additionally, let
+        \begin{align*}
+            \bm{v}_1 &= \sum_{i=1}^ng_i\pdv{x_i}&
+            \bm{v}_2 &= \sum_{i=1}^nh_i\pdv{x_i}
+        \end{align*}
+        Then
+        \begin{align*}
+            L_{\bm{v}_1}\phi &= \sum_{i=1}^ng_i\pdv{\phi}{x_i}&
+            L_{\bm{v}_2}\phi &= \sum_{i=1}^nh_i\pdv{\phi}{x_i}
+        \end{align*}
+        so that
+        \begin{align*}
+            L_{\bm{v}_1}(L_{\bm{v}_2}\phi) &= L_{\bm{v}_1}\left( \sum_{i=1}^nh_i\pdv{\phi}{x_i} \right)&
+                L_{\bm{v}_2}(L_{\bm{v}_1}\phi) &= L_{\bm{v}_2}\left( \sum_{i=1}^ng_i\pdv{\phi}{x_i} \right)\\
+            &= \sum_{i=1}^nL_{\bm{v}_1}\left( h_i\pdv{\phi}{x_i} \right)&
+                &= \sum_{i=1}^nL_{\bm{v}_2}\left( g_i\pdv{\phi}{x_i} \right)\\
+            &= \sum_{i=1}^n\sum_{j=1}^ng_j\pdv{x_j}(h_i\pdv{\phi}{x_i})&
+                &= \sum_{i=1}^n\sum_{j=1}^nh_j\pdv{x_j}(g_i\pdv{\phi}{x_i})\\
+            &= \sum_{i=1}^n\sum_{j=1}^ng_j\left( \pdv{h_i}{x_j}\pdv{\phi}{x_i}+h_i\pdv{\phi}{x_j}{x_i} \right)&
+                &= \sum_{i=1}^n\sum_{j=1}^nh_j\left( \pdv{g_i}{x_j}\pdv{\phi}{x_i}+g_i\pdv{\phi}{x_j}{x_i} \right)
+        \end{align*}
+        It follows that
+        \begin{align*}
+            L_{\bm{v}_1}(L_{\bm{v}_2}\phi)-L_{\bm{v}_2}(L_{\bm{v}_1}\phi) &= \sum_{i=1}^n\sum_{j=1}^ng_j\left( \pdv{h_i}{x_j}\pdv{\phi}{x_i}+h_i\pdv{\phi}{x_j}{x_i} \right)-\sum_{i=1}^n\sum_{j=1}^nh_j\left( \pdv{g_i}{x_j}\pdv{\phi}{x_i}+g_i\pdv{\phi}{x_j}{x_i} \right)\\
+            &= \sum_{i=1}^n\sum_{j=1}^n\left[ \left( g_j\pdv{h_i}{x_j}-h_j\pdv{g_i}{x_j} \right)\pdv{\phi}{x_i}+(g_jh_i-h_jg_i)\pdv{\phi}{x_j}{x_i} \right]\\
+            &= \sum_{i=1}^n\sum_{j=1}^n\left[ \left( \pdv{x_j}(g_jh_i-h_jg_i) \right)\pdv{\phi}{x_i}+(g_jh_i-h_jg_i)\pdv{\phi}{x_j}{x_i} \right]\\
+            &= \sum_{i=1}^n\sum_{j=1}^n\left( \pdv{x_j}(g_jh_i-h_jg_i) \right)\pdv{\phi}{x_i}
+        \end{align*}
+        and hence that
+        \begin{equation*}
+            \bm{w} = \sum_{i=1}^n\underbrace{\sum_{j=1}^n\left( \pdv{x_j}(g_jh_i-h_jg_i) \right)}_{\text{functions }U\to\R}\pdv{x_i}
+        \end{equation*}
+    \end{proof}
     \item The vector field $\bm{w}$ in Exercise 2.1.iii is called the \textbf{Lie bracket} of the vector fields $\bm{v}_1$ and $\bm{v}_2$ and is denoted by $[\bm{v}_1,\bm{v}_2]$. Verify that the Lie bracket is \textbf{skew-symmetric}, i.e.,
     \begin{equation*}
         [\bm{v}_1,\bm{v}_2] = -[\bm{v}_2,\bm{v}_1]
@@ -37,6 +106,45 @@
         [\bm{v}_1,[\bm{v}_2,\bm{v}_3]]+[\bm{v}_2,[\bm{v}_3,\bm{v}_1]]+[\bm{v}_3,[\bm{v}_1,\bm{v}_2]] = 0
     \end{equation*}
     Thus, the Lie bracket defines the structure of a \textbf{Lie algebra}. (Hint: Prove analogous identities for $L_{\bm{v}_1}$, $L_{\bm{v}_2}$, and $L_{\bm{v}_3}$.)
+    \begin{proof}
+        Throughout this problem, let
+        \begin{align*}
+            \bm{v}_1 &= \sum_{i=1}^nf_i\pdv{x_i}&
+            \bm{v}_2 &= \sum_{i=1}^ng_i\pdv{x_i}&
+            \bm{v}_3 &= \sum_{i=1}^nh_i\pdv{x_i}
+        \end{align*}
+        Then
+        \begin{equation*}
+            [\bm{v}_1,\bm{v}_2] = \sum_{i=1}^n\sum_{j=1}^n\left( \pdv{x_j}(f_jg_i-g_jf_i) \right)\pdv{x_i}
+        \end{equation*}
+        It follows that
+        \begin{align*}
+            -[\bm{v}_1,\bm{v}_2] &= -\sum_{i=1}^n\sum_{j=1}^n\left( \pdv{x_j}(f_jg_i-g_jf_i) \right)\pdv{x_i}\\
+            &= \sum_{i=1}^n\sum_{j=1}^n\left( \pdv{x_j}(f_ig_j-g_if_j) \right)\pdv{x_i}\\
+            &= \sum_{i=1}^n\sum_{j=1}^n\left( \pdv{x_j}(f_jg_i-g_jf_i) \right)\pdv{x_i}\\
+            &= [\bm{v}_1,\bm{v}_2]
+        \end{align*}
+        where the third equality holds by reindexing the symmetric sum.\par
+        Additionally, we have that
+        \begin{equation*}
+            [\bm{v}_2,\bm{v}_3] = \sum_{i=1}^n\sum_{j=1}^n\left( \pdv{x_j}(g_jh_i-h_jg_i) \right)\pdv{x_i}
+        \end{equation*}
+        and
+        \begin{equation*}
+            [\bm{v}_3,\bm{v}_1] = \sum_{i=1}^n\sum_{j=1}^n\left( \pdv{x_j}(h_jf_i-f_jh_i) \right)\pdv{x_i}
+        \end{equation*}
+        It follows that
+        \begin{align*}
+            [\bm{v}_1,[\bm{v}_2,\bm{v}_3]] &= \sum_{i=1}^n\sum_{j=1}^n\left[ \pdv{x_j}(f_j\sum_{k=1}^n\left[ \pdv{x_k}(g_kh_i-h_kg_i) \right]-f_i\sum_{k=1}^n\left[ \pdv{x_k}(g_kh_j-h_kg_j) \right]) \right]\pdv{x_i}\\
+            &= 0
+        \end{align*}
+        where we note that any $i,j$ term in the double sum and the corresponding $j,i$ term add to zero. We can prove a similar identity for $[\bm{v}_2,[\bm{v}_3,\bm{v}_1]]$ and $[\bm{v}_3,[\bm{v}_1,\bm{v}_2]]$. Thus,
+        \begin{align*}
+            [\bm{v}_1,[\bm{v}_2,\bm{v}_3]]+[\bm{v}_2,[\bm{v}_3,\bm{v}_1]]+[\bm{v}_3,[\bm{v}_1,\bm{v}_2]] = 0+0+0
+            = 0
+        \end{align*}
+        so the Lie bracket satisfies the Jacobi identity, as desired.
+    \end{proof}
     \setcounter{enumi}{6}
     \item Let $U$ be an open subset of $\R^n$, and let $\gamma:[a,b]\to U$, $t\mapsto(\gamma_1(t),\dots,\gamma_n(t))$ be a $C^1$ curve. Given a $C^\infty$ one-form $\omega=\sum_{i=1}^nf_i\dd{x_i}$ on $U$, define the \textbf{line integral} of $\omega$ over $\gamma$ to be the integral
     \begin{equation*}
@@ -47,29 +155,157 @@
         \int_\gamma\omega = f(\gamma(b))-f(\gamma(a))
     \end{equation*}
     In particular, conclude that if $\gamma$ is a closed curve, i.e., $\gamma(a)=\gamma(b)$, this integral is zero.
+    \begin{proof}
+        % We have that
+        % \begin{align*}
+        %     f(\gamma(b))-f(\gamma(a)) &= f(\gamma_1(b),\dots,\gamma_n(b))-f(\gamma_1(a),\dots,\gamma_n(a))
+        % \end{align*}
+
+        % Let $U=\R^2\subset\R^2$, let $\gamma:[0,2]\to U$ be defined by $t\mapsto(t,t^2)$, and let $f:\R^2\to\R$ be defined by $f(x,y)=x^2y^2$. It follows that
+        % \begin{equation*}
+        %     \omega = \dd f
+        %     = \sum_{i=1}^2\pdv{f}{x_i}\dd{x_i}
+        %     = \pdv{f}{x}\dd{x}+\pdv{f}{y}\dd{y}
+        %     = 2xy^2\dd{x}+2x^2y\dd{y}
+        % \end{equation*}
+        % Thus, we have that
+        % \begin{align*}
+        %     \int_\gamma\omega &= \sum_{i=1}^2\int_0^2\eval{\pdv{f}{x_i}}_{\gamma(t)}\dv{\gamma_i}{t}\dd{t}\\
+        %     &= \int_0^22(t)(t^2)^2\cdot 1\dd{t}+\int_0^22(t)^2(t^2)\cdot 2t\dd{t}\\
+        %     &= 2\int_0^2t^5\dd{t}+4\int_0^2t^5\dd{t}\\
+        %     &= \frac{64}{3}+\frac{128}{3}\\
+        %     &= 64
+        % \end{align*}
+
+
+        Since $\gamma:[a,b]\to U$ (where $U$ is open), we know that there exist $N_{r_1}(\gamma(a))\subset U$ and $N_{r_2}(\gamma(b))\subset U$. Thus, we may extend $\gamma$ to some open superset $(a,b)^+\supset[a,b]$ in a $C^1$ fashion, i.e., along the tangent vectors to $\gamma(a)$ and $\gamma(b)$ at $a$ and $b$, respectively. From now on, when we refer to $\gamma$, we will be discussing $\gamma:(a,b)^+\to U$. With this adjustment, we can show that $f\circ\gamma$ satisfies the hypotheses for the multivariable chain rule at $t\in[a,b]$ arbitrary.\par
+        $(a,b)^+$ is open in $\R$ by definition. Since $\gamma\in C^1(\R)$, $\gamma:(a,b)^+\to U$ is differentiable at $t\in[a,b]\subset\R^n$. $U\supset\gamma((a,b)^+)$ is an open set in $\R^n$ by hypothesis. Since $f\in C^\infty(U)$, $f:U\to\R$ is differentiable at $\gamma(t)$. Therefore, we have by Theorem 9.15 of \textcite{bib:Rudin} that
+        \begin{align*}
+            (f\circ\gamma)'(t) &= D(f\circ\gamma)(t)\\
+            &= Df(\gamma(t))\circ D\gamma(t)\\
+            &=
+            \begin{bmatrix}
+                \eval{\pdv{f}{x_1}}_{\gamma(t)} & \cdots & \eval{\pdv{f}{x_n}}_{\gamma(t)}\\
+            \end{bmatrix}
+            \begin{bmatrix}
+                \eval{\pdv{\gamma_1}{t}}_t\\
+                \vdots\\
+                \eval{\pdv{\gamma_n}{t}}_t\\
+            \end{bmatrix}\\
+            &= \sum_{i=1}^n\eval{\pdv{f}{x_i}}_{\gamma(t)}\eval{\pdv{\gamma_i}{t}}_t\\
+            &= \sum_{i=1}^n\eval{\pdv{f}{x_i}}_{\gamma(t)}\pdv{\gamma_i}{t}
+        \end{align*}
+        Now suppose $\omega=\dd f$. Then by Lemma 2.1.18, each $f_i=\pdv*{f}{x_i}$. It follows that
+        \begin{align*}
+            \int_\gamma\omega &= \sum_{i=1}^n\int_a^b\eval{\pdv{f}{x_i}}_{\gamma(t)}\dv{\gamma_i}{t}\dd{t}\\
+            &= \int_a^b\sum_{i=1}^n\eval{\pdv{f}{x_i}}_{\gamma(t)}\dv{\gamma_i}{t}\dd{t}\\
+            &= \int_a^b(f\circ\gamma)'(t)\dd{t}\\
+            &= f(\gamma(b))-f(\gamma(a))
+        \end{align*}
+        as desired.\par
+        Now suppose that $\gamma$ is a closed curve. Then
+        \begin{align*}
+            \int_\gamma\omega &= f(\gamma(b))-f(\gamma(a))\\
+            &= f(\gamma(a))-f(\gamma(a))\\
+            &= 0
+        \end{align*}
+        as desired.
+    \end{proof}
     \item Let $\omega$ be the $C^\infty$ one-form on $\R^2\setminus\{0\}$ defined by
     \begin{equation*}
         \omega = \frac{x_1\dd{x_2}-x_2\dd{x_1}}{x_1^2+x_2^2}
     \end{equation*}
     and let $\gamma:[0,2\pi]\to\R^2\setminus\{0\}$ be the closed curve $t\mapsto(\cos t,\sin t)$. Compute the line integral $\int_\gamma\omega$ and note that $\int_\gamma\omega\neq 0$. Conclude that $\omega$ is not of the form $\dd{f}$ for $f\in C^\infty(\R^2\setminus\{0\})$.
+    \begin{proof}
+        From the given definition of $\omega$, we can determine that
+        \begin{align*}
+            f_1(x_1,x_2) &= -\frac{x_2}{x_1^2+x_2^2}&
+            f_2(x_1,x_2) &= \frac{x_1}{x_1^2+x_2^2}
+        \end{align*}
+        We also have that
+        \begin{align*}
+            \gamma_1(t) &= \cos t&
+            \gamma_2(t) &= \sin t
+        \end{align*}
+        Thus, we know that
+        \begin{align*}
+            \int_\gamma\omega &= \sum_{i=1}^2\int_0^{2\pi}f_i(\gamma(t))\dv{\gamma_i}{t}\dd{t}\\
+            &= \int_0^{2\pi}f_1(\cos t,\sin t)\cdot\dv{t}(\cos t)\dd{t}+\int_0^{2\pi}f_2(\cos t,\sin t)\cdot\dv{t}(\sin t)\dd{t}\\
+            &= \int_0^{2\pi}-\sin t\cdot -\sin t\dd{t}+\int_0^{2\pi}\cos t\cdot\cos t\dd{t}\\
+            &= \int_0^{2\pi}\dd{t}\\
+            \Aboxed{\int_\gamma\omega &= 2\pi}
+        \end{align*}
+        Since $\int_\gamma\omega\neq 0$ and $\gamma(0)=\gamma(2\pi)=(1,0)$, we have by Exercise 2.1.vii that $\omega\neq\dd f$.
+    \end{proof}
 \end{enumerate}
 \begin{enumerate}[label={\textbf{2.2.\roman*.}}]
     \item For $i=1,2$, let $U_i$ be an open subset of $\R^{n_i}$, $\bm{v}_i$ a vector field on $U_i$, and $f:U_1\to U_2$ a $C^\infty$-map. If $\bm{v}_1$ and $\bm{v}_2$ are $f$-related, every integral curve $\gamma:I\to U_1$ of $\bm{v}_1$ gets mapped by $f$ onto an integral curve $f\circ\gamma:I\to U_2$ of $\bm{v}_2$.
+    \begin{proof}
+        We want to show that
+        \begin{equation*}
+            \bm{v}_2((f\circ\gamma)(t)) = \left( (f\circ\gamma)(t),\eval{\textstyle\dv{t}(f\circ\gamma)}_t \right)
+        \end{equation*}
+        We are given that
+        \begin{align*}
+            \bm{v}_1(\gamma(t)) &= \left( \gamma(t),\eval{\textstyle\dv{\gamma}{t}}_t \right)&
+            \dd f_p(\bm{v}_1(p)) &= \bm{v}_2(f(p))
+        \end{align*}
+        Let $p=\gamma(t)$ and $q=f(p)$. Then
+        \begin{align*}
+            \bm{v}_2((f\circ\gamma)(t)) &= \bm{v}_2(f(p))\\
+            &= \dd f_p(\bm{v}_1(p))\\
+            &= \dd f_p(\bm{v}_1(\gamma(t)))\\
+            &= \dd f_p\left( \gamma(t),\eval{\textstyle\dv{\gamma}{t}}_t \right)\\
+            &= \dd f_p\left( p,\eval{\textstyle\dv{\gamma}{t}}_t \right)\\
+            &= \left( q,Df(p)\left( \eval{\textstyle\dv{\gamma}{t}}_t \right) \right)\\
+            % &= \left( f(\gamma(t)),\dd f_p\left( \eval{\textstyle\dv{\gamma}{t}}_t \right) \right)\\
+            &= \left( (f\circ\gamma)(t),\eval{\textstyle\dv{t}(f\circ\gamma)}_t \right)
+        \end{align*}
+        as desired.
+    \end{proof}
     \item Let $U,V$ be open subsets of $\R^n$ and $f:U\to V$ an $C^k$ map.
     \begin{enumerate}
         \item Show that for $\phi\in C^\infty(V)$, the pullback can be rewritten
         \begin{equation*}
             f^*\dd{\phi} = \dd{f^*\phi}
         \end{equation*}
+        \begin{proof}
+            We have that
+            \begin{align*}
+                (f^*\dd\phi)(p) &= \dd\phi_{f(p)}\circ\dd f_p\\
+                &= \dd(\phi\circ f)_p\\
+                &= \dd f^*\phi
+            \end{align*}
+            where $f^*\phi=\phi\circ f$ is another variation of the pullback.
+        \end{proof}
         \item Let $\mu$ be the one-form
         \begin{equation*}
-            \mu = \sum_{i=1}^m\phi_i\dd{x_i}
+            \mu = \sum_{i=1}^n\phi_i\dd{x_i}
         \end{equation*}
-        on $V$ for all $\phi_i\in C^\infty(V)$. Show that if $f=(f_1,\dots,f_m)$, then
+        on $V$ for all $\phi_i\in C^\infty(V)$. Show that if $f=(f_1,\dots,f_n)$, then
         \begin{equation*}
-            f^*\mu = \sum_{i=1}^mf^*\phi_i\dd{f_i}
+            f^*\mu = \sum_{i=1}^nf^*\phi_i\dd{f_i}
         \end{equation*}
+        \begin{proof}
+            We have that
+            \begin{align*}
+                (f^*\mu)(p) &= \mu_{f(p)}\circ\dd f_p\\
+                &= \sum_{i=1}^n\phi_i(f(p))(\dd{x_i})_p\circ\dd f_p\\
+                &= \sum_{i=1}^n(\phi_i\circ f)(p)(\dd{f_i})_p\\
+                &= \sum_{i=1}^nf^*\phi_i(p)(\dd{f_i})_p
+            \end{align*}
+            where we have $(\dd{x_i})_p\circ\dd f_p=\dd{f_i}$ since
+            \begin{align*}
+                [(\dd{x_i})_p\circ\dd f_p](p,v) &= (\dd{x_i})_p(q,Df(p)v)\\
+                &= \left( q_i,\sum_{j=1}^n\pdv{f_i}{x_j}v_j \right)\\
+                &= (q_i,Df_i(p)v)\\
+                &= (\dd{f_i})_p(p,v)
+            \end{align*}
+        \end{proof}
         \item Show that if $\mu$ is $C^\infty$ and $f$ is $C^\infty$, $f^*\mu$ is $C^\infty$.
+        \begin{proof}
+            To prove that $f^*\mu\in C^\infty$, it will suffice to show by (2) that every $f^*\phi_i\in C^\infty$. But this is obvious since $f^*\phi_i=\phi_i\circ f$ where the latter two composed functions are both $C^\infty$.
+        \end{proof}
     \end{enumerate}
     \stepcounter{enumi}
     \item 
@@ -79,30 +315,123 @@
             t \mapsto (r\cos(t+\theta),r\sin(t+\theta))
         \end{equation*}
         for $t\in\R$ is the unique integral curve of $\bm{v}$ passing through the point $(r\cos\theta,r\sin\theta)$ at $t=0$.
+        \begin{proof}
+            We first will check that the above curve, which we will call $\gamma:\R\to U$, is \emph{an} integral curve of $\bm{v}$ passing through $(r\cos\theta,r\sin\theta)$ at $t=0$. To verify the integral curve part, we first note that since that $g_1,g_2:U\to\R$ are defined by
+            \begin{align*}
+                g_1(x_1,x_2) &= -x_2&
+                g_2(x_1,x_2) &= x_1
+            \end{align*}
+            we may define $g:U\to\R^2$ by
+            \begin{equation*}
+                g(x_1,x_2) = (-x_2,x_1)
+            \end{equation*}
+            Thus, we need show that
+            \begin{align*}
+                \dv{\gamma}{t} &\stackrel{?}{=} g(\gamma(t))\\
+                \left( \dv{t}(r\cos(t+\theta)),\dv{t}(r\sin(t+\theta)) \right) &\stackrel{?}{=} g(r\cos(t+\theta),r\sin(t+\theta))\\
+                \left( -r\sin(t+\theta),r\cos(t+\theta) \right) &\stackrel{\checkmark}{=} \left( -r\sin(t+\theta),r\cos(t+\theta) \right)
+            \end{align*}
+            To verify the passing through the point at $t=0$ part, we need only plug in $t=0$ and observe the equivalence:
+            \begin{equation*}
+                \gamma(0) = (r\cos(0+\theta),r\sin(0+\theta))
+                = (r\cos\theta,r\sin\theta)
+            \end{equation*}
+            We now check that $\gamma$ is the \emph{unique} such curve. But if $\tilde{\gamma}$ is an integral curve passing through $(r\cos\theta,r\sin\theta)$ at $t=0$, we have that $\gamma=\tilde{\gamma}$ by Theorem 2.2.5. 
+        \end{proof}
         \item Let $U=\R^n$ and let $\bm{v}$ be the constant vector field $\sum_{i=1}^nc_i\pdv*{x_i}$. Show that the curve
         \begin{equation*}
             t \mapsto a+t(c_1,\dots,c_n)
         \end{equation*}
         for $t\in\R$ is the unique integral curve of $\bm{v}$ passing through $a\in\R^n$ at $t=0$.
+        \begin{proof}
+            Applying the same strategy in part (a), we call the given integral curve $\gamma$ and define $g:U\to\R^n$ by
+            \begin{equation*}
+                g(x_1,\dots,x_n) = (c_1,\dots,c_n)
+            \end{equation*}
+            Then we have the following.\par
+            \underline{\emph{An} integral curve}:
+            \begin{align*}
+                \dv{\gamma}{t} &\stackrel{?}{=} g(\gamma(t))\\
+                \left( \dv{t}(a+tc_1),\dots,\dv{t}(a+tc_n) \right) &\stackrel{?}{=} g(a+tc_1,\dots,a+tc_n)\\
+                (c_1,\dots,c_n) &\stackrel{\checkmark}{=} (c_1,\dots,c_n)
+            \end{align*}
+            \underline{$\gamma(0)=a$}:
+            \begin{align*}
+                \gamma(0) &= a+0\cdot(c_1,\dots,c_n)\\
+                &= a
+            \end{align*}
+            \underline{\emph{Unique} integral curve}:
+            Apply Theorem 2.2.5.
+        \end{proof}
         \item Let $U=\R^n$ and let $\bm{v}$ be the vector field $\sum_{i=1}^nx_i\pdv*{x_i}$. Show that the curve
         \begin{equation*}
             t \mapsto \e[t](a_1,\dots,a_n)
         \end{equation*}
         for $t\in\R$ is the unique integral curve of $\bm{v}$ passing through $a$ at $t=0$.
+        \begin{proof}
+            Applying the same strategy in parts (a)-(b), we call the given integral curve $\gamma$ and define $g:U\to\R^n$ by
+            \begin{equation*}
+                g(x_1,\dots,x_n) = (x_1,\dots,x_n)
+            \end{equation*}
+            Then we have the following.\par
+            \underline{\emph{An} integral curve}:
+            \begin{align*}
+                \dv{\gamma}{t} &\stackrel{?}{=} g(\gamma(t))\\
+                \left( \dv{t}(\e[t]a_1),\dots,\dv{t}(\e[t]a_n) \right) &\stackrel{?}{=} g(\e[t]a_1,\dots,\e[t]a_n)\\
+                (\e[t]a_1,\dots,\e[t]a_n) &\stackrel{\checkmark}{=} (\e[t]a_1,\dots,\e[t]a_n)
+            \end{align*}
+            \underline{$\gamma(0)=a$}:
+            \begin{align*}
+                \gamma(0) &= \e[0](a_1,\dots,a_n)\\
+                &= a
+            \end{align*}
+            \underline{\emph{Unique} integral curve}:
+            Apply Theorem 2.2.5.
+        \end{proof}
     \end{enumerate}
     \setcounter{enumi}{7}
-    \item Let $\bm{v}$ be the vector field on $\R$ given by $x^2\dv*{x}$. Show that the curve
+    \item Let $\bm{v}$ be the vector field on $\R$ given by $x^2\pdv*{x}$. Show that the curve
     \begin{equation*}
-        x(t) = \frac{a}{a-at}
+        x(t) = \frac{a}{1-at}
     \end{equation*}
     is an integral curve of $\bm{v}$ with initial point $x(0)=a$. Conclude that for $a>0$, the curve
     \begin{equation*}
         x(t) = \frac{a}{1-at}
     \end{equation*}
     on $0<t<1/a$ is a maximal integral curve. (In particular, conclude that $\bm{v}$ is not complete.)
+    \begin{proof}
+        Define $g:\R\to\R$ by
+        \begin{equation*}
+            g(x) = x^2
+        \end{equation*}
+        \underline{\emph{An} integral curve}:
+        \begin{align*}
+            \dv{x}{t} &\stackrel{?}{=} g(x(t))\\
+            \dv{t}(\frac{a}{1-at}) &\stackrel{?}{=} g\left( \frac{a}{1-at} \right)\\
+            \frac{(1-at)(0)-a(-a)}{(1-at)^2} &\stackrel{?}{=} \left( \frac{a}{1-at} \right)^2\\
+            \frac{a^2}{(1-at)^2} &\stackrel{\checkmark}{=} \frac{a^2}{(1-at)^2}
+        \end{align*}
+        \underline{$x(0)=a$}:
+        \begin{align*}
+            x(0) &= \frac{a}{1-a\cdot 0}\\
+            &= a
+        \end{align*}
+        \underline{$x$ on $0<t<1/a$ is a maximal integral curve}: Suppose for the sake of contradiction that there exists an $a>0$ to which there corresponds a number $b>1/a$ such that $x(t)=a/(1-at)$ on $(0,b)$ is an integral curve. It can be proven with an $\epsilon,\delta$ argument that $x$ is continuous on $(0,1/a)$ and on $(1/a,b)$, but that there is a discontinuity at $1/a$. But since $x$ is an integral curve, we have by definition that $x$ is $C^1$ (hence continuous) on $(0,b)$, a contradiction. Therefore, $x$ is a maximal integral curve on the specified integral.\par
+        Choose $a=1>0$. By the above, no integral curve $\gamma:\R\to\R$ exists with $\gamma(0)=1$, so $\bm{v}$ cannot be complete, as desired.
+    \end{proof}
 \end{enumerate}
 \begin{enumerate}[label={\textbf{2.3.\roman*.}}]
     \item Let $\omega\in\ome[2]{\R^4}$ be the 2-form $\dd{x_1}\wedge\dd{x_2}+\dd{x_3}\wedge\dd{x_4}$. Compute $\omega\wedge\omega$.
+    \begin{proof}
+        By the definition of the wedge product for $k$-forms, all properties proven for the wedge product of tensors carry over. This result will not be stated again, though it will be used again.\par
+        By the distributive law, we have that
+        \begin{align*}
+            \omega\wedge\omega &= [(\dd x_1\wedge\dd x_2)+(\dd x_3\wedge\dd x_4)]\wedge[(\dd x_1\wedge\dd x_2)+(\dd x_3\wedge\dd x_4)]\\
+            &= (\dd x_1\wedge\dd x_2)\wedge(\dd x_1\wedge\dd x_2)+2(\dd x_1\wedge\dd x_2)\wedge(\dd x_3\wedge\dd x_4)+(\dd x_3\wedge\dd x_4)\wedge(\dd x_3\wedge\dd x_4)
+            \intertext{By the anticommutative law, a decomposable element wedged with itself is zero.}
+            &= 2\dd x_1\wedge\dd x_2\wedge\dd x_3\wedge\dd x_4
+        \end{align*}
+    \end{proof}
     \item Let $\omega_1,\omega_2,\omega_3\in\ome[1]{\R^3}$ be the 1-forms
     \begin{align*}
         \omega_1 &= x_2\dd{x_3}-x_3\dd{x_2}\\
@@ -112,23 +441,135 @@
     Compute the following.
     \begin{enumerate}
         \item $\omega_1\wedge\omega_2$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \omega_1\wedge\omega_2 &= (x_2\dd x_3-x_3\dd x_2)\wedge(x_3\dd x_1-x_1\dd x_3)\\
+                &= x_2x_3\dd x_3\wedge\dd x_1-x_2x_1\dd x_3\wedge\dd x_3-x_3^2\dd x_2\wedge\dd x_1+x_1x_3\dd x_2\wedge\dd x_3\\
+                &= x_3^2\dd x_1\wedge\dd x_2-x_2x_3\dd x_1\wedge\dd x_3+x_1x_3\dd x_2\wedge\dd x_3
+            \end{align*}
+        \end{proof}
         \item $\omega_2\wedge\omega_3$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \omega_2\wedge\omega_3 &= (x_3\dd{x_1}-x_1\dd{x_3})\wedge(x_1\dd{x_2}-x_2\dd{x_1})\\
+                &= x_3x_1\dd x_1\wedge\dd x_2-x_3x_2\dd x_1\wedge\dd x_1-x_1^2\dd x_3\wedge\dd x_2+x_1x_2\dd x_3\wedge\dd x_1\\
+                &= x_1x_3\dd x_1\wedge\dd x_2-x_1x_2\dd x_1\wedge\dd x_3+x_1^2\dd x_2\wedge\dd x_3
+            \end{align*}
+        \end{proof}
         \item $\omega_3\wedge\omega_1$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \omega_3\wedge\omega_1 &= (x_1\dd{x_2}-x_2\dd{x_1})\wedge(x_2\dd{x_3}-x_3\dd{x_2})\\
+                &= x_1x_2\dd x_2\wedge\dd x_3-x_1x_3\dd x_2\wedge\dd x_2-x_2^2\dd x_1\wedge\dd x_3+x_2x_3\dd x_1\wedge\dd x_2\\
+                &= x_2x_3\dd x_1\wedge\dd x_2-x_2^2\dd x_1\wedge\dd x_3+x_1x_2\dd x_2\wedge\dd x_3
+            \end{align*}
+        \end{proof}
         \item $\omega_1\wedge\omega_2\wedge\omega_3$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \omega_1\wedge\omega_2\wedge\omega_3 ={}& (\omega_1\wedge\omega_2)\wedge\omega_3\\
+                ={}& (x_3^2\dd x_1\wedge\dd x_2-x_2x_3\dd x_1\wedge\dd x_3+x_1x_3\dd x_2\wedge\dd x_3)\wedge(x_1\dd{x_2}-x_2\dd{x_1})\\
+                \begin{split}
+                    ={}& x_3^2x_1\dd x_1\wedge\dd x_2\wedge\dd x_2-x_3^2x_2\dd x_1\wedge\dd x_2\wedge\dd x_1-x_2x_3x_1\dd x_1\wedge\dd x_3\wedge\dd x_2\\
+                    &+x_2x_3x_2\dd x_1\wedge\dd x_3\wedge\dd x_1+x_1x_3x_1\dd x_2\wedge\dd x_3\wedge\dd x_2-x_1x_3x_2\dd x_2\wedge\dd x_3\wedge\dd x_1
+                \end{split}\\
+                ={}& x_1x_2x_3\dd x_1\wedge\dd x_2\wedge\dd x_3-x_1x_2x_3\dd x_1\wedge\dd x_2\wedge\dd x_3\\
+                ={}& 0
+            \end{align*}
+        \end{proof}
     \end{enumerate}
     \item Let $U$ be an open subset of $\R^n$ and $f_1,\dots,f_n\in C^\infty(U)$. Show that
     \begin{equation*}
         \dd{f_1}\wedge\cdots\wedge\dd{f_n} = \det\left[ \pdv{f_i}{x_j} \right]\dd{x_1}\wedge\cdots\wedge\dd{x_n}
     \end{equation*}
+    \begin{proof}
+        By Lemma 2.1.18,
+        \begin{equation*}
+            \dd f_i = \sum_{j=1}^n\pdv{f_i}{x_j}\dd x_j
+        \end{equation*}
+        for all $i=1,\dots,n$. It follows that
+        \begin{equation*}
+            \dd{f_1}\wedge\cdots\wedge\dd{f_n} = \sum_{j=1}^n\pdv{f_1}{x_j}\dd x_j\wedge\cdots\wedge\sum_{j=1}^n\pdv{f_n}{x_j}\dd x_j
+        \end{equation*}
+        If we apply the distributive law for the wedge product, there will be $n^n$ terms in the resulting sum. Every term contains the product of $n$ partial derivatives as a scalar multiple in front of the wedge product of $n$ one-forms. For the partial derivatives, each of the $n$ functions $f_i$ will be represented exactly once. However, for the one-forms (and corresponding variables of differentiation), any number from 1 through $n$ can be represented up to $n$ times. Thus, we need to sum terms of the form
+        \begin{equation*}
+            \pdv{f_1}{x_{i_1}}\cdots\pdv{f_n}{x_{i_n}}\dd x_{i_1}\wedge\cdots\wedge\dd x_{i_n}
+        \end{equation*}
+        over the multi-indices of $n$ of length $n$. Consequently,
+        \begin{equation*}
+            \dd{f_1}\wedge\cdots\wedge\dd{f_n} = \sum_I\pdv{f_1}{x_{i_1}}\cdots\pdv{f_n}{x_{i_n}}\dd x_{i_1}\wedge\cdots\wedge\dd x_{i_n}
+        \end{equation*}
+        We now consider which terms in the sum are equal to zero. By the anticommutative property of the wedge product, any repeating multi-index will lead to a term whose wedge product evaluates to zero. Thus, we can restrict our sum to the \emph{non-repeating} multi-indices of $n$ of length $n$.\par
+        Every non-repeating multi-index of $n$ of length $n$ is equal to the $n$-tuple $(\sigma(1),\dots,\sigma(n))$ for some $\sigma\in S_n$. Thus, instead of summing over the multi-indices of $n$ of length $n$, we can sum over the permutations in $S_n$:
+        \begin{equation*}
+            \dd{f_1}\wedge\cdots\wedge\dd{f_n} = \sum_{\sigma\in S_n}\pdv{f_1}{x_{\sigma(1)}}\cdots\pdv{f_n}{x_{\sigma(n)}}\dd x_{\sigma(1)}\wedge\cdots\wedge\dd x_{\sigma(n)}
+        \end{equation*}
+        But by an extension of Claim 1.6.8,
+        \begin{equation*}
+            \dd x_{\sigma(1)}\wedge\cdots\wedge\dd x_{\sigma(n)} = (-1)^\sigma\dd x_1\wedge\cdots\wedge\dd x_n
+        \end{equation*}
+        Therefore, we can factor out the one-form from the sum and equate the sum with the determinant, as desired.
+        \begin{align*}
+            \dd{f_1}\wedge\cdots\wedge\dd{f_n} &= \left[ \sum_{\sigma\in S_n}(-1)^\sigma\pdv{f_1}{x_{\sigma(1)}}\cdots\pdv{f_n}{x_{\sigma(n)}} \right]\dd x_1\wedge\cdots\wedge\dd x_n\\
+            &= \det\left[ \pdv{f_i}{x_j} \right]\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+        \end{align*}
+    \end{proof}
     \item Let $U$ be an open subset of $\R^n$. Show that every $(n-1)$-form $\omega\in\ome[n-1]{U}$ can be written uniquely as a sum
     \begin{equation*}
         \sum_{i=1}^nf_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}
     \end{equation*}
     where $f_i\in C^\infty(U)$ and $\widehat{\dd{x_i}}$ indicates that $\dd{x_i}$ is to be omitted from the wedge product $\dd{x_1}\wedge\cdots\wedge\dd{x_n}$.
+    \begin{proof}
+        Let $\omega\in\ome[n-1]{U}$ be arbitrary. Then $\omega$ has a decomposition
+        \begin{equation*}
+            \omega = \sum_If_I\dd{x_I}
+        \end{equation*}
+        where we sum over the multi-indices of $n$ of length $n-1$. However, since any wedge product with a repeat evaluates to zero (anticommutative property), we need only sum over the non-repeating multi-indices of $n$ of length $n-1$. Moreover, all of these can be reordered so that they are strictly increasing by some $\sigma\in S_{n-1}$. The resulting sign $(-1)^\sigma$ and multiple functions $f_I$, if applicable, can be combined into one new function $f_i$ and reindexed.
+    \end{proof}
     \item Let $\mu=\sum_{i=1}^nx_i\dd{x_i}$. Show that there exists an $(n-1)$-form $\omega\in\ome[n-1]{\R^n\setminus\{0\}}$ with the property
     \begin{equation*}
         \mu\wedge\omega = \dd{x_1}\wedge\cdots\wedge\dd{x_n}
     \end{equation*}
+    \begin{proof}
+        % Issue: $\ker(x_1)>\{0\}$. We can envision a non-smooth one-form where the function out front is 1 on $\ker(x_1)$ and $1/x_1$ elsewhere.
+
+        % Is it actually impossible? On elements in the kernel can it never evaluate to that? Consider $e_2$.
+        % \begin{align*}
+        %     [(\dd{x_1}\wedge\cdots\wedge\dd{x_n})(e_2)](e_1,\dots,e_n) &= [(\dd{x_1})_{e_2}\wedge\cdots\wedge(\dd{x_n})_{e_2}](e_1,\dots,e_n)\\
+        %     &= 1\times\cdots\times 1\\
+        %     &= 1
+        % \end{align*}
+        % \begin{align*}
+        %     \left[ \left( \sum_{i=1}^nx_i\dd{x_i} \right)(e_2) \right](e_1) &= \left( \sum_{i=1}^nx_i(\dd{x_i})_{e_2} \right)(e_1)\\
+        %     &= 1+0+\cdots+0\\
+        %     &= 1
+        % \end{align*}
+
+        % One of the elements in the sum will have to evaluate to a nonzero value. We need to pick out which one this is and multiply by the corresponding one-form. But what if more than one term evaluates to nonzero values.
+
+        % Attempt 2: Let
+        % \begin{equation*}
+        %     \omega = \sum_{i=1}^n\frac{1}{nx_i}\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}
+        % \end{equation*}
+
+        % Having the first vector handled by the tensor $\mu$ and the rest handled by $\omega$ has to be equivalent to having the first handled by $\dd{x_1}$ and the rest handled by $\dd{x_2}\wedge\cdots\wedge\dd{x_n}$. The latter option does not interact with the argument of the $k$-form and pulls out the $i^\text{th}$ component of the $i^\text{th}$ vector in the argument for all vectors fed into the $k$-tensor and multiplies all these numbers.
+        % What is $\mu$ doing? It takes the product of the first component of the 1-form's argument and the first component of the 1-tensor's argument. It does this for all $n$ components (e.g., multiplies the second component of the 1-form's argument and the second component of the 1-tensor's argument, third and third, etc.) and sums the results. We wanna take this information and black-box it to the former.
+
+        % This $(n-1)$-form must be some kind of linear combination of $(n-1)$ forms. Things that work to our advantage: Any terms with repeats cancel. We should be able to use this constructively.
+        % If we look at attempt 2, I feel like that should work but I worry about the divide by zero issues. It's like we need some way to selectively include some terms in some cases, and not other cases.
+
+
+        Define $1/0=\pm\infty$ and $0\cdot\pm\infty=1$. Let $\omega=(1/x_1)\dd{x_2}\wedge\cdots\wedge\dd{x_n}$. Then
+        \begin{align*}
+            \mu\wedge\omega &= \left( \sum_{i=1}^nx_i\dd{x_i} \right)\wedge\left( \frac{1}{x_1}\dd{x_2}\wedge\cdots\wedge\dd{x_n} \right)\\
+            &= \dd{x_1}\wedge\cdots\wedge\dd{x_n}
+        \end{align*}
+        where all terms save the first cancel by the anticommutative property.
+    \end{proof}
     \item Let $J$ be the multi-index $(j_1,\dots,j_k)$ and let $\dd{x_J}=\dd{x_{j_1}}\wedge\cdots\wedge\dd{x_{j_k}}$. Show that $\dd{x_J}=0$ if $j_r=j_s$ for some $r\neq s$ and show that if the numbers $j_1,\dots,j_k$ are all distinct, then
     \begin{equation*}
         \dd{x_J} = (-1)^\sigma\dd{x_I}
@@ -137,6 +578,29 @@
     \begin{equation*}
         (j_1,\dots,j_k) \mapsto (i_1,\dots,i_k)
     \end{equation*}
+    \begin{proof}
+        Suppose first that $j_r=j_s$ for some $r\neq s$. We wish to prove that $\dd{x_J}=0$, where "$0$" denotes the zero element of $\ome[k]{\R^n}$. To do this, we need to show that $\dd{x_J}$ sends every $p\in\R^n$ to the zero $k$-tensor in $\lam[k]{T_p^*\R^n}\cong\alt[k]{T_p\R^n}$.\par
+        Let $p\in\R^n$ be arbitrary. Then
+        \begin{align*}
+            \dd{x_J}(p) &= (\dd{x_{j_1}})_p\wedge\cdots\wedge(\dd{x_{j_k}})_p\\
+            &= (\dd{x_{\tau_{r,s}(j_1)}})_p\wedge\cdots\wedge(\dd{x_{\tau_{r,s}(j_k)}})_p\\
+            &= (-1)^{\tau_{r,s}}(\dd{x_{j_1}})_p\wedge\cdots\wedge(\dd{x_{j_k}})_p\tag*{Claim 1.6.8}\\
+            &= -(\dd{x_{j_1}})_p\wedge\cdots\wedge(\dd{x_{j_k}})_p\\
+            &= -\dd{x_J}(p)\\
+            2\dd{x_J}(p) &= 0\\
+            \dd{x_J}(p) &= 0
+        \end{align*}
+        as desired.\par\smallskip
+        Now suppose that the numbers $j_1,\dots,j_k$ are all distinct. Then like before, we need to show that $\dd{x_J}$ and $(-1)^\sigma\dd{x_I}$ send every $p\in\R^n$ to the same $k$-tensor in $\lam[k]{T_p^*\R^n}$.\par
+        Let $p\in\R^n$ be arbitrary. Then
+        \begin{align*}
+            \dd{x_J}(p) &= (\dd{x_{j_1}})_p\wedge\cdots\wedge(\dd{x_{j_k}})_p\\
+            &= (\dd{x_{\sigma(j_1)}})_p\wedge\cdots\wedge(\dd{x_{\sigma(j_k)}})_p\\
+            &= (-1)^{\sigma}(\dd{x_{i_1}})_p\wedge\cdots\wedge(\dd{x_{i_k}})_p\tag*{Claim 1.6.8}\\
+            &= (-1)^{\sigma}\dd{x_I}(p)
+        \end{align*}
+        as desired.
+    \end{proof}
 \end{enumerate}
 
 

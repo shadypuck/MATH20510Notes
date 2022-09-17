@@ -69,7 +69,7 @@
     \end{enumerate}
     \item 
     \begin{enumerate}
-        \item Let $(V^*)^*$ be the dual of the vector space $V^*$. For every $\vec{v}\in V$, let $\eva_\vec{v}:V^*\to\R$ be the \textbf{evaluation function} $\eva_\vec{v}(\ell)=\ell(\vec{v})$. Show that the $\eva_\vec{v}$ is a linear function on $V^*$, i.e., an element of $(V^*)^*$, and show that the map $\eva=\eva_{(-)}:V\to(V^*)^*$ defined by $\vec{v}\mapsto\eva_\vec{v}$ is a linear map of $V$ into $(V^*)^*$.
+        \item Let $(V^*)^*$ be the dual of the vector space $V^*$. For every $v\in V$, let $\eva_v:V^*\to\R$ be the \textbf{evaluation function} $\eva_v(\ell)=\ell(v)$. Show that the $\eva_v$ is a linear function on $V^*$, i.e., an element of $(V^*)^*$, and show that the map $\eva=\eva_{(-)}:V\to(V^*)^*$ defined by $v\mapsto\eva_v$ is a linear map of $V$ into $(V^*)^*$.
         \begin{proof}
             Let $v\in V$, $\ell_1,\ell_2,\ell\in V^*$, and $\lambda\in\R$ be arbitrary. Then
             \begin{align*}
@@ -120,7 +120,7 @@
     \setcounter{enumi}{10}
     \item Let $V$ be a vector space.
     \begin{enumerate}
-        \item Let $B:V\times V\to\R$ be an inner product on $V$. For all $\vec{v}\in V$, let $\ell_\vec{v}:V\to\R$ be the function $\ell_\vec{v}(\vec{w})=B(\vec{v},\vec{w})$. Show that $\ell_\vec{v}$ is linear, and show that the map $L:V\to V^*$ defined by $\vec{v}\mapsto\ell_\vec{v}$ is a linear mapping.
+        \item Let $B:V\times V\to\R$ be an inner product on $V$. For all $v\in V$, let $\ell_v:V\to\R$ be the function $\ell_v(w)=B(v,w)$. Show that $\ell_v$ is linear, and show that the map $L:V\to V^*$ defined by $v\mapsto\ell_v$ is a linear mapping.
         \begin{proof}
             Since
             \begin{align*}
@@ -153,7 +153,7 @@
             \end{align*}
             we know that the functions $L(v_1+v_2)$ and $L(v_1)+L(v_2)$ have the same action on every $w\in V$. Thus they are equal. A symmetric statement holds for $L(\lambda v)$ and $\lambda L(v)$.
         \end{proof}
-        \item If $V$ is finite dimensional, prove that $L$ is bijective. Conclude that if $V$ has an inner product, one gets from it a natural identification of $V$ with $V^*$. (Hint: Since $\dim V=\dim V^*$ and $\dim(V)=\dim(\ker(A))+\dim(\im(A))$, it suffices to show that $\ker(L)=0$. Now note that if $\vec{v}\neq\bm{0}$, then $\ell_\vec{v}(\vec{v})=B(\vec{v},\vec{v})$ is a positive number.)
+        \item If $V$ is finite dimensional, prove that $L$ is bijective. Conclude that if $V$ has an inner product, one gets from it a natural identification of $V$ with $V^*$. (Hint: Since $\dim V=\dim V^*$ and $\dim(V)=\dim(\ker(A))+\dim(\im(A))$, it suffices to show that $\ker(L)=0$. Now note that if $v\neq\bm{0}$, then $\ell_v(v)=B(v,v)$ is a positive number.)
         \begin{proof}
             Taking the hint, suppose $L(v)=0\in V^*$ for some $v\in V$. Thus, for all $w\in V$ (and, in particular, for $v$), we have that
             \begin{equation*}
@@ -216,11 +216,11 @@
         as desired.
     \end{proof}
     \setcounter{enumi}{6}
-    \item Let $T$ be a $k$-tensor and $\vec{v}$ be a vector. Define $T_\vec{v}:V^{k-1}\to\R$ by
+    \item Let $T$ be a $k$-tensor and $v$ be a vector. Define $T_v:V^{k-1}\to\R$ by
     \begin{equation*}
-        T_\vec{v}(\vec{v}_1,\dots,\vec{v}_{k-1}) = T(\vec{v},\vec{v}_1,\dots,\vec{v}_{k-1})
+        T_v(v_1,\dots,v_{k-1}) = T(v,v_1,\dots,v_{k-1})
     \end{equation*}
-    Show that $T_\vec{v}$ is a $(k-1)$-tensor.
+    Show that $T_v$ is a $(k-1)$-tensor.
     \begin{proof}
         For the sake of space and ease of notation, I will show only that $T_v$ is linear in its $1^\text{st}$ variable. However, a symmetric argument would work in the generalized $i^\text{th}$ case. This being established, it will follow that $T_v$ is $(k-1)$-linear and thus a $(k-1)$-tensor, as desired. Let's begin.\par
         We have that
@@ -239,7 +239,7 @@
     \end{proof}
     \item Show that if $T_1$ is an $r$-tensor and $T_2$ is an $s$-tensor, then if $r>0$,
     \begin{equation*}
-        (T_1\otimes T_2)_\vec{v} = (T_1)_\vec{v}\otimes T_2
+        (T_1\otimes T_2)_v = (T_1)_v\otimes T_2
     \end{equation*}
     \begin{proof}
         We have that
@@ -247,13 +247,13 @@
             [(T_1\otimes T_2)_v](v_1,\dots,v_{r+s-1}) &= (T_1\otimes T_2)(v,v_1,\dots,v_{r+s-1})\\
             &= T_1(v,v_1,\dots,v_{r-1})T_2(v_r,\dots,v_{r+s-1})\\
             &= (T_1)_v(v_1,\dots,v_{r-1})T_2(v_r,\dots,v_{r+s-1})\\
-            &= [(T_1)_\vec{v}\otimes T_2](v_1,\dots,v_{r+s-1})
+            &= [(T_1)_v\otimes T_2](v_1,\dots,v_{r+s-1})
         \end{align*}
         as desired.
     \end{proof}
-    \item Let $A:V\to W$ be a linear map, let $\vec{v}\in V$, and let $\vec{w}=A\vec{v}$. Show that for all $T\in\lin[k]{W}$,
+    \item Let $A:V\to W$ be a linear map, let $v\in V$, and let $w=Av$. Show that for all $T\in\lin[k]{W}$,
     \begin{equation*}
-        A^*(T_\vec{w}) = (A^*T)_\vec{v}
+        A^*(T_w) = (A^*T)_v
     \end{equation*}
     \begin{proof}
         We have that
@@ -593,7 +593,7 @@
 \begin{enumerate}[label={\textbf{1.7.\roman*.}}]
     \item Prove that if $T$ is the decomposable $k$-tensor $\ell_1\otimes\cdots\otimes\ell_k$, then
     \begin{equation*}
-        \iota_\vec{v}T = \sum_{r=1}^k(-1)^{r-1}\ell_r(\vec{v})\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k
+        \iota_vT = \sum_{r=1}^k(-1)^{r-1}\ell_r(v)\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k
     \end{equation*}
     where the hat over $\ell_r$ means that $\ell_r$ is deleted from the tensor product.
     \begin{proof}
@@ -603,18 +603,18 @@
             &= \sum_{r=1}^k(-1)^{r-1}[\ell_1\otimes\cdots\otimes\ell_{r-1}\otimes\ell_r\otimes\ell_{r+1}\otimes\cdots\otimes\ell_k](v_1,\dots,v_{r-1},v,v_r,\dots,v_{k-1})\\
             &= \sum_{r=1}^k(-1)^{r-1}\ell_1(v_1)\cdots\ell_{r-1}(v_{r-1})\ell_r(v)\ell_{r+1}(v_r)\cdots\ell_k(v_{k-1})\\
             &= \sum_{r=1}^k(-1)^{r-1}\ell_r(v)\ell_1(v_1)\cdots\ell_{r-1}(v_{r-1})\ell_{r+1}(v_r)\cdots\ell_k(v_{k-1})\\
-            &= \sum_{r=1}^k(-1)^{r-1}\ell_r(\vec{v})[\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k](v_1,\dots,v_{k-1})
+            &= \sum_{r=1}^k(-1)^{r-1}\ell_r(v)[\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k](v_1,\dots,v_{k-1})
         \end{align*}
         as desired.
     \end{proof}
     \item Prove that if $T_1\in\lin[p]{V}$ and $T_2\in\lin[q]{V}$, then
     \begin{equation*}
-        \iota_\vec{v}(T_1\otimes T_2) = \iota_\vec{v}T_1\otimes T_2+(-1)^pT_1\otimes\iota_\vec{v}T_2
+        \iota_v(T_1\otimes T_2) = \iota_vT_1\otimes T_2+(-1)^pT_1\otimes\iota_vT_2
     \end{equation*}
     \begin{proof}
         We have that
         \begin{align*}
-            [\iota_\vec{v}(T_1\otimes T_2)](v_1,\dots,v_{p+q-1}) ={}& \sum_{r=1}^{p+q}(-1)^{r-1}(T_1\otimes T_2)(v_1,\dots,v_{r-1},v,v_r,\dots,v_{p+q-1})\\
+            [\iota_v(T_1\otimes T_2)](v_1,\dots,v_{p+q-1}) ={}& \sum_{r=1}^{p+q}(-1)^{r-1}(T_1\otimes T_2)(v_1,\dots,v_{r-1},v,v_r,\dots,v_{p+q-1})\\
             \begin{split}
                 ={}& \sum_{r=1}^p(-1)^{r-1}(T_1\otimes T_2)(v_1,\dots,v_{r-1},v,v_r,\dots,v_{p+q-1})\\
                 &+\sum_{r=p+1}^{p+q}(-1)^{r-1}(T_1\otimes T_2)(v_1,\dots,v_{r-1},v,v_r,\dots,v_{p+q-1})
@@ -636,11 +636,11 @@
                 &+(-1)^pT_1(v_1,\dots,v_p)\cdot(\iota_vT_2)(v_{p+1},\dots,v_{p+q-1})
             \end{split}\\
             ={}& (\iota_vT_1\otimes T_2)(v_1,\dots,v_{p+q-1})+(-1)^p(T_1\otimes\iota_vT_2)(v_1,\dots,v_{p+q-1})\\
-            ={}& [\iota_\vec{v}T_1\otimes T_2+(-1)^pT_1\otimes\iota_\vec{v}T_2](v_1,\dots,v_{p+q-1})
+            ={}& [\iota_vT_1\otimes T_2+(-1)^pT_1\otimes\iota_vT_2](v_1,\dots,v_{p+q-1})
         \end{align*}
         as desired.
     \end{proof}
-    \item Show that if $T\in\alt[k]{V}$, then $\iota_\vec{v}T=kT_\vec{v}$, where $T_\vec{v}$ is defined as in Exercise 1.3.vii. In particular, conclude that $\iota_\vec{v}T\in\alt[k-1]{V}$. (See Exercise 1.4.viii, which asserts that $T\in\alt[k]{V}$ implies $T_\vec{v}\in\alt[k-1]{V}$.)
+    \item Show that if $T\in\alt[k]{V}$, then $\iota_vT=kT_v$, where $T_v$ is defined as in Exercise 1.3.vii. In particular, conclude that $\iota_vT\in\alt[k-1]{V}$. (See Exercise 1.4.viii, which asserts that $T\in\alt[k]{V}$ implies $T_v\in\alt[k-1]{V}$.)
     \begin{proof}
         Suppose $T\in\alt[k]{V}$. Let $\sigma\in S_k$ be the permutation that moves the $r^\text{th}$ index to the first place and shifts all $r-1$ indices to its left up one. For example, if $r=4$ and $\sigma\in S_6$, $\sigma(1,2,3,4,5,6)=(4,1,2,3,5,6)$. More relevant to our situation would be the ability of $\sigma$ to do the following.
         \begin{equation*}
@@ -759,11 +759,11 @@
     \end{proof}
 \end{enumerate}
 \begin{enumerate}[label={\textbf{1.9.\roman*.}}]
-    \item Prove that if $\vec{e}_1,\dots,\vec{e}_n$ is a positively oriented basis of $V$, then the basis $\vec{e}_1,\dots,\vec{e}_{i-1},-\vec{e}_i,\vec{e}_{i+1},\dots,\vec{e}_n$ is negatively oriented.
+    \item Prove that if $e_1,\dots,e_n$ is a positively oriented basis of $V$, then the basis $e_1,\dots,e_{i-1},-e_i,e_{i+1},\dots,e_n$ is negatively oriented.
     \begin{proof}
-        Since $\vec{e}_1,\dots,\vec{e}_n$ is a positively oriented basis of $V$, we know that $e_1^*\wedge\cdots\wedge e_n^*\in\lam[n]{V^*}_+$. This combined with the fact that
+        Since $e_1,\dots,e_n$ is a positively oriented basis of $V$, we know that $e_1^*\wedge\cdots\wedge e_n^*\in\lam[n]{V^*}_+$. This combined with the fact that
         \begin{equation*}
-            \vec{e}_1\wedge\cdots\wedge\vec{e}_{i-1},-\vec{e}_i,\vec{e}_{i+1}\wedge\cdots\wedge\vec{e}_n = -e_1^*\wedge\cdots\wedge e_n^*
+            e_1\wedge\cdots\wedge e_{i-1},-e_i,e_{i+1}\wedge\cdots\wedge e_n = -e_1^*\wedge\cdots\wedge e_n^*
             \notin \lam[n]{V^*}
         \end{equation*}
         implies that the given basis is negatively oriented, as desired.

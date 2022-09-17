@@ -34,7 +34,7 @@
     \end{equation*}
     where $T\in\lin[k]{V}$, $\sigma\in S_k$, and $\bar{\sigma}$ denotes the inverse of $\sigma$.
     \item Example: $n=2$, $k=2$. Let $T=e_1^*\otimes e_2^*\in\lin[2]{V}$. Let $\sigma=\tau_{1,2}$. Then $T^\sigma=e_2^*\otimes e_1^*$.
-    \item Another property is $e_I^\sigma=e_{\sigma(I)}^*$.
+    \item Another property is $(e_I^*)^\sigma=e_{\sigma(I)}^*$.
     \item Properties:
     \begin{enumerate}
         \item $T^{\sigma_1\sigma_2}=(T^{\sigma_1})^{\sigma_2}$.
@@ -61,7 +61,7 @@
     \item Properties:
     \begin{enumerate}
         \item $\im(\Alt)=\alt[k]{V}$.
-        \item $\lin[k]{V}/\ker(\Alt)=\lam[k]{V^*}$ is isomorphic to $\alt[k]{V}$.
+        \item $\lin[k]{V}/\ker(\Alt)=\lam[k]{V^*}$\footnote{Note that we use $V^*$ here instead of $V$ because $\lam[k]{V^*}$ does not indicate some set of functions over the vector space $V$, but rather the $k$-dimensional exterior powers of the linear functionals $\ell\in V^*$ that are dual to the vectors $v\in V$. In other words, whereas $\alt[k]{V}$ denotes the set of alternating $k$-tensors \emph{acting on} $V$, $\lam[k]{V^*}$ denotes the vector space containing all linear combinations of all products of length $k$ of covectors $\ell\in V^*$, where the multiplication operation is the exterior product. Also, $\lam[k]{V}$ is already otherwise defined as the set of all $k$-vectors, linear combinations of $k$-blades, which in turn are exterior products of length $k$ of vectors $v\in V$.} is isomorphic to $\alt[k]{V}$.
         \item $\Alt(T)^\sigma=(-1)^\sigma\Alt(T)$.
         \begin{itemize}
             \item Proof:
@@ -98,6 +98,11 @@
     \item \textbf{Non-repeating} (multi-index $I$): A multi-index $I$ such that $i_{j_1}\neq i_{j_2}$ for all $j_1\neq j_2$.
     \item \textbf{Increasing} (multi-index $I$): A multi-index $I$ such that $i_1<\cdots<i_k$.
     \item Claim: $\{\Alt(e_I^*)\}$ where $I$ is non-repeating and increasing is a basis for $\alt[k]{V}$. There are $\binom{n}{k}$ of these; thus, $\dim\alt[k]{V}=\binom{n}{k}$.
+    \begin{itemize}
+        \item Note that we spend so much time on alternating tensors, because we can prove that all of the tensors that we'll eventually be interested in (e.g., those describing the slope of a function of interest at a given point $p$) \emph{are} alternating.
+        \item See, for example, Exercise 2.4.i(3). Therein, a two-form is decomposed all the way to a linear combination of alternating two-forms (that become alternating tensors at any point $p$).
+        \item It is because of this curious fact that a more robust exploration of the properties of alternating tensors was called for. And this is why we're exploring them now. 
+    \end{itemize}
 \end{itemize}
 
 
@@ -127,9 +132,9 @@
     where $\ell_1,\dots,\ell_k\in V^*$.
     \item $\bm{\ide[k]{V}}$: The span of all redundant $k$-tensors.
     \begin{itemize}
-        \item Note that not every $k$-tensor in $\ide[k]{V}$ is a redundant.
+        \item Note that not every $k$-tensor in $\ide[k]{V}$ is redundant.
     \end{itemize}
-    \item \textbf{Decomposable} ($k$-tensor): A $k$-tensor of the form $\ell_1\otimes\cdots\otimes\ell_k$ for $\ell_i\in\lin[1]{V}$.
+    \item \textbf{Decomposable} ($k$-tensor): A $k$-tensor of the form $\ell_1\otimes\cdots\otimes\ell_k$ for some $\ell_i\in\lin[1]{V}$.
     \begin{itemize}
         \item It often suffices to prove things for decomposable tensors.
     \end{itemize}
@@ -225,13 +230,13 @@
     \begin{itemize}
         \item $A^*$ takes $\lin[k]{W}\to\lin[k]{V}$ and $\alt[k]{W}\to\alt[k]{V}$.
     \end{itemize}
-    \item $\dim(\lam[k]{V})=\binom{n}{k}$.
+    \item $\dim(\lam[k]{V^*})=\binom{n}{k}$.
     \begin{itemize}
         \item Special case $k=n$: $\dim\lam[n]{V}=1$.
-        \item If $A:V\to V$ induces a map $\lam[n]{V^*}\to\lam[n]{V^*}$ defined by the determinant.
+        \item $A:V\to V$ induces a map from $\lam[n]{V^*}\to\lam[n]{V^*}$ (the relevant pullback) defined by the determinant.
     \end{itemize}
-    \item Aside: $\lam[k]{V}$ is "exterior powers."
-    \item Plan: Wedge products + basis for $\lam[k]{V}$.
+    \item Aside: $\lam[k]{V^*}$ is "exterior powers."
+    \item Plan: Wedge products + basis for $\lam[k]{V^*}$.
     \item \textbf{Wedge product}: A function $\wedge:\lam[k]{V^*}\times\lam[\ell]{V^*}\to\lam[k+\ell]{V}$. 
     \begin{itemize}
         \item We denote elements of $\lam[k]{V^*}$ by $\omega_1,\omega_2$, etc.
@@ -312,6 +317,23 @@
         \end{align*}
         \item $n=4$. We have $e_1^*\wedge(3e_1^*+2e_2^*+3e_2^*)=3(e_1^*\wedge e_1^*)+2(e_1^*\wedge e_2^*)+3(e_1^*\wedge e_3^*)$. We also have $(e_1^*\wedge e_2^*)\wedge(e_1^*\wedge e_2^*)=0$.
     \end{enumerate}
+    \item Wedging with zero.
+    \begin{itemize}
+        \item We wish to further illustrate the definitions behind the on-the-surface simple concept
+        \begin{equation*}
+            \omega\wedge 0 = 0
+        \end{equation*}
+        \item Let $\omega\in\lam[k]{V^*}$ be arbitrary. Let 0 denote the zero function of $\lam[\ell]{V^*}$.
+        \item Suppose $\omega=\pi(T_1)$ and $0=\pi(T_2)$.
+        \item Then
+        \begin{align*}
+            (\omega\wedge 0)(v_1,\dots,v_{k+\ell}) &= \pi[(T_1\otimes T_2)(v_1,\dots,v_{k+\ell})]\\
+            &= \pi[T_1(v_1,\dots,v_k)\cdot T_2(v_{k+1},\dots,v_{k+\ell})]
+        \end{align*}
+        \item Now there are two cases\footnote{Technically, we only need the second case, but for pedagogical purposes, both are presented.}. We could have $T_2(v_{k+1},\dots,v_{k+\ell})=0$, so the argument of $\pi$ is 0, so everything is zero. But even if we don't have this, $0=\pi(T_2)$ implies that $T_2=0+T_3$ for some $T_3\in\ide[\ell]{V}$. Thus, under the projection function $\pi$, $T_2$ behaves like the zero element, regardless.
+        \item Thus, $\omega\wedge 0$ functions as the zero element of $\lam[k+\ell]{V^*}$.
+        \item Another, perhaps more accurate, way of looking at this is to see that we need to prove that $T_1\otimes T_2\in\ide[k+\ell]{V}$. To do so, it will suffice to show that $T_2\in\ide[\ell]{V}$. But since $0=\pi(T_2)$, $T_2\in\ker\pi=\ide[\ell]{V}$, as desired.
+    \end{itemize}
 \end{itemize}
 
 
@@ -322,7 +344,7 @@
     \item \marginnote{4/14:}Having discussed $\im(\Alt)=\alt[k]{V}$ in some detail now, we move onto $\ker(\Alt)$.
     \item \textbf{Redundant} (decomposable $k$-tensor): A decomposable $k$-tensor $\ell_1\otimes\cdots\otimes\ell_k$ such that for some $i\in[k-1]$, $\ell_i=\ell_{i+1}$.
     \item $\bm{\ide[k]{V}}$: The linear span of the set of redundant $k$-tensors.
-    \item Convention: There are no redundant 1-tensors. Mathematically, we define
+    \item Convention: There are no redundant 1-tensors. Hence, we define
     \begin{equation*}
         \ide[1]{V} = 0
     \end{equation*}
@@ -436,8 +458,12 @@
     \begin{proof}
         Theorem 1.5.9 implies that every $T+\ide[k]{V}$ contains a unique $T_1\in\alt[k]{V}$. Thus, for every element of $\lam[k]{V^*}$, there is a unique element of $\alt[k]{V}$ which gets mapped onto it by $\pi$.
     \end{proof}
-    \item Note that since $\alt[k]{V}$ and $\lam[k]{V}$ are in bijective correspondence, many texts do not distinguish between them. There are some advantages to making the distinction, though.
-    \item The tensor product and pullback operatios give rise to similar operations on the spaces $\lam[k]{V^*}$.
+    \item Note that since $\alt[k]{V}$ and $\lam[k]{V^*}$ are in bijective correspondence, many texts do not distinguish between them. There are some advantages to making the distinction, though.
+    \begin{itemize}
+        \item We can either look at $\alt[k]{V}$ as the set of all alternating tensors, or as the set of all $k$-tensors quotient the redundant tensors.
+        \item The fact that alternating and redundant tensors are orthogonal can probably be related to the fact that a redundant wedge product equals zero and only non-repeating wedges are nonzero.
+    \end{itemize}
+    \item The tensor product and pullback operations give rise to similar operations on the spaces $\lam[k]{V^*}$.
     \item \textbf{Wedge product}: The function $\wedge:\lam[k_1]{V^*}\times\lam[k_2]{V^*}\to\lam[k_1+k_2]{V^*}$ defined by
     \begin{equation*}
         \omega_1\wedge\omega_2 = \pi(T_1\otimes T_2)
@@ -480,6 +506,9 @@
     \begin{equation*}
         \ell_1\wedge\ell_2 = -\ell_2\wedge\ell_1
     \end{equation*}
+    \begin{itemize}
+        \item Why the wedge product is anticommutative but not the tensor product: Because every “tensor” that can be wedged is alternating (as an element of $\lam[k]{V^*}$). Indeed, the tensor product is anticommutative for alternating tensors.
+    \end{itemize}
     \item Theorem 1.6.10: If $\omega_1\in\lam[r]{V^*}$ and $\omega_2\in\lam[s]{V^*}$, then
     \begin{equation*}
         \omega_1\wedge\omega_2 = (-1)^{rs}\omega_2\wedge\omega_1

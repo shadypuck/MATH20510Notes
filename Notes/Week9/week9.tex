@@ -1,0 +1,980 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+\setcounter{chapter}{8}
+
+\begin{document}
+
+
+
+
+\chapter{Integration of Manifolds}
+\section{Orientations on Manifolds}
+\begin{itemize}
+    \item \marginnote{5/23:}Weekly plan.
+    \begin{itemize}
+        \item We've got places to be --- it's good to worry about what everything is, but it's also good to just think of stuff as how it historically developed.
+        \item Goal: Stokes' Theorem ($\int_x\dd{\omega}=\int_{\partial x}\omega$).
+        \begin{itemize}
+            \item We need to talk about the boundary $\partial x$.
+            \item We need to talk about the integral (integrating forms on manifolds).
+            \item Hidden orientation convention (we'll see in examples).
+        \end{itemize}
+    \end{itemize}
+    \item Special cases.
+    \begin{enumerate}
+        \item The fundamental theorem of calculus.
+        \begin{itemize}
+            \item Take the manifold to be $X=[a,b]\in\R$.
+            \item Here, $\partial x=\{a,b\}$.
+            \item Take $f(x)\in\ome[0]{X}$.
+            \item Take $\dd{f}=f'(x)\dd{x}$ where $\dd{x}\in\ome[1]{X}$.
+            \item So by Stokes' theorem, integrating over the whole interval $\int_a^bf'(x)\dd{x}$ is equal to integrating over the boundary, but integration over the boundary is $f(b)-f(a)$.
+            \begin{itemize}
+                \item The minus sign $f(b)-f(a)$ is where the orientation convention comes in.
+            \end{itemize}
+        \end{itemize}
+        \item Green's theorem.
+        \begin{itemize}
+            \item You have a region in the plane. $X=U\subset\R^2$ open.
+            \item You have a one-form $\omega=P\dd{x}+Q\dd{y}$.
+            \item The corresponding two-form is
+            \begin{align*}
+                \dd\omega &= \left( \pdv{P}{x}\dd{x}+\pdv{P}{y}\dd{y} \right)\wedge\dd{x}+\left( \pdv{Q}{x}\dd{x}+\pdv{Q}{y}\dd{y} \right)\wedge\dd{y}\\
+                &= \pdv{P}{x}\dd{x}\wedge\dd{x}+\pdv{P}{y}\dd{y}\wedge\dd{x}+\pdv{Q}{x}\dd{x}\wedge\dd{y}+\pdv{Q}{y}\dd{y}\wedge\dd{y}\\
+                &= \pdv{P}{x}\cdot 0-\pdv{P}{y}\dd{x}\wedge\dd{y}+\pdv{Q}{x}\dd{x}\wedge\dd{y}+\pdv{Q}{y}\cdot 0\\
+                &= \left( \pdv{Q}{x}-\pdv{P}{y} \right)\dd{x}\wedge\dd{y}
+            \end{align*}
+            \item Well, if you want the double integral on the left below, Green's theorem tells us that it's equal to the line integral around the boundary on the right below.
+            \begin{equation*}
+                \int_U\left( \pdv{Q}{x}-\pdv{P}{y} \right)\dd{x}\wedge\dd{y} = \int_{\partial U}(P\dd{x}+Q\dd{y})
+            \end{equation*}
+            \item We orient counterclockwise around the boundary, or we get the wrong thing!
+            \item If $U$ has holes, you orient clockwise about the holes for reasons we'll talk about shortly.
+        \end{itemize}
+        \item A bit more abstract.
+        \begin{itemize}
+            \item Say we have a slightly more abstract three-manifold $X^3$. We are given a two-form $\omega\in\ome[2]{X^3}$.
+            \item Let $\Sigma^2\subset X^3$ be some two-dimensional submanifold. If we want $\int_\Sigma\omega$, we just need (as we will prove shortly) $\int_\Sigma i^*\omega$. Pulling back our two-form in this manner does just give us a top-dimensional form.
+        \end{itemize}
+        \item Many other special cases were known before the general Stokes' theorem.
+    \end{enumerate}
+    \item Claim: If $\omega$ is exact (i.e., $\omega=\dd\mu$), then $\int_\Sigma\omega=0$ for all $\Sigma$ that have no boundary (i.e., $\partial\Sigma=\emptyset$).
+    \begin{itemize}
+        \item Proof: Stokes plus $\partial\Sigma=\emptyset$ (the integral of a manifold over an emptyset naturally equals zero).
+    \end{itemize}
+    \item \textbf{Closed} (submanifold): A submanifold with $\partial\Sigma=\emptyset$.
+    \item This leads into the degree theory stuff we were doing on manifolds.
+    \begin{itemize}
+        \item Applies to $X^n,Y^n$ compact, closed manifolds.
+        \item If we have $F:X\to Y$, we have $\deg(F)=\int F^*\omega$ where $\int_Y\omega=1$ and $F^*:\ome[n]{Y}\to\ome[n]{X}$ sends $\omega\mapsto F^*\omega$.
+        \item Degree is homotopy invariant.
+        \item Compute it with "counting preimages with sign."
+        \item Fun applications.
+    \end{itemize}
+    \item Stokes was thinking about surfaces in three dimensions when he developed his Stokes' theorem. That's the setting he was working in.
+    \item Three things to straighten out first.
+    \begin{enumerate}
+        \item Orientations on manifolds --- take the pointwise concept of an orientation of a vector space and extend it to $T_pX$.
+        \begin{itemize}
+            \item Aside: We were happy to identify $T_p\R^n\cong\R^n\cong T_p^*\R^n$. However, it does not make sense to identify $T_pX$ with $\R^n$ ($T_pX\ncong\R^n$), even for $S^2$ or something.
+            \item A choice of charts gives $T_pX\cong\R^n$, but we have to choose these charts; there is no natural identification.
+        \end{itemize}
+        \item Boundaries and induced orientations.
+        \begin{itemize}
+            \item If we have an orientation at every point here, we cananocially induce an orientation by taking your favorite first vector, moving it to the boundary, and then every other vector gives your orientation.
+            \item If we don't take this convention, we'd have to put a minus sign in Stokes' theorem and it would mess up everything else. Math has to go counterclockwise.
+        \end{itemize}
+        \item Integration on manifolds.
+        \begin{itemize}
+            \item Let $X^n\subset\R^N$ be an \textbf{oriented manifold}.
+            \item Let $\omega\in\ome[n]{X}$ be a top-dimensional form.
+            \item $\int_X\omega$ means:
+            \begin{itemize}
+                \item Step 1: Pick a set $\{U_i\}$ of orientation preserving charts that cover $X$. For $S^2$ for example, we can take a chart of the top of the sphere, and a chart of the bottom of the sphere.
+                \item Step 2: Pick a partition of unity $\{\rho_i\}$ with $\rho_i$ supported in $U_i$.
+                \item Now define
+                \begin{equation*}
+                    \int_X\dd{\omega} = \int\sum_i\rho_i\omega
+                    = \sum_i\int_{U_i'}\varphi_i^*\rho_i\omega
+                \end{equation*}
+                where the expression on the right is a good, old-fashioned integral in Euclidean space.
+            \end{itemize}
+            \item This definition does not depend on the choices in steps 1 and 2.
+            \begin{itemize}
+                \item We should go through this to see how our nice machinery of differential forms neatly gets rid of and absorbs all of the inherent ambiguity herein.
+            \end{itemize}
+        \end{itemize}
+    \end{enumerate}
+    \item Let's now say all that with way more words.
+    \item \textbf{Orientation} (of $X^n\subset\R^N$): A function that assigns to each point $p\in X$ an orientation of $T_pX$ (or an element of $\lam[n]{T_p^*X}$).
+    \begin{itemize}
+        \item This is a preliminary definition.
+        \item Flaws: We could choose different orientations at every point.
+        \item We need "smoothness," i.e., we need close-by points to have the same orientation.
+    \end{itemize}
+    \item Note: If $\omega\in\ome[n]{X}$ and $\omega$ is nonvanishing on some $U\subset X$, then $\omega$ induces an orientation on $U$ by assigning to $p\in U$, a form $\omega_p\in\lam[n]{T_p^*X}$.
+    \item \textbf{Smooth} (orientation of $X^n\subset\R^N$): An orientation on $X$ such that for all $p\in X$, there is a neighborhood $U$ and a nonvanishing form $\omega\in\ome[n]{X}$ such that the orientation on $U$ induced by $\omega$ agrees with the given orientation.
+    \begin{itemize}
+        \item There are like ten different definitions that all agree. This is the one using forms, which is most suited to our study.
+    \end{itemize}
+    \item From now on, we will assume all orientations are smooth.
+    \item Examples.
+    \begin{enumerate}
+        \item Let $X=U\subset\R^n$. Take the orientation given by the ordered basis $\pdv*{x_1},\dots,\pdv*{x_n}$ at each point.
+        \begin{itemize}
+            \item This is why we haven't needed to talk about orientations in our discussion of Euclidean space.
+            \item Equivalently, this is the orientation induced by $\dd{x_1}\wedge\cdots\wedge\dd{x_n}$.
+        \end{itemize}
+        \item For $S^1\subset\R^2$, the orientation is dual to the vector space $\bm{v}:S^1\to TS^1$ defined by
+        \begin{equation*}
+            \bm{v}(x,y) = ((x,y),(-y,x))
+        \end{equation*}
+        \begin{itemize}
+            \item Graphically, $\bm{v}$ is the vector space on $S^1$ whose tangent vectors spin around it counterclockwise (tho $\bm{w}$ related to $\bm{v}$ with vectors spinning clockwise would also be acceptable to take the dual of).
+            \item This is for every point a choice of ordered basis of the tangent space because at every $p\in S^1$, there is an $\omega_p$ which takes any basis vector (nonzero scalar) in $T_pS^1$ and returns either a positive or negative scalar.
+        \end{itemize}
+    \end{enumerate}
+    \item Equivalently, we use the orientation induced by $\dd{x_1}\wedge\cdots\wedge\dd{x_n}$.
+    \item \textbf{Orientable} (manifold): A manifold $X$ that can be (smoothly) oriented.
+\end{itemize}
+
+
+
+\section{Domains and Steps to Integration}
+\begin{itemize}
+    \item \marginnote{5/25:}Plan:
+    \begin{itemize}
+        \item Orientations.
+        \item Domains -- manifolds with boundary and how we include an orientation on the boundary.
+        \item Integration.
+    \end{itemize}
+    \item Examples of orientable manifolds.
+    \begin{itemize}
+        \item A line segment.
+        \item $\R^n$ with $\pdv*{x_1},\dots,\pdv*{x_n}$ and $\dd{x_1}\wedge\cdots\wedge\dd{x_n}$.
+        \item A torus.
+        \item A genus 2 surface.
+        \item The product manifold of two orientable manifolds.
+    \end{itemize}
+    \item Bad examples:
+    \begin{itemize}
+        \item M\"{o}bius strip.
+        \item Klein bottle.
+    \end{itemize}
+    \item Aside:
+    \begin{itemize}
+        \item If $X^n$ is compact, the de Rahm cohomology is
+        \begin{equation*}
+            H^n_\text{dR}(X) = \frac{\ome[n]{X}}{\dd(\ome[n-1]{X})}
+            =
+            \begin{cases}
+                \R & X\text{ orientable}\\
+                0 & X\text{ not orientable}
+            \end{cases}
+        \end{equation*}
+    \end{itemize}
+    \item \textbf{Orientation preserving} (diffeomorphism): A diffeomorphism $F:X\to Y$, where $X^n,Y^n$ are oriented $n$-manifolds, for which $\dd{F_p}:T_pX\to T_{F(p)}Y$ implies $(\dd{F_p})^*:\lam[n]{T_p^*X}\leftarrow\lam[n]{T_{F(p)}^*Y}$ is orientation preserving for all $p\in X$.
+    \item Examples:
+    \begin{itemize}
+        \item The map from $[0,1]$ to $[0,2]$ that stretches it by a factor of 2, where we assume that both 1-manifolds are oriented in the positive direction.
+        \item The map that rotates $\R^2$ by \ang{90}.
+        \item An example of a diffemorphism that is \emph{not} orientation preserving is $F:\R^2\to\R^2$ defined by $z\mapsto\bar{z}$.
+    \end{itemize}
+    \item Boundaries.
+    \item \textbf{Domain}: An open subset $D\subset X^n$ such that\dots
+    \begin{enumerate}
+        \item $\partial D$ is an $(n-1)$-manifold;
+        \item $\partial D=\partial(\overline{D})$\footnote{$\overline{D}$ is the closure of $D$.}.
+    \end{enumerate}
+    \item Examples.
+    \begin{itemize}
+        \item If $X=\R^2$, we may take $D=\{x\in\R^2\mid |x|<1\}$ (i.e., $X$ is the open unit disk).
+        \begin{itemize}
+            \item Condition 2 is here to rule out things like $\R^2\setminus S^1=D$.
+        \end{itemize}
+        \item The upper half plane $\mathbb{H}^n\subset\R^n$\footnote{For us, $\mathbb{H}$ for half; later on, $\mathbb{H}$ for hyperbolic.} where $\mathbb{H}^n=\{(x_1,\dots,x_n)\in\R^n\mid x_n>0\}$.
+        \begin{itemize}
+            \item $\partial\mathbb{H}^n=\R^1$.
+            \item The point: $D\subset X$ and $\omega\in\ome[n]{X}$ makes it so that $\int_D\dd{\omega_0}=\int_{\partial D}\omega_0$.
+        \end{itemize}
+    \end{itemize}
+    \item If $X$ is oriented, it induces an orientation on $D$ (via the restriction of the orientation form to $D$), which induces an orientation $\partial D$, which we can integrate over.
+    \item Claim (Existence of boundary charts): If $D\subset X^n$ is a domain in a manifold, $p\in\partial D$, and $X$ is oriented, then there exists $U\subset X$ open that is a neighborhood of $p$ and a chart $\varphi:U_0\to U$ that sends $0\mapsto p$, where $U_0\subset\R^n$, such that\dots
+    \begin{enumerate}
+        \item $\varphi$ is orientation preserving.
+        \item $U_0\cap\mathbb{H}^n\xrightarrow{\varphi}U\cap D$.
+    \end{enumerate}
+    \item Example: Boundary chart for $S^2$.
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[
+            every node/.style={black}
+        ]
+            \footnotesize
+            \begin{scope}
+                \fill [blx,opacity=0.2] (-1.7,0) rectangle (1.7,1.7);
+                \fill [rex,opacity=0.2] (0,0) circle (1cm);
+    
+                \draw
+                    (-1.7,0) -- (1.7,0)
+                    (0,-1.7) -- (0,1.7)
+                ;
+    
+                \draw [blx,thick,densely dashed] (-1.7,0) -- (1.7,0);
+                \draw [rex,thick,densely dashed] (0,0) circle (1cm);
+                \draw [grx,ultra thick,decoration={markings,mark=at position 0.25 with \arrow{>},mark=at position 0.75 with \arrow{>}},postaction={decorate}] (-1,0) -- (1,0);
+                \fill [blx] circle (2pt);
+    
+                \draw [->] (-1.5,-1.5) -- ++(0.4,0) node[right]{$e_1$};
+                \draw [->] (-1.5,-1.5) -- ++(0,0.4) node[above]{$e_2$};
+    
+                \node [below left] {0};
+                \node [below right=2mm] {$U_0$};
+                \node [above right=8mm] {$\mathbb{H}_{}^2$};
+                \node [above=-2pt] at (1.4,0) {$\partial\mathbb{H}_{}^2$};
+            \end{scope}
+    
+            \draw [-stealth] (2.2,0) to[bend left=20,looseness=0.9] node[above]{$\varphi$} (5.5,0);
+    
+            \begin{scope}[xshift=8cm]
+                \fill [ball color=yellow] circle (2cm);
+    
+                \begin{scope}
+                    \clip plot[domain=0:360,smooth] ({0.754*cos(\x)+0.218*sin(\x)-0.779},{0.25*(-0.436*cos(\x)+0.377*sin(\x)-1.35)+0.968*(0.754*sin(\x)+0.9)});
+                    \fill [ball color=blx,opacity=0.2] circle (2cm);
+                \end{scope}
+                \begin{scope}
+                    \clip plot[domain=0:360,smooth] ({0.539*cos(\x)-0.017*sin(\x)-0.947},{0.25*(-0.311*cos(\x)+0.062*sin(\x)-1.641)+0.968*(0.046*cos(\x)+0.620*sin(\x)+0.139)});
+                    \fill [ball color=rex,opacity=0.2] circle (2cm);
+                \end{scope}
+    
+                \draw [blx,thick,densely dashed] plot[domain=0:360,smooth] ({0.754*cos(\x)+0.218*sin(\x)-0.779},{0.25*(-0.436*cos(\x)+0.377*sin(\x)-1.35)+0.968*(0.754*sin(\x)+0.9)});
+                \draw [rex,thick,densely dashed] plot[domain=0:360,smooth] ({0.539*cos(\x)-0.017*sin(\x)-0.947},{0.25*(-0.311*cos(\x)+0.062*sin(\x)-1.641)+0.968*(0.046*cos(\x)+0.620*sin(\x)+0.139)});
+                \draw [grx,ultra thick,decoration={markings,mark=at position 0.25 with \arrow{>},mark=at position 0.9 with \arrow{>}},postaction={decorate}] plot[domain=228:312] ({0.754*cos(\x)+0.218*sin(\x)-0.779},{0.25*(-0.436*cos(\x)+0.377*sin(\x)-1.35)+0.968*(0.754*sin(\x)+0.9)});
+                \fill [blx] (-0.997,-0.290) circle (2pt) node[below left]{$p$} node[below right=1pt]{$U$};
+    
+                \draw [->] (1,-0.433) -- ++(0.433,0.063) node[right]{$e_1$};
+                \draw [->] (1,-0.433) -- ++(0,0.484) node[above]{$e_2$};
+    
+                \node at (-0.866,0.7) {$D$};
+                \node at (0.3,0.7) {$\partial D$};
+                \node at (0,-2.3) {$X$};
+            \end{scope}
+        \end{tikzpicture}
+        \caption{Existence of boundary charts.}
+        \label{fig:boundaryCharts}
+    \end{figure}
+    \begin{itemize}
+        \item Consider the two-sphere $S^2\subset\R^3$. We will call this manifold $X$.
+        \item The shaded blue circle on the surface of $X$ is a domain $D\subset X$. Its boundary $\partial D$ is represented by a dashed blue line, where dashing is chosen to remind the viewer that $D$ is open. The point $p$ is an element of $\partial D$ and is contained in the open neighborhood $U\subset X$. $X$ is oriented, as indicated. $\varphi$ maps the open disk $U_0\subset\R^2$ to $U$ and such that $\varphi(U_0\cap\mathbb{H}^2)=U\cap D$. Moreover, $\varphi$ is clearly orientation preserving and satisfies $\varphi(0)=p$.
+        \item Note that Figure \ref{fig:boundaryCharts} was drawn in a largely analogous manner to Figure \ref{fig:TpX}. See handwritten pages for more info.
+    \end{itemize}
+    \item Proof.
+    \begin{itemize}
+        \item Proving 1: You know $\varphi$ exists by the definition of a manifold; if it's not orientation preserving, compose it with a map of $\R^n$ that reverses all of the needed orientations.
+    \end{itemize}
+    \item Using this chart $\varphi$, we get an induced orientation on $\partial D$ from the orientation of $\partial\mathbb{H}^n=\R^{n-1}$.
+    \begin{itemize}
+        \item See the green arrows in the Figure \ref{fig:boundaryCharts}.
+        \item Check:
+        \begin{enumerate}
+            \item This gives a (global) orientation of $\partial D$.
+            \item This does not depend on the choice of chart $\varphi$.
+        \end{enumerate}
+    \end{itemize}
+    \item Note that this implies that the Klein bottle can't bound an orientable manifold because this would induce an orientation on the Klein bottle.
+    \item Integration of forms on manifolds.
+    \begin{itemize}
+        \item Take $X^n$ to be our manifold and $\omega\in\ome[n]{X}$ to be some top-dimensional form.
+        \item For now, we'll let $X$ be compact.
+        \item We want to define $\int_X\omega$, which should be a real number.
+        \item We got the recipe last time; now we just have to make it precise. Slogan: Break apart, compute in charts, put back together.
+        \item Here are the steps.
+        \begin{enumerate}
+            \item Pick \emph{oriented} charts (i.e., $\{\varphi_i:U_i'\to U_i\}$ orientation preserving) so that $\{U_i\}$ covers $X$.
+            \begin{itemize}
+                \item Example: Taking the top- and bottom-halves of $S^2$, as discussed last time, but we may do this however.
+            \end{itemize}
+            \item Choice of a "partition of unity supported on the $U_i$."
+            \begin{itemize}
+                \item Take a set $\{\rho_i:X\to\R\}$ with a few properties.
+                \begin{enumerate}
+                    \item For all $p\in X$, $\rho_i(p)=0$ for all but finitely many indices $i$.
+                    \item $\sum_i\rho_i(p)=1$; this is where the name \emph{partition of unity} comes from.
+                    \item $\supp(\rho_i)\subset U_i$.
+                \end{enumerate}
+            \end{itemize}
+        \end{enumerate}
+    \end{itemize}
+\end{itemize}
+
+
+
+\section{Stokes' Theorem and Course Retrospective}
+\begin{itemize}
+    \item \marginnote{5/27:}Office hours: 4:00pm-5:00pm today.
+    \item Let $W\subset X^n\subset\R^N$, where $W$ is a domain and $X^n$ is an oriented manifold.
+    \begin{itemize}
+        \item Then we seek to define $\int_W\omega$.
+        \item There are two possibilities.
+        \begin{enumerate}
+            \item $\overline{W}$ is compact implies
+            \begin{equation*}
+                \int_W\omega = \sum_i\int_{U_i\cap\phi_i^{-1}(W)}\varphi_i^*\rho_i\omega
+            \end{equation*}
+            \item $\omega\in\Omega_c^n(X)$ and $W$ arbitrary.
+        \end{enumerate}
+    \end{itemize}
+    \item For 1 (wrt the homework):
+    \begin{itemize}
+        \item Let $\sigma_\text{vol}\in\ome[n]{X}$. Pointwise, $T_p\R^N\times T_p\R^N\to\R$, restrict to $T_pX\times T_pX\to\R$.
+        \item Let $e_1,\dots,e_n$ be an orthonormal basis for $T_pX$.
+        \item $\sigma_\text{vol}$ is the \textbf{volume form}.
+        \item We take $(\sigma_\text{vol})|_p=e_1^*\wedge\cdots\wedge e_n^*$.
+        \item Check:
+        \begin{itemize}
+            \item Well-defined.
+            \item What it is in charts.
+            \item $X=\Gamma_f=F^{-1}(\{0\})$.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Volume} (of $W$): The following quantity, where $W$ is compact. \emph{Denoted by} $\bm{\Vol(W)}$. \emph{Given by}
+    \begin{equation*}
+        \Vol(W) = \int_W\sigma_\text{vol}
+    \end{equation*}
+    \begin{itemize}
+        \item This the actual volume!
+        \item The volume is the limit (computed the right way) of inserted polygons.
+        \item $\ell(\gamma)=\int|\gamma|$ is the limit length of the inserted polygons.
+    \end{itemize}
+    \item Properties.
+    \begin{enumerate}
+        \item $\int_W(\omega_1+\omega_2)=\int_W\omega_1+\int_W\omega_2$.
+        \item $\int_Wc\omega=c\int_W\omega$.
+        \item $F:X\to Y$, where $X\subset W_X$ and $Y\subset W_Y$. an orientation preserving diffeomorphism implies $\int_XF^*\omega=\int_Y\omega$ and $\int_{W_X}F^*\omega=\int_{W_Y}\omega$.
+        \item Don't forget the orientation! $\int_{-X}\omega=-\int_X\omega$.
+    \end{enumerate}
+    \item Theorem (Stokes): Let $W\subset X\subset\R^N$, where $W$ is a domain such that $\overline{W}$ is compact and $X$ is oriented. Let $\mu\in\ome[n-1]{X}$. Then
+    \begin{equation*}
+        \int_W\dd{\mu} = \int_{\partial W}\mu
+    \end{equation*}
+    where $\partial W$ is oriented.
+    \item Example:
+    \begin{itemize}
+        \item Let $W=\{(x,y)\in\R^2:x^2+y^2\leq 1\}$ be the unit disk, with its boundary oriented counterclockwise. Let $X=\R^2$. Let $\omega=\dd{x}\wedge\dd{y}$.
+        \emph{picture}
+        \begin{itemize}
+            \item We want to find $\omega_0\in\ome[1]{X}$ such that $\dd\omega_0=\omega$. We could take $\omega_0=x\wedge\dd{y}$, but we'll take $\omega_0=(-y/2)\dd{x}+(x/2)\dd{y}$ because it's symmetric.
+            \item We take as our one chart the circumference of the circle minus a point, and it will suffice to integrate over this one chart. This chart maps $(0,2\pi)\to\partial W$ via $t\mapsto(\cos t,\sin t)$.
+            \item Thus, by Stokes' theorem,
+            \begin{align*}
+                \int_W\dd{x}\wedge\dd{y} &= \int_{\partial W}\left( \left( -\frac{y}{2} \right)\dd{x}+\left( \frac{x}{2} \right)\dd{y} \right)\\
+                &= \int_0^{2\pi}-\frac{\sin t}{2}\dd(\cos t)+\frac{\cos t}{2}\dd(\sin t)\\
+                &= \int_0^{2\pi}\frac{1}{2}(\sin^2t+\cos^2t)\dd{t}\\
+                &= \pi
+            \end{align*}
+            \item Sanity check: $\dd{x}\wedge\dd{y}$ is the volume form, so integrating it should give the "volume" (area) of the unit disk, and it does!
+        \end{itemize}
+    \end{itemize}
+    \item The proof of Stokes' theorem relies on the FTC and machinery.
+    \begin{itemize}
+        \item To truly understand it, fight with Green's theorem, then jump up a dimension and prove Stokes' theorem, then jump up many dimensions and prove the generalized Stokes theorem.
+    \end{itemize}
+    \item Overview of the whole year.
+    \begin{itemize}
+        \item Fall:
+        \begin{itemize}
+            \item $\R$ exists.
+            \item Metric spaces, open sets, etc.
+            \item Sequences and series, continuous functions.
+            \item Theme: Just a bunch of chit-chat/language: Look, I can write a proof!
+        \end{itemize}
+        \item Winter:
+        \begin{itemize}
+            \item Derivatives ($\R$ and $\R^n$), familiar properties.
+            \item Integrals.
+            \item FTC.
+            \item Theme: Interchanging limits.
+        \end{itemize}
+        \item Spring:
+        \begin{itemize}
+            \item Manifolds: Locally Euclidean. The point is that they show up a lot. Most mathematicians in this building study manifolds in one form or another.
+            \item Manifolds are locally solutions to equations $F:\R^N\to\R^{N-n}$.
+            \item Manifolds are a place where you can do calculus (reducing it to linear algebra).
+            \item Tangent spaces $T_pX$, linear approximations $\dd f_p$.
+            \item Integration/differentiation with $\ome[k]{X}$.
+            \item Forms package with $\Lambda^n$, $\wedge$, $\dd$, $\int$, and Stokes' theorem.
+            \item Manifolds $\Leftarrow$ local theory (esp. the degree) $\Leftarrow$ pointwise linear algebra.
+        \end{itemize}
+    \end{itemize}
+    \item Where to go from here.
+    \begin{itemize}
+        \item Don't read \textcite{bib:DifferentialForms} again if you don't know what differential forms are.
+        \begin{itemize}
+            \item Move forward and the foundations will fill themselves in.
+        \end{itemize}
+        \item More analysis.
+        \begin{itemize}
+            \item Complex analysis. All your favorite stuff, but over $f:\C\to\C$. Do derivatives and integrals over closed curves. This is a beautiful theory. Since homomorphisms $f:\C\to\C$ are really rare and constricted, we can say a lot about them.
+            \item Functional analysis. A blend of linear algebra in infinite dimensions $\R^\infty$.
+            \item Fourier analysis. Approximating functions $f:\R\to\R$ with sine and cosine.
+            \item Harmonic analysis. The more general philosophical counterpart to Fourier analysis.
+        \end{itemize}
+        \item Use analysis.
+        \begin{itemize}
+            \item Partial differential equations. Usually the motivation for needing to learn functional and Fourier analysis.
+            \item Dynamical systems. Iterating functions as with $3\Rightarrow\text{chaos}$. Many Chicago mathematicians study dynamical systems.
+            \item Probability theory.
+            \item Differential geometry. The properties of surfaces and how they curve and what how they curve tells us. Pictures here! But not too much; it's still pretty abstract.
+            \item Analytic number theory.
+            \item Discrete math.
+            \item Analysis is a love-hate burden. Klug doesn't consider it interesting in its own right, but you always seem to need more of it to do the math you want to do.
+        \end{itemize}
+        \item Chapter 5 of \textcite{bib:DifferentialForms}.
+        \begin{itemize}
+            \item The chain $\cdots\to\ome[k-1]{X}\xrightarrow{\dd}\ome[k]{X}\xrightarrow{\dd}\ome[k+1]{X}\to\cdots$.
+            \item $H_\text{dR}^k(X)$.
+            \item Homological algebra.
+            \item It will seem random and crazy if you read it, but it's actually this whole "cohomology theory" that is pretty ubiquitous. If you invest in it, you will get something out of it pretty much regardless of the definition you go in.
+        \end{itemize}
+    \end{itemize}
+    \item The final will be like the midterm: Computations. Write down the tangent space with this chart. Can you find a function that this is the zero of? Can you compute the degree? Can you push around a couple definitions?
+    \begin{itemize}
+        \item Computing the degree can be a bit painful (see the homework), so we might just "eyeball it."
+    \end{itemize}
+\end{itemize}
+
+
+
+\section{Office Hours (Klug)}
+\begin{itemize}
+    \item What is a $k$-form, and can you give some examples of them?
+    \item What is the pullback and what does it do?
+    \item What is $\lam[k]{V^*}$, and why is it the $k^\text{th}$ exterior power of $V^*$, and what does that even mean? The elements of it are $\ide[k]{V}$-cosets of tensors; what does one of these look like? The elements of it aren't even functions, right? They're just sets of functions?
+    \item More Klug meeting questions as time allows.
+\end{itemize}
+
+
+
+\section{Final Review Sheet}
+\begin{itemize}
+    \item \marginnote{6/2:}Computing the sign.
+    \begin{equation*}
+        (-1)^\sigma = \prod_{i<j}\frac{X_{\sigma(i)}-X_{\sigma(j)}}{X_i-X_j}
+    \end{equation*}
+    \item \textbf{Pullback} (of $A$): The linear map $A^*:W^*\to V^*$ defined as follows, where $A:V\to W$ be a linear transformation between $V,W$ vector spaces. \emph{Given by}
+    \begin{equation*}
+        \ell \mapsto \ell\circ A
+    \end{equation*}
+    \begin{itemize}
+        \item Essentially, we take every linear functional on $W$ and relate it to a linear functional $\ell\circ A$ on $V$ by having $A$ translate vectors in $V$ to vectors in $W$, which $\ell$ can eat.
+    \end{itemize}
+    \item Every $k$-tensor $T:V^k\to\R$ has a decomposition
+    \begin{equation*}
+        T = \sum_IT_Ie_I^*
+    \end{equation*}
+    \begin{itemize}
+        \item Proofs for decomposable tensors follow from the linearity of this decomposition.
+    \end{itemize}
+    \item Recall decomposable and redundant $k$-tensors.
+    \item \textbf{Pullback} (of $T$ by $A$): Once again, $A$ supplies values to $T$. So if $A:V\to W$ and $T:W^k\to\R$, then
+    \begin{equation*}
+        A^*T(v_1,\dots,v_k) = T(Av_1,\dots,Av_k)
+    \end{equation*}
+    \item Recall $T^\sigma$, defined in terms of $T$ by $\sigma^{-1}$ indices.
+    \item \textbf{Alternating} ($k$-tensor): A $k$-tensor $T$ such that for all $\sigma\in S^k$,
+    \begin{equation*}
+        T^\sigma = (-1)^\sigma T
+    \end{equation*}
+    \item \textbf{Alternation operation}: The function $\Alt:\lin[k]{V}\to\lin[k]{V}$ defined by
+    \begin{equation*}
+        T \mapsto \sum_{\tau\in S^k}(-1)^\tau T^\tau
+    \end{equation*}
+    \item Properties.
+    \begin{enumerate}
+        \item $\Alt(T)^\sigma=(-1)^\sigma\Alt T$.
+        \item $T\in\alt[k]{V}$ implies $\Alt T=k!T$.
+        \item $\Alt(T^\sigma)=\Alt(T)^\sigma$.
+        \item $\Alt$ is linear.
+    \end{enumerate}
+    \item $\alt[k]{V}\cong\lam[k]{V^*}=\lin[k]{V}/\ker(\Alt)$.
+    \begin{itemize}
+        \item This means that $\lam[k]{T_p^*\R^n}\cong\alt[k]{T_p\R^n}$.
+        \item In terms of $k$-forms, this must mean that we're taking $k$ things and sending them like a one-form. The useful picture of $f:\R^2\to\R^2$ is as $f_1:\R^2\to\R^1$ and separately $f_2:\R^2\to\R^1$. It's just more.
+    \end{itemize}
+    \item Recall that $\ide[k]{V}$ is the span of all redundant $k$-tensors.
+    \begin{itemize}
+        \item In particular, $\ide[k]{V}=\ker(\Alt)$.
+    \end{itemize}
+    \item Let $\pi:\lin[k]{V}\to\lam[k]{V^*}$ send $T\mapsto\omega$. Then if $\omega_1=\pi(T_1)$ and $\omega_2=\pi(T_2)$, we have $\omega_1\wedge\omega_2=\pi(T_1\otimes T_2)$.
+    \begin{itemize}
+        \item Indeed, with the wedge product, we are kind of just appending forms/tensors together. The 2-tensor at a point describes the derivative of a function into 2-dimensional space.
+    \end{itemize}
+    \item If $\omega_1\in\lam[k]{V^*}$ and $\omega_2\in\lam[\ell]{V^*}$, then
+    \begin{equation*}
+        \omega_1\wedge\omega_2 = (-1)^{k\ell}\omega_2\wedge\omega_1
+    \end{equation*}
+    \item The cursed product rule (for the interior product and the exterior derivative):
+    \begin{equation*}
+        \iota_v(T_1\otimes T_2) = \iota_vT_1\otimes T_2+(-1)^pT_1\otimes\iota_vT_2
+    \end{equation*}
+    \item \textbf{Interior product} (of a vector $v$ and $k$-tensor $T$): The $(k-1)$-tensor
+    \begin{equation*}
+        (\iota_vT)(v_1,\dots,v_{k-1}) = \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_{r-1},v,v_r,\dots,v_{k-1})
+    \end{equation*}
+    \item \textbf{Pullback} (of $\omega$ by $A$): As always, $A$ supplies values to $T$, where $\omega=\pi(T)$. However, this time it's indirectly through the projection operation:
+    \begin{equation*}
+        A^*\omega = \pi(A^*T)
+    \end{equation*}
+    \item \textbf{Determinant} (of $A$): The number $A$ such that $A^*\omega=a\omega$.
+    \begin{itemize}
+        \item Appeal to $A$'s actions on coordinates/bases to derive the typical formula.
+    \end{itemize}
+    \item Recall the definitions of the tangent space, a vector field.
+    \item $\pdv*{x_i}$ is the $n$-dimensional vector field where vectors point in the $x_i$-direction at every point.
+    \item Every vector has a unique decomposition in terms of the standard basis $(x_1,\dots,x_n)$, given by a set of numbers. If we assign each point of a vector field to these numbers via functions $\{g_i\}$, we realize that every $n$-dimensional vector field on $U$ has a unique decomposition
+    \begin{equation*}
+        \bm{v} = \sum_{i=1}^ng_i\pdv{x_i}
+    \end{equation*}
+    where $g_i:U\to\R$.
+    \item The Lie derivative takes the directional derivative of a function $f$ on $U$ according to the vector field $\bm{v}$ on $U$. In particular, if $\bm{v}(p)=(p,v)$, then
+    \begin{equation*}
+        L_{\bm{v}}f(p) = Df(p)v
+    \end{equation*}
+    In coordinates,
+    \begin{equation*}
+        L_{\bm{v}}f = \sum_{i=1}^ng_i\pdv{f}{x_i}
+    \end{equation*}
+    \begin{itemize}
+        \item If $L_{\bm{v}}f=0$, $f$ is an integral of $\bm{v}$.
+    \end{itemize}
+    \item Differential 1-forms: Essentially, these are covector fields. We can interconvert with the musical operators.
+    \item We need differential 1-forms to generalize to higher dimensions for $U$ than $\R^3$, and differential $k$-forms to describe functions \emph{into} higher-dimensional spaces.
+    \item \textbf{Integral curve} (of $\bm{v}$): A curve $\gamma:[a,b]\to U$ such that $\gamma'(t)=\bm{v}(\gamma(t))$.
+    \item The following related definitions for the derivative of $f$.
+    \begin{align*}
+        Df(p) &=
+        \begin{bmatrix}
+            \eval{\displaystyle\pdv{f_i}{x_j}}_p
+        \end{bmatrix}\\
+        \dd f_p(p,v) &= (q,Df(p)v)\\
+        \dd f(p) &= \dd f_p
+    \end{align*}
+    \item The following constructs related to forming a basis of one-forms.
+    \begin{align*}
+        x_i(v_1,\dots,v_n) &= v_i\\
+        (\dd x_i)_p(p,a_1x_1+\cdots+a_nx_n) &= a_i\\
+        \dd x_i(p) &= (\dd x_i)_p
+    \end{align*}
+    \item Relating the last two thoughts: All one-forms have a unique decomposition
+    \begin{equation*}
+        \omega = \sum_{i=1}^nf_i\dd x_i
+    \end{equation*}
+    \item \textbf{Interior product} (of a vector field $\bm{v}$ and a one-form $\omega$): The following expression, where the vector field and one-form are defined in coordinates as $\bm{v}=\sum_{i=1}^ng_i\pdv*{x_i}$ and $\omega=\sum_{i=1}^nf_i\dd{x_i}$. \emph{Given by}
+    \begin{equation*}
+        \iota_{\bm{v}}\omega = \sum_{i=1}^nf_ig_i
+    \end{equation*}
+    \item Note that
+    \begin{equation*}
+        \iota_{\bm{v}}\dd f = L_{\bm{v}}f
+    \end{equation*}
+    as follows directly from the definitions.
+    \item Recall that $C_0^\infty(\R^n)$ is the vector space of all bump functions on $\R^n$.
+    \item Exterior derivative properties.
+    \begin{enumerate}
+        \item Linearity.
+        \item Cursed product rule (where $p=k$ is the dimension of $\omega_1$).
+        \item Special case ($k=\ell=0$, so $\omega_1=f$ and $\omega_2=g$ are $C^\infty$ functions).
+        \begin{equation*}
+            \dd(fg) = g\dd f+f\dd g
+        \end{equation*}
+        \item Formula.
+        \begin{equation*}
+            \dd(\sum_If_I\dd x_i) = \sum_I\dd f_I\wedge\dd x_I
+        \end{equation*}
+        \item $\dd^2=0$.
+    \end{enumerate}
+    \item Recall closed and exact $k$-forms. Closed ones have $\dd\omega=0$; exact ones have $\omega=\dd\mu$. Exact implies closed by $\dd^2=0$.
+    \item A $k$-form at a point $p$ is an alternating $k$-tensor. It takes $k$ vectors in and spits out the result of applying the best linear approximation to each of them for a $k$-dimensional function (a function into $\R^k$). It's really just best to rephrase everything in terms of alternating tensors and view the wedge product as the tensor product.
+    \item This makes it so that we analogously have
+    \begin{equation*}
+        \omega_p = \sum_Ic_I(\dd x_I)_p
+    \end{equation*}
+    and
+    \begin{equation*}
+        \omega = \sum_If_I\dd x_I
+    \end{equation*}
+    \item Recall that $\Omega_c^k(U)$ is the vector space of all compactly supported $k$-forms on $U$.
+    \begin{itemize}
+        \item Recall further that the support is the set of all points at which the form is nonzero, and compact just means that the support is compact. This can have cool consequences, as with (maximal) integral curves.
+    \end{itemize}
+    \item \textbf{Proper} (function $f:U\to V$): Continuous, $K\subset V$ compact implies $f^{-1}(K)\subset U$ compact.
+    \begin{itemize}
+        \item Sine is not proper.
+    \end{itemize}
+    \item The pullback maps compactly supported forms to compactly supported forms.
+    \item \textbf{Integral} (of a top-dimensional form): If $\omega=f\dd{x_1}\wedge\cdots\wedge\dd{x_n}$ is a top-dimensional form, then the integral of $\omega$ over $U$ is given as follows. \emph{Given by}
+    \begin{equation*}
+        \int_U\omega = \int_{\R^n}f\dd{x_1}\cdots\dd{x_n}
+    \end{equation*}
+    \begin{itemize}
+        \item Evaluate with repeated integrals.
+    \end{itemize}
+    \item Poincar\'{e} lemma for rectangles: Let $Q=[a_1,b_1]\times\cdots\times[a_n,b_n]$. Take $\omega\in\Omega_c^n(Q)$. Then TFAE.
+    \begin{enumerate}
+        \item $\int_Q\omega=0$.
+        \item $\omega=\dd\mu$ with $\mu\in\Omega_c^{n-1}(Q)$
+    \end{enumerate}
+    \item Intuition ($n=1$ case).
+    \begin{itemize}
+        \item The following are equivalent.
+        \begin{enumerate}
+            \item $\int_a^bf = 0$.
+            \item $f = g'\text{ for some compactly supported smooth $g$ on $[a,b]$}$.
+        \end{enumerate}
+        \item Let $g$ be the bump function on $(-1,1)$. Then starting at $-1$, $f$ goes up and down to zero and down and up to 1. Naturally, $\int_a^bf=0$, and similarly, $g$ is compactly supported on $[-1,1]$.
+        \item ($2\Rightarrow 1$): If $g$ is compactly supported, then $g(b)=g(a)$. Thus, $\int_a^bf=g(b)-g(a)=0$.
+        \item ($1\Rightarrow 2$): If $\int_a^bf=0$, define $g(x)=\int_a^xf(t)\dd{t}$. This is compactly supported (i.e., has $g(a)=0$ and $g(b)=0$) since
+        \begin{align*}
+            g(a) &= \int_a^af = 0&
+            g(b) &= \int_a^bf = 0
+        \end{align*}
+        where the left equality follows by the properties of integrals and the right follows by hypothesis 1.
+    \end{itemize}
+    \item \textbf{Pullback} (of a one-form $\mu$ on $V$ onto $U$ by $f$): It looks like here, $f$ (in the one-form form $\dd f$) is supplying values to $\mu$.
+    \begin{equation*}
+        f^*\mu(p) = \mu_q\circ\dd f_p
+    \end{equation*}
+    \begin{itemize}
+        \item In formulas, if
+        \begin{equation*}
+            \omega = \sum_I\phi_I\dd{x_I}
+        \end{equation*}
+        then
+        \begin{equation*}
+            f^*\omega = \sum_If^*\phi_I\dd{f_I}
+        \end{equation*}
+        where $f^*\phi_I=\phi_I\circ f$.
+        \item Note that $\dd\circ f^*=f^*\circ\dd$.
+    \end{itemize}
+    \item \textbf{Lie derivative} (of the $k$-form $\omega$ with respect to $\bm{v}$):The $k$-form defined as follows, where $U\subset\R^n$ is open, $\bm{v}\in\mathfrak{X}(U)$, and $\omega\in\ome[k]{U}$. \emph{Given by}
+    \begin{equation*}
+        L_{\bm{v}}\omega = \iota_{\bm{v}}(\dd\omega)+\dd(\iota_{\bm{v}}\omega)
+    \end{equation*}
+    \begin{itemize}
+        \item Note that we use $\iota$ to drop the index and $\dd$ to raise it back up, and then vice versa.
+    \end{itemize}
+    \item Properties of this Lie derviative.
+    \begin{enumerate}
+        \item $L_{\bm{v}}\circ\dd=\dd\circ L_{\bm{v}}$.
+        \item $L_{\bm{v}}(\omega\wedge\mu)=L_{\bm{v}}\omega\wedge\nu+\omega\wedge L_{\bm{v}}\mu$.
+    \end{enumerate}
+    \item Explicit formula for this Lie derivative: If $\omega=\sum_If_I\dd{x_I}$ and $\bm{v}=\sum_{i=1}^ng_i\pdv*{x_i}$, then
+    \begin{equation*}
+        L_{\bm{v}}\omega = \sum_I\left[ \left( \sum_{i=1}^ng_i\pdv{f_I}{x_i} \right)\dd{x_I}+f_I\left( \sum_{r=1}^k\dd{x_{i_1}}\wedge\cdots\wedge\dd{g_{i_r}}\wedge\cdots\wedge\dd{x_{i_k}} \right) \right]
+    \end{equation*}
+    \item Vector calc connections.
+    \begin{itemize}
+        \item The musical operators.
+        \begin{equation*}
+            \sharp(f\dd{x}+g\dd{y}) = f\pdv{x}+g\pdv{y}
+        \end{equation*}
+        \item The exterior derivative of a (2D) function.
+        \begin{equation*}
+            \dd f = \pdv{f}{x}\dd{x}+\pdv{f}{y}\dd{y}
+        \end{equation*}
+        \item The exterior derivative of a (2D) one-form.
+        \begin{equation*}
+            \dd(f\dd{x}+g\dd{y}) = \left( \pdv{g}{x}-\pdv{f}{y} \right)\dd{x}\wedge\dd{y}
+        \end{equation*}
+        \item The exterior derivative of a (3D) function.
+        \begin{equation*}
+            \dd f = \pdv{f}{x}\dd{x}+\pdv{f}{y}\dd{y}+\pdv{f}{z}\dd{z}
+        \end{equation*}
+        \item The exterior derivative of a (2D) one-form.
+        \begin{equation*}
+            \dd(f\dd{x}+g\dd{y}+h\dd{z}) = \left( \pdv{g}{x}-\pdv{f}{y} \right)\dd{x}\wedge\dd{y}+\left( \pdv{h}{y}-\pdv{g}{z} \right)\dd{y}\wedge\dd{z}+\left( \pdv{h}{x}-\pdv{f}{z} \right)\dd{x}\wedge\dd{z}
+        \end{equation*}
+        \item The exterior derivative of a (3D) two-form.
+        \begin{equation*}
+            \dd(f\dd{x}\wedge\dd{y}+g\dd{y}\wedge\dd{z}+h\dd{x}\wedge\dd{z}) = \left( \pdv{f}{z}+\pdv{g}{x}-\pdv{h}{y} \right)\dd{x}\wedge\dd{y}\wedge\dd{z}
+        \end{equation*}
+    \end{itemize}
+    \item \textbf{Interior product} (of a vector field $\bm{v}$ and a $k$-form $\omega$): We take every $p\in U$ to the interior product of the vector $\bm{v}(p)$ and the $k$-tensor $\omega_p$.
+    \item Thus, if $\bm{v}=\pdv*{x_r}$ and $\omega=\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_k}}$, we have that
+    \begin{align*}
+        [\iota_{\bm{v}}\omega(p)](v_1,\dots,v_{k-1}) &= [\iota_{\bm{v}(p)}\omega_p](v_1,\dots,v_{k-1})\\
+        &= \sum_{i=1}^k(-1)^{i-1}\omega_p(v_1,\dots,v_{i-1},\bm{v}(p),v_i,\dots,v_{k-1})\\
+        &= \sum_{i=1}^k(-1)^{i-1}[\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_k}}]_p(v_1,\dots,v_{i-1},\bm{v}(p),v_i,\dots,v_{k-1})\\
+        &= \sum_{i=1}^k(-1)^{i-1}[(\dd{x_{i_1}})_p\wedge\cdots\wedge(\dd{x_{i_k}})_p](v_1,\dots,v_{i-1},\bm{v}(p),v_i,\dots,v_{k-1})\\
+        &= \cdots
+    \end{align*}
+    \item \textbf{Pullback} (of the $k$-form $\omega$ along $f$): As per usual, we feed $\omega_q$ some values spit out by $\dd f_p$. \emph{Given by}
+    \begin{equation*}
+        f^*\omega(p) = \dd f_p^*\omega_q
+    \end{equation*}
+    \item Properties of this pullback.
+    \begin{enumerate}
+        \item $(f^*\phi)(p)=(\phi\circ f)(p)$.
+        \item $f^*\dd\phi=\dd f^*\phi$.
+        \item Linearity.
+        \item Distributivity over the wedge product.
+        \item Functoriality.
+        \item $f^*(\dd x_I)=\dd f_I$.
+        \item $\dd(f^*\omega)=f^*\dd\omega$.
+        \item $f^*(\dd x_1\wedge\cdots\wedge\dd x_n)=\det\left[ \pdv*{f_i}{x_j} \right]\dd{x_1}\wedge\cdots\wedge\dd{x_n}$.
+    \end{enumerate}
+    \item Functoriality is another property just like distributivity. It's another way a function can behave.
+    \item Explicit formula for this pullback: If $\omega=\sum_I\phi_I\dd{x_I}$, then
+    \begin{equation*}
+        f^*\omega = \sum_If^*\phi_I\dd f_I
+    \end{equation*}
+    \item Recall homotopies.
+    \item Recall contractible sets (rigorously, sets that are homotopic to a constant map).
+    \item Defining $\sharp$ via the inner product and $L:\R^n\to(\R^n)^*$ defined by $L(v)=\ell_v$.
+    \item Change of variables formula: If $f:U\to V$ a diffeomorphism and $\phi:V\to\R$ continuous, then
+    \begin{equation*}
+        \int_V\phi(y)\dd{y} = \int_U(\phi\circ f)(x)|\det Df(x)|\dd{x}
+    \end{equation*}
+    \item Degree theory.
+    \begin{itemize}
+        \item If $f:U\to V$, then
+        \begin{equation*}
+            \int_Uf^*\omega = \deg(f)\int_V\omega
+        \end{equation*}
+        \item A coordinate-based formula for the degree.
+        \begin{equation*}
+            \int_V\phi(y)\dd{y} = \deg(f)\int_U(\phi\circ f)(x)\det(Df(x))\dd{x}
+        \end{equation*}
+        \item $\deg(g\circ f)=\deg(g)\deg(f)$.
+        \begin{itemize}
+            \item Proven from the original definition and functoriality.
+        \end{itemize}
+        \item orientation preserving diffeomorphisms ($\det[Df(x)]>0$) have $\deg(f)=+1$.
+        \item orientation reversing diffeomorphisms ($\det[Df(x)]<0$) have $\deg(f)=-1$.
+        \item Properly homotopic functions have the same degree.
+        \item If $f$ is not surjective, then $\deg(f)=0$.
+        \item Computing the degree.
+        \begin{itemize}
+            \item Take a regular value of $f$.
+            \item Find the points in its preimage.
+            \item Find disjoint neighborhoods around these points.
+            \item Find functions $f:U_i\to W$.
+            \item Figure out which are orientation preserving and which aren't.
+            \item Subtract the number of orientation reversing ones from the number of orientation preserving ones.
+        \end{itemize}
+    \end{itemize}
+    \item Brouwer fixed-point theorem: If $f:B^n\to B^n$ continuous, then it has a fixed point.
+    \item \textbf{Smooth} (function $f:X\to Y$): A function between manifolds $X^n,Y^m\subset\R^N,\R^M$, respectively, such that for all $p\in X$, there is some neighborhood $U_p\subset\R^N$ of $p$ and a smooth map $g_p:U_p\to\R^M$ that is smooth and agrees with $f$ on $X\cap U_p$.
+    \item \textbf{$\bm{n}$-manifold}: A subset $X^n\subset\R^N$ such that for all $p\in X$, there is a neighborhood $V\subset\R^N$ of $p$, an open set $U\subset\R^n$, and a diffeomorphism $\phi:U\to X\cap V$.
+    \item \textbf{Parameterization}: Defined as above. \emph{Also known as} \textbf{chart}, \textbf{coordinate}.
+    \item Manifold examples:
+    \begin{enumerate}
+        \item $n$-spheres.
+        \item Subsets of $\R^n$.
+        \item Graphs $\Gamma_f$.
+        \item Tori.
+        \item Product manifolds.
+    \end{enumerate}
+    \item \textbf{Submersion} (at $p\in U$): A smooth map $f:U\to\R^k$, where $U\subset\R^N$ open, such that $Df(p):\R^N\to\R^k$ is surjective.
+    \item Recall critical points, critical values, and regular values.
+    \begin{itemize}
+        \item Remember the difference between critical points and super-critical points (flat surface in the path along a hill vs. the top of the mountain).
+    \end{itemize}
+    \item $\bm{C_f}$: The set of all critical points of $f$.
+    \item \textbf{Tangent space} (of $p$ to $X$): Intuitively, this is exactly what you would think. It lives in $T_p\R^N$ and comprises all base-pointed vectors tangent to $p$. Rigorously, we have to relate our parameterization $\phi:U\to\R^N$ to $\dd\phi_p:T_p\R^n\to T_p\R^N$. Though I guess what this is really doing is taking a curved tangent vector along the manifold and making it a straight tangent vector in the tangent line/plane/manifold.
+    \item Recall vector fields, integral curves, $k$-forms, etc. on manifolds. Smoothness is defined for these objects as with functions between manifolds, i.e., by returning to $\R^N$ and then going back to the manifold.
+    \item \textbf{Pullback} (of the $k$-form $\omega$ on $X$ along $f$): If $f:X^n\to Y^m$ where $X\subset\R^N$ and $Y\subset\R^M$, then we may define it as before.
+    \item \textbf{Exterior derivative} (at $p$ on $X$): The tensor defined by
+    \begin{equation*}
+        (\dd\omega)_p = [(\phi^{-1})^*\dd(\phi^*\omega)]_p
+    \end{equation*}
+    \begin{itemize}
+        \item The properties carry over.
+    \end{itemize}
+    \item Sard's theorem: The set of regular values of $f$ is an open dense subset of $V$.
+    \item The preimage of a regular value is a finite set.
+    \item $f^{-1}(a)$, where $a$ is a regular value, is the set of solutions to the (independent) system of equations $f_i(x)=a_i$ ($i=1,\dots,k$).
+    \item The fundamental theorem of calculus as a special case of Stokes' theorem.
+    \begin{itemize}
+        \item If we integrate over $X=[a,b]$, well $\partial X=\{a,b\}$, so
+        \begin{equation*}
+            \int_a^b\dd f = \int_X\dd f
+            = \int_{\partial X}f
+            = f(b)-f(a)
+        \end{equation*}
+    \end{itemize}
+    \item Green's theorem.
+    \begin{itemize}
+        \item Take a one form
+        \begin{equation*}
+            \omega = P\dd{x}+Q\dd{y}
+        \end{equation*}
+        \item Applying the exterior derivative generates a corresponding two-form:
+        \begin{equation*}
+            \dd\omega = \left( \pdv{Q}{x}-\pdv{P}{y} \right)\dd{x}\wedge\dd{y}
+        \end{equation*}
+        \item Here, we have that
+        \begin{equation*}
+            \int_U\left( \pdv{Q}{x}-\pdv{P}{y} \right)\dd{x}\wedge\dd{y} = \int_{\partial U}P\dd{x}+Q\dd{y}
+        \end{equation*}
+    \end{itemize}
+    \item Domain: An open subset $D\subset X^n$ such that
+    \begin{enumerate}
+        \item $D$ is an $(n-1)$=manifold.
+        \item $\partial D=\partial(\overline{D})$.
+    \end{enumerate}
+    \item Existence of domain boundary charts and $\mathbb{H}^n$.
+    \item The $n$-dimensional volume form is just $\dd{x_1}\wedge\cdots\wedge\dd{x_n}$.
+    \begin{itemize}
+        \item The volume of a manifold is equal to the integral over $W$ of the volume form.
+    \end{itemize}
+    \item Linearity property of integrals.
+    \item Actually converting between two-forms and one-forms as in Green's theorem (boundary of a circle example).
+\end{itemize}
+
+
+
+\section{Chapter 4: Manifolds and Forms on Manifolds}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item For the remainder of Chapter 4, we will look to prove manifold versions of Stokes' theorem and the divergence theorem, and develop a manifold version of degree theory.
+    \item We confine ourselves to \textbf{orientable} manifolds for simplicity.
+    \begin{itemize}
+        \item Section 4.4 is concerned with explaining orientability.
+    \end{itemize}
+    \item \textbf{Orientation} (of $X$): A rule assigning to each $p\in X$ an orientation of $T_pX$.
+    \begin{itemize}
+        \item Essentially, for every $p\in X$, we label one of the two components of the set $\lam[n]{T_p^*X}\setminus\{0\}$ by $\lam[n]{T_p^*X}_+$.
+    \end{itemize}
+    \item \textbf{Plus part} (of $\lam[n]{T_p^*X}$): The component $\lam[n]{T_p^*X}_+$.
+    \item \textbf{Minus part} (of $\lam[n]{T_p^*X}$): The other component of $\lam[n]{T_p^*X}\setminus\{0\}$. \emph{Denoted by} $\bm{\lam[n]{T_p^*X}_-}$.
+    \item \textbf{Smooth} (orientation of $X$): An orientation of a manifold $X$ such that for every $p\in X$, there exists a neighborhood $U$ of $p$ and a non-vanishing $n$-form $\omega\in\ome[n]{U}$ such that for all $q\in U$, $\omega_q\in\lam[n]{T_q^*X}_+$. \emph{Also known as} $\bm{C^\infty}$.
+    \item \textbf{Reversed orientation} (of $X$): The orientation of $X$ defined by assigning to each $p\in X$ the opposite orientation to the one already assigned.
+    \item If $X$ is connected and has a smooth orientation, the only smooth orientations of $X$ are that one and its reversed orientation.
+    \begin{itemize}
+        \item Rationale: Given any smooth orientation $\omega$, the set of points where it agrees with the given orientation is open --- by definition, every oriented $p\in X$ is surrounded by an open neighborhood $U$ on which the orientation form is smooth, and the union of all these $U$ is open. But then the set where $\omega$ agrees with the given orientation and the set where $\omega$ agrees with the reversed orientation are both open sets whose union is the connected set $X$. Therefore, one must be empty.
+    \end{itemize}
+    \item \textbf{Volume form}: A non-vanishing form $\omega\in\ome[n]{X}$ such that one gets from $\omega$ a smooth orientation of $X$ by requiring $\omega_p\in\lam[n]{T_p^*X}_+$ for all $p\in X$.
+    \begin{itemize}
+        \item If $\omega_1,\omega_2$ are volume forms on $X$, then $\omega_2=f_{2,1}\omega_1$, where $f_{2,1}$ is an everywhere positive $C^\infty$ function.
+    \end{itemize}
+    \item \textbf{Standard orientation} (of $U$): The orientation defined by $\dd{x_1}\wedge\cdots\wedge\dd{x_n}$, where $U\subset\R^n$ is open.
+    \item The standard orientation of $U$ induces a standard orientation of $T_pX$ as follows.
+    \begin{itemize}
+        \item Recall that if $X=f^{-1}(0)$, then $T_pX=\ker(\dd{f}_p)$, where $\dd{f}_p$ is surjective.
+        \item Thus, $\dd{f}_p$ induces a bijective linear map from $T_p\R^N\setminus T_pX\to T_0\R^k$.
+        \item Since $T_p\R^N$ and $T_p\R^k$ have standard orientations by the above definition, requiring that the above map be orientation preserving gives $T_p\R^N\setminus T_pX$ an orientation.
+        \item It follows by Theorem 1.9.9 that $T_pX$ has an orientation.
+        \item Note: It should be intuitively clear that the smoothness of $\dd{f}_p$ implies that the orientation is smooth, but we will prove this directly, too, in the exercises.
+    \end{itemize}
+    \item Theorem 4.4.9: Let $X$ be an oriented submanifold of $\R^N$, $B$ be the inner product on $\R^N$, $B_p:T_pX\times T_pX\to\R$ be the related inner product on $T_pX$, $e_1,\dots,e_n$ be an orthonormal basis of $T_pX$, $\sigma_p=e_1^*\wedge\cdots\wedge e_n^*$ be the volume element in $\lam[n]{T_p^*X}$ associated with $B_p$, and $\sigma_X$ be the non-vanishing $n$-form defined by $p\mapsto\sigma_p$. Then the form $\sigma_X$ is $C^\infty$ and hence is a volume form.
+    \item \textbf{Riemannian volume form}: The volume form described above. \emph{Denoted by} $\bm{\sigma_X}$.
+    \item \textbf{Orientation preserving} (map): A diffeomorphism $f:X\to Y$, where $X,Y$ are oriented $n$-manifolds, such that for all $p\in X$ and $q=f(p)$, the linear map $\dd f_p:T_pX\to T_qY$ is orientation preserving.
+    \item If $\omega=\sigma_Y$, then $f$ is orientation preserving iff $f^*\omega=\sigma_X$.
+    \item Theorem 4.4.11: If $Z$ is an oriented $n$-manifold and $g:Y\to Z$ a diffeomorphism, then if both $f$ and $g$ are orientation preserving, so is $g\circ f$.
+    \item If $X$ is connected, then $\dd{f}_p$ must be orientation preserving at all points $p\in X$, or orientation reversing at all points $p\in X$.
+    \item \textbf{Oriented parameterization} (of $U$): A parameterization $\phi:U_0\to U$ that is orientation preserving with respect to the standard orientation of $U_0$ and the given orientation on $U$.
+    \item Suppose $\phi$ isn't oriented. Then we can still convert it to a related parametrization which is oriented, as follows.
+    \begin{enumerate}
+        \item Let $V_0$ be the union of all connected components of $U_0$ on which $\phi$ isn't orientation preserving.
+        \item Replace $V_0$ by
+        \begin{equation*}
+            V_0^\sharp = \{(x_1,\dots,x_n)\in\R^n\mid(x_1,\dots,x_{n-1},-x_n)\in V_0\}
+        \end{equation*}
+        \begin{itemize}
+            \item This aligns the orientations between the domain of the parameterization and $U$.
+        \end{itemize}
+        \item Replace $\phi:U_0\to U$ by the map $\psi:U_0\setminus V_0\cup V_0^\sharp\to U$ defined by
+        \begin{equation*}
+            \psi(x_1,\dots,x_n) = \phi(x_1,\dots,x_{n-1},-x_n)
+        \end{equation*}
+        \begin{itemize}
+            \item This ensures that the parameterization still maps to $U$ (and not to other parts of the manifold or its containing space).
+        \end{itemize}
+    \end{enumerate}
+    \item Suppose $\phi_i:U_i\to U$ ($i=0,1$) are two oriented parameterizations of $U$. Let $\psi:U_0\to U_1$ be the diffeomorphism defined by
+    \begin{equation*}
+        \psi = \phi_1^{-1}\circ\phi_0
+    \end{equation*}
+    \begin{itemize}
+        \item Then by Theorem 4.4.11, $\psi$ is orientation preserving as well.
+        \item It follows that $\dd\psi_p$ is orientation preserving for all $p\in U_0$, and thus
+        \begin{equation*}
+            \det[D\psi(p)] > 0
+        \end{equation*}
+        for all $p\in U_0$.
+    \end{itemize}
+    \item \textbf{Smooth domain}: An open subset $D$ of $X$ such that
+    \begin{enumerate}
+        \item The boundary $\partial D$ is an $(n-1)$-dimensional submanifold of $X$;
+        \item The boundary of $D$ coincides with the boundary of the closure of $D$.
+    \end{enumerate}
+    \item Examples.
+    \begin{enumerate}
+        \item The open ball in $\R^n$, formally defined by $B^n=\{x\in\R^n\mid x_1^2+\cdots+x_n^2<1\}$, whose boundary is the $(n-1)$-sphere.
+        \item The $n$-dimensional annulus (ball with the center removed)
+        \begin{equation*}
+            1 < x_1^2+\cdots+x_n^2 < 2
+        \end{equation*}
+        whose boundary consists of the union of the two spheres
+        \begin{equation*}
+            \begin{cases}
+                x_1^2+\cdots+x_n^2 = 1\\
+                x_1^2+\cdots+x_n^2 = 2
+            \end{cases}
+        \end{equation*}
+        \item Bad example: Consider $\R^n\setminus S^{n-1}$, i.e., $n$-dimensional space with the $(n-1)$-sphere missing. The boundary of this space is $S^{n-1}$, but since the closure of this space is just $\R^n$, the boundary of the closure is empty. Hence $D$ is not a smooth domain.
+        \item The simplest smooth domain is $\mathbb{H}^n$, since we can identify $\partial\mathbb{H}^n$ with $\R^{n-1}$ via the map from $\R^{n-1}\to\mathbb{H}^n$ defined by
+        \begin{equation*}
+            (x_2,\dots,x_n) \mapsto (0,x_2,\dots,x_n)
+        \end{equation*}
+        \begin{itemize}
+            \item Think of how we identify the straight line $\R^1$ with the boundary of the $\mathbb{H}^2$, which is just the $x$-axis, a line.
+        \end{itemize}
+    \end{enumerate}
+    \item In fact, we can show that every bounded domain looks (locally) like Example 4, above:
+    \item Theorem 4.4.17: Let $D$ be a smooth domain and $p\in\partial D$. Then there exists a neighborhood $U\subset X$ of $p$, an open set $U_0\subset\R^n$, and a diffeomorphism $\psi:U_0\to U$ such that $\psi(U_0\cap\mathbb{H}^n)=U\cap D$.
+    \begin{itemize}
+        \item See Figure \ref{fig:boundaryCharts} and the associated discussion.
+        \item \textcite{bib:DifferentialForms} proves Theorem 4.4.17.
+    \end{itemize}
+    \item \textbf{$\bm{D}$-adapted parameterizable open set}: The open set $U$ characterized by Theorem 4.4.17.
+    \item We now build up to the result that if $X$ is oriented and $D\subset X$ is a smooth domain, then the boundary $Z=\partial D$ of $D$ acquires from $X$ a natural orientation.
+    \begin{itemize}
+        \item We first prove Lemma 4.4.24.
+        \item We then let $V_0=U_0\cap\R^{n-1}=\partial(U_0\cap\mathbb{H}^n)$. It will follow since $\psi|_{V_0}$ maps $V_0$ onto $U\cap Z$ diffeomorphically, we can orient $U\cap Z$ by requiring that this map be orientation preserving. To prove that this orientation on $U\cap Z$ is \emph{intrinsic}, we need only show that the orientation induced on $U\cap Z$ does not depend on the choice of $\psi$. We can do this with Theorem 4.4.25.
+        \item To prove Theorem 4.4.25, we make use of Proposition 4.4.26.
+        \item Finally, we orient the boundary of $D$ by requiring that for every $D$-adapted parameterizable open set $U$, the orientation of $Z$ conincides with the orientation of $U\cap Z$ that we described above.
+    \end{itemize}
+    \item Lemma 4.4.24: The diffeomorphism $\psi:U_0\to U$ in Theorem 4.4.17 can be chosen to be orientation preserving.
+    \begin{proof}
+        Uses the $V_0^\sharp$ trick from earlier.
+    \end{proof}
+    \item Theorem 4.4.25: If $\psi_i:U_i\to U$ ($i=0,1$) are oriented parameterizations of $U$ with the property with the property
+    \begin{equation*}
+        \psi_i(U_i\cap\mathbb{H}^n) = U\cap D
+    \end{equation*}
+    then the restrictions of each $\psi_i$ to $V_i=U_i\cap\R^{n-1}=\partial(U_i\cap\mathbb{H}^n)$ induce compatible orientations on $U\cap X$.
+    \item Proposition 4.4.26: Let $U_0,U_1\subset\R^n$ open and $f:U_0\to U_1$ an orientation preserving diffeomorphism which maps $U_0\cap\mathbb{H}^n$ onto $U_1\cap\mathbb{H}^n$. If
+    \begin{equation*}
+        V_i = U_i\cap\R^{n-1}
+        = \partial(U_i\cap\mathbb{H}^n)
+    \end{equation*}
+    for $i=0,1$, then the restriction $g=f|_{V_0}$ is an orientation preserving diffeomorphism which sends
+    \begin{equation*}
+        g(V_0) = V_1
+    \end{equation*}
+    \item We now conclude with a global version of Proposition 4.4.26.
+    \begin{itemize}
+        \item What the following proposition posits in layman's terms is that if we have any two smooth domains on any two manifolds, an orientation preserving diffeomorphism between the domains is also an orientation preserving diffeomorphism of their boundaries.
+    \end{itemize}
+    \item Proposition 4.4.30: For $i=1,2$, let $X_i$ be an oriented manifold, $D_i\subset X_i$ a smooth domain, and $Z_i=\partial D_i$ its boundary. Then if $f$ is an orientation preserving diffeomorphism of $(X_1,D_1)$ onto $(X_2,D_2)$, the restriction $g=f|_{Z_1}$ is an orientation preserving diffeomorphism of $Z_1$ onto $Z_2$.
+\end{itemize}
+
+
+
+
+\end{document}

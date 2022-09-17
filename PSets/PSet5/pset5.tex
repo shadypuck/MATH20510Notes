@@ -1,0 +1,454 @@
+\documentclass[../psets.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\leftmark}{Problem Set \thesection}
+\setenumerate[1]{leftmargin=4em}
+\setenumerate[2]{label={(\arabic*)}}
+\setcounter{section}{4}
+
+\begin{document}
+
+
+
+
+\section{Manifolds}
+\emph{From \textcite{bib:DifferentialForms}.}
+\subsection*{Chapter 4}
+\begin{enumerate}[label={\textbf{4.1.\roman*.}}]
+    \item \marginnote{5/22:}Show that the set of solutions to the system of equations
+    \begin{align*}
+        x_1^2+\cdots+x_n^2 &= 1\\
+        x_1+\cdots+x_n &= 0
+    \end{align*}
+    is an $(n-2)$-dimensional submanifold of $\R^n$.
+    \begin{proof}
+        % We've got a line/plane/higher-dimensional equivalent slicing through the middle of $S^{n-1}$, which would yield $S^{n-2}$ as a subset of the line/plane/higher-dimensional equivalent doing the slicing.
+        
+        % Let $p\in f^{-1}(0)$ be arbitrary. To verify that $f$ is a submersion at $p$, it will suffice to check that $Df(p):\R^n\to\R^2$ is surjective. We have that
+        % \begin{equation*}
+        %     Df(x_1,\dots,x_n) =
+        %     \begin{bmatrix}
+        %         \pdv{f_1}{x_1} & \cdots & \pdv{f_1}{x_n}\\
+        %         \pdv{f_2}{x_1} & \cdots & \pdv{f_2}{x_n}\\
+        %     \end{bmatrix}
+        %     =
+        %     \begin{bmatrix}
+        %         2x_1 & \cdots & 2x_n\\
+        %         1 & \cdots & 1\\
+        %     \end{bmatrix}
+        % \end{equation*}
+        % Additionally, since $p_1^2+\cdots+p_n^2=1$, we know that at least one of the $p_i$ is nonzero. This guarantees that the top row of the matrix of $Df(p)$ contains at least one nonzero value, meaning that $Df(p)(\R^n)$ is at least one-dimensional. Lastly, since $p_1+\cdots+p_n=0$, we know that the $p_i$ take on at least two different values, meaning that $Df(p)(\R^n)$ is at least two-dimensional, and hence surjective onto $\R^2$, as desired.
+
+        % Moreover, since $f$ is smooth (as the a linear combination of polynomials in each component function)
+
+        Let $f:\R^n\to\R^2$ be defined by
+        \begin{equation*}
+            \begin{bmatrix}
+                x_1\\
+                \vdots\\
+                x_n\\
+            \end{bmatrix}
+            \mapsto
+            \begin{bmatrix}
+                x_1^2+\cdots+x_n^2-1\\
+                x_1+\cdots+x_n\\
+            \end{bmatrix}
+        \end{equation*}
+        Then the set of solutions to the given system of equations is equal to $f^{-1}(0)$, where $0\in\R^2$.\par
+        The task now becomes a problem of proving that that $f^{-1}(0)$ is an $(n-2)$-dimensional submanifold of $\R^n$. To do so, Theorem 4.1.7 tells us that it will suffice to show that 0 is a regular value of $f$. Suppose for the sake of contradiction that $0$ is not a regular value of $f$. Then there exists $p\in f^{-1}(0)$ such that $f$ is not a submersion at $p$. It follows that $Df(p):\R^n\to\R^2$ is not surjective. Thus, the rank of the matrix of $Df(p)$ must be less than two. Consequently, all columns in the matrix
+        \begin{equation*}
+            \mathcal{M}(Df(p)) =
+            \begin{bmatrix}
+                2p_1 & \cdots & 2p_n\\
+                1 & \cdots & 1\\
+            \end{bmatrix}
+        \end{equation*}
+        where $p=(p_1,\dots,p_n)$ must be equal. It follows that $p_1=\cdots=p_n$. This combined with the fact that $p_1+\cdots+p_n=0$ means that $p_i=0$ for all $i=1,\dots,n$. But then $p_1^2+\cdots+p_n^2-1=-1\neq 0$, a contradiction.
+    \end{proof}
+    \item Let $S^{n-1}\subset\R^n$ be the $(n-1)$-sphere and let
+    \begin{equation*}
+        X_a = \{x\in S^{n-1}\mid x_1+\cdots+x_n=a\}
+    \end{equation*}
+    For what values of $a$ is $X_a$ an $(n-2)$-dimensional submanifold of $S^{n-1}$?
+    \begin{proof}
+        % Let $f_a:\R^n\to\R^2$ be defined by
+        % \begin{equation*}
+        %     \begin{bmatrix}
+        %         x_1\\
+        %         \vdots\\
+        %         x_n\\
+        %     \end{bmatrix}
+        %     \mapsto
+        %     \begin{bmatrix}
+        %         x_1^2+\cdots+x_n^2-1\\
+        %         x_1+\cdots+x_n-a\\
+        %     \end{bmatrix}
+        % \end{equation*}
+
+        % We want to find the set of all $a$ such that $X_a=f_a^{-1}(0)$ is an $(n-2)$-dimensional submanifold of $S^{n-1}$. In other words, we want to find the set of all $a$ such that the set of solutions to $(f_a)_1(x)=0$ and $(f_a)_2(x)=0$ has nonzero, infinite intersection.
+
+        % We want to find the set of all $a$ such that 0 is a regular value of $f$. As per the proof of Exercise 4.1.i, if 0 is not a regular value of $f$, then $p_1=\cdots=p_n$. This combined with the fact that $a=p_1+\cdots+p_n=np_i$ implies that $p_i=a/n$ for all $i=1,\dots,n$. Then the determining factor becomes whether or not $p_1^2+\cdots+p_n^2-1=np_i^2-1=a^2/n-1=0$. Indeed, in the cases where $|a|<\sqrt{n}$, we arrive at a contradiction, meaning that all of these are acceptable values.
+
+        % Thus, because of set theoretic considerations, $|a|\leq\sqrt{n}$. We want to find the set of all $a$ such that 0 is a regular value of $f$. Suppose $a$ is not in this set. Then 0 is not a regular value of $f_a$. It follows by a similar argument to that used in Exercise 4.1.i that $p_1=\cdots=p_n$. This combined with the fact that $a=p_1+\cdots+p_n=np_i$ implies that $p_i=a/n$ for $i=1,\dots,n$. And this result combined with the fact that $p_1^2+\cdots+p_n^2=1$ implies that
+        % \begin{align*}
+        %     1 &= p_1^2+\cdots+p_n^2\\
+        %     &= np_i^2\\
+        %     &= a^2/n\\
+        %     a &= \pm\sqrt{n}
+        % \end{align*}
+        % Therefore, we know that
+        % \begin{equation*}
+        %     \boxed{|a| < \sqrt{n}}
+        % \end{equation*}
+
+        % We must also show that if $|a|>\sqrt{n}$, then $f_a^{-1}(0)=\emptyset$. Suppose $p\in f_a^{-1}(0)$. Then $p_1^2+\cdots+p_n^2=1$ (hence all $|p_i|\leq 1$, and hence the distance from $p$ to the origin is 1) and $p_1+\cdots+p_n>\sqrt{n}=$.
+
+        % Where I'm getting stuck: Proving that no point satisfies both $x_1+\cdots+x_n>\sqrt{n}$ and $x_1^2+\cdots+x_n^2=1$. Use the Cauchy-Schwarz inequality:
+        % \begin{align*}
+        %     p_1+\cdots+p_n &\leq |p_1\cdot 1+\cdots+p_n\cdot 1|\\
+        %     &\leq \sqrt{p_1^2+\cdots+p_n^2}\cdot\sqrt{1^2+\cdots+1^2}\\
+        %     &= \sqrt{1}\cdot\sqrt{n}\\
+        %     &= \sqrt{n}
+        % \end{align*}
+
+        We first determine which values of $a$ yield a nonempty $X_a$. Then, we determine which of these $X_a$ describe $(n-2)$-dimensional submanifolds of $S^{n-1}$.\par
+        For the first part, suppose $x\in S^{n-1}$. Then $x_1^2+\cdots+x_n^2=1$. It follows by the Cauchy-Schwarz inequality that
+        \begin{align*}
+            |a| &= |x_1+\cdots+x_n|\\
+            &= |x_1\cdot 1+\cdots+x_n\cdot 1|\\
+            &\leq \sqrt{x_1^2+\cdots+x_n^2}\cdot\sqrt{1^2+\cdots+1^2}\\
+            &= \sqrt{1}\cdot\sqrt{n}\\
+            &= \sqrt{n}
+        \end{align*}\par
+        Now for the second part. Let $f_a:\R^n\to\R^2$ be defined by
+        \begin{equation*}
+            \begin{bmatrix}
+                x_1\\
+                \vdots\\
+                x_n\\
+            \end{bmatrix}
+            \mapsto
+            \begin{bmatrix}
+                x_1^2+\cdots+x_n^2-1\\
+                x_1+\cdots+x_n-a\\
+            \end{bmatrix}
+        \end{equation*}
+        Then $X_a=f_a^{-1}(0)$. Thus, we want to find the set of all $a$ such that 0 is a regular value of $f$. Suppose $a$ is not in this set. Then 0 is not a regular value of $f_a$. It follows by a similar argument to that used in Exercise 4.1.i that $x_1=\cdots=x_n$. This combined with the fact that $a=x_1+\cdots+x_n=nx_i$ implies that $x_i=a/n$ for $i=1,\dots,n$. And this result combined with the fact that $x_1^2+\cdots+x_n^2=1$ implies that
+        \begin{align*}
+            1 &= x_1^2+\cdots+x_n^2\\
+            &= nx_i^2\\
+            &= a^2/n\\
+            a &= \pm\sqrt{n}
+        \end{align*}
+        Therefore, if $|a|\leq\sqrt{n}$ and $|a|\neq\sqrt{n}$, we know that
+        \begin{equation*}
+            \boxed{|a| < \sqrt{n}}
+        \end{equation*}
+    \end{proof}
+    \item Show that if $X_i$ is an $n_i$-dimensional submanifold of $\R^{N_i}$ for $i=1,2$, then
+    \begin{equation*}
+        X_1\times X_2 \subset \R^{N_1}\times\R^{N_2}
+    \end{equation*}
+    is an $(n_1+n_2)$-dimensional submanifold of $\R^{N_1}\times\R^{N_2}$.
+    \begin{proof}
+        Taking the hint from \textcite[98]{bib:DifferentialForms}, we approach this problem from the perspective of the definition of an $n$-manifold, as opposed that of Theorem 4.1.7. Additionally, note that any time "$i$" appears for the remainder of this proof, it is a stand-in for $1,2$.\par
+        To prove that $X_1\times X_2\subset\R^{N_1}\times\R^{N_2}$ is an $(n_1+n_2)$-manifold, it will suffice to show that for every $p\in X_1\times X_2$, there exists a neighborhood $V\subset\R^{N_1+N_2}$ of $p$, an open subset $U\subset\R^{n_1+n_2}$, and a diffeomorphism $\phi:U\to(X_1\times X_2)\cap V$. Let $p\in X_1\times X_2$ be arbitrary. Suppose $p=(p_1,p_2)$, where $p_i$ is an $n_i$-tuple. It follows that $p_i\in X_i$. Therefore, since $X_i$ is an $n_i$-manifold, there exists a neighborhood $V_i\subset\R^{N_i}$ of $p_i$, an open subset $U_i\subset\R^{n_i}$, and a diffeomorphism $\phi_i:U_i\to X_i\cap V_i$. Let $V=V_1\times V_2$, $U=U_1\times U_2$, and $\phi(x_1,x_2)=(\phi_1(x_1),\phi_2(x_2))$. Naturally, $V\subset\R^{N_1+N_2}$ and $U\subset\R^{n_1+n_2}$. Additionally, endowing $\R^{N_1+N_2}=\R^{N_1}\times\R^{N_2}$ with the product topology ensures that $V$ is a neighborhood of $p$ and endowing $\R^{n_1+n_2}=\R^{n_1}\times\R^{n_2}$ with the product topology ensures that $U$ is open. Lastly, defining $\phi$ as the "product" of two diffeomorphisms guarantees that $\phi$, itself, is also a diffeomorphism.
+    \end{proof}
+    \stepcounter{enumi}
+    \item Let $g:\R^n\to\R^k$ be a $C^\infty$ map and let $X=\Gamma_g$ be the graph of $g$. Prove directly that $X$ is an $n$-manifold by proving that the map $\gamma_g:\R^n\to X$ defined by
+    \begin{equation*}
+        x \mapsto (x,g(x))
+    \end{equation*}
+    is a diffeomorphism.
+    \begin{proof}
+        It's clear that $\gamma_g$ is a $C^\infty$ map since each of its components are $C^\infty$. It is a diffeomorphism since it's inverse is the map $\pi:\gamma_g\to\R^n$ given by $\pi(x,g(x))=x$, which is also clearly $C^\infty$.
+    \end{proof}
+    \item Prove that the orthogonal group $O(n)$ is an $n(n-1)/2$-manifold. \emph{Hints}:
+    \begin{itemize}[label={\scriptsize$\blacktriangleright$}]
+        \item Let $f:\mathcal{M}_n\to\mathcal{S}_n$ be the map
+        \begin{equation*}
+            f(A) = A^\intercal A-\id_n
+        \end{equation*}
+        show that $O(n)=f^{-1}(0)$.
+        \item Show that
+        \begin{equation*}
+            f(A+\varepsilon B) = A^\intercal A+\varepsilon(A^\intercal B+B^\intercal A)+\varepsilon^2B^\intercal B-\id_n
+        \end{equation*}
+        \item Conclude that the derivative of $f$ at $A$ is the map given by
+        \begin{equation*}
+            B \mapsto A^\intercal B+B^\intercal A
+        \end{equation*}
+        \item Let $A\in O(n)$. Show that if $C\in\mathcal{S}_n$ and $B=AC/2$, then $Df(A)(B)=C$.
+        \item Conclude that the derivative of $f$ is surjective at $A$.
+        \item Conclude that 0 is a regular value of the mapping $f$.
+    \end{itemize}
+    \begin{proof}
+        As per \textcite[100]{bib:DifferentialForms}, the set $\mathcal{M}_n$ of all $n\times n$ matrices is isomorphic to $\R^{n^2}$ (one degree of freedom for each matrix element), and the set $\mathcal{S}_n$ of all symmetric $n\times n$ matrices is isomorphic to $\R^{n(n+1)/2}$ (one degree of freedom for each matrix element in the upper triangle). Additionally,
+        \begin{align*}
+            n^2-\frac{n(n+1)}{2} &= n^2-\frac{1}{2}n^2-\frac{1}{2}n\\
+            &= \frac{1}{2}n^2-\frac{1}{2}n\\
+            &= \frac{n(n-1)}{2}
+        \end{align*}
+        To prove that $O(n)$ is an $n(n-1)/2$-manifold, Theorem 4.1.7 tells us that it will suffice to find a function $f:\mathcal{M}_n\to\mathcal{S}_n$ with regular value 0 such that $O(n)=f^{-1}(0)$.\par\medskip
+        We first define a function $f$ that we will prove fits all of the above requirements. Let $f$ be described by the relation
+        \begin{equation*}
+            A \mapsto A^\intercal A-\id_n
+        \end{equation*}
+        By the properties of matrix multiplication, $A^\intercal A\in\mathcal{S}_n$ regardless of whether or not $A$ is. Since $\mathcal{S}_n$ is a vector space, subtracting $\id_n\in\mathcal{S}_n$ will not take the difference out of $\mathcal{S}_n$. Thus, $f$ does map arbitrary $n\times n$ matrices to symmetric $n\times n$ matrices, as desired. Moreover, if $A\in O(n)$, then $A^\intercal A=\id_n$. It follows that
+        \begin{align*}
+            f(A) &= A^\intercal A-\id_n\\
+            &= \id_n-\id_n\\
+            &= 0
+        \end{align*}
+        $A\notin O(n)$ implies a similar result. Therefore, $O(n)=f^{-1}(0)$.\par\medskip
+        We now build up to proving that 0 is a regular value of $f$. To prove this, we will need to check that $f$ is a submersion at all $A\in O(n)=f^{-1}(0)$, i.e., that $Df(A)$ is surjective for all such $A$. To confirm this, we will calculate $Df(A)$ for an arbitrary $A\in O(n)$ and show directly that for all $C\in\mathcal{S}_n$, there exists $B\in\mathcal{M}_n$ such that $Df(A)(B)=C$. Let's begin.\par
+        We have from first principles that
+        \begin{equation*}
+            0 = \lim_{H\to 0}\frac{|f(A+H)-f(A)-Df(A)(H)|}{|H|}
+        \end{equation*}
+        where we take $|\cdot|$ to be any matrix norm (e.g., the operator norm or the Frobenius norm). If we take $H=\varepsilon B$, where $\varepsilon\in\R_{>0}$, then we can work with the limit definition of the derivative more easily. First off, we can determine that
+        \begin{align*}
+            f(A+\varepsilon B) &= (A+\varepsilon B)^\intercal(A+\varepsilon B)-\id_n\\
+            &= A^\intercal A+A^\intercal(\varepsilon B)+(\varepsilon B)^\intercal A+(\varepsilon B)^\intercal(\varepsilon B)-\id_n\\
+            &= A^\intercal A+\varepsilon(A^\intercal B+B^\intercal A)+\varepsilon^2B^\intercal B-\id_n
+        \end{align*}
+        Plugging this back into the limit definition, we have that
+        \begin{align*}
+            0 &= \lim_{H\to 0}\frac{|f(A+H)-f(A)-Df(A)(H)|}{|H|}\\
+            &= \lim_{\varepsilon\to 0}\frac{|[A^\intercal A+\varepsilon(A^\intercal B+B^\intercal A)+\varepsilon^2B^\intercal B-\id_n]-[A^\intercal A-\id_n]-Df(A)(\varepsilon B)|}{|\varepsilon B|}\\
+            &= \lim_{\varepsilon\to 0}\frac{|[\varepsilon(A^\intercal B+B^\intercal A)+\varepsilon^2B^\intercal B]-Df(A)(\varepsilon B)|}{|\varepsilon B|}\\
+            &= \lim_{\varepsilon\to 0}\frac{\varepsilon|(A^\intercal B+B^\intercal A)+\varepsilon B^\intercal B-Df(A)(B)|}{\varepsilon|B|}\\
+            &= \lim_{\varepsilon\to 0}\frac{|(A^\intercal B+B^\intercal A)+\varepsilon B^\intercal B-Df(A)(B)|}{|B|}
+        \end{align*}
+        From here, it is easy to see that if we let $Df(A)$ send
+        \begin{equation*}
+            B \mapsto A^\intercal B+B^\intercal A
+        \end{equation*}
+        then the above limit evaluates to 0, as desired.\par
+        Let $A\in O(n)$ be arbitrary, and let $C\in\mathcal{S}_n$ be arbitrary. We want to find $B\in\mathcal{M}_n$ such that $Df(A)(B)=C$. Choose $B=AC/2$. Then
+        \begin{align*}
+            Df(A)(B) &= A^\intercal B+B^\intercal A\\
+            &= \frac{1}{2}[A^\intercal AC+(AC)^\intercal A]\\
+            &= \frac{1}{2}[A^\intercal AC+C^\intercal A^\intercal A]\\
+            &= \frac{1}{2}[\id_nC+C\id_n]\\
+            &= C
+        \end{align*}
+        as desired.
+    \end{proof}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{4.2.\roman*.}}]
+    \item What is the tangent space to the quadric
+    \begin{equation*}
+        Q = \{(x_1,\dots,x_n)\in\R^n\mid x_n=x_1^2+\cdots+x_{n-1}^2\}
+    \end{equation*}
+    at the point $(1,0,\dots,0,1)$?
+    \begin{proof}
+        Let $f:\R^{n-1}\to\R$ be defined by
+        \begin{equation*}
+            (x_1,\dots,x_{n-1}) \mapsto x_1^2+\cdots+x_{n-1}^2
+        \end{equation*}
+        From here, elementary set theory can demonstrate that $Q=\Gamma_f$. It follows by Example 4.1.4(1) that $Q$ is an $(n-1)$-manifold in $\R^n$, and $\phi:\R^{n-1}\to\R^{n}$ defined by $x\mapsto(x,f(x))$ is a parametrization of $Q$ at $p$ for all $p\in Q$.\par
+        We can calculate that
+        \begin{equation*}
+            D\phi(x) =
+            \begin{bmatrix}
+                \pdv{\phi_1}{x_1} & \pdv{\phi_1}{x_2} & \cdots & \pdv{\phi_1}{x_{n-1}}\\
+                \pdv{\phi_2}{x_1} & \pdv{\phi_2}{x_2} & \cdots & \pdv{\phi_2}{x_{n-1}}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                \pdv{\phi_{n-1}}{x_1} & \pdv{\phi_{n-1}}{x_2} & \cdots & \pdv{\phi_{n-1}}{x_{n-1}}\\
+                \pdv{\phi_n}{x_1} & \pdv{\phi_n}{x_2} & \cdots & \pdv{\phi_n}{x_{n-1}}\\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                1 & 0 & \cdots & 0\\
+                0 & 1 & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0 & 0 & \cdots & 1\\
+                2x_1 & 2x_2 & \cdots & 2x_{n-1}\\
+            \end{bmatrix}
+        \end{equation*}
+        Now let $p=(1,0,\dots,0,1)$, and let $q=\phi^{-1}(p)=(1,0,\dots,0)$. Then
+        \begin{equation*}
+            D\phi(q) =
+            \begin{bmatrix}
+                1 & 0 & \cdots & 0\\
+                0 & 1 & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0 & 0 & \cdots & 1\\
+                2 & 0 & \cdots & 0\\
+            \end{bmatrix}
+        \end{equation*}
+        so that if $v=(v_1,\dots,v_{n-1})\in\R^{n-1}$ is arbitrary, then
+        \begin{equation*}
+            D\phi(q)(v) =
+            \begin{bmatrix}
+                v_1\\
+                \vdots\\
+                v_{n-1}\\
+                2v_1\\
+            \end{bmatrix}
+        \end{equation*}
+        This combined with the fact that $\dd\phi_q:T_q\R^{n-1}\to T_p\R^n$ is defined by $(q,v)\mapsto(p,Df(q)(v))$ shows that
+        \begin{align*}
+            T_pQ &= \im(\dd\phi_q)\\
+            \Aboxed{T_pQ &= \spn\left\{ \left( p,
+                \begin{bmatrix}
+                    v_1\\
+                    \vdots\\
+                    v_{n-1}\\
+                    2v_1\\
+                \end{bmatrix}
+            \right) \right\}}
+        \end{align*}
+        over all $(v_1,\dots,v_{n-1})\in\R^{n-1}$. This should also make intuitive sense. At $(1,0,\dots,0)$, the quadric is changing, but only in the $x_1$-direction, and its slope there in that direction should be $2q_1=2$. The slope is not changing in any of the other directions, so those components of the tangent vector should be mapped by the identity function, as they are.
+    \end{proof}
+    \item Show that the tangent space to the $(n-1)$-sphere $S^{n-1}$ at $p$ is the space of vectors $(p,v)\in T_p\R^n$ satisfying $p\cdot v=0$.
+    \begin{proof}
+        % Let $f:\R^n\to\R$ be defined by
+        % \begin{equation*}
+        %     (x_1,\dots,x_n) \mapsto x_1^2+\cdots+x_n^2-1
+        % \end{equation*}
+        % Then $f^{-1}(0)=S^{n-1}$.
+
+        % Bidirectional inclusion proof. Show every $p\cdot v$ is an element of the image of the differential of the diffeomorphism and vice versa.
+
+        % Work from Exercise 4.1.4(6).
+        
+        % Then we need a mapping that identifies a neighborhood of $p$ on $S^{n-1}$ with a neighborhood of some other point in the desired portion of $S^{n-1}$. we know that some $p_i$ is nonzero. Thus, let $\sigma=\tau_{i,n}$ and define $f_\sigma:\R^n\to\R^n$ by the relationship
+        % \begin{equation*}
+        %     (x_1,\dots,x_n) \mapsto (x_{\sigma(1)},\dots,x_{\sigma(n)})
+        % \end{equation*}
+
+        % \begin{align*}
+        %     p\cdot v &= p_1v_1+\cdots+p_{i-1}v_{i-1}+p_i\cdot\frac{-p_1v_1-\cdots-p_{n-1}v_{n-1}}{\sqrt{1-\left( p_1^2+\cdots+p_{n-1}^2 \right)}}+p_{i+1}v_{i+1}+\cdots+p_{n-1}v_{n-1}+p_nv_i\\
+        %     &= p_1v_1+\cdots+p_{i-1}v_{i-1}+p_i\cdot\frac{-p_1v_1-\cdots-p_{n-1}v_{n-1}}{p_n}+p_{i+1}v_{i+1}+\cdots+p_{n-1}v_{n-1}+p_nv_i\\
+        %     &= (1-\tfrac{p_i}{p_n})p_1v_1+\cdots+(1-\tfrac{p_i}{p_n})p_{i-1}v_{i-1}-\frac{p_i^2v_i}{p_n}+(1-\tfrac{p_i}{p_n})p_{i+1}v_{i+1}+\cdots+(1-\tfrac{p_i}{p_n})p_{n-1}v_{n-1}+p_nv_i
+        % \end{align*}
+
+
+        Let $p=(p_1,\dots,p_n)\in S^{n-1}$ be arbitrary. We first define the requisite diffeomorphism.\par\medskip
+        Adapting Example 4.1.4(6) from \textcite[98]{bib:DifferentialForms}, we know that we can easily define a diffeomorphism $\phi$ (see below for details) from a subset of $\R^{n-1}$ to the portion of $S^{n-1}$ lying in the positive half-space above the hyperplane $x_n=0$. But what if $p$ lies outside this positive half-space? Well, we are helped by the fact that if $p\in S^{n-1}$, some $p_i$ is nonzero. Thus, we can take $p$ to lie in the region of $S^{n-1}$ either above or below the hyperplane $x_i=0$, and a simple isomorphism of $\R^n$ that, in particular, sends this region of $S^{n-1}$ to the region of $S^{n-1}$ above the hyperplane $x_n=0$ is, if $p$ lies above $x_i=0$, the coordinate exchange function $f_\sigma:\R^n\to\R^n$ defined by
+        \begin{equation*}
+            (x_1,\dots,x_n) \mapsto (x_{\sigma(1)},\dots,x_{\sigma(n)})
+        \end{equation*}
+        where $\sigma=\tau_{i,n}$ and, if $p$ lies below $x_i=0$, the coordinate exchange function $-f_\sigma$. Thus, for $p$ arbitrary, our complete diffeomorphism is $\pm f_\sigma\circ\phi$.\par
+        We now define $\phi$. Let $U$ be the open unit ball centered at the origin in $\R^{n-1}$. Let $V$ be the half-space of $\R^n$ above the hyperplane $x_n=0$ (i.e., all points $(x_1,\dots,x_n)\in\R^n$ such that $x_n>0$). Then, as described above, $S^{n-1}\cap V$ is the portion of $S^{n-1}$ lying above the hyperplane $x_n=0$. The diffeomorphism $\phi:U\to S^{n-1}\cap V$ which projects each point in $U$ "up" onto the surface of the hypersphere is given by
+        \begin{equation*}
+            (x_1,\dots,x_{n-1}) \mapsto \left( x_1,\dots,x_{n-1},\sqrt{1-\left( x_1^2+\cdots+x_{n-1}^2 \right)} \right)
+        \end{equation*}\par\medskip
+        We now divide into two cases (the needed diffeomorphism is $f_\sigma\circ\phi$, and the needed diffeomorphism is $-f_\sigma\circ\phi$). Note that the proof of the second case is entirely symmetric to that of the first case, and thus will not be discussed further.\par\smallskip
+        Let $r=f_\sigma^{-1}(p)$ and let $q=(f_\sigma\circ\phi)^{-1}(p)$. We now define $\dd(f_\sigma\circ\phi)_q$. First off, by the chain rule,
+        \begin{equation*}
+            \dd(f_\sigma\circ\phi)_q = \dd(f_\sigma)_r\circ\dd\phi_q
+        \end{equation*}
+        Additionally, we know that in general,
+        \begin{align*}
+            Df_\sigma(x) &=
+            \begin{bmatrix}
+                \pdv{(f_\sigma)_1}{x_1} & \cdots & \pdv{(f_\sigma)_1}{x_n}\\
+                \vdots & \ddots & \vdots\\
+                \pdv{(f_\sigma)_n}{x_1} & \cdots & \pdv{(f_\sigma)_n}{x_n}\\
+            \end{bmatrix}&
+                D\phi(x) &=
+                \begin{bmatrix}
+                    \pdv{\phi_1}{x_1} & \cdots & \pdv{\phi_1}{x_{n-1}}\\
+                    \vdots & \ddots & \vdots\\
+                    \pdv{\phi_{n-1}}{x_1} & \cdots & \pdv{\phi_{n-1}}{x_{n-1}}\\
+                    \pdv{\phi_n}{x_1} & \cdots & \pdv{\phi_n}{x_{n-1}}\\
+                \end{bmatrix}\\
+            &= P_\sigma&
+                &=
+                \begin{bmatrix}
+                    1 & \cdots & 0\\
+                    \vdots & \ddots & \vdots\\
+                    0 & \cdots & 1\\
+                    \frac{-x_1}{\sqrt{1-\left( x_1^2+\cdots+x_{n-1}^2 \right)}} & \cdots & \frac{-x_{n-1}}{\sqrt{1-\left( x_1^2+\cdots+x_{n-1}^2 \right)}}\\
+                \end{bmatrix}
+        \end{align*}
+        where $P_\sigma$ is the permutation matrix which differs from the identity in that its $i^\text{th}$ and $n^\text{th}$ columns are interchanged. It follows that
+        \begin{equation*}
+            T_pS^{n-1} = \spn\left\{ \left( p,P_\sigma
+                \begin{bmatrix}
+                    w_1\\
+                    \vdots\\
+                    w_{n-1}\\
+                    \frac{-q_1w_1-\cdots-q_{n-1}w_{n-1}}{\sqrt{1-\left( q_1^2+\cdots+q_{n-1}^2 \right)}}\\
+                \end{bmatrix}
+            \right) \right\}
+        \end{equation*}\par
+        for $(w_1,\dots,w_{n-1})\in U$.\par\medskip
+        We now use a bidirectional inclusion argument to complete the proof.\par\smallskip
+        Let $(p,v)\in T_pS^{n-1}$ be arbitrary. Then some $p_i\neq 0$. It follows that
+        \begin{align*}
+            (f_\sigma\circ\phi)(q_1,\dots,q_{n-1}) &= f_\sigma(\phi(q_1,\dots,q_{n-1}))\\
+            &= f_\sigma\left( q_1,\dots,q_{n-1},\sqrt{1-\left( q_1^2+\cdots+q_{n-1}^2 \right)} \right)\\
+            &= \left( q_1,\dots,q_{i-1},\sqrt{1-\left( q_1^2+\cdots+q_{n-1}^2 \right)},q_{i+1},\dots,q_{n-1},q_i \right)\\
+            &= (p_1,\dots,p_{i-1},p_i,p_{i+1},\dots,p_{n-1},p_n)\\
+            &= p
+        \end{align*}
+        Thus, we have that
+        \begin{align*}
+            p\cdot v ={}& p_1v_1+\cdots+p_nv_n\\
+            \begin{split}
+                ={}& q_1w_1+\cdots+q_{i-1}w_{i-1}+\sqrt{1-\left( q_1^2+\cdots+q_{n-1}^2 \right)}\cdot\frac{-q_1w_1-\cdots-q_{n-1}w_{n-1}}{\sqrt{1-\left( q_1^2+\cdots+q_{n-1}^2 \right)}}\\
+                &+q_{i+1}w_{i+1}+\cdots+q_{n-1}w_{n-1}+q_iw_i
+            \end{split}\\
+            ={}& 0
+        \end{align*}
+        as desired.\par
+        Now suppose that $(p,v)\in T_p\R^n$ is such that $p\cdot v=0$. Then
+        \begin{align*}
+            0 &= p\cdot v\\
+            &= p_1v_1+\cdots+p_nv_n\\
+            &= q_1v_1+\cdots+q_{i-1}v_{i-1}+\sqrt{1-\left( q_1^2+\cdots+q_{n-1}^2 \right)}\cdot v_i+q_{i+1}v_{i+1}+\cdots+q_nv_n\\
+            \sqrt{1-\left( q_1^2+\cdots+q_{n-1}^2 \right)}\cdot v_i &= -q_1v_1-\cdots-q_{i-1}v_{i-1}-q_{i+1}v_{i+1}+\cdots+q_nv_n\\
+            v_i &= \frac{-q_1v_1-\cdots-q_{i-1}v_{i-1}-q_{i+1}v_{i+1}+\cdots+q_nv_n}{\sqrt{1-\left( q_1^2+\cdots+q_{n-1}^2 \right)}}
+        \end{align*}
+        so with some reindexing, $v$ fits the form of the vector in the span defining $T_pS^{n-1}$, as desired.
+    \end{proof}
+    \item Let $f:\R^n\to\R^k$ be a $C^\infty$ map and let $X=\Gamma_f$. What is the tangent space to $X$ at $(a,f(a))$?
+    \begin{proof}
+        As per Example 4.1.4(1), $\phi:\R^n\to\R^{n+k}$ defined by
+        \begin{equation*}
+            x \mapsto (x,f(x))
+        \end{equation*}
+        is a suitable diffeomorphism for all $p\in X$. It follows that $D\phi(x)$ is an $(n+k)\times n$ matrix where the top $n\times n$ matrix is $\id_n$ and the bottom $k\times n$ matrix is $Df(x)$. Let $p=(a,f(a))$. Then
+        \begin{equation*}
+            \boxed{T_pX = \spn\left\{ \left( p,
+                \begin{bmatrix}
+                    v_1\\
+                    \vdots\\
+                    v_n\\
+                    \sum_{i=1}^n\eval{\pdv{f_1}{x_i}}_av_i\\
+                    \vdots\\
+                    \sum_{i=1}^n\eval{\pdv{f_k}{x_i}}_av_i\\
+                \end{bmatrix}
+            \right) \right\}}
+        \end{equation*}
+        for $(v_1,\dots,v_n)\in\R^n$.
+    \end{proof}
+    \item Let $\sigma:S^{n-1}\to S^{n-1}$ be the antipodal map $\sigma(x)=-x$. What is the derivative of $\sigma$ at $p\in S^{n-1}$?
+    \begin{proof}
+        Let $\tilde{\sigma}:\R^n\to\R^n$ be the extension of the antipodal map to $\R^n$. Then $D\tilde{\sigma}(x)=-\id_n$. It follows that the derivative of $\sigma$ at any $p\in S^{n-1}$ is the map $\dd\sigma_p:T_pS^{n-1}\to T_{-p}S^{n-1}$ defined by
+        \begin{equation*}
+            \boxed{\dd\sigma_p(p,v) = (-p,-v)}
+        \end{equation*}
+    \end{proof}
+    \item Let $X_i\subset\R^{N_i}$ ($i=1,2$) be an $n_i$-manifold and let $p_i\in X_i$. Define $X$ to be the Cartesian product
+    \begin{equation*}
+        X_1\times X_2 \subset\R^{N_1}\times\R^{N_2}
+    \end{equation*}
+    and let $p=(p_1,p_2)$. Show that $T_pX\cong T_{p_1}X_1\oplus T_{p_2}X_2$.
+    \begin{proof}
+        Let $f:T_pX\to T_{p_1}X_1\oplus T_{p_2}X_2$ be defined by
+        \begin{equation*}
+            (p,v) \mapsto ((p_1,v_1),(p_2,v_2))
+        \end{equation*}
+        We can check componentwise that $f$ is bijective, as desired.
+    \end{proof}
+\end{enumerate}
+
+
+
+
+\end{document}

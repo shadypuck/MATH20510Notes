@@ -40,11 +40,11 @@
             \item $\lam[1]{V^*}=\R e_1^*\oplus\R e_2^*$ since $\binom{n}{1}=2$.
             \item $\lam[2]{V^*}=\R e_1^*\wedge e_2^*$ since $\binom{n}{2}=1$.
             \begin{itemize}
-                \item For the second to last one, note that $e_1^*\wedge e_2^*=-e_2^*\wedge e_1^*$.
+                \item Note that $e_1^*\wedge e_2^*=-e_2^*\wedge e_1^*$.
             \end{itemize}
             \item $\lam[3]{V^*}=0$ since $\binom{2}{3}=0$.
             \begin{itemize}
-                \item For the last one, note that all $e_1^*\wedge e_1^*\wedge e_2^*=0$.
+                \item Note that all $e_1^*\wedge e_1^*\wedge e_2^*=0$.
             \end{itemize}
         \end{itemize}
         \item $n=3$, $V=\R e_1\oplus\R e_2\oplus\R e_3$.
@@ -121,21 +121,29 @@
     \begin{itemize}
         \item Wrong way: We take $\iota_v:\lin[k]{V}\to\lin[k-1]{V}$.
         \begin{equation*}
-            T \mapsto \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_r,\dots,v_{k-1})
+            T \mapsto \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_{r-1},v,v_r,\dots,v_{k-1})
         \end{equation*}
         \item Right way: First define $\varphi_v:\alt[k]{V}\to\alt[k-1]{V}$ by
         \begin{equation*}
             T \mapsto T_v(v_1,\dots,v_{k-1})=T(v,v_1,\dots,v_{k-1})
         \end{equation*}
         \begin{itemize}
-            \item Check: $T_{v_1+v_2}=T_{v_1}+T_{v_2}$. $T_{\lambda v}=\lambda T_v$. $\varphi_v^{k-1}\circ\varphi_v^k=0$ implies $\varphi_v\circ\varphi_w=-\varphi_w\circ\varphi_v$.
+            \item Check:
+            \begin{enumerate}
+                \item $T_{v_1+v_2}=T_{v_1}+T_{v_2}$\footnote{Should this be $T$ or $\varphi$?}.
+                \item $T_{\lambda v}=\lambda T_v$.
+                \item $\varphi_v^{k-1}\circ\varphi_v^k=0$ implies $\varphi_v\circ\varphi_w=-\varphi_w\circ\varphi_v$.
+            \end{enumerate}
         \end{itemize}
     \end{itemize}
     \item Properties:
     \begin{enumerate}
         \setcounter{enumi}{-1}
         \item $\iota_vT\in\lin[k-1]{V}$.
-        \item $\iota_v$ is a linear map. This is all happening in the set $\Hom(\lin[k]{V},\lin[k-1]{V})$.
+        \item $\iota_v$ is a linear map.
+        \begin{itemize}
+            \item This is all happening in the set $\Hom(\lin[k]{V},\lin[k-1]{V})$.
+        \end{itemize}
         \item $\iota_{v_1+v_2}=\iota_{v_1}+\iota_{v_2}$; $\iota_{\lambda v}=\lambda\iota_v$.
         \item "Product rule": If $T_1\in\lin[p]{V}$ and $T_1\in\lin[q]{V}$, then $\iota_v(T_1\otimes T_2)=\iota_vT_1\otimes T_2+(-1)^pT_1\otimes\iota_vT_2$.
         \item We have
@@ -163,10 +171,397 @@
         \end{itemize}
         \item $\iota_{v_1}\circ\iota_{v_2}=-\iota_{v_2}\circ\iota_{v_1}$.
     \end{enumerate}
-    \item Orientations:
+    \item Orientations.
+    \item Motivating example: Investigating a property of bases that we will later formally define as \emph{orientation}.
+    \begin{figure}[H]
+        \centering
+        \footnotesize
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}
+                \draw [stealth-stealth] (0,1) node[above]{$e_2$} -- (0,0) -- (1,0) node[right]{$e_1$};
+                \draw [rex,thick,-latex] (0:0.4) arc[start angle=0,end angle=90,radius=4mm];
+            \end{tikzpicture}
+            \caption{The ordering $(e_1,e_2)$.}
+            \label{fig:orientationMotivationR2a}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}
+                \draw [stealth-stealth] (0,1) node[above]{$e_2$} -- (0,0) -- (1,0) node[right]{$e_1$};
+                \draw [rex,thick,-latex] (90:0.4) arc[start angle=90,end angle=0,radius=4mm];
+            \end{tikzpicture}
+            \caption{The ordering $(e_2,e_1)$.}
+            \label{fig:orientationMotivationR2b}
+        \end{subfigure}\\[2em]
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}
+                \draw [stealth-stealth] (60:1) node[above]{$v_2$} -- (0,0) -- (10:2) node[right]{$v_1$};
+                \draw [rex,thick,-latex] (10:0.4) arc[start angle=10,end angle=60,radius=4mm];
+            \end{tikzpicture}
+            \caption{The ordering $(v_1,v_2)$.}
+            \label{fig:orientationMotivationR2c}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}
+                \draw [stealth-stealth] (60:1) node[above]{$v_2$} -- (0,0) -- (10:2) node[right]{$v_1$};
+                \draw [rex,thick,-latex] (60:0.4) arc[start angle=60,end angle=10,radius=4mm];
+            \end{tikzpicture}
+            \caption{The ordering $(v_2,v_1)$.}
+            \label{fig:orientationMotivationR2d}
+        \end{subfigure}
+        \caption{Motivating orientations in $\R^2$.}
+        \label{fig:orientationMotivationR2}
+    \end{figure}
+    \begin{itemize}
+        \item Consider the vector space $\R^2$.
+        \item In both Figures \ref{fig:orientationMotivationR2a} and \ref{fig:orientationMotivationR2b}, $\{e_1,e_2\}$ is the standard basis of $\R^2$. However, suppose we \emph{order} the elements of this basis, i.e., by using a 2-tuple or ordered pair. There are two possible ways we can order the elements: $(e_1,e_2)$ and $(e_2,e_1)$.
+        \item Now consider an arbitrary basis $\{v_1,v_2\}$ of $\R^2$. Once again, we have two possible orderings: $(v_1,v_2)$ and $(v_2,v_1)$, as depicted in Figures \ref{fig:orientationMotivationR2c} and \ref{fig:orientationMotivationR2d}, respectively.
+        \item What is similar between $(e_1,e_2)$ and $(v_1,v_2)$, and between $(e_2,e_1)$ and $(v_2,v_1)$?
+        \begin{itemize}
+            \item First off, resist the temptation to regard how the vectors are labeled (i.e., with numerical subscripts) as having any bearing on the properties of the vectors themselves. "Both orientations in the first set are labeled $1,2$, and both orientations in the second set are labeled $2,1$" is not what we're looking for.
+            \item What we \emph{are} looking for is the observation that in both Figures \ref{fig:orientationMotivationR2a} and \ref{fig:orientationMotivationR2c}, the second vector in the ordering is positioned counterclockwise relative to the first vector, and in both Figures \ref{fig:orientationMotivationR2b} and \ref{fig:orientationMotivationR2d}, the second vector in the ordering is positioned clockwise relative to the first vector. The red arrows in Figures \ref{fig:orientationMotivationR2a}-\ref{fig:orientationMotivationR2d} indicate this relative positioning.
+        \end{itemize}
+        \item Now that we've seen the pattern in a few specific examples, it should not be too hard to see that for \emph{any} ordered basis of $\R^2$ the second vector \emph{must} be positioned either counterclockwise or clockwise relative to the first vector.
+        \begin{itemize}
+            \item In fact, taking this farther, let's ask what would happen if a "basis" did not fit this rule. For example, consider the ordered "basis" $(e_1,e_1)$. Clearly, $e_1$ is not positioned counterclockwise or clockwise to $e_1$, but rather lies directly on top of it. So, the reader might think, we have an exception! But this is not the case because, as the quotation marks around "basis" indicate, $\{e_1,e_1\}$ is \emph{not} a basis of $\R^2$ (for example, $e_2\notin\spn\{e_1,e_1\}$).
+            \item Similarly, if our ordered "basis" is like $(e_1,-e_1)$, then we at least have two different basis vectors. However, once again, they are not linearly independent, nor do they span $\R^2$. Therefore, they are not a basis.
+        \end{itemize}
+        \item It follows that the set of ordered bases of $\R^2$ can be partitioned into two equivalence classes: One containing all ordered bases in which the second vector is positioned counterclockwise relative to the first, and the other containing all ordered bases in which the second vector is positioned clockwise relative to the first. All of this arises naturally; the choice of an \emph{orientation} on $\R^2$ is a man-made designation of one of these equivalence classes as the "positive" one and the other as the "negative" one.
+    \end{itemize}
+    \item Finding the pattern elsewhere: Three dimensions.
+    \begin{figure}[h!]
+        \centering
+        \footnotesize
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}[z={(5mm,3.85mm)}]
+                \draw [-stealth] (0,0,0) -- (1,0,0) node[right]{$e_1$};
+                \draw [-stealth] (0,0,0) -- (0,0,1) node[above right=-2pt]{$e_2$};
+                \draw [-stealth] (0,0,0) -- (0,1,0) node[above]{$e_3$};
+                
+                \begin{scope}[
+                    plane origin={(0,0.7,0)},
+                    plane x={($(1,0,0)+(0,0.7,0)$)},
+                    plane y={($(0,0,1)+(0,0.7,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0.7,0,0)},
+                    plane x={($(0,0,1)+(0.7,0,0)$)},
+                    plane y={($(0,1,0)+(0.7,0,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0,0,0.7)},
+                    plane x={($(0,1,0)+(0,0,0.7)$)},
+                    plane y={($(1,0,0)+(0,0,0.7)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+            \end{tikzpicture}
+            \caption{The ordering $(e_1,e_2,e_3)$.}
+            \label{fig:orientationMotivationR3a}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}[z={(5mm,3.85mm)}]
+                \draw [-stealth] (0,0,0) -- (1,0,0) node[right]{$e_1$};
+                \draw [-stealth] (0,0,0) -- (0,0,1) node[above right=-2pt]{$e_2$};
+                \draw [-stealth] (0,0,0) -- (0,1,0) node[above]{$e_3$};
+                
+                \begin{scope}[
+                    plane origin={(0,0.7,0)},
+                    plane x={($(1,0,0)+(0,0.7,0)$)},
+                    plane y={($(0,0,1)+(0,0.7,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0.7,0,0)},
+                    plane x={($(0,0,1)+(0.7,0,0)$)},
+                    plane y={($(0,1,0)+(0.7,0,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0,0,0.7)},
+                    plane x={($(0,1,0)+(0,0,0.7)$)},
+                    plane y={($(1,0,0)+(0,0,0.7)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+            \end{tikzpicture}
+            \caption{The ordering $(e_3,e_1,e_2)$.}
+            \label{fig:orientationMotivationR3b}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}[z={(5mm,3.85mm)}]
+                \draw [-stealth] (0,0,0) -- (1,0,0) node[right]{$e_1$};
+                \draw [-stealth] (0,0,0) -- (0,0,1) node[above right=-2pt]{$e_2$};
+                \draw [-stealth] (0,0,0) -- (0,1,0) node[above]{$e_3$};
+                
+                \begin{scope}[
+                    plane origin={(0,0.7,0)},
+                    plane x={($(1,0,0)+(0,0.7,0)$)},
+                    plane y={($(0,0,1)+(0,0.7,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0.7,0,0)},
+                    plane x={($(0,0,1)+(0.7,0,0)$)},
+                    plane y={($(0,1,0)+(0.7,0,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0,0,0.7)},
+                    plane x={($(0,1,0)+(0,0,0.7)$)},
+                    plane y={($(1,0,0)+(0,0,0.7)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (0:0.2) arc[start angle=0,end angle=340,radius=2mm];
+                \end{scope}
+            \end{tikzpicture}
+            \caption{The ordering $(e_2,e_3,e_1)$.}
+            \label{fig:orientationMotivationR3c}
+        \end{subfigure}\\[2em]
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}[z={(5mm,3.85mm)}]
+                \draw [-stealth] (0,0,0) -- (1,0,0) node[right]{$e_1$};
+                \draw [-stealth] (0,0,0) -- (0,0,1) node[above right=-2pt]{$e_2$};
+                \draw [-stealth] (0,0,0) -- (0,1,0) node[above]{$e_3$};
+                
+                \begin{scope}[
+                    plane origin={(0,0.7,0)},
+                    plane x={($(1,0,0)+(0,0.7,0)$)},
+                    plane y={($(0,0,1)+(0,0.7,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0.7,0,0)},
+                    plane x={($(0,0,1)+(0.7,0,0)$)},
+                    plane y={($(0,1,0)+(0.7,0,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0,0,0.7)},
+                    plane x={($(0,1,0)+(0,0,0.7)$)},
+                    plane y={($(1,0,0)+(0,0,0.7)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+            \end{tikzpicture}
+            \caption{The ordering $(e_1,e_3,e_2)$.}
+            \label{fig:orientationMotivationR3d}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}[z={(5mm,3.85mm)}]
+                \draw [-stealth] (0,0,0) -- (1,0,0) node[right]{$e_1$};
+                \draw [-stealth] (0,0,0) -- (0,0,1) node[above right=-2pt]{$e_2$};
+                \draw [-stealth] (0,0,0) -- (0,1,0) node[above]{$e_3$};
+                
+                \begin{scope}[
+                    plane origin={(0,0.7,0)},
+                    plane x={($(1,0,0)+(0,0.7,0)$)},
+                    plane y={($(0,0,1)+(0,0.7,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0.7,0,0)},
+                    plane x={($(0,0,1)+(0.7,0,0)$)},
+                    plane y={($(0,1,0)+(0.7,0,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0,0,0.7)},
+                    plane x={($(0,1,0)+(0,0,0.7)$)},
+                    plane y={($(1,0,0)+(0,0,0.7)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+            \end{tikzpicture}
+            \caption{The ordering $(e_2,e_1,e_3)$.}
+            \label{fig:orientationMotivationR3e}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}[z={(5mm,3.85mm)}]
+                \draw [-stealth] (0,0,0) -- (1,0,0) node[right]{$e_1$};
+                \draw [-stealth] (0,0,0) -- (0,0,1) node[above right=-2pt]{$e_2$};
+                \draw [-stealth] (0,0,0) -- (0,1,0) node[above]{$e_3$};
+                
+                \begin{scope}[
+                    plane origin={(0,0.7,0)},
+                    plane x={($(1,0,0)+(0,0.7,0)$)},
+                    plane y={($(0,0,1)+(0,0.7,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0.7,0,0)},
+                    plane x={($(0,0,1)+(0.7,0,0)$)},
+                    plane y={($(0,1,0)+(0.7,0,0)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+                \begin{scope}[
+                    plane origin={(0,0,0.7)},
+                    plane x={($(0,1,0)+(0,0,0.7)$)},
+                    plane y={($(1,0,0)+(0,0,0.7)$)},
+                    canvas is plane
+                ]
+                    \draw [rex,thick,-latex] (90:0.2) arc[start angle=90,end angle=-250,radius=2mm];
+                \end{scope}
+            \end{tikzpicture}
+            \caption{The ordering $(e_3,e_2,e_1)$.}
+            \label{fig:orientationMotivationR3f}
+        \end{subfigure}
+        \caption{Motivating orientations in $\R^3$.}
+        \label{fig:orientationMotivationR3}
+    \end{figure}
+    \begin{itemize}
+        \item Here, we will only consider orderings of standard basis $\{e_1,e_2,e_3\}$ of $\R^3$.
+        \item Consider Figure \ref{fig:orientationMotivationR3a}.
+        \begin{itemize}
+            \item Similarly to in $\R^2$, the positioning of vector 2 relative to vector 1 defines an "orientation," which we take to be about vector 3.
+            \begin{itemize}
+                \item The direction of this "orientation" is indicated by the red circular arrow wrapping around $e_3$ most of the way along it.
+            \end{itemize}
+            \item Differently, however, we can define additional "orientations" about vector 1 and vector 2 using, respectively, the position of vector 3 relative to vector 2, and the position of vector 1 relative to vector 3.
+            \item Importantly, though, all three of these "orientations" are inextricably linked (note how any time one of them inverts, they all invert), so we can treat these three "orientations" (or any one of them in particular) as one overarching \emph{orientation} on $\R^3$.
+        \end{itemize}
+        \item Now unlike in $\R^2$, we now have more than 2 ways of ordering $\{e_1,e_2,e_3\}$; in fact, we have $3!=6$ such ways. However, we still only have two distinct orientations: Notice that all of the orientations in Figures \ref{fig:orientationMotivationR3a}-\ref{fig:orientationMotivationR3c} are the same, and all of the orientations in Figures \ref{fig:orientationMotivationR3d}-\ref{fig:orientationMotivationR3f} are the same.
+        \begin{itemize}
+            \item Thus, we may still partition the set of ordered bases of $\R^3$ into two equivalence classes and arbitrarily label one to be "positive" and the other to be "negative."
+        \end{itemize}
+    \end{itemize}
+    \item Running with it: Higher dimensional generalizations.
+    \begin{itemize}
+        \item Evidently, the paradigm of orientation became much more complicated from $\R^2$ to $\R^3$. As such, it is reasonable to expect that it will become even more complicated in moving to $\R^4$, let alone $\R^n$, especially since these spaces are not so easily visualizable.
+        \begin{itemize}
+            \item So how do we proceed? Well, when we've sought to express geometric notions in higher dimensions in the past, linear algebra has been the go-to model. So let's use it once again.
+        \end{itemize}
+        \item We start with two key observations:
+        \begin{itemize}
+            \item For any two oriented bases $(v_1,\dots,v_n),(w_1,\dots,w_n)$ in the \emph{same} equivalence class (i.e., both having positive orientation or both having negative orientation), there exists a unique linear transformation $T$ with \emph{positive} determinant such that $w_i=Tv_i$ for $i=1,\dots,n$.
+            \item For any two oriented bases $(v_1,\dots,v_n),(w_1,\dots,w_n)$ in \emph{opposite} equivalence classes (i.e., one having positive orientation and the other having negative orientation), there exists a unique linear transformation $T$ with \emph{negative} determinant such that $w_i=Tv_i$ for $i=1,\dots,n$.
+        \end{itemize}
+        \item Thus, to assign an orientation on $\R^n$, we may take the standard basis in numerical order, i.e., $(e_1,\dots,e_n)$, and define the equivalence class of which it is an element to be the positive one. Then to check the orientation of a given basis $(v_1,\dots,v_n)$, we need only find $T$ and calculate its determinant.
+    \end{itemize}
+    \item So, what? Why do we need orientations?
+    \begin{itemize}
+        \item Classical single-variable integration determines the "area under the curve" between $a,b$ by summing the height of infinitely many, infinitely small rectangles. In this picture, we can think of $[a,b]$ as our manifold, moving in the positive direction along the $x$-axis as our orientation, and $f$ as a function on the manifold.
+        \item For a more general manifold $X$, we will have a \emph{form} (as opposed to a function) which assigns to each $p\in X$ an exterior product/alternating tensor (as opposed to a scalar). But we will still need to know in which direction we should move along the manifold, and that is the job of the orientation.
+        \item Additionally, we need a rigorous algebraic theory so that we can relate the orientations of domains to the orientations of their boundaries.
+    \end{itemize}
+    \item Formally defining orientations: Relating orientation to the language of differential forms.
+    \begin{itemize}
+        \item It is easy to define an orientation on $\R^1$ or any other 1-dimensional vector space. Indeed, we can take $e_1$ and all of its positive scalar multiples to be the positive equivalence class, and all negative multiples of $e_1$ to be the negative equivalence class.
+        \begin{itemize}
+            \item Note that since $1\times 1$ matrices have determinant equal to their one entry and, for all intents and purposes, function as scalars, this definition agrees with our previous ones.
+            \item Also, an alternate but equivalent definition of orientation on a 1-dimensional vector space is to divide it into two connected components by removing the zero element from the set and choose one of those connected components to be the "positive orientation." This is the definition we will use going forward.
+        \end{itemize}
+        \item Let $V$ be an arbitrary $n$-dimensional vector space. Since $\dim\lam[n]{V^*}=\binom{n}{n}=1$, we can assign it an orientation based on the above rule.
+        \begin{itemize}
+            \item Now let $\omega\in\lam[n]{V^*}$ lie in the positive component. Then we say that an ordered basis $(v_1,\dots,v_n)$ of $V$ is positive if $\omega(v_1,\dots,v_n)>0$, and vice versa if $\omega(v_1,\dots,v_n)<0$.
+        \end{itemize}
+        \item In particular, let $\{e_1,\dots,e_n\}$ be the standard basis of $V$. Then we call $e_1^*\wedge\cdots\wedge e_n^*$ the \textbf{orientation form}.
+        \begin{itemize}
+            \item It has the ability to identify the standard basis as positive and some others as positive or negative, but also equals zero for a number of bases.
+            \item A more powerful tool is $\omega=\Alt(e_1^*\wedge\cdots\wedge e_n^*)\in\lam[n]{V^*}$. We can define an orientation on $\lam[n]{V^*}$ based on which half of it $\omega$ lies in. Moreover, since $\omega$ will take in any ordered basis of $V$ and return a nonzero scalar, it can provide an orientation on $V$.
+        \end{itemize}
+        \item \emph{Come back after completing integration on manifolds section.}
+    \end{itemize}
+    \item An interesting connection between the differential forms definition and the determinant definition, and its formalization as motivation for the new definition of the determinant given in class yesterday.
+    \begin{itemize}
+        \item $\omega$ and $\det(T)$ may seem like entirely different objects at first glance, but in fact, they are almost identical.
+        \item Let's drop back down to $\R^2$ to illustrate the point. Here,
+        \begin{equation*}
+            \omega = \Alt(e_1^*\wedge e_2^*) = e_1^*\wedge e_2^*-e_2^*\wedge e_1^*
+        \end{equation*}
+        \begin{itemize}
+            \item It follows that if
+            \begin{equation*}
+                \left\{
+                    \begin{bmatrix}
+                        v_1\\
+                        v_2\\
+                    \end{bmatrix},
+                    \begin{bmatrix}
+                        w_1\\
+                        w_2\\
+                    \end{bmatrix}
+                \right\}
+            \end{equation*}
+            is an arbitrary basis of $\R^2$, then the transformation matrix $T$ from positively-oriented ordered basis $(e_1,e_2)$ to $(v,w)$ is
+            \begin{equation*}
+                T =
+                \begin{bmatrix}
+                    v_1 & w_1\\
+                    v_2 & w_2\\
+                \end{bmatrix}
+            \end{equation*}
+            which has determinant
+            \begin{equation*}
+                \det(T) = v_1w_2-w_1v_2
+            \end{equation*}
+            Therefore, whether $v_1w_2-w_1v_2$ is positive or negative determines whether $(v,w)$ is a positively or negatively oriented basis of $\R^2$.
+            \item Incidentally,
+            \begin{align*}
+                \omega(v,w) &= [e_1^*\wedge e_2^*-e_2^*\wedge e_1^*](v,w)\\
+                &= v_1\cdot w_2-v_2\cdot w_1\\
+                &= v_1w_2-w_1v_2
+            \end{align*}
+            as well.
+            \item Therefore, evaluating the sign of $\det(T)$ is identical to evaluating the sign of $\omega(v,w)$.
+        \end{itemize}
+        \item But why the relationship?
+        \begin{itemize}
+            \item In fact, it's in the definition of the determinant from last class: The determinant of an endomorphism $T:V\to V$ can be interpreted as the induced action of the pullback on the top exterior power.
+            \item In particular,
+            \begin{align*}
+                \omega(v_1,\dots,v_n) &= \omega(T(e_1),\dots,T(e_n))\\
+                &= [T^*\omega](e_1,\dots,e_n)\\
+                &= \det(T)\cdot\omega(e_1,\dots,e_n)\\
+                &= \det(T)\cdot 1\\
+                &= \det(T)
+            \end{align*}
+            as desired.
+        \end{itemize}
+    \end{itemize}
+    \item Summary of orientations.
     \begin{itemize}
         \item A vector space $V$ should have two orientations.
-        \item Two bases $e_1,\dots,e_n$ and $f_1,\dots,f_n$ are \textbf{orientation equivalent} if $T:V\to V$ an isomorphism has positive determinant. Otherwise, they are \textbf{orientation-inequivalent}.
+        \item Two bases $e_1,\dots,e_n$ and $f_1,\dots,f_n$ are \textbf{orientation equivalent} if $T:V\to V$ an isomorphism has positive determinant. Otherwise, they are \textbf{orientation inequivalent}.
         \item An orientation on $V$ is a choice of equivalence classes of bases under the equivalence relation on bases.
         \item $T:V\to W$ given orientations, $T$ preserves or reverses orientations.
     \end{itemize}
@@ -186,9 +581,9 @@
 \section{Chapter 1: Multilinear Algebra}
 \emph{From \textcite{bib:DifferentialForms}.}
 \begin{itemize}
-    \item \marginnote{4/14:}$\bm{\iota_vT}$: The $(k-1)$-tensor defined by
+    \item \marginnote{4/14:}$\bm{\iota_vT}$: The $(k-1)$-tensor defined as follows. \emph{Given by}
     \begin{equation*}
-        (\iota_vT)(v_1,\dots,v_{k-1}) = \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_{r-1},v,v_r,\dots,v_{k-1})
+        (v_1,\dots,v_{k-1}) \mapsto \sum_{r=1}^k(-1)^{r-1}T(v_1,\dots,v_{r-1},v,v_r,\dots,v_{k-1})
     \end{equation*}
     where $T\in\lin[k]{V}$, $k\in\N_0$, $V$ is a vector space, and $v\in V$.
     \item If $v=v_1+v_2$, then
@@ -243,8 +638,8 @@
     \end{proof}
     \item $\bm{\iota_v\omega}$: The $\ide[k]{V}$-coset $\pi(\iota_vT)$, where $\omega=\pi(T)$.
     \item Proves that $\iota_v\omega$ does not depend on the choice of $T$.
-    \item \textbf{Inner product operation}: The linear map $\iota_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
-    \item The inner product has the following important identities.
+    \item \textbf{Interior product operation}: The linear map $\iota_v:\lam[k]{V^*}\to\lam[k-1]{V^*}$.
+    \item The interior product has the following important identities.
     \begin{align*}
         \iota_{(v_1+v_2)}\omega &= \iota_{v_1}\omega+\iota_{v_2}\omega\\
         \iota_v(\omega_1\wedge\omega_2) &= \iota_v\omega_1\wedge\omega_2+(-1)^p\omega_1\wedge\omega_2\\
@@ -304,11 +699,11 @@
     \end{itemize}
     \item Proposition 1.8.9: If $A:V\to V$ is not surjective, then $\det(A)=0$.
     \begin{proof}
-        Let $W=\im(A)$. If $A$ is not onto, $\dim W<n$, implying that $\lam[n]{W^*}=0$. Now let $A=i_WB$ where $i_W$ is the inclusion map of $W$ into $V$ and $B$ is the mapping $A$ regarded as a mapping from $V$ to $W$. It follows by Proposition 1.8.4(1) that if $\omega\in\lam[n]{V^*}$, then
+        Let $W=\im(A)$. If $A$ is not onto, $\dim W<n$, implying that $\lam[n]{W^*}=0$. Now let $A=\imath_WB$ where $\imath_W$ is the inclusion map of $W$ into $V$ and $B$ is the mapping $A$ regarded as a mapping from $V$ to $W$. It follows by Proposition 1.8.4(1) that if $\omega\in\lam[n]{V^*}$, then
         \begin{equation*}
-            A^*\omega = B^*i_W^*\omega
+            A^*\omega = B^*\imath_W^*\omega
         \end{equation*}
-        where $i_W^*\omega=0$ as an element of $\lam[n]{W^*}$.
+        where $\imath_W^*\omega=0$ as an element of $\lam[n]{W^*}$.
     \end{proof}
     \item Deriving the typical formula for the determinant.
     \begin{itemize}
@@ -392,8 +787,8 @@
         \end{equation*}
         It follows by Proposition 1.9.7 as well as the positivity of $\det(A)$ and $\det(B)$ that $\det(D)$ is positive, and hence the orientation of $e_{r+1},\dots,e_n$ and $f_{r+1},\dots,f_n$ are one and the same.
     \end{proof}
-    \item \textbf{Orientation-preserving} (map $A$): A bijective linear map $A:V_1\to V_2$, where $V_1,V_2$ are oriented $n$-dimensional vector spaces, such that for all $\omega\in\lam[n]{V_2^*}_+$, we have that $A^*\omega\in\lam[n]{V_1^*}_+$.
-    \item If $V_1=V_2$, $A$ is orientation-preserving iff $\det(A)>0$.
+    \item \textbf{Orientation preserving} (map $A$): A bijective linear map $A:V_1\to V_2$, where $V_1,V_2$ are oriented $n$-dimensional vector spaces, such that for all $\omega\in\lam[n]{V_2^*}_+$, we have that $A^*\omega\in\lam[n]{V_1^*}_+$.
+    \item If $V_1=V_2$, $A$ is orientation preserving iff $\det(A)>0$.
     \item Proposition 1.9.14: Let $V_1,V_2,V_3$ be oriented $n$-dimensional vector spaces, and let $A_1:V_1\to V_2$ and $A_2:V_2\to V_3$ be bijective linear maps. Then if $A_1,A_2$ are orientation preserving, so is $A_2\circ A_1$.
 \end{itemize}
 

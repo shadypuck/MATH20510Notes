@@ -1,0 +1,142 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+\setcounter{chapter}{6}
+
+\begin{document}
+
+
+
+
+\chapter{Integration on Forms}
+\section{Chapter 3: Integration on Forms}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{5/26:}\textbf{Change of variables formula}: If $U,V\subset\R^n$ open and $f:U\to V$ a $C^1$ diffeomorphism, then for every $\phi:V\to\R$ continuous, the left integral below exists iff the right integral below exists and if they are equal.
+    \begin{align*}
+        \int_V\phi(y)\dd{y}&&
+        \int_U(\phi\circ f)(x)|\det Df(x)|\dd{x}
+    \end{align*}
+    \begin{itemize}
+        \item \textcite{bib:DifferentialForms} refers us elsewhere for some types of proofs. They, instead, will focus on Lax's differential-forms-heavy proof that, nevertheless, can be modified to avoid references to differential forms and be based solely on the language of elementary multivariable calculus\footnote{\textcite{bib:DifferentialForms} recommends we read the original article; could be worthwhile if I can find it!}.
+        \item Lax's proof is also desirable since it leads into a change of variables theorem for maps other than diffeomorphisms, and involves a topological invariant (the \textbf{degree} of a map), thereby providing a first brush with topology.
+    \end{itemize}
+    \item Henceforth, let $f$ be a $C^\infty$ diffeomorphism.
+    \item \textbf{Support} (of $\nu$): The following set, where $\nu\in\ome[k]{\R^n}$. \emph{Denoted by} $\bm{\supp(\nu)}$. \emph{Given by}
+    \begin{equation*}
+        \supp(\nu) = \overline{\{x\in\R^n:\nu_x\neq 0\}}
+    \end{equation*}
+    \item \textbf{Compactly supported} ($k$-form $\nu$): A $k$-form $\nu$ for which $\supp(\nu)$ is compact.
+    \item $\bm{\Omega_c^k(\pmb{\R}^n)}$: The set of all $C^\infty$ $k$-forms which are compactly supported.
+    \item $\bm{\Omega_c^k(U)}$: The set of all $C^\infty$ $k$-forms which are compactly supported and $\supp(\omega)\in U$ for all $\omega\in\Omega_c^k(U)$, where $U\subset\R^n$ open.
+    \item \textbf{Integral} (of $\omega$ over $\R^n$): The usual integral of $f$ over $\R^n$, where $\omega=f\dd{x_1}\wedge\cdots\wedge\dd{x_n}$ is compactly supported and $f\in C_0^\infty(\R^n)$\footnote{Recall that $C_0^\infty(\R^n)$ is the space of all bump functions on $\R^n$.}. \emph{Denoted by} $\bm{\int_{\pmb{\R}^n}\omega}$. \emph{Given by}
+    \begin{equation*}
+        \int_{\R^n}\omega = \int_{\R^n}f\dd{x}
+    \end{equation*}
+    \item \textbf{Property $\bm{P}$} (possessing set $U$): The property of a set $U$ that for every form $\omega\in\Omega_c^m(U)$ such that $\int_U\omega=0$, $\omega\in\dd(\Omega_c^{m-1}(U))$.
+    \item Theorem 3.2.3: Let $U\subset\R^{n-1}$ open and $A\subset\R$ an open interval. Then if $U$ has property $P$, $U\times A$ does as well.
+    \begin{proof}
+        ...
+    \end{proof}
+    \item Theorem 3.2.2 (Poincar\'{e} lemma for rectangle): Let $\omega$ be a compactly supported $n$-form with $\supp(\omega)\subset\intt(Q)$, where $Q=[a_1,b_1]\times\cdots\times[a_n,b_n]$. Then the following are equivalent.
+    \begin{enumerate}
+        \item $\int\omega=0$.
+        \item There exists a compactly supported $(n-1)$-form $\mu$ with $\supp(\mu)\subset\intt(Q)$ satisfying $\dd{\mu}=\omega$.
+    \end{enumerate}
+    \begin{proof}[Proof $(2\Rightarrow 1)$]
+        As given in class on 5/2.\par
+        One additional note: We can compute $\int_{\R^n}\pdv*{f_i}{x_i}\dd{x}$ by Fubini's theorem.
+    \end{proof}
+    \begin{proof}[Proof $(1\Rightarrow 2)$]
+        We induct on $\dim Q$. For the base case $n=1$, the interval $A$ has property $P$ by Exercise 3.2.i. Now suppose inductively that we have proven that $A_1\times\cdots\times A_{n-1}$ has property $P$, where $A_i=(a_i,b_i)$. Then by Theorem 3.2.3, $A_1\times\cdots\times A_n=A_1\times\cdots\times A_{n-1}\times A_n$ has property $P$.
+    \end{proof}
+    \item We now seek to generalize Theorem 3.2.2 to arbitrary connected open subsets of $\R^n$.
+    \item Theorem 3.3.1 (Poincar\'{e} lemma for compactly supported forms): Let $U\subset\R^n$ connected and open, and let let $\omega\in\Omega_c^n(U)$ satisfy $\supp(\omega)\subset U$. Then the following are equivalent.
+    \begin{enumerate}
+        \item $\int_{\R^n}\omega=0$.
+        \item There exists a compactly supported $(n-1)$-form $\mu$ with $\supp(\mu)\subset U$ and $\omega=\dd{\mu}$.
+    \end{enumerate}
+    \begin{proof}[Proof $(2\Rightarrow 1)$]
+        The support of $\mu$ is contained in a large rectangle, so the integral of $\dd{\mu}$ is zero by Theorem 3.2.2.
+    \end{proof}
+    \begin{proof}[Proof $(1\Rightarrow 2)$]
+        ...
+    \end{proof}
+    \item \textbf{Proper} (continuous map): A continuous map $f:U\to V$, where $U\subset\R^n$ and $V\subset\R^k$ are open, such that for every $K\subset V$ compact, the preimage $f^{-1}(K)$ is compact.
+    \begin{itemize}
+        \item Proper mappings have many nice properties (see the Exercises 3.4).
+        \item One example is that if $f\in C^\infty$ and $\omega\in\Omega_c^k(V)$ satisfies $\supp(\omega)\subset V$, then $f^*\omega\in\Omega_c^k(U)$.
+    \end{itemize}
+    \item \textbf{Degree} (of $f$): The topological invariant of $f:U\to V$, a $C^\infty$ map with $U,V\subset\R^n$ open and connected, defined as follows for all $\omega\in\Omega_c^n(V)$. \emph{Denoted by} $\bm{\deg(f)}$. \emph{Given by}
+    \begin{equation*}
+        \int_Uf^*\omega = \deg(f)\int_V\omega
+    \end{equation*}
+    \item A coordinate-based formula for the degree.
+    \begin{itemize}
+        \item Let $\omega=\phi(y)\dd{y_1}\wedge\cdots\wedge\dd{y_n}$ and $x\in U$.
+        \item Then
+        \begin{equation*}
+            f^*\omega = (\phi\circ f)(x)\det(Df(x))\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+        \end{equation*}
+        \item It follows that
+        \begin{equation*}
+            \int_V\phi(y)\dd{y} = \deg(f)\int_U(\phi\circ f)(x)\det(Df(x))\dd{x}
+        \end{equation*}
+    \end{itemize}
+    \item We now seek to prove that the degree, as defined, exists for suitable functions.
+    \begin{proof}
+        ...
+    \end{proof}
+    \item Proposition 3.4.4: Let $U,V,W\subset\R^n$ open and connected, and $f:U\to V$ and $g:V\to W$ proper $C^\infty$ maps. Then
+    \begin{equation*}
+        \deg(g\circ f) = \deg(g)\deg(f)
+    \end{equation*}
+    \begin{proof}
+        Let $\omega\in\Omega_c^n(W)$. Then since $(g\circ f)^*\omega=f^*(g^*\omega)$,
+        \begin{align*}
+            \deg(g\circ f)\int_W\omega &= \int_U(g\circ f)^*\omega\\
+            &= \int_Uf^*(g^*\omega)\\
+            &= \deg(f)\int_Vg^*\omega\\
+            &= \deg(f)\deg(g)\int_W\omega\\
+            \deg(g\circ f) &= \deg(g)\deg(f)
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Theorem 3.4.6: Let $A$ be a non-singular $n\times n$ matrix and $f_A:\R^n\to\R^n$ the associated linear mapping. Then
+    \begin{equation*}
+        \deg(f_A) =
+        \begin{cases}
+            +1 & \det(A)>0\\
+            -1 & \det(A)<0
+        \end{cases}
+    \end{equation*}
+    \begin{itemize}
+        \item Note that the non-singularity condition allows us to ignore the case $\det(A)=0$ (since singular matrices have zero determinant).
+    \end{itemize}
+    \item Theorem 3.4.7: Let $B\subset V$ compact and $A=f^{-1}(B)$. Then for all $U_0$ open with $A\subset U_0\subset U$, there exists $V_0$ open with $B\subset V_0\subset V$ and $f^{-1}(V_0)\subset U_0$.
+    \item \textbf{Orientation-preserving} (diffeomorphism): A diffeomorphism $f:U\to V$, where $U,V\subset\R^n$ are open and connected, such that $\det[Df(x)]>0$ for all $x\in U$.
+    \item \textbf{Orientation-reversing} (diffeomorphism): A diffeomorphism $f:U\to V$, where $U,V\subset\R^n$ are open and connected, such that $\det[Df(x)]<0$ for all $x\in U$.
+    \begin{itemize}
+        \item We know that $\det[Df(x)]$ is nonzero (if it were zero at some $x$, one of $f$ and its inverse would not be differentiable there, contradicting the definition of a diffeomorphism).
+        \item This combined with the fact that the determinant is a continuous function of $x$ proves that its sign is the same for all $x\in U$.
+        \item Thus, orientation-preserving and orientation-reversing are well-defined.
+    \end{itemize}
+    \item Theorem 3.5.1: The degree of $f$ is $+1$ if $f$ is orientation-preserving and $-1$ if $f$ is orientation-reversing.
+    \begin{proof}
+        ...
+    \end{proof}
+    \item Theorem 3.5.2: Let $\phi:V\to\R$ be a compactly supported continuous function. Then
+    \begin{equation*}
+        \int_U(\phi\circ f)(x)|\det(Df(x))|\dd{x} = \int_V\phi(y)\dd{y}
+    \end{equation*}
+    \begin{proof}
+        ...
+    \end{proof}
+    \item \textcite{bib:DifferentialForms} goes through the nitty gritty analytic details of the proof.
+\end{itemize}
+
+
+
+
+\end{document}

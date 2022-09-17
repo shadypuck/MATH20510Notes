@@ -10,34 +10,202 @@
 
 
 \chapter{Operations on Forms}
+\section{Compact Support and Consequences}
+\begin{itemize}
+    \item \marginnote{5/2:}Plan:
+    \begin{itemize}
+        \item Brouwer's fixed point theorem.
+        \begin{itemize}
+            \item The classic fixed point theorem.
+            \item Several proofs.
+        \end{itemize}
+        \item Compactly supported forms.
+        \item The Poincar\'{e} lemma.
+        \begin{itemize}
+            \item Allows us to define the degree of a function $F:U\to V$, where $U,V\subset\R^n$ open.
+            \item The degree will turn out to be an integer.
+            \item We will need $F$ to be proper.
+            \item We'll eventually use the degree to give a proof of the Brouwer's fixed point theorem.
+        \end{itemize}
+    \end{itemize}
+    \item Theorem (Brouwer's fixed point theorem): Let $B^n=\{x\in\R^n:|x|\leq 1\}$ be the closed unit ball in $\R^n$, and let $F:B^n\to B^n$ be continuous. Then there exists $x_0\in B^n$ such that $F(x_0)=x_0$ (i.e., $F$ has a fixed point).
+    \begin{itemize}
+        \item This is a generalized form of what we proved last quarter that a map from $[0,1]\twoheadrightarrow[0,1]$ has a fixed point (IVT and an auxiliary function).
+        \item Think back to Sharkovsky's theorem last quarter.
+        \item Another interpretation of Brouwer in $\R^2$: Take a piece of paper, crumple it up, project it down onto where it was, and some point lies exactly above where it was.
+    \end{itemize}
+    \item \textbf{Support} (of $\omega$): The following set, where $\omega\in\ome[k]{\R^n}$. \emph{Denoted by} $\bm{\supp(\omega)}$. \emph{Given by}
+    \begin{equation*}
+        \supp(\omega) = \{p\in\R^n\mid\omega_p\neq 0\}
+    \end{equation*}
+    \item Example:
+    \begin{itemize}
+        \item The support of a bump function on $\R^1$ is the region of the line on which it is not zero.
+    \end{itemize}
+    \item \textbf{Compactly supported} (form): A form $\omega$ for which $\supp(\omega)$ is compact.
+    \item \textbf{Compactly supported} (form $\omega$ on $U$): A compactly supported form such that $\supp(\omega)\subset U$.
+    \begin{itemize}
+        \item The idea is that we can have some crazy form, but it "dies down" when we get close to the boundary of $U$.
+    \end{itemize}
+    \item $\bm{\Omega_c^k(U)}$: The vector space of all compactly supported $k$-forms on $U$.
+    \begin{itemize}
+        \item Thus, the scalar multiple of a compactly supported form on $U$ is still compactly supported, as is the sum of two compactly supported forms on $U$.
+    \end{itemize}
+    \item To get a handle on the degree, we're gonna focus on the top-dimensional space $\Omega_c^n(U)$ of compactly supported forms.
+    \item \textbf{Proper} (function): A function $F:U\to V$, where $U,V\in\R^n$ open, for which $F^{-1}(K)$ is compact for any $F$ compact in $V$.
+    \begin{itemize}
+        \item We know that the image of a compact set is compact under a \emph{continuous} function, but we haven't said anything about the inverse image up to this point.
+    \end{itemize}
+    \item Example: Sine and cosine are continuous but not proper.
+    \begin{itemize}
+        \item Consider $\sin^{-1}(\{0\})=\{\dots,-\pi,0,\pi,\dots\}$, which is not bounded and hence not compact (by Heine-Borel).
+    \end{itemize}
+    \item The pullback, when restricted to compactly supported forms, maps compactly supported forms to compactly supported forms. Symbolically,
+    \begin{equation*}
+        F^*[\Omega_c^n(V)] \subset \Omega_c^n(U)
+    \end{equation*}
+    \item Similarly, $\dd:\Omega_c^{n-1}(X)\to\Omega_c^n(X)$.
+    \item \textbf{$\bm{n}^\textbf{th}$ compactly supported de Rahm cohomology group}: The top-dimensional space of forms modulo the image of the $(n-1)$-dimensional space of forms under the exterior derivative. \emph{Denoted by} $\bm{H_c^n(X)}$. \emph{Given by}
+    \begin{equation*}
+        H_c^n(X) = \frac{\Omega_c^n(X)}{\dd(\Omega_c^{n-1}(X))}
+    \end{equation*}
+    \begin{itemize}
+        \item The top is analogous to the kernel of the appropriate $d$ because there's no $n+1$ form so everything just gets mapped to the kernel.
+    \end{itemize}
+    \item Since the pullback commutes with the exterior derivative, $F$ will induce a map from $H_c^n(V)\to H_c^n(U)$.
+    \begin{itemize}
+        \item Today, we will show that $H_c^n(X)\cong\R$, where the isomorphism is integration.
+        \item On this function, we're gonna map 1 and that will give us $\deg(F)$.
+        \item This is something topological: If we move/jiggle $F$ a bit, the degree won't change. The degree is \textbf{invariant} under jiggling it around; this is the basis of topology.
+        \item In fact: For all $\omega\in\Omega_c^n(V)$, we have that
+        \begin{equation*}
+            \int_UF^*\omega = \deg(F)\int_V\omega
+        \end{equation*}
+        \item Another thing that should be familiar from vector calculus is that this is a generalization of a classic change of coordinates integration formula. Specifically, if $F:U\to V$ is a \textbf{diffeomorphism} (smooth, bijective, smooth inverse) and $\varphi:V\to\R$, then
+        \begin{equation*}
+            \int_V\varphi(y)\dd{y} = \int_U(\varphi\circ F)(x)|\det DF(x)|\dd{x}
+        \end{equation*}
+        \begin{itemize}
+            \item Assume $U,V$ are some bounded open subsets in $\R^n$, though we can get around the boundedness with a more advanced derivation.
+            \item This formula is just the previous formula in coordinates plus the fact that the degree of a diffeomorphism is $\pm 1$ depending on whether or not it preserves orientation.
+            \item We'll use this formula over and over again to simplify the domain over which we need to integrate; it's kind of a good old $u$-substitution type thing.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Integral} (of $\omega\in\Omega_c^n(U)$): If $\omega=f\dd{x_1}\wedge\cdots\wedge\dd{x_n}$ is a top-dimensional form, then the integral of $\omega$ over $U$ is given as follows. \emph{Denoted by} $\bm{\int_U\omega}$. \emph{Given by}
+    \begin{equation*}
+        \int_U\omega = \int_{\R^n}f\dd{x_1}\cdots\dd{x_n}
+    \end{equation*}
+    \begin{itemize}
+        \item Defines integration pictorially as slicing up the plane, taking a point in each region, and multiplying it's value by the area of the region, and then taking finer and finer partitions.
+    \end{itemize}
+    \item Theorem (Poincar\'{e} lemma --- final form): Let $\omega_1,\omega_2\in\Omega_c^n(U)$. Then $\omega_1\sim\omega_2$ if $\omega_1-\omega_2=\dd{\mu}$ for some $\mu\in\Omega_c^n(U)$ (i.e., $[\omega_1]=[\omega_2]$ in $H_c^n(U)$, where we are representing equivalence classes). Let $\omega_0\in\Omega_c^n(U)$ with $\int\omega_0=1$ ($\omega_0$ is a bump function). Then $\omega\sim c\omega_0$ where $c$ a scalar is given by $c=\int\omega$.
+    \begin{itemize}
+        \item We're gonna start small by proving the Poincar\'{e} lemma for rectangles.
+        \item Then we'll have the lemma for general, open, connected subsets of $\R^n$.
+        \item Then we'll prove the final form above.
+    \end{itemize}
+    \item To prove the Poincar\'{e} lemma, we need two steps.
+    \begin{enumerate}
+        \item Poincar\'{e} lemma for rectangles: $\int\omega=0$ iff $\omega=\dd{\mu}$.
+        \begin{itemize}
+            \item The backwards implication is easy.
+            \item The forwards implication is tricky and requires induction on dimension.
+        \end{itemize}
+        \item Generalize from rectangles to general regions $U$.
+    \end{enumerate}
+    \item Theorem (Poincar\'{e} lemma --- for rectangles): Let $Q=[a_1,b_1]\times\cdots\times[a_n,b_n]\subset\R^n$. Take $\omega\in\Omega_c^n(Q)$. Then TFAE.
+    \begin{enumerate}
+        \item $\int_Q\omega=0$.
+        \item $\omega=\dd{\mu}$ with $\mu\in\Omega_c^{n-1}(U)$.
+    \end{enumerate}
+    \begin{proof}[Proof $(2\Rightarrow 1)$]
+        Let $\mu=\sum_{i=1}^nf_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}$\footnote{Note that the carrot to delete something is universal to all fields of math, not just differential geometry.}. Then
+        \begin{align*}
+            \dd\mu &= \sum_{i=1}^n\dd{f_i}\wedge\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}\\
+            &= \sum_{i=1}^n\left( \sum_{j=1}^n\pdv{f_i}{x_j}\dd{x_j} \right)\wedge\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}\\
+            &= \sum_{i=1}^n\pdv{f_i}{x_i}\dd{x_i}\wedge\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}\\
+            &= \sum_{i=1}^n(-1)^{i+1}\pdv{f_i}{x_i}\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+        \end{align*}
+        Now to show that $\int\dd{\mu}=0$, it suffices to check that $\int\pdv{f_i}{x_i}\dd{x_1}\wedge\cdots\wedge\dd{x_n}=0$ for all $i$ by the distributive property of integration over sums. The conclusion follows from the FTC and the fact that each $f_i$ is supported in $Q$ (i.e., each $f_i$ is zero on the boundary of the rectangle, so the integral will look something like $f_i(b)-f_i(a)=0-0=0$).
+    \end{proof}
+    \begin{proof}[Proof $(1\Rightarrow 2)$]
+        If $1\Rightarrow 2$ on some $U\subset\R^n$, then $1\Rightarrow 2$ in $U\times[a_n,b_n]\subset\R^{n+1}$. This inductive step gets us what we need. We'll prove it next time.
+    \end{proof}
+    \item Motivation/warm up for $1\Rightarrow 2$.
+    \begin{itemize}
+        \item Let $n=1$. Then the theorem says $f:\R\to\R$ with $\supp(f)\subset[a,b]$ implies TFAE.
+        \begin{enumerate}
+            \item $\int_a^bf=0$.
+            \item $f=\dv*{g}{x}$ for some $g\in\Omega_c^0([a,b])$.
+        \end{enumerate}
+        \item $2\Rightarrow 1$: We just did this.
+        \item $1\Rightarrow 2$: We let $g(x)=\int_a^xf(t)\dd{t}$. We can check that $\dv*{g}{x}=f$, and that $\supp(g)\subset[a,b]$ (since $\int_a^af(t)\dd{t}=0$ and $\int_a^bf(t)\dd{t}=0$; values smaller and larger are zero by definition).
+        \item $(1\Rightarrow 2)$: We know that $f$ starts at zero and ends at zero. We know that the integral ($g$) of $f$ starts at zero and ends at zero. But then it must be that this integral is a compactly supported function whose derivative is $f$. Indeed, regardless of how $f$ moves, we know that it must come back to zero, and any positive areas under the curve must be cancelled by negative areas under the curve.
+        \item $(2\Rightarrow 1)$: We know that $f$ starts at zero and ends at zero. We know that $f$ is the derivative of a function $g$ that starts at zero and ends at zero. But then the integral of $f$ will just be the ending point of $g$ minus the starting point of $g$, which are both equally zero, making the integral zero. Indeed, regardless of how $g$ moves, any positive slopes must be cancelled by negative slopes. But these slopes \emph{really are} one and the same as the areas inspected by the integral, as per the FTC!
+        \item An example of two functions that illustrate the point here are $f(x)=\sin(x)$ and $g(x)=1-\cos(x)$ on $[0,2\pi]$.
+        \begin{figure}[h!]
+            \centering
+            \begin{tikzpicture}
+                \footnotesize
+                \draw
+                    (-0.5,0) -- ({2*pi+0.5},0)
+                    (0,-1.5) -- (0,2.5)
+                ;
+                \foreach \x/\lab in {
+                    {pi/2}/\frac{\pi}{2},
+                    {pi}/\pi,
+                    {3*pi/2}/\frac{3\pi}{2},
+                    {2*pi}/2\pi
+                } {
+                    \draw (\x,0.1) -- ++(0,-0.2) node[below]{$\lab$};
+                }
+                \foreach \y in {-1,1,2} {
+                    \draw (0.1,\y) -- ++(-0.2,0) node[left]{$\y$};
+                }
+        
+                \draw [rex,thick,postaction={decorate,decoration={markings,mark=at position 0.75 with {\node[below,black]{$f$};}}}] plot[smooth,domain=0:2*pi] (\x,{sin(\x r)});
+                \draw [blx,thick,postaction={decorate,decoration={markings,mark=at position 0.5 with {\node[above,black]{$g$};}}}] plot[smooth,domain=0:2*pi] (\x,{1-cos(\x r)});
+            \end{tikzpicture}
+            \caption{Poincar\'{e} lemma in one dimension.}
+            \label{fig:poincare1}
+        \end{figure}
+    \end{itemize}
+\end{itemize}
+
+
+
 \section{The Pullback}
 \begin{itemize}
-    \item \marginnote{5/4:}Klug got his flight to his wedding paid for by giving a talk at a nearby institution!
-    \item Homework 3 now due Monday (the stuff will be on the exam though).
+    \item \marginnote{5/4:}Homework 3 now due Monday (the stuff will be on the exam though).
     \item Office hours today from 5:00-6:00.
     \item Exam Friday.
     \item Next week will be Chapter 3.
     \begin{itemize}
-        \item Integration of top-dimensional forms, i.e., if we're in 2D space, we'll integrate 2D forms; in 3D space, we'll integrate 3D forms, etc.
+        \item Integration of top-dimensional forms, i.e., if we're in 2D space, we'll integrate 2-forms; in 3D space, we'll integrate 3-forms; etc.
     \end{itemize}
     \item Pullbacks of $k$-forms.
     \begin{itemize}
-        \item Let $F:U\to V$ be smooth where $U\subset\R^n$ and $V\subset\R^m$.
+        \item Let $U\subset\R^n$ and $V\subset\R^m$.
+        \item Let $F:U\to V$ be smooth.
         \item This induces $F^*:\ome[k]{V}\to\ome[k]{U}$.
         \item We have $\dd{F_p}:T_p\R^n\to T_{F(p)}\R^m$, which also induces $\dd{F_p^*}:\lam[k]{T_{F(p)}^*\R^m}\to\lam[k]{T_p^*\R^n}$.
         \item Note that $F^*$ maps $\omega\mapsto F^*\omega$ where $F^*\omega_p=\dd{F_p^*\omega_{F(p)}}$.
     \end{itemize}
-    \item In formulas\dots
-    \begin{align*}
-        \omega &= \sum_I\varphi_I\dd{x_I}&
-        F^*\omega &= \sum_IF^*\varphi_I\dd{F_I}
-    \end{align*}
+    \item In formulas, if
+    \begin{equation*}
+        \omega = \sum_I\varphi_I\dd{x_I}
+    \end{equation*}
+    then
+    \begin{equation*}
+        F^*\omega = \sum_IF^*\varphi_I\dd{F_I}
+    \end{equation*}
     \begin{itemize}
-        \item $\varphi_I$ is just a function.
+        \item $\varphi_I\in V^*$.
         \item Recall that $F^*\varphi_I=\varphi_I\circ F:U\to\R$.
         \item If $I=(i_1,\dots,i_k)$, then $\dd{F_I}=\dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}$.
-        \item Recall that $F_{i_j}:U\to\R$ sends $x\mapsto x_{i_j}$ (the component of $F$).
+        \item $F_{i_j}:U\to\R$ sends $p\mapsto x_{i_j}\circ F(p)$, where $x_{i_j}$ (as the ${i_j}^\text{th}$ component function) isolates the ${i_j}^\text{th}$ component of $F(x)$.
         \item There is a derivation that gets you from the above abstract definition of the pullback to the below concrete form.
+        \item We can prove that $F^*\omega$ has the above form using properties 1-4 below.
     \end{itemize}
     \item Note that $\dd{F_p}$ is the kind of thing we worked on last quarter?
     \item Properties of the pullback (let $U\xrightarrow{F}V\xrightarrow{G}W$).
@@ -46,48 +214,84 @@
         \item $F^*(\omega_1\wedge\omega_2)=F^*\omega_1\wedge F^*\omega_2$.
         \item $(F\circ G)^*=G^*\circ F^*$.
         \item $\dd\circ F^*=F^*\circ\dd$.
-        \emph{picture; Commutative diagram}
+        \begin{figure}[h!]
+            \centering
+            \begin{tikzpicture}
+                \small
+                \node (1U) at (0,0) {$\ome[1]{U}$};
+                \node (1V) at (2,0) {$\ome[1]{V}$};
+                \node (0U) at (0,1.5) {$\ome[0]{U}$};
+                \node (0V) at (2,1.5) {$\ome[0]{V}$};
+        
+                \footnotesize
+                \draw [latex-] (1U) -- node[below]{$F^*$} (1V);
+                \draw [latex-] (1V) -- node[right]{$\dd$} (0V);
+                \draw [-latex] (0V) -- node[above]{$F^*$} (0U);
+                \draw [-latex] (0U) -- node[left]{$\dd$} (1U);
+        
+                % \draw [-{[flex]latex}] (-110:0.2) ++(1,0.75) arc[start angle=250,end angle=-70,radius=2mm];
+                \draw [-latex]
+                    (0V)
+                        -- ($(0V)!0.25!(1U)$)
+                        to[out=-143.1,in=36.9] ($(0V)!0.55!(1U)!0.4!-90:(1U)$)
+                        to[out=-143.1,in=36.9] ($(0V)!0.75!(1U)$)
+                        -- (1U)
+                    (0V)
+                        -- ($(0V)!0.25!(1U)$)
+                        to[out=-143.1,in=36.9] ($(0V)!0.55!(1U)!0.4!90:(1U)$)
+                        to[out=-143.1,in=36.9] ($(0V)!0.75!(1U)$)
+                        -- (1U)
+        
+                ;
+            \end{tikzpicture}
+            \caption{Commutative diagram.}
+            \label{fig:commuteDerivPullback}
+        \end{figure}
     \end{enumerate}
     \item Properties 1-3 follow from our Chapter 1 pointwise properties.
     \begin{itemize}
         \item They also yield the explicit formula for $F^*\omega$ given above.
     \end{itemize}
-    \item Property 4:
+    \item Proving property 4.
     \begin{itemize}
-        \item First: Recall that the following diagram holds.
-        \emph{picture}
-        \item Check: $\dd{F_I}=F^*\dd{x_I}$ where $\dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}$ where $I=(i_1,\dots,i_k)$.
-        \item Now we prove the property by taking
-        \begin{align*}
-            \dd{F_I} &= F^*(\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_k}})\\
-            &= F^*\dd{x_{i_1}}\wedge\cdots\wedge F^*\dd{x_{i_k}}\tag*{Property 2}\\
-            &= \dd(F^*x_{i_1})\wedge\cdots\wedge\dd{(F^*x_{i_k})}\\
-            &= \dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}
-        \end{align*}
-        \item Now we have that if $\omega=\sum_I\varphi_I\dd{x_I}$, then
+        \item Lemma 1: Figure \ref{fig:commuteDerivPullback} is true, i.e., property 4 holds for zero-forms.
+        \item Lemma 2: $\dd{F_I}=F^*\dd{x_I}$, where $I=(i_1,\dots,i_k)$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \dd{F_I} &= \dd{F_{i_1}}\wedge\cdots\wedge\dd{F_{i_k}}\\
+                &= \dd(x_{i_1}\circ F)\wedge\cdots\wedge\dd(x_{i_1}\circ F)\\
+                &= \dd(F^*x_{i_1})\wedge\cdots\wedge\dd(F^*x_{i_k})\\
+                &= F^*\dd(x_{i_1})\wedge\cdots\wedge F^*\dd(x_{i_k})\tag*{Lemma 1}\\
+                &= F^*\dd{x_{i_1}}\wedge\cdots\wedge F^*\dd{x_{i_k}}\\
+                &= F^*(\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_k}})\tag*{Property 2}\\
+                &= F^*\dd{x_I}
+            \end{align*}
+            as desired.
+        \end{proof}
+        \item Let $\omega=\sum_I\varphi_I\dd{x_I}$. Then
         \begin{align*}
             \dd(F^*\omega) &= \dd(\sum_IF^*\varphi_I\dd{F_I})\\
             &= \sum_I\dd(F^*\varphi_I\wedge\dd{F_I})\\
             &= \sum_I\dd(F^*\varphi_I)\wedge\dd{F_I}\\
-            &= \sum_IF^*\dd{\varphi_I}\wedge F^*\dd{x_I}\\
+            &= \sum_IF^*\dd{\varphi_I}\wedge F^*\dd{x_I}\tag*{Lemma 2}\\
             &= \sum_IF^*(\dd{\varphi_I}\wedge\dd{x_I})\\
             &= F^*\left( \sum_I\dd{\varphi_I}\wedge\dd{x_I} \right)\\
+            &= F^*\left( \sum_I\dd(\varphi_I\dd{x_I}) \right)\\
+            &= F^*\dd\left( \sum_I\varphi_I\dd{x_I} \right)\\
             &= F^*\dd{\omega}
         \end{align*}
-        where the second equality holds by the linearity of $\dd$ and we insert the wedge because multiplication is the same as wedging a zero-form, the third equality holds by the product rule $\dd^2=0$, the fourth equality holds because $\dd$ and $F^*$ commute for 0-forms, and the fifth equality holds by Property 2.
     \end{itemize}
     \item $\dd^2=0$ generalizes curl and all of those identities.
     \item Two other operations.
-    \item \textbf{Interior product}: Given $v$ a vector field on $U$, we have $\iota_v:\ome[k]{U}\to\ome[k-1]{U}$ that sends $\omega\mapsto\iota_v\omega$.
-    \begin{itemize}
-        \item Its properties follow from the properties of the pointwise stuff.
-        \begin{enumerate}
-            \item $\iota_v(\omega_1+\omega_2)=\iota_v\omega_1+\iota_v\omega_2$.
-            \item $\iota_v(\omega_1\wedge\omega_2)=\cdots$.
-            \item $\iota_v\circ\iota_w=-\iota_w\circ\iota_v$.
-        \end{enumerate}
-    \end{itemize}
-    \item \textbf{Lie derivative}: If $v$ is a vector field on $U$, then $L_v:\ome[k]{U}\to\ome[k]{U}$ sends $\omega\mapsto\dd{\iota_v\omega}+\iota_v\dd{\omega}$.
+    \item \textbf{Interior product}: Given $\bm{v}$ a vector field on $U$, we have $\iota_{\bm{v}}:\ome[k]{U}\to\ome[k-1]{U}$ that sends $\omega\mapsto\iota_{\bm{v}}\omega$.
+    \item Its properties follow from the properties of the pointwise stuff.
+    \begin{enumerate}
+        \item $\iota_{\bm{v}}(\omega_1+\omega_2)=\iota_{\bm{v}}\omega_1+\iota_{\bm{v}}\omega_2$.
+        \item $\iota_{\bm{v}}(\omega\wedge\mu)=\iota_{\bm{v}}\omega\wedge\mu+(-1)^k\omega\wedge\iota_{\bm{v}}\mu$.
+        \item $\iota_{\bm{v}}\circ\iota_{\bm{w}}=-\iota_{\bm{w}}\circ\iota_{\bm{v}}$.
+    \end{enumerate}
+    \item \textbf{Lie derivative}: If $\bm{v}$ is a vector field on $U$, then $L_{\bm{v}}:\ome[k]{U}\to\ome[k]{U}$ sends $\omega\mapsto\dd{\iota_{\bm{v}}\omega}+\iota_{\bm{v}}\dd{\omega}$.
     \begin{itemize}
         \item Note that we use $\iota$ to drop the index and $\dd$ to raise it back up, and then vice versa.
     \end{itemize}
@@ -95,13 +299,13 @@
     \item Cartan's magic formula is what we're taking to be the definition of the Lie derivative.
     \item Properties.
     \begin{enumerate}
-        \item $L_v\circ\dd=\dd\circ L_v$.
-        \item $L_v(\omega\wedge\eta)=L_v\omega\wedge\eta+\omega\wedge L_v\eta$.
+        \item $L_{\bm{v}}\circ\dd=\dd\circ L_{\bm{v}}$.
+        \item $L_{\bm{v}}(\omega\wedge\eta)=L_{\bm{v}}\omega\wedge\eta+\omega\wedge L_{\bm{v}}\eta$.
         \begin{itemize}
             \item Proof:
             \begin{align*}
-                \dd(\iota_v\dd+\dd\iota_v) &= \dd\iota_v\dd\\
-                &= \iota_v(\iota_v\dd+\dd\iota_v)
+                \dd(\iota_{\bm{v}}\dd+\dd\iota_{\bm{v}}) &= \dd\iota_{\bm{v}}\dd\\
+                &= \iota_{\bm{v}}(\iota_{\bm{v}}\dd+\dd\iota_{\bm{v}})
             \end{align*}
         \end{itemize}
     \end{enumerate}
@@ -109,13 +313,82 @@
     \begin{itemize}
         \item Your vector field will be of the form
         \begin{equation*}
-            v = \sum f_i\pdv*{x_i}
+            \bm{v} = \sum f_i\pdv*{x_i}
         \end{equation*}
         \item Your form will be of the form
         \begin{equation*}
             \omega = \sum\varphi_I\dd{x_I}
         \end{equation*}
     \end{itemize}
+\end{itemize}
+
+
+
+\section{Connections with Vector Calculus}
+\emph{From \textcite{bib:KlugVectorCalc}.}
+\begin{itemize}
+    \item \marginnote{5/26:}2-dimensional analogues of class content.
+    \begin{itemize}
+        \item Let $U\subset\R^2$ and let $\mathfrak{X}(U)$ be the vector space of vector fields on $U$.
+        \item 1-forms on $U$ are of the form
+        \begin{equation*}
+            f\dd{x}+g\dd{y}
+        \end{equation*}
+        \item We have an isomorphism of vector spaces $\sharp:\ome[1]{U}\to\mathfrak{X}(U)$ defined by
+        \begin{equation*}
+            f\dd{x}+g\dd{y} \mapsto f\pdv{x}+g\pdv{y}
+        \end{equation*}
+        \begin{itemize}
+            \item The inverse of $\sharp$ is denoted $\flat$.
+            \item As such, these functions are referred to as the \textbf{musical operators}.
+        \end{itemize}
+        \item The exterior derivative of a function on $\R^2$ is
+        \begin{equation*}
+            \dd f = \pdv{f}{x}\dd{x}+\pdv{f}{y}\dd{y}
+        \end{equation*}
+        \begin{itemize}
+            \item This is the \textbf{gradient}.
+        \end{itemize}
+        \item The exterior derivative of a one-form on $\R^2$ is
+        \begin{equation*}
+            \dd(f\dd{x}+g\dd{y}) = \left( \pdv{g}{x}-\pdv{f}{y} \right)\dd{x}\wedge\dd{y}
+        \end{equation*}
+        \begin{itemize}
+            \item This is related to \textbf{Green's theorem}.
+            \item The expression is called the \textbf{2-dimensional curl} (of a vector field), where here we are freely identifying 1-forms and vector fields via $\sharp$.
+            \item If we (1) make this precise and (2) prove that the intuitive definition of curl agrees with the above formula, we should gain some geometric intuition for $\dd$ in this particular (co)dimension.
+        \end{itemize}
+        \item The fact that gradient vector fields are curl free, i.e., $\crl\circ\grd=0$, reflects the fact that $\dd^2=0$.
+    \end{itemize}
+    \item \textbf{2-dimensional curl} (of $\bm{v}\in\mathfrak{X}(U)$): The function from $U\to\R$ describing the way that a ball centered at $p\in U$ would rotate (or "curl") when left in $\bm{v}$. \emph{Denoted by} $\bm{\crl(\pmb{v})}$.
+    \item 3-dimensional analogues of class content.
+    \begin{itemize}
+        \item Gradient of the zero-form $f:U\to\R$ where $U\subset\R^3$.
+        \begin{equation*}
+            \dd f = \pdv{f}{x}\dd{x}+\pdv{f}{y}\dd{y}+\pdv{f}{z}\dd{z}
+        \end{equation*}
+        \begin{itemize}
+            \item We have that $\sharp\circ\dd^0$ gives the gradient, exactly as in two dimensions.
+        \end{itemize}
+        \item Curl of the one-form $f\dd{x}+g\dd{y}+h\dd{z}$.
+        \begin{equation*}
+            \dd(f\dd{x}+g\dd{y}+h\dd{z}) = \left( \pdv{g}{x}-\pdv{f}{y} \right)\dd{x}\wedge\dd{y}+\left( \pdv{h}{y}-\pdv{g}{z} \right)\dd{y}\wedge\dd{z}+\left( \pdv{h}{x}-\pdv{f}{z} \right)\dd{x}\wedge\dd{z}
+        \end{equation*}
+        \begin{itemize}
+            \item $\crl(\bm{v})$ is again a vector field, just with the direction at a point being the axis of rotation of a small ball placed at that point.
+            \item Once again, we can identify $\ome[1]{U},\ome[2]{U}$ with $\mathfrak{X}(U)$ to learn that $\dd$ is curl and gradient fields are curl free as a result of $\dd^2=0$.
+        \end{itemize}
+        \item Divergence of the two-form $f\dd{x}\wedge\dd{y}+g\dd{y}\wedge\dd{z}+h\dd{x}\wedge\dd{z}$.
+        \begin{equation*}
+            \dd(f\dd{x}\wedge\dd{y}+g\dd{y}\wedge\dd{z}+h\dd{x}\wedge\dd{z}) = \left( \pdv{f}{z}+\pdv{g}{x}-\pdv{h}{y} \right)\dd{x}\wedge\dd{y}\wedge\dd{z}
+        \end{equation*}
+        \begin{itemize}
+            \item Modulo a sign, this is the \textbf{divergence} of a vector field in three dimensions.
+            \item We can identify $\ome[2]{U}$ and $\ome[3]{U}$ with $\mathfrak{X}(U)$ and $\ome[0]{U}$, respectively, to learn that $\dd$ is div and the fact that $\dvv\circ\crl=0$ follows from $\dd^2=0$.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Divergence} (of $\bm{v}\in\mathfrak{X}(U)$): The function from $U\to\R$ which geometrically represents the compression/stretching of objects placed in the vector field. \emph{Denoted by} $\bm{\dvv(\pmb{v})}$.
+    \item Take away: The exterior derivative packages the three operations of vector calculus, and $\dd^2=0$ generalizes several simple formulas from vector calculus.
 \end{itemize}
 
 
@@ -128,6 +401,298 @@
         p \mapsto \iota_{\bm{v}(p)}\omega_p
     \end{equation*}
     \item By definition, $\iota_{\bm{v}(p)}\omega_p\in\lam[k-1]{T_p^*\R^n}$.
+    \item \marginnote{5/26:}Properties 2.5.3: The following are properties of the interior product defined above, where $U\subset\R^n$ open, $\bm{v},\bm{w}$ are vector fields on $U$, $\omega_1,\omega_2,\omega\in\ome[k]{U}$, and $\mu\in\ome[\ell]{U}$.
+    \begin{enumerate}
+        \item \emph{Linearity in the form}: We have
+        \begin{equation*}
+            \iota_{\bm{v}}(\omega_1+\omega_2) = \iota_{\bm{v}}\omega_1+\iota_{\bm{v}}\omega_2
+        \end{equation*}
+        \item \emph{Linearity in the vector field}: We have
+        \begin{equation*}
+            \iota_{\bm{v}+\bm{w}}\omega = \iota_{\bm{v}}\omega+\iota_{\bm{w}}\omega
+        \end{equation*}
+        \item \emph{Derivation property}: We have
+        \begin{equation*}
+            \iota_{\bm{v}}(\omega\wedge\mu) = \iota_{\bm{v}}\omega\wedge\mu+(-1)^k\omega\wedge\iota_{\bm{v}}\mu
+        \end{equation*}
+        \item The identity
+        \begin{equation*}
+            \iota_{\bm{v}}(\iota_{\bm{w}}\omega) = -\iota_{\bm{w}}(\iota_{\bm{v}}\omega)
+        \end{equation*}
+        \item The identity, as a special case of (4),
+        \begin{equation*}
+            \iota_{\bm{v}}(\iota_{\bm{v}}\omega) = 0
+        \end{equation*}
+        \item If $\omega=\mu_1\wedge\cdots\wedge\mu_k$ (i.e., if $\omega$ is \textbf{decomposable}), then
+        \begin{equation*}
+            \iota_{\bm{v}}\omega = \sum_{r=1}^k(-1)^{r-1}\iota_{\bm{v}}(\mu_r)\mu_1\wedge\cdots\wedge\widehat{\mu_r}\wedge\cdots\wedge\mu_k
+        \end{equation*}
+    \end{enumerate}
+    \item The following are two assertions to prove, both of which are special cases of Property 2.5.3(6).
+    \item Example 2.5.4: If $\bm{v}=\pdv*{x_r}$ and $\omega=\dd{x_I}$, then
+    \begin{equation*}
+        \iota_{\bm{v}}\omega = \sum_{i=1}^k(-1)^{i-1}\delta_{i,i_r}\dd{x_{I_r}}
+    \end{equation*}
+    where
+    \begin{align*}
+        \delta_{i,i_r} &=
+        \begin{cases}
+            1 & i = i_r\\
+            0 & i \neq i_r
+        \end{cases}&
+        I_r &= (i_1,\dots,\widehat{i_r},\dots,i_k)
+    \end{align*}
+    \item Example 2.5.6: If $\bm{v}=\sum_{i=1}^nf_i\pdv*{x_i}$ and $\omega=\dd{x_1}\wedge\cdots\wedge\dd{x_n}$, then
+    \begin{equation*}
+        \iota_{\bm{v}}\omega=\sum_{r=1}^n(-1)^{r-1}f_r\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_r}}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    \item \textbf{Lie derivative} (of $\omega$ with respect to $\bm{v}$): The $k$-form defined as follows, where $U\subset\R^n$ is open, $\bm{v}$ is a vector field on $U$, and $\omega\in\ome[k]{U}$.
+    \begin{equation*}
+        L_{\bm{v}}\omega = \iota_{\bm{v}}(\dd\omega)+\dd(\iota_{\bm{v}}\omega)
+    \end{equation*}
+    \item Properties 2.5.10: The following are properties of the Lie derivative defined above, where $U\subset\R^n$ open, $\bm{v}$ is a vector field on $U$, $\omega\in\ome[k]{U}$, and $\mu\in\ome[\ell]{U}$.
+    \begin{enumerate}
+        \item \emph{Commutativity with exterior differentiation}: We have
+        \begin{equation*}
+            \dd(L_{\bm{v}}\omega) = L_{\bm{v}}(\dd\omega)
+        \end{equation*}
+        \item \emph{Interaction with wedge products}: We have
+        \begin{equation*}
+            L_{\bm{v}}(\omega\wedge\mu) = L_{\bm{v}}\omega\wedge\mu+\omega\wedge L_{\bm{v}}\mu
+        \end{equation*}
+    \end{enumerate}
+    \item An explicit formula for $L_{\bm{v}}\omega$.
+    \begin{itemize}
+        \item Let $\omega\in\ome[k]{U}$ be defined by $\omega=\sum_If_I\dd{x_I}$ for $f_I\in C^\infty(U)$, and let $\bm{v}=\sum_{i=1}^ng_i\pdv*{x_i}$ for $g_i\in C^\infty(U)$.
+        \item Then by the above properties,
+        \begin{align*}
+            L_{\bm{v}}\omega &= L_{\bm{v}}\left( \sum_If_I\dd{x_I} \right)\\
+            &= \sum_IL_{\bm{v}}(f_I\dd{x_I})\\
+            &= \sum_I\left[ (L_{\bm{v}}f_I)\dd{x_I}+f_I(L_{\bm{v}}\dd{x_I}) \right]\\
+            &= \sum_I\left[ \left( \sum_{i=1}^ng_i\pdv{f_I}{x_i} \right)\dd{x_I}+f_I\left( \sum_{r=1}^k\dd{x_{i_1}}\wedge\cdots\wedge L_{\bm{v}}\dd{x_{i_r}}\wedge\cdots\wedge\dd{x_{i_k}} \right) \right]\\
+            &= \sum_I\left[ \left( \sum_{i=1}^ng_i\pdv{f_I}{x_i} \right)\dd{x_I}+f_I\left( \sum_{r=1}^k\dd{x_{i_1}}\wedge\cdots\wedge\dd L_{\bm{v}}x_{i_r}\wedge\cdots\wedge\dd{x_{i_k}} \right) \right]\\
+            &= \sum_I\left[ \left( \sum_{i=1}^ng_i\pdv{f_I}{x_i} \right)\dd{x_I}+f_I\left( \sum_{r=1}^k\dd{x_{i_1}}\wedge\cdots\wedge\dd g_{i_r}\wedge\cdots\wedge\dd{x_{i_k}} \right) \right]\\
+            &= \sum_I\left[ \left( \sum_{i=1}^ng_i\pdv{f_I}{x_i} \right)\dd{x_I}+f_I\left( \sum_{r=1}^k\dd{x_{i_1}}\wedge\cdots\wedge\left( \sum_{i=1}^n\pdv{g_{i_r}}{x_i}\dd{x_i} \right)\wedge\cdots\wedge\dd{x_{i_k}} \right) \right]\\
+            &= \sum_I\left[ \left( \sum_{i=1}^ng_i\pdv{f_I}{x_i} \right)\dd{x_I}+f_I\left( \sum_{r=1}^k\sum_{i=1}^n\pdv{g_{i_r}}{x_i}\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_{r-1}}}\wedge\dd{x_i}\wedge\dd{x_{i_{r+1}}}\wedge\cdots\wedge\dd{x_{i_k}} \right) \right]\\
+            &= \sum_I\left[ \left( \sum_{i=1}^ng_i\pdv{f_I}{x_i} \right)\dd{x_I}+f_I\left( \sum_{r=1}^k\sum_{\substack{i=1\\i\notin I}}^n\pdv{g_{i_r}}{x_i}\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_{r-1}}}\wedge\dd{x_i}\wedge\dd{x_{i_{r+1}}}\wedge\cdots\wedge\dd{x_{i_k}} \right) \right]
+        \end{align*}
+    \end{itemize}
+    \item Lemma 2.5.13 (the divergence formula): Let $U\subset\R^n$ open, $g_1,\dots,g_n\in C^\infty(U)$, and $\bm{v}=\sum_{i=1}^ng_i\pdv*{x_i}$. Then
+    \begin{equation*}
+        L_{\bm{v}}(\dd{x_1}\wedge\cdots\wedge\dd{x_n}) = \sum_{i=1}^n\left( \pdv{g_i}{x_i} \right)\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    \item \textbf{Pullback} (of $\omega$ along $f$): The $k$-form on $U$ defined as follows, where $U\subset\R^n$ and $V\subset\R^m$ are open, $f:U\to V$ is a $C^\infty$ map, $\omega$ is a $k$-form on $V$, $p\in U$, and $q=f(p)$. \emph{Denoted by} $\bm{f^*\omega}$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto \dd f_p^*\omega_q
+    \end{equation*}
+    \begin{itemize}
+        \item Note that it is because $\dd f_p$ is linear that we get an induced pullback $\dd f_p^*=(\dd f_p)^*:\lam[k]{T_q^*\R^m}\to\lam[k]{T_p^*\R^n}$.
+    \end{itemize}
+    \item Properties 2.6.4: The following are properties of the pullback defined above, where $U\subset\R^n$ and $V\subset\R^m$ are open and $f:U\to V$ is a $C^\infty$ map.
+    \begin{enumerate}
+        \item Let $\phi\in C^\infty(V)$ be a zero-form. Since $\lam[0]{T_p^*}=\lam[0]{T_q^*}=\R$, we have that $\dd f_p^*=\id_\R$ when $k=0$. Hence for zero forms,
+        \begin{equation*}
+            (f^*\phi)(p) = (\phi\circ f)(p)
+        \end{equation*}
+        for all $p\in U$.
+        \item Let $\phi\in\ome[0]{U}$, and let $\mu\in\ome[1]{V}$ be the 1-form $\mu=\dd\phi$. By the chain rule,
+        \begin{equation*}
+            \dd f_p^*\mu_q = (\dd f_p)^*\dd\phi_q
+            = (\dd\phi)_q\circ\dd f_p
+            = \dd(\phi\circ f)_p
+        \end{equation*}
+        Hence, by property (1),
+        \begin{equation*}
+            f^*\dd\phi = \dd f^*\phi
+        \end{equation*}
+        \item Let $\omega_1,\omega_2\in\ome[k]{V}$. Then
+        \begin{equation*}
+            \dd f_p^*(\omega_1+\omega_2)_q = \dd f_p^*(\omega_1)_q+\dd f_p^*(\omega_2)_q
+        \end{equation*}
+        so
+        \begin{equation*}
+            f^*(\omega_1+\omega_2) = f^*\omega_1+f^*\omega_2
+        \end{equation*}
+        \item Since $\dd f_p^*$ commutes with the wedge product by Proposition 1.8.4(1), if $\omega_1\in\ome[k]{V}$ and $\omega_2\in\ome[\ell]{V}$, then
+        \begin{equation*}
+            \dd f_p^*[(\omega_1)_q\wedge(\omega_2)_q] = \dd f_p^*(\omega_1)_q\wedge\dd f_p^*(\omega_2)_q
+        \end{equation*}
+        so
+        \begin{equation*}
+            f^*(\omega_1\wedge\omega_2) = f^*\omega_1\wedge f^*\omega_2
+        \end{equation*}
+        \item Let $W\subset\R^k$ be open, $g:V\to W$ be a $C^\infty$ map, $p\in U$, $q=f(p)$, and $w=g(q)$. Then $(\dd g_q\circ\dd f_p)^*:\lam[k]{T_w^*}\to\lam[k]{T_p^*}$. But since $(\dd g_q)\circ(\dd f)_p = \dd(g\circ f)_p$ by the chain rule, we have that $\dd(g\circ f)_p^*:\lam[k]{T_w^*}\to\lam[k]{T_p^*}$. Thus, if $\omega\in\ome[k]{W}$, then
+        \begin{equation*}
+            f^*(g^*\omega) = (g\circ f)^*\omega
+        \end{equation*}
+    \end{enumerate}
+    \item An explicit formula for $f^*\omega$.
+    \begin{itemize}
+        \item Let $\omega\in\ome[k]{V}$ be given by $\omega=\sum_I\phi_I\dd{x_I}$, where the $\phi_I\in C^\infty(V)$. Then,
+        \begin{align*}
+            f^*\omega &= \sum_If^*\phi_If^*(\dd{x_I})\tag{1}\\
+            &= \sum_I(\phi_I\circ f)f^*(\dd x_{i_1})\wedge\cdots\wedge f^*(\dd x_{i_k})\tag{4}\\
+            &= \sum_I(\phi_I\circ f)\dd{f^*x_{i_1}}\wedge\cdots\wedge\dd{f^*x_{i_k}}\tag{2}\\
+            &= \sum_I(\phi_I\circ f)\dd(x_{i_1}\circ f)\wedge\cdots\wedge\dd(x_{i_k}\circ f)\tag{2}\\
+            &= \sum_I(\phi_I\circ f)\dd f_{i_1}\wedge\cdots\wedge\dd f_{i_k}\\
+            &= \sum_If^*\phi_I\dd f_I
+        \end{align*}
+        where the $f_{i_j}$ are the $i_j^\text{th}$ coordinate functions of the map $f$.
+        \item Notice that we have showed in the above derivation that
+        \begin{equation*}
+            f^*(\dd x_I) = \dd f_I
+        \end{equation*}
+    \end{itemize}
+    \item We now prove that the pullback commutes with exterior differentiation, i.e.,
+    \begin{equation*}
+        \dd(f^*\omega) = f^*\dd\omega
+    \end{equation*}
+    \begin{itemize}
+        \item We have that
+        \begin{align*}
+            \dd(f^*\omega) &= \dd(\sum_If^*\phi_I\dd f_I)\\
+            &= \sum_I\dd(f^*\phi_I\wedge\dd f_I)\\
+            &= \sum_I\left[ \dd(f^*\phi_I)\wedge\dd f_I+(-1)^kf^*\phi_I\wedge\dd(\dd f_I) \right]\\
+            &= \sum_I\left[ f^*(\dd\phi_I)\wedge f^*(\dd{x_I})+(-1)^kf^*\phi_I\wedge 0 \right]\\
+            &= \sum_If^*(\dd\phi_I)\wedge f^*(\dd{x_I})\\
+            &= f^*\sum_I\dd\phi_I\wedge\dd{x_I}\\
+            &= f^*(\dd\omega)
+        \end{align*}
+    \end{itemize}
+    \item A special case of $f^*(\dd x_I)=\dd f_I$:
+    \begin{equation*}
+        f^*(\dd x_1\wedge\cdots\wedge\dd x_n) = \det\left[ \pdv{f_i}{x_j} \right]\dd x_1\wedge\cdots\wedge\dd x_n
+    \end{equation*}
+    \begin{itemize}
+        \item Let $U,V\subset\R^n$ open. Then for all $p\in U$,
+        \begin{align*}
+            f^*(\dd{x_1}\wedge\cdots\wedge\dd{x_n})_p &= (\dd f_1)_p\wedge\cdots\wedge(\dd f_n)_p\\
+            &= \left[ \sum_{j=1}^n\eval{\pdv{f_1}{x_j}}_p(\dd x_j)_p \right]\wedge\cdots\wedge\left[ \sum_{j=1}^n\eval{\pdv{f_n}{x_j}}_p(\dd x_j)_p \right]\\
+            &= \det\left[ \eval{\pdv{f_i}{x_j}}_p \right](\dd x_1\wedge\cdots\wedge\dd x_n)_p
+        \end{align*}
+        \item See the argument used in Section 1.8 to derive the typical formula for the determinant for details and context on the above.
+    \end{itemize}
+    \item \textbf{Homotopy} (between $f_0$ and $f_1$): A $C^\infty$ map from $U\times A\to V$ (where $U\subset\R^n$ and $V\subset\R^m$ are open, $\{0,1\}\subset A\subset\R$ is an open interval, and $f_0,f_1:U\to V$ are $C^\infty$ maps) such that
+    \begin{align*}
+        (x,0) &\mapsto f_0(x)\\
+        (x,1) &\mapsto f_1(x)
+    \end{align*}
+    \emph{Denoted by} $\bm{F}$.
+    \item \textbf{Homotopic} (maps): Two maps $f_0,f_1$ to which there corresponds a homotopy $F$. \emph{Denoted by} $\bm{f_0\simeq f_1}$.
+    \begin{itemize}
+        \item "Intuitively, $f_0$ and $f_1$ are homotopic if there exists a family of $C^\infty$ maps $f_t:U\to V$ where $f_t(x)=F(x,t)$ which `smoothly deform $f_0$ into $f_1$'" \parencite[56]{bib:DifferentialForms}.
+    \end{itemize}
+    \item Theorem 2.6.15: If $U\subset\R^n$ and $V\subset\R^m$ open and $f_0,f_1:U\to V$ homotopic $C^\infty$ maps, then for every closed form $\omega\in\ome[k]{V}$, the form $f_1^*\omega-f_0^*\omega$ is exact.
+    \begin{itemize}
+        \item This theorem is closely related to the Poincar\'{e} lemma (Lemma 2.4.16) and actually implies a slightly stronger version of it.
+    \end{itemize}
+    \item \textbf{Contractible} (open subset $U\subset\R^n$): An open subset $U\subset\R^n$ for which there exists a point $p_0\in U$ such that $\id_U:U\to U$ is homotopic to the constant map $f_0:U\to U$ defined by $f_0(p)=p_0$ at $p_0$.
+    \begin{itemize}
+        \item A contractible set is so named because it can be shrunk to a single point continuously.
+    \end{itemize}
+    \item Theorem 2.6.15 implies that the Poincar\'{e} lemma holds for contractible open subsets of $\R^n$. In particular, if $U$ is contractible, then every closed $k$-form on $U$ of degree $k>0$ is exact.
+    \begin{proof}
+        Let $U$ be contractible, and let $\omega\in\ome[k]{U}$ be closed. Since $U$ is contractible, $\id_U$ and $f$ a constant function are homotopic. Thus, by Theorem 2.6.15, $\id_U^*\omega-f^*\omega=\omega$ is exact.
+    \end{proof}
+    \item The three basic operations of 3D vector calculus are gradient, curl, and divergence. These operations are closely related to $\dd:\ome[k]{\R^3}\to\ome[k+1]{\R^3}$ for $k=0,1,2$, respectively.
+    \begin{itemize}
+        \item Gradient and divergence generalize to higher dimensions, with gradient always equal to $\dd^0$ and divergence always equal to $\dd^{n-1}$.
+        \item Why we should use differential forms, even in three dimensions: \textbf{General covariance}.
+        \begin{itemize}
+            \item Translations and rotations of $\R^3$ preserve div and curl, but $\dd^0,\dd^1,\dd^2$ admit all diffeomorphisms of $\R^3$ as symmetries.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{General covariance}: The desire to formulate the laws of physics in such a way that they admit as large a set of symmetries as possible.
+    \item There are two (natural) ways to convert vector fields into forms.
+    \item Conversion using the \emph{inner} product.
+    \begin{itemize}
+        \item Let $B(v,w)=\sum_nv_iw_i$ be the inner product on $\R^n$.
+        \item By Exercise 1.2.xi, the inner product induces a bijective linear map $L:\R^n\to(\R^n)^*$ such that $L(v)=\ell_v$ iff $\ell_v(w)=B(v,w)$.
+        \item By identifying $T_p\R^n\cong\R^n$, we may transfer $B,L$ to $T_p\R^n$, providing an inner product $B_p$ on $T_p\R^n$ and a bijective linear map $L_p:T_p\R^n\to T_p^*\R^n$.
+        \begin{itemize}
+            \item Note that the only difference between $L$ and $L_p$ (resp. $B$ and $B_p$) is that $L_p$ eats $(p,v)$ and focuses on $v$ while $L$ eats $v$ directly.
+        \end{itemize}
+        \item The identification $p\mapsto L_p\bm{v}(p)$ constitutes the 1-form $\bm{\pmb{v}^\sharp}$.
+        \begin{itemize}
+            \item Intuition: $\bm{v}$ is a vector field. Thus, $v=\bm{v}(p)$ is the vector in $\bm{v}$ at point $p$. What $L_p$ does is take this vector (as part of $(p,v)$) and return the linear functional $(\ell_v)_p\in T_p^*\R^n$ which sends $(p,w)\mapsto(p,\ell_v(w))$. So essentially, we are identifying with every point $p$ the linear functional that maps every vector $w$ (as part of the ordered pair $(p,w)\in T_p\R^n$) to its inner product with $v$, $B(v,w)$ (again, as part of the ordered pair $(p,B(v,w))\in T_p\R^n$).
+        \end{itemize}
+    \end{itemize}
+    \item $\bm{\pmb{v}^\sharp(p)}$: The cotangent vector
+    \begin{equation*}
+        \pmb{v}^\sharp(p) = L_p\bm{v}(p)
+    \end{equation*}
+    \item Consequences.
+    \begin{itemize}
+        \item We have that
+        \begin{equation*}
+            \bm{v} = \pdv{x_i} \quad\Longleftrightarrow\quad \bm{v}^\sharp = \dd{x_i}
+        \end{equation*}
+        \item More generally,
+        \begin{equation*}
+            \bm{v} = \sum_{i=1}^nf_i\pdv{x_i} \quad\Longleftrightarrow\quad \bm{v}^\sharp = \sum_{i=1}^nf_i\dd{x_i}
+        \end{equation*}
+    \end{itemize}
+    \item \textbf{Gradient} (of a function $f$): The following vector field, as determined by $f\in C^\infty(U)$ where $U\subset\R^n$. \emph{Denoted by} $\bm{\grd(f)}$. \emph{Given by}
+    \begin{equation*}
+        \grd(f) = \sum_{i=1}^n\pdv{f}{x_i}
+    \end{equation*}
+    \begin{itemize}
+        \item This gets converted by $\sharp$ into the 1-form $\sum_{i=1}^n\pdv*{f}{x_i}\dd{x_i}=\dd{f}$.
+        \item Thus, the gradient operation is essentially just the exterior derivative operation $\dd^0$.
+    \end{itemize}
+    \item Conversion using the \emph{interior} product.
+    \begin{itemize}
+        \item Let $\bm{v}=\sum_{i=1}^nf_i\pdv*{x_i}$ be a $C^\infty$ vector field on $U\subset\R^n$ open. Let $\Omega=\dd{x_1}\wedge\cdots\wedge\dd{x_n}$.
+        \item Then
+        \begin{equation*}
+            \iota_{\bm{v}}\Omega = \sum_{r=1}^n(-1)^{r-1}f_r\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_r}}\wedge\cdots\wedge\dd{x_n}
+        \end{equation*}
+        \item Since every $(n-1)$-form can be written uniquely as such a sum, the above equation defines a bijective correspondence between vector fields and $(n-1)$-forms.
+    \end{itemize}
+    \item The $\dd$ operation as an operation on vector fields.
+    \begin{itemize}
+        \item We may define $\dd(\bm{v})$ by
+        \begin{equation*}
+            \bm{v} \mapsto \dd\iota_{\bm{v}}\Omega
+        \end{equation*}
+        \item The expression on the right above can related to the \textbf{divergence} as follows.
+        \begin{align*}
+            \dd\iota_{\bm{v}}\Omega &= \iota_{\bm{v}}(\dd(\dd{x_1}\wedge\cdots\wedge\dd{x_n}))+\dd(\iota_{\bm{v}}\Omega)\\
+            &= L_{\bm{v}}\Omega\\
+            &= \dvv(\bm{v})\Omega
+        \end{align*}
+        \begin{itemize}
+            \item The first equality follows by $\dd^2=0$.
+            \item The second equality follows by the definition of the Lie derivative of $\omega$ with respect to $\bm{v}$.
+            \item The third equality follows by Lemma 2.5.13.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Divergence} (of a vector field $\bm{v}$): The following function from $U\to\R$, where $\bm{v}=\sum_{i=1}^nf_i\pdv*{x_i}$ is a vector field over $U$. \emph{Denoted by} $\bm{\dvv(\pmb{v})}$. \emph{Given by}
+    \begin{equation*}
+        \dvv(\bm{v}) = \sum_{i=1}^n\pdv{f_i}{x_i}
+    \end{equation*}
+    \begin{itemize}
+        \item The above correspondence between $(n-1)$-forms and vector fields converts $\dd$ into the divergence operation on vector fields.
+    \end{itemize}
+    \item \textbf{Curl} (of a vector field $\bm{v}$): The unique vector field $\bm{w}$ such that $\dd(\bm{v}^\sharp)=\iota_{\bm{w}}\dd{x_1}\wedge\dd{x_2}\wedge\dd{x_3}$, where $U\subset\R^3$ open and $\bm{v}$ is a vector field on $U$. \emph{Denoted by} $\bm{\crl(\pmb{v})}$.
+    \item We should confirm that this definition coincides with that from vector calculus. In particular, we should check that if $\bm{v}=\sum_{i=1}^3f_i\pdv*{x_i}$, then
+    \begin{equation*}
+        \crl(\bm{v}) = \sum_{i=1}^3g_i\pdv{x_i}
+    \end{equation*}
+    where
+    \begin{align*}
+        g_1 &= \pdv{f_2}{x_3}-\pdv{f_3}{x_2}\\
+        g_2 &= \pdv{f_3}{x_1}-\pdv{f_1}{x_3}\\
+        g_3 &= \pdv{f_1}{x_2}-\pdv{f_2}{x_1}
+    \end{align*}
+    \item Take aways:
+    \begin{itemize}
+        \item The gradient, curl, and divergence operations have differential-form analogues (i.e., $\dd^0,\dd^1,\dd^2$).
+        \item To define the gradient, we needed the inner product. To define the divergence, we had to equip $U$ with $\Omega$. To define the curl, we needed both.
+        \item It's these additional structures that explains why diffeomorphisms preserve $\dd^0,\dd^1,\dd^2$, but not $\grd,\crl,\dvv$.
+    \end{itemize}
+    \item \textcite{bib:DifferentialForms} expresses Maxwell's equations in terms of differential forms.
+    \item \textcite{bib:DifferentialForms} introduces symplectic geometry and Hamiltonian mechanics.
 \end{itemize}
 
 

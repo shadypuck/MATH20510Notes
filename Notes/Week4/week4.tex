@@ -36,12 +36,12 @@
         \begin{itemize}
             \item \textcite{bib:DifferentialForms} doesn't, but Klug will and we should distinguish between functions $F:U\to V$ and $f:U\to\R$.
         \end{itemize}
-        \item We will soon construct a map $d:\ome[0]{U}\to\ome[1]{U}$ (the \textbf{exterior derivative}) that is rather like the gradient but not quite.
+        \item We will soon construct a map $\dd:\ome[0]{U}\to\ome[1]{U}$ (the \textbf{exterior derivative}) that is rather like the gradient but not quite.
         \begin{itemize}
-            \item $d$ is linear.
+            \item $\dd$ is linear.
             \item Maps from vector spaces are heretofore assumed to be linear unless stated otherwise.
         \end{itemize}
-        \item The 1-forms in $\im(d)$ are special: $\int_\gamma\dd{f}=f(\gamma(b))-f(\gamma(a))$ only depends on the endpoints of $\gamma:[a,b]\to U$! The integral is \emph{path-independent}.
+        \item The 1-forms in $\im(\dd)$ are special: $\int_\gamma\dd{f}=f(\gamma(b))-f(\gamma(a))$ only depends on the endpoints of $\gamma:[a,b]\to U$! The integral is \emph{path-independent}.
         \item A generalization of this fact is that instead of integrating along the surface $M$, we can integrate along the boundary curve:
         \begin{equation*}
             \int_M\dd{\omega} = \int_{\partial M}\omega
@@ -50,25 +50,25 @@
         \begin{itemize}
             \item $M$ is a $k$-dimensional subset of $U\subset\R^n$.
         \end{itemize}
-        \item Note that we have all manner of functions $d$ that we could differentiate between (because they are functions) but nobody does.
+        \item Note that we have all manner of functions $\dd$ that we could differentiate between (because they are functions) but nobody does.
         \begin{equation*}
             0 \rightarrow \ome[0]{U}
-            \xrightarrow{d} \ome[1]{U}
-            \xrightarrow{d} \ome[2]{U}
-            \xrightarrow{d} \cdots
-            \xrightarrow{d} \ome[n]{U}
-            \xrightarrow{d} 0
+            \xrightarrow{\dd} \ome[1]{U}
+            \xrightarrow{\dd} \ome[2]{U}
+            \xrightarrow{\dd} \cdots
+            \xrightarrow{\dd} \ome[n]{U}
+            \xrightarrow{\dd} 0
         \end{equation*}
-        \item Theorem: $d^2=d\circ d=0$.
+        \item Theorem: $\dd^2=\dd\circ\dd=0$.
         \begin{itemize}
-            \item Corollary: $\im(d^{n-1})\subset\ker(d^n)$.
+            \item Corollary: $\im(\dd^{n-1})\subset\ker(\dd^n)$.
         \end{itemize}
-        \item We'll define $H^k_{dR}(U)=\ker(d)/\im(d)$.
+        \item We'll define $H^k_{dR}(U)=\ker(\dd)/\im(\dd)$.
         \begin{itemize}
             \item These will be finite dimensional, even though all the individual vector spaces will be infinite dimensional.
             \item These will tell us about the shape of $U$; basically, if all of these equal zero, $U$ is simply connected. If some are nonzero, $U$ has some holes.
         \end{itemize}
-        \item For small values of $n$ and $k$, this $d$ will have some nice geometric interpretations (div, grad, curl, n'at).
+        \item For small values of $n$ and $k$, this $\dd$ will have some nice geometric interpretations (div, grad, curl, n'at).
         \item We'll have additional operations on forms such as the wedge product.
     \end{itemize}
     \item \textbf{Tangent space} (of $p$): The following set. \emph{Denoted by} $\bm{T_p\pmb{\R}^n}$. \emph{Given by}
@@ -86,6 +86,10 @@
             T_p\R^n \neq T_q\R^n
         \end{equation*}
         for $p\neq q$ even though the spaces are isomorphic.
+        \begin{itemize}
+            \item When in $\R^n$ alone, it may seem silly to define what is essentially just $\R^n$ again. After all, in $\R^n$, $(p,v)\in T_p\R^n$ and $(q,v)\in T_q(\R^n)$ both point in the same direction and are basically identical.
+            \item However, when we get to manifolds (see Figure \ref{fig:TpX}), isomorphic tangent spaces may not have vectors that point in the same direction in the space \emph{containing} the manifold!
+        \end{itemize}
         \item Aside: $F:U\to V$ differentiable and $p\in U$ induce a map $\dd{F_p}:T_p\R^n\to T_{F(p)}\R^m$ called the "derivative at $p$."
         \begin{itemize}
             \item We will see that the matrix of this map is the Jacobian.
@@ -100,14 +104,28 @@
     \item \textbf{Vector field} (on $U$): A function that assigns to each $p\in U$ an element of $T_p\R^n$.
     \begin{itemize}
         \item A constant vector field would be $p\mapsto(p,v)$, visualized as a field of vectors at every $p$ all pointing the same direction. For example, we could take $v=(1,1)$.
-        \emph{picture}
-        \item Special case: $v=e_1,e_2,\dots,e_n$. Here we use the notation $e_i=\dv*{x_i}$.
+        \begin{figure}[h!]
+            \centering
+            \begin{tikzpicture}
+                % \draw [help lines,step=5mm] (0,0) grid (2,2);
+                \draw (0,0) rectangle (2,2);
+        
+                \foreach \x in {0,0.5,1,1.5} {
+                    \foreach \y in {0,0.5,1,1.5} {
+                        \draw [brx,semithick,->] (\x,\y) -- ++(0.4,0.4);
+                    }
+                }
+            \end{tikzpicture}
+            \caption{The constant vector field $v=(1,1)$.}
+            \label{fig:constantVectorField}
+        \end{figure}
+        \item Special case: $v=e_1,e_2,\dots,e_n$. Here we use the notation $\pdv*{x_i}$ to denote the vector field with $v=e_i$.
         \item Example: $n=2$, $U=\R^2\setminus\{(0,0)\}$. We could take a vector field that spins us around in circles.
-        \item Notice that for all $p$, $\dv*{x_1}|_p,\dots,\dv*{x_n}|_p\in T_p\R^n$ are a basis.
+        \item Notice that for all $p$, $\pdv*{x_1}|_p,\dots,\pdv*{x_n}|_p\in T_p\R^n$ are a basis of $T_p\R^n$.
         \begin{itemize}
-            \item Thus, any vector field $v$ on $U$ can be written uniquely as
+            \item Thus, any vector field $\bm{v}$ on $U$ can be written uniquely as
             \begin{equation*}
-                v = f_1\dv{x_1}+\cdots+f_n\dv{x_n}
+                \bm{v} = f_1\pdv{x_1}+\cdots+f_n\pdv{x_n}
             \end{equation*}
             where the $f_1,\dots,f_n$ are functions $f_i:U\to\R$.
         \end{itemize}
@@ -123,51 +141,56 @@
         \item Vector fields and their integral curves.
         \item Lie derivatives.
         \item 1-forms and $k$-forms.
-        \item $\ome[0]{U}\xrightarrow{d}\ome[1]{U}$.
+        \item $\ome[0]{U}\xrightarrow{\dd}\ome[1]{U}$.
     \end{itemize}
     \item Notation.
     \begin{itemize}
         \item $U\subset\R^n$.
-        \item $v$ denotes a vector field on $U$.
+        \item $\bm{v}$ denotes a vector field on $U$.
         \begin{itemize}
-            \item Note that the set of all vector fields on $U$ constitute the vector space ??.
+            \item Note that the set of all vector fields on $U$ constitute the vector space $\mathfrak{X}(U)$.
         \end{itemize}
-        \item $v_p\in T_p\R^n$.
+        \item $\bm{v}_p\in T_p\R^n$.
         \item $\omega_p\in\lam[k]{T_p^*\R^n}$.
-        \item $\dv*{x_i}|_p=(p,e_i)\in T_p\R^n$.
+        \item $\pdv*{x_i}|_p=(p,e_i)\in T_p\R^n$.
     \end{itemize}
-    \item Recall that any vector field $v$ on $U$ can be written uniquely as
+    \item Recall that any vector field $\bm{v}$ on $U$ can be written uniquely as
     \begin{equation*}
-        v = g_1\dv{x_1}+\cdots+g_n\dv{x_n}
+        \bm{v} = g_1\pdv{x_1}+\cdots+g_n\pdv{x_n}
     \end{equation*}
     where the $g_i:U\to\R$.
-    \item \textbf{Smooth} (vector field): A vector field $v$ for which all $g_i$ are smooth.
+    \item \textbf{Smooth} (vector field): A vector field $\bm{v}$ for which all $g_i$ are smooth.
     \item From now on, we assume unless stated otherwise that all vector fields are smooth.
-    \item \textbf{Lie derivative} (of $f$ wrt. $v$): The function $L_vf:U\to\R$ defined by $p\mapsto D_{v_p}(f)(p)$, where $v$ is a vector field on $U$ and $f:U\to\R$ (always smooth).
+    \item \textbf{Lie derivative} (of $f$ wrt. $\bm{v}$): The function $L_{\bm{v}}f:U\to\R$ defined by $p\mapsto D_{\bm{v}_p}(f)(p)$, where $\bm{v}$ is a vector field on $U$ and $f:U\to\R$ (always smooth).
     \begin{itemize}
-        \item Recall that $D_{v_p}(f)(p)$ denotes the directional derivative of $f$ in the direction $v_p$ at $p$.
+        \item Recall that $D_{\bm{v}_p}(f)(p)$ denotes the directional derivative of $f$ in the direction $\bm{v}_p$\footnote{Note that by "in the direction $\bm{v}_p$," we mean in the direction $v$ where $\bm{v}_p=(p,v)$.} at $p$.
         \item As some examples, we have
         \begin{align*}
-            L_{\dv*{x_i}}f &= \dv{f}{x_i}&
-            L_{(g_1\dv{x_1}+\cdots+g_n\dv{x_n})}f &= g_1\dv{f}{x_1}+\cdots+g_n\dv{f}{x_n}
+            L_{\pdv*{x_i}}f &= \pdv{f}{x_i}&
+            L_{(g_1\pdv{x_1}+\cdots+g_n\pdv{x_n})}f &= g_1\pdv{f}{x_1}+\cdots+g_n\pdv{f}{x_n}
         \end{align*}
     \end{itemize}
     \item Property.
     \begin{enumerate}
-        \item Product rule: $L_v(f_1f_2)=(L_vf_1)f_2+f_1(L_vf_2)$.
+        \item Product rule: $L_{\bm{v}}(f_1f_2)=(L_{\bm{v}}f_1)f_2+f_1(L_{\bm{v}}f_2)$.
     \end{enumerate}
-    \item Later: Geometric meaning to the expression $L_vf=0$.
+    \item Later: Geometric meaning to the expression $L_{\bm{v}}f=0$.
     \begin{itemize}
-        \item Satisfied iff $f$ is constant on the integral curves of $v$. As if $f$ "flows along" the vector field.
+        \item Satisfied iff $f$ is constant on the integral curves of $\bm{v}$. As if $f$ "flows along" the vector field.
     \end{itemize}
     \item We define $T_p^*\R^n=(T_p\R^n)^*$.
     \item 1-forms:
     \begin{itemize}
         \item A (differential) 1-form on $U\subset\R^n$ is a function $\omega:p\mapsto\omega_p\in T_p^*\R^n$.
-        \item A "co-vector field"
+        \item A "co-vector field."
     \end{itemize}
-    \item Notation: $\dd{x_i}$ is the 1-form that at $p$ is $(p,e_i^*)\in T_p^*\R^n$.
-    \item For example, if $U=\R^2$ and $\omega=\dd{x_1}$, then we have the vector field of "unit vectors pointing to the right at each point."
+    \item Notation: $\dd{x_i}$ is the 1-form that at $p$ is the functional defined by
+    \begin{equation*}
+        (p,v) \mapsto e_i^*(v)
+    \end{equation*}
+    \begin{itemize}
+        \item For example, if $U=\R^2$ and $\omega=\dd{x_1}$, then $\omega_p$ returns (as a scalar) the $x_1$-component of any vector $v$ fed to it as a $(p,v)\in T_pU$ pair.
+    \end{itemize}
     \item Note: Given any 1-form $\omega$ on $U$, we can write $\omega$ uniquely as
     \begin{equation*}
         \omega = g_1\dd{x_1}+\cdots+g_n\dd{x_n}
@@ -178,21 +201,349 @@
         \item $\ome[1]{U}$ is the set of all smooth 1-forms.
         \item Notice that $\ome[1]{U}$ is a vector space.
     \end{itemize}
-    \item Given $\omega\in\ome[1]{U}$ and a vector field $v$ on $U$, we can define $\omega(v):U\to\R$ by $p\mapsto\omega_p(v_p)$.
+    \item Given $\omega\in\ome[1]{U}$ and a vector field $\bm{v}$ on $U$, we can define $\omega(\bm{v}):U\to\R$ by $p\mapsto\omega_p(\bm{v}_p)$.
     \item If $U=\R^2$, we have that
     \begin{align*}
-        \dd{x}\left( \dv{x} \right) &= 1&
-        \dd{x}\left( \dv{y} \right) &= 0
+        \dd{x}\left( \pdv{x} \right) &= 1&
+        \dd{x}\left( \pdv{y} \right) &= 0
     \end{align*}
-    \item Note that $\dd{x},\dd{y}$ are not a basis for $\ome[1]{U}$ since the latter is infinite dimensional.
-    \item Exterior derivative for 0/1 forms.
     \begin{itemize}
-        \item Let $d:\ome[0]{U}\to\ome[1]{U}$ take $f:U\to\R$ to $\pdv{f}{x_1}\dd{x_1}+\cdots+\pdv{f}{x_n}\dd{x_n}$.
+        \item Note that in the above equation, $1$ represents the identity function on $U$ and $0$ represents the zero function on $\R^2$.
+    \end{itemize}
+    \item $\dd{x_1},\dots,\dd{x_n}$ are not a basis for $\ome[1]{U}$ since the latter is infinite dimensional.
+    \begin{itemize}
+        \item In fact, at each point $p\in U$, we add $n$ dimensions to $\ome[1]{U}$, one for each basis vector of the basis $\pdv*{x_1}|_p,\dots,\pdv*{x_n}|_p$ of $T_p\R^n$.
+        \item Do not confuse our ability to decompose a one-form to $\sum_{i=1}^ng_i\dd{x_i}$ with the $\dd{x_i}$ being a basis for $\ome[1]{U}$. The difference is that the $g_i$ are functions, not constants; if the $\dd{x_i}$ were a basis of $\ome[1]{U}$, then any $\omega\in\ome[1]{U}$ would be able to be decomposed into $\omega=\sum_{i=1}^nc_i\dd{x_i}$ for $c_i\in\R$.
+    \end{itemize}
+    \item \textbf{Exterior derivative} (for 0/1 forms): The function from $\ome[0]{U}\to\ome[1]{U}$ (recall that $\ome[0]{U}\cong C^\infty(U)$) defined as follows. \emph{Denoted by} $\mathbf{d}$. \emph{Given by}
+    \begin{equation*}
+        f \mapsto \pdv{f}{x_1}\dd{x_1}+\cdots+\pdv{f}{x_n}\dd{x_n}
+    \end{equation*}
+    \begin{itemize}
         \item This represents the gradient as a 1-form.
     \end{itemize}
+    \item As the notation would suggest, the exterior derivative is nothing but a formalization of the familiar, intuitive concept of the differential.
+    \begin{itemize}
+        \item From computational calculus, we may intuitively rearrange the Leibniz derivative notation to give a quantity called the differential. For example, if $\dv*{f}{x}=f'$, then the differential is $\dd{f}=f'\dd{x}$.
+        \item Note, however, that the exterior derivative generalizes much more nicely than the differential, permitting many later results.
+    \end{itemize}
+    \item Example: The exterior derivative $d^0$ for a function $f:\R^2\to\R$.
+    \begin{figure}[H]
+        \centering
+        \footnotesize
+        \begin{subfigure}[b]{0.5\linewidth}
+            \centering
+            \begin{tikzpicture}[scale=0.5,z={(6mm,3.85mm)}]
+                \fill [brx,opacity=0.1]
+                    (-4.1,{4.1*4.1},4) --
+                    plot[domain=-4.1:0] (\x,\x*\x,-4)
+                    -- ++(0,0,8)
+                    plot[domain=0:-4.1] (\x,\x*\x,4)
+                    (4.1,{4.1*4.1},4) --
+                    plot[domain=4.1:0] (\x,\x*\x,-4)
+                    -- ++(0,0,8)
+                    plot[domain=0:4.1] (\x,\x*\x,4)
+                ;
+                \fill [gax,opacity=0.1] (1,0,-4) -- (4.1,12.4,-4) -- (4.1,12.4,4) -- (1,0,4);
+    
+                \foreach \x in {-4,...,4} {
+                    \draw [help lines] (\x,0,-4) -- ++(0,0,8);
+                }
+                \foreach \y in {-4,...,4} {
+                    \draw [help lines] (-4,0,\y) -- ++(8,0,0);
+                }
+                \draw (-5,0,0) -- (5,0,0) node[right]{$x_1$};
+                \draw (0,0,-5) node[below left=-2pt]{$-x_2$} -- (0,0,5);
+                \draw (0,0) -- (0,18.5) node[above]{$f(x_1,x_2)$};
+                \foreach \z in {1,...,18} {
+                    \draw (0.2,\z) -- ++(-0.4,0);
+                }
+    
+                \draw [brx,thick]
+                    plot[smooth,domain=-2.08:-4.1] (\x,\x*\x,4)
+                    --
+                    plot[smooth,domain=-4.1:4.1] (\x,\x*\x,-4)
+                    --
+                    plot[smooth,domain=4.1:3.465] (\x,\x*\x,4)
+                    plot[smooth,domain=-4.1:-0.89] (\x,\x*\x)
+                    plot[smooth,domain=3.465:4.1] (\x,\x*\x) node[above left=-2pt,black]{$G(f)$}
+                ;
+                \draw [brx,thick,densely dashed]
+                    plot[smooth,domain=-0.89:3.465] (\x,\x*\x)
+                    plot[smooth,domain=-2.08:3.465] (\x,\x*\x,4)
+                ;
+    
+                \draw [gax,thick] (1,0,-4) -- (4.1,12.4,-4) -- (4.1,12.4,4) -- (1,0,4) -- cycle;
+    
+                \fill (2,0,0) circle (4pt) node[fill=white,inner sep=1pt,below=3pt]{$p$};
+                \draw [semithick,-latex] (2,0,0) -- node[fill=white,inner sep=0.7pt,below=2pt]{$v$} ++(2,0,1);
+                \draw [semithick,-latex] (2,4,0) -- node[pos=0.37,transform shape,scale=2,plane x={(0.715,0,0.358)},plane y={(0,1,0)},canvas is plane,below]{$(p,v)$} ++(2,0,1);
+                \draw [dashed]
+                    (2,0,0) -- ++(0,4,0)
+                    (4,0,1) -- ++(0,12,0)
+                ;
+            \end{tikzpicture}
+            \caption{Describing a parabolic cylinder.}
+            \label{fig:exteriorDerivativeR2Ra}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[scale=0.5]
+                \path (0,0) -- (0,-1.54);
+                \draw (0,0) -- (4.5,0) node[right]{$x_1$};
+                \draw (0,0) -- (0,18.5) node[above]{$f(x_1,x_2)$};
+                \foreach \x in {1,2,3,4} {
+                    \draw (\x,0.2) -- ++(0,-0.4);
+                }
+                \foreach \y in {1,...,18} {
+                    \draw (0.2,\y) -- ++(-0.4,0);
+                }
+    
+                \draw [gax,thick] (1,0) -- (4.1,12.4);
+                \draw [brx,thick] plot[domain=0:4.1] (\x,\x*\x) node[above,black]{$G(f)$};
+    
+                \fill (2,0) circle (4pt) node[below=2pt]{$p$};
+                \draw [dashed] (2,0) -- (2,4);
+                \draw [semithick,-latex] (2,0) -- node[below,pos=0.75]{$v$} ++(2,0);
+                \draw [semithick,-latex] (2,4) -- node[below]{$(p,v)$} ++(2,0);
+                \draw [dashed] (4,0) -- (4,12);
+                \draw [|-|] (4.5,4) -- node[right]{$(\dd{f})_p(p,v)$} ++(0,8);
+            \end{tikzpicture}
+            \caption{A 2D cross section.}
+            \label{fig:exteriorDerivativeR2Rb}
+        \end{subfigure}
+        \caption{The exterior derivative $d^0$ for a function $f:\R^2\to\R$.}
+        \label{fig:exteriorDerivativeR2R}
+    \end{figure}
+    \begin{itemize}
+        % \item It was in the course of solving this problem that it first clicked for me that the exterior derivative is constructed such that it does the same thing to its argument that the na\"{i}ve concept of the "differential" does to its argument. For example, given $f(x)=x^2$, we are taught to right $\dd{f}=2x\dd{x}$ as a rearrangement of the Liebniz notation for derivatives. But it is the exterior derivative that formalizes this notion.
+        % I now present an example that should clarify this.\par
+        \item Consider the coordinate function $x_1:\R^2\to\R$. The graph $G(f)$ of the related function $f=x_1^2$ is a parabolic cylinder in $\R^3$. This graph is depicted by the brown surface in Figure \ref{fig:exteriorDerivativeR2Ra}.
+        \item Let's think about how we would interpret the differential $\dd{f}$ from computational calculus. We would think of it as the infinitesimal change in $f$ as a function of the infinitesimal change in $\dd{x}$ and $\dd{y}$. In this case, we would have $\dd{f}=2x\dd{x}$, which would intuitively tell us something about how much $\dd{f}$ changes (e.g., linearly, just a little bit, but more extremely at higher values of $x$). We might even picture a few arrows and a right triangle tangent to the graph, but these arrows are infinitely small and we can't describe them any more than via a vague picture. Indeed, this whole idea of "infinitesimals" is not well defined, and the differential is limited in its applications beyond being a small aid to our intuition and a clever bit of notation.
+        \item Now let's build a picture of $\dd{f}$ in the context of differential forms. As a one-form, $\dd{f}$ should take a point $p\in\R^2$ and a vector $v\in\R^2$ and return the instantaneous rate of change of $f$ at $p$ in the direction $v$ (scaled by $|v|$)\footnote{Technically, $\dd{f}$ should take a point $p\in\R^2$ to a cotangent vector $(\dd{f})_p\in T_p^*\R^2$, which in turn takes an object $(p,v)\in T_p\R^2$, isolates the vector component $v\in\R^2$, and return the instantaneous rate of change of $f$ at $p$ in the direction $v$ (scaled by $|v|$).}.
+        \begin{itemize}
+            \item More tangibly, consider the case where $p=(2,0)$ and $v=(2,1)$. Then geometrically, $(\dd{f})_p(p,v)$ takes us to $(2,0)$ in the $x_1x_2$-plane, projects us up onto the surface $G(f)$ (i.e., to the point $(2,0,4)\in\R^3$), extends from that point on the surface a vector with $x_1$-component 2 and $x_2$-component 1 (this vector lives in $T_p\R^2$), and measures the distance from the tip of this vector to the tangent plane to $G(f)$ at $(2,0,4)$; this distance is 8 units long. Therefore, $(\dd{f})_p(p,v)=8$ for $p,v$ as defined.
+        \end{itemize}
+        \item Now we know what $\dd{f}$ does. But say we want to express $\dd{f}$ in terms of the basis of $\ome[1]{\R^2}$, i.e., in terms of $\dd{x_1},\dd{x_2}$, as we would want to to further work with it algebraically.
+        \begin{itemize}
+            \item Applying the three properties defining the exterior derivative (see Section 2.4 of \textcite{bib:DifferentialForms}), we can determine that
+            \begin{align*}
+                \dd(x_1^2) &= \dd(x_1\cdot x_1)\\
+                &= x_1\dd{x_1}+(-1)^0x_1\dd{x_1}\\
+                &= 2x_1\dd{x_1}
+            \end{align*}
+            \begin{itemize}
+                \item As a sanity check, note that
+                \begin{equation*}
+                    (2x_1\dd{x_1})_p(p,v) = 2\cdot x_1(p)\cdot(\dd{x_1})_p(p,v)
+                    = 2\cdot 2\cdot 2=8
+                \end{equation*}
+                as expected.
+            \end{itemize}
+            \item Moreover, this should make intuitive sense. $2x_1$ is the "derivative" of $x_1^2$ --- this means that it tells us the instantaneous rate of change of $x_1^2$, specifically that of it in the $x_1$ direction. The only thing left is scaling it appropriately to our direction vector, but $(\dd{x_1})_p$ takes care of that by isolating the $x_1$-component of $v$.
+            \begin{itemize}
+                \item Notice the extreme conceptual similarity (but slight increase in rigor) between this concept and the na\"{i}ve understanding of the differential.
+            \end{itemize}
+            \item This notion generalizes to functions that have nonzero rates of change in more than one direction at $p$ via the properties of vector addition and the definition of the exterior derivative as the "gradient" expression. Think, for instance, about the paraboloid $f=x_1^2+x_2^2$.
+        \end{itemize}
+        \item Note that since $(\dd{f})_p$ is a linear transformation, the gray plane in Figure \ref{fig:exteriorDerivativeR2Ra} is a decent intuitive visualization of the graph of $(\dd{f})_p$.
+        \begin{itemize}
+            \item Delving further into the relationship between $(\dd{f})_p$ and the total derivative $Df(p)$ of $f$ at $p$, we know that $Df(p)$ is given by the Jacobian
+            \begin{align*}
+                Df(p) &=
+                \begin{bmatrix}
+                    \eval{\pdv{f}{x_1}}_p & \eval{\pdv{f}{x_2}}_p
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    4 & 0
+                \end{bmatrix}
+            \end{align*}
+            \item This matrix is very closely related to the grey plane in Figure \ref{fig:exteriorDerivativeR2Ra}. In fact, if we view $Df(p)$ as a function from $\R^2\to\R$, we realize that the grey plane is just the graph $G(Df(p))$ of $Df(p)$ translated 2 units along the $x_1$-axis and 4 units along the $f(x_1,x_2)$-axis so as to be tangent to $(p,f(p))\in\R^3$.
+            \item Furthermore, this matrix is the function which relates $v$ to $(\dd{f})_p(p,v)$. Indeed,
+            \begin{equation*}
+                (\dd{f})_p(p,v) =
+                \begin{bmatrix}
+                    4 & 0
+                \end{bmatrix}
+                \begin{bmatrix}
+                    v_1\\
+                    v_2\\
+                \end{bmatrix}
+            \end{equation*}
+            where $v_1$ and $v_2$ are the $x_1$- and $x_2$-components of $v$, respectively. This is exemplified by our specific example since
+            \begin{equation*}
+                (\dd{f})_p(p,v) =
+                \begin{bmatrix}
+                    4 & 0
+                \end{bmatrix}
+                \begin{bmatrix}
+                    2\\
+                    1\\
+                \end{bmatrix}
+                = 4\cdot 2+0\cdot 1
+                = 8
+            \end{equation*}
+            in agreement with the above.
+            \item In fact, from this perspective, we see that the one-form $\dd{f}$ is entirely analogous to the "unpointed" total derivative $Df$, which should help justify the similarity in notation.
+        \end{itemize}
+    \end{itemize}
+    \item Example: The exterior derivative $d^0$ for a function $f:\R\to\R^2$.
+    \begin{figure}[h!]
+        \centering
+        \footnotesize
+        \begin{subfigure}[b]{\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                scale=0.5,
+                x={(7mm,-2mm)},z={(12mm,2mm)}
+            ]
+                \foreach \x in {-4,...,4} {
+                    \draw [help lines] (\x,0,0) -- ++(0,0,16);
+                }
+                \foreach \y in {1,...,16} {
+                    \draw [help lines] (-4,0,\y) -- ++(8,0,0);
+                }
+                \foreach \z in {1,...,6} {
+                    \draw (-0.2,\z,0) -- ++(0.4,0,0);
+                }
+        
+                \draw (-5,0,0) -- (5,0,0) node[right,yshift=-3.5pt]{$f^{}_1$};
+                \draw (0,0,-1) -- (0,0,17) node[right,yshift=3pt]{$f^{}_2$};
+                \draw (0,0,0) -- (0,7,0) node[above]{$x$};
+        
+                \draw [brx,thick] plot[domain=0:6,smooth] ({\x-2},\x,{(\x-2)^2}) node[right,black]{$G(f)$};
+                \draw [gax,thick] (1,3,0) -- ++(3.25,3.25,13);
+        
+                \fill (0,4,0) circle (4pt) node[left=2pt]{$p$};
+                \draw [semithick,-latex] (0,4,0) -- node[near end,left]{$v$} ++(0,2,0);
+                \draw [semithick,-latex] (2,4,4) -- node[left]{$(p,v)$} ++(0,2,0);
+        
+                \draw [semithick,-latex] (2,4,4) -- node[pos=0.35,above left=-1mm]{$(\dd{f})_p(p,v)$} ++(2,2,8);
+                \draw [dashed]
+                    (0,4,0) -- ++(2,0,4)
+                    (0,6,0) -- ++(2,0,4) -- ++(2,0,8)
+                ;
+            \end{tikzpicture}
+            \caption{General picture.}
+            \label{fig:exteriorDerivativeRR2a}
+        \end{subfigure}\\[2em]
+        \begin{subfigure}[b]{0.33\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                scale=0.5,
+                z={(0,0)}
+            ]
+                \foreach \x in {-4,-3,-2,-1,1,2,3,4} {
+                    \draw (\x,-0.2,0) -- ++(0,0.4,0);
+                }
+                \foreach \z in {1,...,6} {
+                    \draw (-0.2,\z,0) -- ++(0.4,0,0);
+                }
+        
+                \draw (-5,0,0) -- (5,0,0) node[right]{$f^{}_1$};
+                \draw (0,0,0) -- (0,7,0) node[above]{$x$};
+        
+                \draw [brx,thick] plot[domain=0:6,smooth] ({\x-2},\x,{(\x-2)^2}) node[above right,black]{$G(f)$};
+                \draw [gax,thick] (1,3,0) -- ++(3.25,3.25,13);
+        
+                \fill (0,4,0) circle (4pt) node[left=2pt]{$p$};
+                \draw [semithick,-latex] (0,4,0) -- node[near end,left]{$v$} ++(0,2,0);
+                \draw [semithick,-latex] (2,4,4) -- node[left]{$(p,v)$} ++(0,2,0);
+        
+                \draw [semithick,-latex] (2,4,4) -- node[below right]{$(\dd{f})_p(p,v)$} ++(2,2,8);
+                \draw [dashed]
+                    (0,4,0) -- ++(2,0,4)
+                    (0,6,0) -- ++(2,0,4) -- ++(2,0,8)
+                ;
+            \end{tikzpicture}
+            \caption{View in the $+f_2$ direction.}
+            \label{fig:exteriorDerivativeRR2b}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.66\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                scale=0.5,
+                x={(0,0)},z={(1cm,0cm)}
+            ]
+                \foreach \y in {1,...,16} {
+                    \draw (0,-0.2,\y) -- ++(0,0.4,0);
+                }
+                \foreach \z in {1,...,6} {
+                    \draw (0,\z,-0.2) -- ++(0,0,0.4);
+                }
+        
+                \draw (0,0,-1) -- (0,0,17) node[right]{$f^{}_2$};
+                \draw (0,0,0) -- (0,7,0) node[above]{$x$};
+        
+                \draw [brx,thick] plot[domain=0:6,smooth] ({\x-2},\x,{(\x-2)^2}) node[right,black]{$G(f)$};
+                \draw [gax,thick] (1,3,0) -- ++(3.25,3.25,13);
+        
+                \fill (0,4,0) circle (4pt) node[left=2pt]{$p$};
+                \draw [semithick,-latex] (0,4,0) -- node[near end,left]{$v$} ++(0,2,0);
+                \draw [semithick,-latex] (2,4,4) -- node[left]{$(p,v)$} ++(0,2,0);
+        
+                \draw [semithick,-latex] (2,4,4) -- node[pos=0.4,above left=-1mm]{$(\dd{f})_p(p,v)$} ++(2,2,8);
+                \draw [dashed]
+                    (0,4,0) -- ++(2,0,4)
+                    (0,6,0) -- ++(2,0,4) -- ++(2,0,8)
+                ;
+            \end{tikzpicture}
+            \caption{View in the $-f_1$ direction.}
+            \label{fig:exteriorDerivativeRR2c}
+        \end{subfigure}
+        \caption{The exterior derivative $d^0$ for a function $f:\R\to\R^2$.}
+        \label{fig:exteriorDerivativeRR2}
+    \end{figure}
+    \begin{itemize}
+        \item Consider the parametric function $f:\R\to\R^2$ described by the relation
+        \begin{equation*}
+            f(t) = \left( t-2,(t-2)^2 \right)
+        \end{equation*}
+        \item One way to visualize the graph $G(f)$ is as a parabola "being drawn" from left to right across $\R^2$. In this mental movie, the third dimension of the graph is time. However, we can equally well use a spatial third dimension, as in Figure \ref{fig:exteriorDerivativeRR2}. The 3D and 2D-plus-time pictures are related as follows: Every point of the parabola drawn up until time $t$ in the 2D plus time picture is just every point of $G(f)$ beneath the horizontal plane $z=t$.
+        \item Now let's move back into differential forms and describe $\dd{f}$. At every point $p$, the graph of $(\dd{f})_p$ can be thought of geometrically as a tangent line to $G(f)$. The set of all these tangent lines (and the relation between them and the points $p$) is contained in $\dd{f}$.
+        \item As a specific example, consider $p=4$ and $v=2$ as in Figure \ref{fig:exteriorDerivativeRR2}. Geometrically, we can see that this will lead to
+        \begin{equation*}
+            (\dd{f})_p(p,v) =
+            \begin{bmatrix}
+                2\\
+                8\\
+            \end{bmatrix}
+        \end{equation*}
+        \item In terms of linear transformations, we have that
+        \begin{align*}
+            Df(p) &=
+            \begin{bNiceMatrix}
+                \eval{\pdv{f_1}{t}}_p\\
+                \eval{\pdv{f_2}{t}}_p
+            \end{bNiceMatrix}\\
+            &=
+            \begin{bmatrix}
+                1\\
+                4\\
+            \end{bmatrix}
+        \end{align*}
+        so that
+        \begin{equation*}
+            (\dd{f})_p(p,v) =
+            \begin{bmatrix}
+                1\\
+                4\\
+            \end{bmatrix}
+            \begin{bmatrix}
+                2\\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                2\\
+                8\\
+            \end{bmatrix}
+        \end{equation*}
+    \end{itemize}
+    \item Thus, we see that one-forms describe the slope of continuous functions that are multivariate in both domain and/or codomain\footnote{Then what are $k$-forms for?}.
     \item Check:
     \begin{enumerate}
-        \item Linear.
+        \item $\dd$ is linear.
         \item $\dd{x_i}=\dd{(x_i)}$, where $x_i:\R^n\to\R$ is the $i^\text{th}$ coordinate function.
     \end{enumerate}
 \end{itemize}
@@ -204,9 +555,9 @@
     \item \marginnote{4/22:}Plan:
     \begin{itemize}
         \item Clear up a bit of notational confusion.
-        \item Discuss integral curves of vectors fields.
+        \item Discuss integral curves of vector fields.
         \item $k$-forms.
-        \item Exterior derivatives $d:\ome[k]{U}\to\ome[k+1]{U}$ (definition and properties).
+        \item Exterior derivatives $\dd:\ome[k]{U}\to\ome[k+1]{U}$ (definition and properties).
     \end{itemize}
     \item Notation:
     \begin{itemize}
@@ -215,16 +566,16 @@
         \begin{equation*}
             [DF_p] =
             \begin{bmatrix}
-                {\dv{F_i}{x_j}}(p)
+                {\pdv{F_i}{x_j}}(p)
             \end{bmatrix}
         \end{equation*}
-        \item The book often uses small $d$: $f:U\to\R$ has $df_p:T_p\R^n\to T_{f(p)}\R$, where the latter set is isomorphic to $\R$.
-        \item $df:p\to df_p\in T_p^*\R^n$.
+        \item The book often uses small $\dd$: $f:U\to\R$ has $\dd{f}_p:T_p\R^n\to T_{f(p)}\R$, where the latter set is isomorphic to $\R$.
+        \item $\dd f$ sends $p\mapsto\dd{f}_p\in T_p^*\R^n$.
         \item Klug said
         \begin{equation*}
             \dd{f} = \sum_{i=1}^n\pdv{f}{x_i}\dd{x_i}
         \end{equation*}
-        \item Homework 1 defined $\dd{f}=df$?
+        \item Homework 1 defined $\dd{f}=\dd f$?
         \item Sometimes three perspectives help you keep this all straight:
         \begin{enumerate}
             \item Abstract nonsense: The definition of the derivative.
@@ -250,11 +601,15 @@
         \item Homework: Explicit $U$, $\omega$, closed $\gamma$ such that $\int_\gamma\omega\neq 0$ implies that $\omega\neq\dd{f}$. This motivates and leads into the de Rham cohomology.
     \end{itemize}
     \item Aside: It won't hurt (for now) to think of 1-forms as vector fields.
-    \item Integral curves: Let $U\subset\R^n$, $v$ be a (smooth) vector field on $U$. A curve $\gamma:(a,b)\to U$ is an \textbf{integral curve} for $v$ if $\gamma'(t)=v_{\gamma(t)}$.
+    \item \textbf{Integral curve} (for $\bm{v}$): A curve $\gamma:(a,b)\to U$ such that
+    \begin{equation*}
+        \gamma'(t) = \bm{v}_{\gamma(t)}
+    \end{equation*}
+    where $U\subset\R^n$ and $\bm{v}$ is a (smooth) vector field on $U$.
     \item Examples:
     \begin{itemize}
-        \item If $U=\R^2$ and $\gamma=\dv*{x}$, then the integral curve is the line from left to right traveling at unit speed. The curve has to always have as it's tangent vector the unit vector pointing right (which is the vector at every point in the vector field).
-        \item Vector fields flow everything around. An integral curve is the trajectory of a particle subjected to the vector field as a force field.
+        \item If $U=\R^2$ and $\bm{v}=\pdv*{x}$, then the integral curve is the line from left to right traveling at unit speed. The curve has to always have as its tangent vector the unit vector pointing right (which is the vector at every point in the vector field).
+        \item Vector fields flow everything around. An integral curve is the trajectory of a particle subjected to the vector field as a \emph{velocity} field (the vector field is not a force field or acceleration field).
     \end{itemize}
     \item Main points:
     \begin{enumerate}
@@ -263,8 +618,8 @@
     \end{enumerate}
     \item An incomplete vector field is one such as the "all roads lead to Rome" vector field where everything always points inward. This is because integral curves cannot be defined for all "time" (real numbers, positive and negative).
     \item The proofs are in the book; they require an existence/uniqueness result for ODEs and the implicit function theorem.
-    \item Aside: $f:U\to\R$, $v$ a vector field, implies that $L_vf=0$ means that $f$ is constant along all the integral curves of $v$. This also means that $f$ is integral for $v$.
-    \item \textbf{Pullback} (of 1-forms): If $F:U\to V$, $d:\ome[0]{U}\to\ome[1]{U}$, and $d:\ome[0]{V}\to\ome[1]{V}$, then we get an induced map $F^*:\ome[0]{V}\to\ome[0]{U}$. If $f:V\to\R$, then $f\circ F$ is involved.
+    \item Aside: $f:U\to\R$, $\bm{v}$ a vector field, implies that $L_{\bm{v}}f=0$ means that $f$ is constant along all the integral curves of $\bm{v}$. This also means that $f$ is \textbf{integral} for $v$.
+    \item \textbf{Pullback} (of 1-forms): If $F:U\to V$, $\dd:\ome[0]{U}\to\ome[1]{U}$, and $\dd:\ome[0]{V}\to\ome[1]{V}$, then we get an induced map $F^*:\ome[0]{V}\to\ome[0]{U}$. If $f:V\to\R$, then $f\circ F$ is involved.
     \begin{itemize}
         \item We're basically saying that if we have $\Hom(A,X)$ (the set of all functions from $A$ to $X$) and $\Hom(B,X)$, then if we have $F:A\to B$, we get an induced map $F^*:\Hom(B,X)\to\Hom(A,X)$ that is precomposed with $F$.
     \end{itemize}
@@ -281,7 +636,7 @@
         \begin{itemize}
             \item $\dvv$ and $\grd$ are pretty straightforward, but $\crl$ is more subtle.
         \end{itemize}
-        \item Substitute \textbf{differential forms} for \textbf{vector fields} to discover to a natural generalization of the operations, in particular, where all three operations are special cases of \textbf{exterior differentiation}.
+        \item Substitute \textbf{differential forms} for \textbf{vector fields} to discover a natural generalization of the operations, in particular, where all three operations are special cases of \textbf{exterior differentiation}.
     \end{itemize}
     \item Introducing vector fields and their dual objects (\textbf{one-forms}).
     \item \textbf{Tangent space} (to $\R^n$ at $p$): The set of pairs $(p,v)$ for all $v\in\R^n$. \emph{Denoted by} $\bm{T_p\pmb{\R}^n}$. \emph{Given by}
@@ -314,8 +669,212 @@
     \end{itemize}
     \item The chain rule for the base-pointed version, where $U\subset\R^n$ open, $f:U\to\R^n$ is a $C^1$-mapping, $\im(f)\subset V$ open, and $g:V\to\R^k$ is a $C^1$-mapping.
     \begin{equation*}
-        \dd g_q\circ\dd f_p = \dd(f\circ g)_p
+        \dd g_q\circ\dd f_p = \dd(g\circ f)_p
     \end{equation*}
+    \item Example: The chain rule for single-variable $f,g$.
+    \begin{figure}[H]
+        \centering
+        \def\angl{-120}
+        \begin{tikzpicture}[
+            every node/.style={black},
+            x={({-sin(\angl)*10mm},{ cos(\angl)*2mm})},
+            z={({ cos(\angl)*10mm},{ sin(\angl)*2mm})}
+        ]
+            % Surfaces
+            \footnotesize
+            \fill [brx!100!black,opacity=0.1]
+                plot[domain=1.6:0,smooth] (\x,{(\x)^4},{(\x)^2})
+                --
+                plot[domain=0:1.6,smooth] (0,{(\x)^4},{(\x)^2})
+            ;
+            \fill [brx!60!black,opacity=0.1]
+                plot[domain=1.6:0,smooth] (\x,{(\x)^4},{(\x)^2})
+                --
+                plot[domain=0:1.6,smooth] (\x,{(\x)^4},0)
+            ;
+            \fill [brx!60!black,opacity=0.1]
+                plot[domain=0:2.2,smooth] (\x,0,{(\x)^2})
+                -- ++(0,{1.6^4},0) --
+                plot[domain=2.2:1.6,smooth] (\x,{1.6^4},{(\x)^2})
+                plot[domain=1.6:0,smooth] (\x,{(\x)^4},{(\x)^2})
+            ;
+    
+            % Hidden tangents
+            \draw [orx,thick] (0.5,0,0) -- ++(2,0,4);
+            \draw [cyan,thick] (0,0,0.5) -- ++(0,5.4,2.7);
+    
+            % Parabolas
+            \draw [brx,thick]
+                plot[domain=0:2.2,smooth] (\x,0,{(\x)^2}) node[below left=-2pt]{$G(f)$}
+                plot[domain=0:1.6,smooth] (0,{(\x)^4},{(\x)^2}) node[above left=-2pt]{$G(g)$}
+                plot[domain=0:1.6,smooth] (\x,{(\x)^4},0) node[above right=-2pt]{$G(g\circ f)$}
+            ;
+            \draw [brx,thick,densely dashed]
+                plot[domain=0:1.6,smooth] (\x,{(\x)^4},{(\x)^2})
+            ;
+            
+            % Axes
+            \small
+            \draw (0,0,0) -- (3.5,0,0) node[right,yshift=-1pt]{$x$};
+            \draw (0,0,0) -- (0,0,5.5) node[below left,yshift=4pt]{$f$};
+            \draw (0,0,0) -- (0,6.5,0) node[above]{$g$};
+    
+            % Hash marks
+            \footnotesize
+            \foreach \x in {1,...,3} {
+                \draw (\x,0,-0.1) -- ++(0,0,0.2);
+            }
+            \foreach \y in {1,...,5} {
+                \draw (-0.1,0,\y) -- ++(0.2,0,0);
+            }
+            \foreach \z in {1,...,6} {
+                \draw (-0.1,\z,0) -- ++(0.2,0,0);
+            }
+    
+            % Dashed black guide lines
+            \draw [dashed]
+                (1,1,0) -- (1,0,0) -- ++(0,0,1) -- ++(-1,0,0) -- ++(0,1,0)
+                (2,5,0) -- (2,0,0) -- ++(0,0,3) -- ++(-2,0,0) -- ++(0,5,0)
+            ;
+    
+            \draw [magenta,thick] (0.75,0,0) -- ++(1.35,5.4,0);
+    
+            \fill [rex] (1,0,0) circle (2pt) node[above right=-1pt]{$p$};
+            \draw [rex,semithick,-latex] (1,0,0) -- node[above right]{$u$} ++(1,0,0);
+            \draw [rex!50!white,semithick,-latex] (1,0,1) -- ++(1,0,0);
+            \draw [rex!50!white,semithick,-latex] (1,1,0) -- ++(1,0,0);
+    
+            \fill [blx] (0,0,1) circle (2pt) node[above left]{$q$};
+            \draw [blx,semithick,-latex] (0,0,1) -- node[pos=0.65,above left]{$v$} ++(0,0,2);
+            \draw [blx!50!white,semithick,-latex] (0,1,1) -- ++(0,0,2);
+    
+            \draw
+                (2.3,0,1) -- ++(0.2,0,0)
+                ++(-0.1,0,0) -- node[below right=-2pt]{$\dd f_p(p,u)$} ++(0,0,2)
+                ++(-0.1,0,0) -- ++(0.2,0,0)
+            ;
+            \draw
+                (0,1,3.3) -- ++(0,0,0.2)
+                ++(0,0,-0.1) -- node[left=-1pt]{$\dd g_q(q,v)$} ++(0,4,0)
+                ++(0,0,-0.1) -- ++(0,0,0.2)
+            ;
+            \draw
+                (2.3,1,0) -- ++(0.2,0,0)
+                ++(-0.1,0,0) -- node[right=-1pt]{$\dd(g\circ f)_p(p,u)$} ++(0,4,0)
+                ++(-0.1,0,0) -- ++(0.2,0,0)
+            ;
+        \end{tikzpicture}
+        \caption{The chain rule for single-variable $f,g$.}
+        \label{fig:chainRule}
+    \end{figure}
+    \begin{itemize}
+        \item Let $U,V,W=\R$. Consider the functions $f:U\to V$ and $g:V\to W$, both described by the relation
+        \begin{equation*}
+            x \mapsto x^2
+        \end{equation*}
+        \item Since the 3 spaces $U,V,W$ are all one-dimensional, a complete geometric representation of the actions of $f,g$ and their composition can be realized in $\R^3$. This is what is depicted in Figure \ref{fig:chainRule}. Let's now state what the elements of it are.
+        \begin{itemize}
+            \item The red dot on the $x$-axis labeled $p$ depicts a point in $U$.
+            \item The red arrow on the $x$-axis labeled $u$ depicts a vector in $U$.
+            \begin{itemize}
+                \item Together, $p$ and $u$ depict the tangent vector $(p,u)\in T_pU$.
+            \end{itemize}
+            \item The blue dot on the $f$-axis labeled $q$ depicts the point $f(p)\in V$.
+            \item The blue arrow on the $f$-axis labeled $v$ depicts the vector $Df(p)(u)\in V$.
+            \begin{itemize}
+                \item Together, $q$ and $v$ depict the tangent vector $(q,v)\in T_qV$.
+            \end{itemize}
+            \item The solid brown line in the $fx$-plane labeled $G(f)$ depicts the graph of $f$. As we would expect, it is a parabola in $x$, and a subset of the space $U\times V=\R^2\subset\R^3=U\times V\times W$.
+            \item The solid brown line in the $gf$-plane labeled $G(g)$ depicts the graph of $g$. Note that $g$ does not depend on $x$, but rather takes $f$ as its independent variable. Thus, $G(g)$ is a parabola \emph{in $f$}, and a subset of the space $V\times W=\R^2\subset\R^3=U\times V\times W$. Indeed, it is the depiction of $g$ as a function of $f$ that facilitates composition.
+            \item This brings us to the solid brown line in the $gx$-plane labeled $G(g\circ f)$. This line depicts the graph of $g\circ f$. As we can determine from middle-school algebra, $g\circ f$ is a quartic function, and a subset of the space $U\times W=\R^2\subset\R^3=U\times V\times W$.
+            \item The orange line in the $fx$-plane is tangent to $G(f)$ at $(p,q)$. It will be used to illustrate the relationship between $(p,u)$ and $\dd f_p(p,u)$.
+            \item The cyan line in the $gf$-plane is tangent to $G(g)$ at $(q,g(q))$. It will be used to illustrate the relationship between $(q,v)$ and $\dd g_q(q,v)$.
+            \item The magenta line in the $gx$-plane is tangent to $G(g\circ f)$ at $(p,g(q))$. It will be used to illustrate the relationship between $(p,u)$ and $\dd(g\circ f)_p(p,u)$.
+            \item The only elements left at this point are the translucent surfaces and their dashed line of intersection. Although it may not be strictly necessary to include these in the diagram, I believe they more fully illustrate the relationship between all of the parts of this setup. Indeed, this curve in $\R^3$ contains all of the information conveyed by $f$ (via its projection into the $fx$-plane), by $g$ (via its projection into the $gf$-plane), and by $g\circ f$ (via its projection into the $gx$-plane). On the contrary, any one of $f$, $g$, or $g\circ f$ is missing some of the information contained in the other two. For example, given the equation $g\circ f=x^4$, there are infinitely many possible functions $f,g$ that satisfy this equation, and one would need to specify either $f$ or $g$ in order to obtain the other uniquely. However, this curve from $U\to U\times V\times W$ says it all.
+        \end{itemize}
+        \item The gist of this diagram is that if we want to find the slope of $g\circ f$ at $p$, we can go about this two ways.
+        \begin{itemize}
+            \item Directly, we may plug $(p,u)$ into the covector $\dd(g\circ f)_p$.
+            \begin{itemize}
+                \item Graphically, this is equivalent to moving $(p,u)$ upwards parallel to the $g$-axis until $p$ touches $G(g\circ f)$, and then measuring the distance from the tip of the translated vector (shown in light red) to the magenta tangent line.
+            \end{itemize}
+            \item Alternatively, we may rely solely on information about the slopes of $f$ and $g$ independently. Indeed, we may plug $(p,u)$ into $\dd f_p$, yielding $(q,v)$, and then plug this result into $\dd g_q$.
+            \begin{itemize}
+                \item Graphically, this is equivalent to moving $(p,u)$ outwards parallel to the $f$-axis until $p$ touches $G(f)$ and then measuring both the distance from the base of the translated vector to $p$, yielding $q$, and the tip of the translated vector (also shown in light red) to the orange tangent line, yielding $v$. Having obtained $q$ and $v$, we could project them onto the $f$-axis, obtaining a workable input for the next step. This next step is much the same as the first: We move $(q,v)$ upwards parallel to the $g$-axis until $q$ touches $G(g)$ and then measure the distance from the tip of the translated vector (shown in light blue) to the cyan tangent line.
+            \end{itemize}
+            \item In higher dimensions, the "measuring" described above would have to be done for every relevant component.
+        \end{itemize}
+        \item In the specific example drawn, where $p=1$, $q=f(p)=1$, $u=1$, and $v=Df(p)(u)=2$, we can confirm by inspection that both $\dd(g\circ f)_p(p,u)$ and $\dd g_q(q,v)$ are 4 units long.
+        \item From a computational point of view, we have that
+        \begin{align*}
+            Df &=
+            \begin{bmatrix}
+                \pdv{f}{x}
+            \end{bmatrix}&
+                Dg &=
+                \begin{bmatrix}
+                    \pdv{g}{f}
+                \end{bmatrix}&
+                    D(g\circ f) &=
+                    \begin{bmatrix}
+                        \pdv{g}{x}
+                    \end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                2x
+            \end{bmatrix}&
+                &=
+                \begin{bmatrix}
+                    2f
+                \end{bmatrix}&
+                    &=
+                    \begin{bmatrix}
+                        4x^3
+                    \end{bmatrix}
+        \end{align*}
+        so that
+        \begin{align*}
+            Df(p) &=
+            \begin{bmatrix}
+                \eval{\pdv{f}{x}}_p
+            \end{bmatrix}&
+                Dg(q) &=
+                \begin{bmatrix}
+                    \eval{\pdv{g}{f}}_p
+                \end{bmatrix}&
+                    D(g\circ f)(p) &=
+                    \begin{bmatrix}
+                        \eval{\pdv{g}{x}}_p
+                    \end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                2
+            \end{bmatrix}&
+                &=
+                \begin{bmatrix}
+                    2
+                \end{bmatrix}&
+                    &=
+                    \begin{bmatrix}
+                        4
+                    \end{bmatrix}
+        \end{align*}
+        and hence
+        \begin{equation*}
+            D(g\circ f)(p) =
+            \begin{bmatrix}
+                4
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                2
+            \end{bmatrix}
+            \begin{bmatrix}
+                2
+            \end{bmatrix}
+            = Dg(p)\circ Df(p)
+        \end{equation*}
+    \end{itemize}
     \item \textbf{Vector field} (on $\R^3$): A function which attaches to each point $p\in\R^3$ a base-pointed arrow $(p,v)\in T_p\R^3$.
     \begin{itemize}
         \item These vector fields are the typical subject of vector calculus.
@@ -377,7 +936,7 @@
     \begin{equation*}
         p \mapsto \omega_p
     \end{equation*}
-    \item Note that by identifying $T_p\R\cong\R$, we have that $\dd f_p\in T_p^*\R^n$, assuming that $f:U\to\R$.
+    \item Note that by identifying $T_q\R\cong\R$, we have that $\dd f_p\in T_p^*\R^n$, assuming that $f:U\to\R$.
     \begin{itemize}
         \item Geometric example: Consider $f:\R^2\to\R$ such that $f\in C^1$. By the latter condition, we know that the graph of $f$ is a "smooth" surface in $\R^3$, i.e., one without any abrupt changes in derivative (consider the graph of the piecewise function defined by $-x^2$ for $x<0$ and $x^2$ for $x\geq 0$, for example). What $\dd f_p$ does is take a point $(p_1,p_2,q)$, where $q=f(p)$, on the surface and a vector $v$ with tail at $(p,q)$, and give us a number representing the magnitude of the instantaneous change of $f$ at $p$ in the direction $v$. Thus, $\dd f_p$ contains, in a sense, all of the information concerning the rate of change of $f$ at $p$.
     \end{itemize}
@@ -405,10 +964,14 @@
     \end{itemize}
     \item $\bm{(\mathbf{d}x_i)_p}$: The linear map from $T_p\R^n\to\R$ (i.e., the cotangent vector in $T_p^*\R^n$) defined as follows. \emph{Given by}
     \begin{equation*}
-        (\dd x_i)_p(p,a_1x_1+\cdots+a_nx_n) = a_1
+        (\dd x_i)_p(p,a_1x_1+\cdots+a_nx_n) = a_i
     \end{equation*}
     \begin{itemize}
         \item Naturally, the instantaneous change in $x_i$ at any point $p$ in the direction $\bm{v}(p)$ will just be the magnitude of $\bm{v}(p)$ in the $x_i$-direction.
+        \item Note that as per the discussion associated with Figure \ref{fig:exteriorDerivativeR2R}, we can also think of $(\dd{x_i})_p$ as returning the product of the derivative of $x_i$ at $p$ (which will always be 1, regardless of where $p$ is or which integer $i$ is) and the magnitude of $v$ in the $x_i$-direction. This notion can be summed up by the statement
+        \begin{equation*}
+            \dd{x_i} = \dd(x_i) = 1\dd{x_i}
+        \end{equation*}
         \item It follows immediately that
         \begin{equation*}
             (\dd x_i)_p\left( \pdv{x_j} \right)_p = \delta_{ij}
@@ -420,22 +983,34 @@
         p \mapsto (\dd x_i)_p
     \end{equation*}
     \begin{itemize}
-        \item Thus, if $\omega_p:T_p\R^n\to\R$, it has a unique decomposition
+        \item Thus, if $\omega_p\in T_p^*\R^n$, it has a unique decomposition
         \begin{equation*}
             \omega_p = \sum_{i=1}^nf_i(p)(\dd x_i)_p
         \end{equation*}
         where every $f_i:U\to\R$.
-        \item Similarly, $\omega:U\to T_p^*\R^n$ has a unique decomposition
+        \item Similarly, $\omega\in\ome[1]{U}$ has a unique decomposition
         \begin{equation*}
             \omega = \sum_{i=1}^nf_i\dd x_i
         \end{equation*}
     \end{itemize}
-    \item \textbf{Smooth} (one-form): A one form for which the associated functions $f_1,\dots,f_n\in C^\infty$. \emph{Also known as} $\bm{C^\infty}$ (one-form).
+    \item \textbf{Smooth} (one-form): A one-form for which the associated functions $f_1,\dots,f_n\in C^\infty$. \emph{Also known as} $\bm{C^\infty}$ (one-form).
     \item Lemma 2.1.18: Let $U$ be an open subset of $\R^n$. If $f:U\to\R$ is a $C^\infty$ function, then
     \begin{equation*}
         \dd f = \sum_{i=1}^n\pdv{f}{x_i}\dd{x_i}
     \end{equation*}
-    \item \textbf{Interior product} (of $\bm{v}$ with $\omega$): The function which combines a point $p\in U$, the vector $\bm{v}(p)\in T_p\R^n$, and the functional $\omega_p\in T_p^*\R^n$ to yield a real number. \emph{Denoted by} $\bm{\iota_{\pmb{v}(p)}\omega_p}$.
+    \item \textbf{Interior product} (of $\bm{v}$ with $\omega$): The function on $U$ defined as follows, where $\bm{v}$ is a vector field over $U$ and $\omega$ is a one-form on $U$. \emph{Denoted by} $\bm{\iota_{\pmb{v}}\omega}$. \emph{Given by}
+    \begin{equation*}
+        p \mapsto \iota_{\bm{v}(p)}\omega_p
+    \end{equation*}
+    \begin{itemize}
+        \item Note that $\iota_{\bm{v}(p)}\omega_p$ denotes the interior product of the vector $\bm{v}(p)$ and the one-tensor $\omega_p$.
+        \item What we are doing with this definition:
+        \begin{itemize}
+            \item We first learned to take the interior product of a vector and a tensor. In particular, for every vector $v\in V$, we defined a function $\iota_v$ which took the $k$-tensor in question to a specifically defined $(k-1)$-tensor.
+            \item What we are now doing is taking a vector field (a collection of vectors indexed by the points $p\in U$) and a one-form (a collection of 1-tensors indexed by the points $p\in U$) and defining the inner product of a vector field and a one-form as the function which, at each point $p\in U$, evaluates to the inner product of the vector $\bm{v}(p)$ and the 1-tensor $\omega_p$.
+            \item This is very much analogous to the step up from cotangent vectors to one-forms (which describe a set of cotangent vectors indexed by the points of a vector space).
+        \end{itemize}
+    \end{itemize}
     \item Examples.
     \begin{itemize}
         \item If
@@ -448,7 +1023,27 @@
             \iota_{\bm{v}}\omega = \sum_{i=1}^nf_ig_i
         \end{equation*}
         \begin{itemize}
-            \item We use multiplication and the fact that $(\dd x_i)_p(\pdv*{x_j})_p=\delta_{ij}$ to obtain this result.
+            \item Proof: By definition, we know that
+            \begin{align*}
+                \bm{v}(p) &= \sum_{i=1}^ng_i(p)\eval{\pdv{x_i}}_p&
+                \omega_p &= \sum_{i=1}^nf_i(p)(\dd x_i)_p
+            \end{align*}
+            It follows by the definition of the interior product of a vector and a tensor that
+            \begin{align*}
+                \iota_{\bm{v}(p)}\omega_p &= \sum_{i=1}^1\omega_p(\bm{v}(p))\\
+                &= \omega_p(\bm{v}(p))\\
+                &= \left[ \sum_{i=1}^nf_i(p)(\dd x_i)_p \right]\left( \sum_{j=1}^ng_j(p)\eval{\pdv{x_j}}_p \right)
+                \intertext{We now invoke linearity.}
+                &= \sum_{i,j=1}^nf_i(p)g_j(p)\cdot(\dd x_i)_p\left( \pdv{x_j} \right)_p\\
+                &= \sum_{i,j=1}^nf_i(p)g_j(p)\cdot\delta_{ij}
+                \intertext{All terms where $i\neq j$ are equal to zero, so only the $n$ terms where $i=j$ remain.}
+                &= \sum_{i=1}^nf_i(p)g_i(p)
+            \end{align*}
+            Thus, using the definition of $\iota_{\bm{v}}\omega$, we have by transitivity that
+            \begin{equation*}
+                \iota_{\bm{v}}\omega = \sum_{i=1}^nf_ig_i
+            \end{equation*}
+            \item Notice how the interior product is finally starting to look like a form of multiplication: In particular, we can view the inner product through a na\"{i}ve lens as "taking the componentwise product of $\bm{v}$ and $\omega$ and using the fact that $(\dd x_i)_p(\pdv*{x_j})_p=\delta_{ij}$ to obtain this result."
             \item If $\bm{v},\omega\in C^\infty$, so is $\iota_{\bm{v}}\omega$, where $C^\infty$ refers to three different sets of smooth objects (vector fields, one-forms, and functions, respectively\footnote{Technically, these objects are all types of functions, though, so it is fair to call them all smooth.}).
         \end{itemize}
         \item As with $f$, if $\phi\in C^\infty(U)$, then
@@ -463,16 +1058,19 @@
     \end{itemize}
     \item \textbf{Integral curve} (of $\bm{v}$): A $C^1$ curve $\gamma:(a,b)\to U$ such that for all $t\in(a,b)$,
     \begin{equation*}
-        \bm{v}(\gamma(t)) = (\gamma(t),{\textstyle\dv{\gamma}{t}}(t))
+        \bm{v}(\gamma(t)) = (\gamma(t),\gamma'(t))
     \end{equation*}
     where $U\subset\R^n$ is open and $\bm{v}$ is a vector field on $U$.
     \begin{itemize}
-        \item An equivalent condition if $\bm{v}=\sum_{i=1}^ng_i\dv*{x_i}$ and $g:U\to\R^n$ is defined by $(g_1,\dots,g_n)$ is that $\gamma$ satisfies the system of differential equations
+        \item An equivalent condition if $\bm{v}=\sum_{i=1}^ng_i\pdv*{x_i}$ and $g:U\to\R^n$ is defined by $(g_1,\dots,g_n)$ is that $\gamma$ satisfies the system of differential equations
         \begin{equation*}
             \dv{\gamma}{t} = g(\gamma(t))
         \end{equation*}
+        \begin{itemize}
+            \item Verbally, we must have "for all $1\leq i\leq n$ that the change in $\gamma$ with respect to $t$ in the $x_i$-direction is equal to the $x_i$-component of $\bm{v}$ at every point in $\gamma((a,b))\subset U$."
+        \end{itemize}
     \end{itemize}
-    \item Theorem 2.2.4 (existence of integral curves): Let $U\subset\R^n$ open, $\bm{v}$ a vector field on $U$. If $p_0\in U$ and $a\in\R$, then there exist $I=(a-T,a+T)$ for some $T\in\R$, $U_0=N_r(p_0)\subset U$, and $\gamma_p:I\to U$ such that $\gamma_p(a)=p$ for all $p\in U_0$.
+    \item Theorem 2.2.4 (existence of integral curves): Let $U\subset\R^n$ open, $\bm{v}$ a vector field on $U$. If $p_0\in U$ and $a\in\R$, then there exist $I=(a-T,a+T)$ for some $T\in\R$, $U_0=N_r(p_0)\subset U$, and, for all $p\in U_0$, an integral curve $\gamma_p:I\to U$ such that $\gamma_p(a)=p$.
     \item Theorem 2.2.5 (uniqueness of integral curves): Let $U\subset\R^n$ open, $\bm{v}$ a vector field on $U$, and $\gamma_1:I_1\to U$ and $\gamma_2:I_2\to U$ integral curves for $\bm{v}$. If $a\in I_1\cap I_2$ and $\gamma_1(a)=\gamma_2(a)$, then
     \begin{equation*}
         \gamma_1|_{I_1\cap I_2} = \gamma_2|_{I_1\cap I_2}
@@ -508,16 +1106,29 @@
     \end{itemize}
     \item \textbf{Integral} (of the system $\dv*{\gamma}{t}=g(\gamma(t))$): A $C^1$-function $\phi:U\to\R$ such that for every integral curve $\gamma(t)$, the function $t\mapsto\phi(\gamma(t))$ is constant.
     \begin{itemize}
-        \item An alternate condition is that for all $t$,
-        \begin{equation*}
-            0 = \dv{t}\phi(\gamma(t))
-            = (D\phi)_{\gamma(t)}\left( \dv{y}{t} \right)
-            = (D\phi)_{\gamma(t)}(v)
-            = L_v\phi(p)
-        \end{equation*}
-        where $\bm{v}(p)=(p,v)$.
+        \item To visualize this definition, consider the case where $\phi:\R^2\to\R$.
+        \begin{itemize}
+            \item Here, the graph $G(\phi)$ of $\phi$ is a $C^1$ (continuously differentiable, so continuous and with no abrupt changes in slope) surface in $\R^3$.
+            \item In particular, what this definition is saying is that if $\phi$ is an integral of $\bm{v}$, then projecting an integral curve in $\R^2\cong\R^2\times\{0\}$ up onto the surface $G(\phi)$ gives a contour line, i.e., a path along which all points are the same height above the $xy$-plane.
+        \end{itemize}
+        \item An alternate condition is that if $p=\gamma(t)$ and $v=\bm{v}(p)=\gamma'(t)=D\gamma(t)$, then for all $t$,
+        \begin{align*}
+            0 &= D(\phi\circ\gamma)(t)
+            = D\phi(\gamma(t))\cdot D\gamma(t)
+            = D\phi(p)v
+            = L_{\bm{v}}\phi(p)\\
+            0 &= L_{\bm{v}}\phi(\gamma(t))
+        \end{align*}
+        \begin{itemize}
+            \item To visualize this alternate condition, consider again the case where $\phi:\R^2\to\R$.
+            \item Imagine you are standing on the surface $G(\phi)$ and want to walk along it. However, as you walk, you want to stay at the same height above the $xy$-plane. In other words, you want to walk in the direction such that your change in elevation will be zero. Naturally, at every point along $G(\phi)$ (that is not a local maximum or minimum), there will be such a direction you can walk in. The vectors indicating these directions compose $\bm{v}$. And naturally, the directional derivative/change in height of $\phi$ in these directions will be zero. But this directional derivative is just the Lie derivative by definition.
+        \end{itemize}
+        \item Note that taking the gradient (from vector calc) of the integral will not actually return the original vector field; rather, all the vectors in $\nabla\phi$ will be perpendicular to those in $\bm{v}$.
+        \begin{itemize}
+            \item Would curl return the original vector field?
+        \end{itemize}
     \end{itemize}
-    \item Theorem 2.2.9: Let $U\subset\R^n$ open, $\phi\in C^1(u)$. Then $\phi$ is an integral of the system $\dv*{\gamma}{t}=g(\gamma(t))$ iff $L_{\bm{v}}\phi=0$.
+    \item Theorem 2.2.9: Let $U\subset\R^n$ open, $\phi\in C^1(U)$. Then $\phi$ is an integral of the system $\dv*{\gamma}{t}=g(\gamma(t))$ iff $L_{\bm{v}}\phi=0$.
     \item \textbf{Complete} (vector field): A vector field $\bm{v}$ on $U$ such that for every $p\in U$, there exists an integral curve $\gamma:\R\to U$ with $\gamma(0)=p$.
     \begin{itemize}
         \item Alternatively, for every $p$, there exists an integral curve that starts at $p$ and exists for all time.
@@ -527,7 +1138,7 @@
     \begin{enumerate}
         \item $b=+\infty$;
         \item $|\gamma(t)|\to +\infty$ as $t\to b$;
-        \item The limit set of $\{\gamma(t)\mid 0\leq t<b\}$ contains points on the boundary of $U$.
+        \item The limit points of $\{\gamma(t)\mid 0\leq t<b\}$ contain elements of the boundary of $U$.
     \end{enumerate}
     \item Eliminating 2 and 3, as can be done with the following lemma, provides a means of proving that $\gamma$ exists for all positive time.
     \item Lemma 2.2.11: The scenarios 2 and 3 above cannot happen if there exists a proper $C^1$-function $\phi:U\to\R$ with $L_{\bm{v}}\phi=0$.
@@ -567,7 +1178,24 @@
         Now consider an arbitrary integral curve $\gamma:(-a,b)\to U$ having the property $\gamma(t_0)=p$ for some $t_0\in(-a,b)$. It follows by Theorem 2.2.5 that $\gamma$ and $\gamma_0$ coincide on the interval $(-a,a)$.\par
         By hypothesis, $\supp(\bm{v})$ is compact. Basic set theory tells us that for $\gamma$ arbitrary, either $\gamma(t)\in\supp(\bm{v})$ for all $t$ or there exists $t_0$ such that $\gamma(t_0)\in U\setminus\supp(\bm{v})$. But then by the definition of $\supp(\bm{v})$, $\bm{v}(\gamma(t_0))=0$. Thus, letting $p=\gamma(t_0)$, we have an associated $\gamma_0$ that $\gamma$ "runs along" while outside the support. It follows that in either case, $\gamma$ cannot go off to $\infty$ or go off the boundary of $U$ as $t\to b$.
     \end{proof}
+    \item Intuition for Theorem 2.2.15.
+    \begin{itemize}
+        \item We seek to prove that $\bm{v}$ is complete. One way we could prove that $\bm{v}$ is \emph{not} complete is to find an integral curve that "runs off" of $U$ at some point in positive or negative time.
+        \item With the introduction of the support, we can break down integral curves into two types: Those that remain in $\supp(\bm{v})$ for all time, necessarily always moving with some nonzero speed; and those that leave $\supp(\bm{v})$ eventually and "get stuck," i.e., sooner or later find themselves at a fixed point from which they cannot move for the rest of time.
+        \item It follows since $\supp(\bm{v})$ is a \emph{compact} subset of an open set $U$ that between $\supp(\bm{v})$ $\R^n\setminus U$, there is a buffer zone\footnote{Is there? Consider all roads lead to Rome over the open unit circle in $\R^2$. Curves can just run right off here, right, even though the support is compact?} of points $q\in U$ with $\bm{v}(q)=0$. Thus, integral curves of the first kind meander forever, never leaving $U$, and curves of the second kind get stuck before they can. Either way, the curve can be defined for all time $t$.
+    \end{itemize}
     \item \textbf{Bump function}: A function $f:\R^n\to\R$ which is both smooth and compactly supported.
+    \item Example:
+    \begin{itemize}
+        \item $\Psi:\R\to\R$ defined by
+        \begin{equation*}
+            \Psi(x) =
+            \begin{cases}
+                \exp(-\frac{1}{1-x^2}) & x\in(-1,1)\\
+                0 & \text{otherwise}
+            \end{cases}
+        \end{equation*}
+    \end{itemize}
     \item $\bm{C_0^\infty(\pmb{\R}^n)}$: The vector space of all bump functions with domain $\R^n$.
     \item An application of Theorem 2.2.15.
     \begin{itemize}
@@ -577,8 +1205,10 @@
     \begin{equation*}
         f_t(p) = \gamma_p(t)
     \end{equation*}
+    where $\gamma_p:\R\to U$ satisfies $\gamma_p(0)=p$.
     \begin{itemize}
-        \item Note that it is the fact that $\bm{v}$ is complete that justifies the existence of an integral curve $\gamma_p:\R\to U$ with $\gamma_p(0)=p$ for all $p\in U$.
+        \item Note that it is the fact that $\bm{v}$ is complete that justifies the existence of an integral curve $\gamma_p$ for all $p\in U$.
+        \item What $f_t$ does: $f_t$ takes every point in the set/"manifold" $U$ and moves them, along their integral curves as defined by the vector field $\bm{v}$, to a new point at time $t$. There are definite parallels to a homotopy herein.
     \end{itemize}
     \item Properties of $f_t$.
     \begin{enumerate}
@@ -626,19 +1256,150 @@
         \dd f_p(\bm{v}(p)) = \bm{w}(f(p))
     \end{equation*}
     for all $p\in U$, where $\bm{v}$ is a $C^\infty$-vector field on $U\subset\R^n$ open, $\bm{w}$ is a $C^\infty$-vector field on $W\subset\R^m$ open, and $f:U\to W$ is a $C^\infty$ map.
+    \item Example: $f$-related $\bm{v},\bm{w}$ for $f:\R\to\R$.
+    \begin{figure}[h!]
+        \centering
+        \footnotesize
+        \begin{tikzpicture}[
+            every node/.style={black,text height=1.5ex,text depth=0.25ex}
+        ]
+            \draw [stealth-stealth] (0,4.5) node[above]{$W$} -- (0,0) -- (2.5,0) node[right]{$U$};
+    
+            \foreach \x in {1,2} {
+                \draw (\x,-0.1) -- ++(0,0.2);
+            }
+            \foreach \y in {1,...,4} {
+                \draw (-0.1,\y) -- ++(0.2,0);
+            }
+    
+            \draw [dashed]
+                (1,0) -- (1,1) -- (0,1)
+                (2,0) -- (2,3) -- (0,3)
+            ;
+    
+            \draw [brx,thick] plot[domain=0:2.07,smooth] (\x,{(\x)^2}) node[above right=-2pt]{$G(f)$};
+    
+            \draw [orx,thick] (0.5,0) -- ++(1.6,3.2);
+    
+            \fill [rex] (1,0) circle (2pt) node[below]{$p$};
+            \draw [rex,thick,-latex] (1,0) -- node[pos=0.65,below]{$\bm{v}(p)$} ++(1,0);
+            \draw [rex!50!white,thick,-latex] (1,1) -- ++(1,0);
+            \fill [blx] (0,1) circle (2pt) node[left]{$f(p)$};
+            \draw [blx,thick,-latex] (0,1) -- node[near end,left]{$\bm{w}(f(p))$} ++(0,2);
+            % \draw [blx!50!white,thick,-latex] (2,1) -- ++(0,2);
+            \draw (2.3,1) -- ++(0.2,0) ++(-0.1,0) -- node[right]{\scriptsize$\dd f_p(p,v)$} ++(0,2) ++(-0.1,0) -- ++(0.2,0);
+        \end{tikzpicture}
+        \caption{$f$-related $\bm{v},\bm{w}$ for $f:\R\to\R$.}
+        \label{fig:fRelated}
+    \end{figure}
     \begin{itemize}
-        \item An alternate formulation is that in terms of coordinates,
+        \item Let $U,W=\R_{\geq 0}$. Consider the function $f:U\to W$ described by the relation
+        \begin{equation*}
+            x \mapsto x^2
+        \end{equation*}
+        \item Figure \ref{fig:fRelated} makes clear that in the same way that $p$ and $f(p)$ are "related" by $f$, the vectors $\bm{v}(p)$ and $\bm{w}(f(p))$ are "related" by $\dd f_p$. Indeed, the idea of "$f$-relatedness" simply implies that every vector in $\bm{v}(U)$ is so paired with a vector in $\bm{w}(W)$.
+        \item Let's now think about what we gain by introducing $f$-relatedness.
+        \begin{itemize}
+            \item $\dd f_p$, as a linear transformation, takes in any vector and spits out another. $\dd f$ attaches such a covector to each point of the domain (into which we can \emph{later} feed whatever vector we want).
+            \item $f$-relatedness allows us to \emph{preselect} the vectors we want to feed into each $\dd f_p$, run them through, and get the results, as indexed by $f(p)$.
+        \end{itemize}
+        \item Let's now consider a specific example $\bm{v}$ and $\bm{w}$ and check that they are $f$-related.
+        \begin{itemize}
+            \item Let
+            \begin{align*}
+                \bm{v}:U &\to TU&
+                    \bm{w}:W &\to TW\\
+                p &\mapsto (p,e_1)&
+                    f(p) &\mapsto (f(p),2p\cdot e_1)
+            \end{align*}
+            where $TU,TW$ are the \textbf{tangent bundles} of $U,W$, respectively. Note that $\bm{v}=\pdv*{x}$.
+            \item Let $p\in U$ be arbitrary. We know that
+            \begin{align*}
+                Df(p) &=
+                \begin{bmatrix}
+                    \eval{\pdv{f}{x}}_p\\
+                \end{bmatrix}&
+                    \bm{v}(p) &=
+                    \begin{bmatrix}
+                        1\\
+                    \end{bmatrix}&
+                        \bm{w}(f(p)) &=
+                        \begin{bmatrix}
+                            2p\\
+                        \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    2p\\
+                \end{bmatrix}
+            \end{align*}
+            from which it follows that
+            \begin{equation*}
+                \dd f_p(\bm{v}(p)) =
+                \begin{bmatrix}
+                    2p\\
+                \end{bmatrix}
+                \begin{bmatrix}
+                    1\\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                    2p\\
+                \end{bmatrix}
+                = \bm{w}(f(p))
+            \end{equation*}
+            as desired.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Tangent bundle} (of a set $U$): The disjoint union of the tangent spaces of $U$. \emph{Denoted by} $\bm{TU}$. \emph{Given by}
+    \begin{equation*}
+        TU = \bigcup_{p\in U}T_pU
+    \end{equation*}
+    \item An alternate formulation of $f$-relatedness.
+    \begin{itemize}
+        \item In terms of coordinates,
         \begin{equation*}
             w_i(q) = \sum_{j=1}^n\pdv{f_i}{x_j}(p)v_j(p)
         \end{equation*}
         where
         \begin{align*}
-            \bm{v} &= \sum_{i=1}^nv_i\pdv{x_i}
+            \bm{v} &= \sum_{i=1}^nv_i\pdv{x_i}&
             \bm{w} &= \sum_{j=1}^mw_j\pdv{y_i}
         \end{align*}
-        for $v_i\in C^k(U)$ and $w_j\in C^k(W)$.
+        for $v_i\in C^k(U)$ and $w_j\in C^k(W)$, and $f(p)=q$.
+        \item Derivation: If $f(p)=q$, $\bm{v}(p)=(p,v)$, $v=(v_1,\dots,v_n)$, $\bm{w}(q)=(q,w)$, and $w=(w_1,\dots,w_m)$, then
+        \begin{align*}
+            \bm{w}(q) &= \dd f_p(\bm{v}(p))\\
+            &= Df(p)v\\
+            &=
+            \begin{bmatrix}
+                \pdv{f_1}{x_1} & \cdots & \pdv{f_1}{x_n}\\
+                \vdots & \ddots & \vdots\\
+                \pdv{f_m}{x_1} & \cdots & \pdv{f_m}{x_n}\\
+            \end{bmatrix}
+            \begin{bmatrix}
+                v_1\\
+                \vdots\\
+                v_n\\
+            \end{bmatrix}\\
+            \begin{bmatrix}
+                w_1\\
+                \vdots\\
+                w_m\\
+            \end{bmatrix}
+            &=
+            \begin{bmatrix}
+                \sum_{j=1}^n\pdv{f_1}{x_j}v_j\\
+                \vdots\\
+                \sum_{j=1}^n\pdv{f_m}{x_j}v_j\\
+            \end{bmatrix}
+        \end{align*}
+        so comparing $i^\text{th}$ indices gives the above formula.
     \end{itemize}
-    \item If $m=n$ and $f$ is a $C^\infty$ diffeomorphism, then $\bm{w}$ is the vector field defined by the equation
+    \item If $m=n$ and $f$ is a $C^\infty$ diffeomorphism, then
+    \begin{equation*}
+        \bm{w} = \sum_{i=1}^mw_i\pdv{y_i}
+    \end{equation*}
+    where
     \begin{equation*}
         w_i = \sum_{j=1}^n\left( \pdv{f_i}{x_j}v_j \right)\circ f^{-1}
     \end{equation*}
@@ -696,10 +1457,14 @@
     \begin{equation*}
         (f_2)_*(f_1)_*\bm{v}_1 = (f_2\circ f_1)_*\bm{v}_1
     \end{equation*}
-    \item \textbf{Pullback} (of $\mu$ on $U$): The function from $U\to T_p^*\R^n$ defined as follows, where $U\subset\R^n$ and $V\subset\R^m$ are open, $f:U\to V$ is a $C^\infty$ map, and $\mu$ is a one-form on $V$. \emph{Denoted by} $\bm{f^*\mu}$. \emph{Given by}
+    \item \textbf{Pullback} (of $\mu$ along $f$): The one-form on $U$ defined as follows, where $U\subset\R^n$ and $V\subset\R^m$ are open, $f:U\to V$ is a $C^\infty$ map, and $\mu$ is a one-form on $V$. \emph{Denoted by} $\bm{f^*\mu}$. \emph{Given by}
     \begin{equation*}
         p \mapsto \mu_{f(p)}\circ\dd{f_p}
     \end{equation*}
+    \begin{itemize}
+        \item This definition does stick with the theme of pullbacks being precompositions; it is just a bit more complicated because a one-form takes two inputs instead of one: a point and a tangent vector.
+        \item To feed a point $p\in U$ and a vector $v\in U$ into a one-form on $V$, we use $f$ to send $p\mapsto f(p)$ and $\dd f_p$ to send $v\mapsto\dd f_p(p,v)$. Hence the above definition.
+    \end{itemize}
     \item If $\phi:V\to\R$ is a $C^\infty$ map and $\mu=\dd{\phi}$, then
     \begin{equation*}
         \mu_q\circ\dd f_p = \dd\phi_q\circ\dd f_p

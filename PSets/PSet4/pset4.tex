@@ -1,0 +1,223 @@
+\documentclass[../psets.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\leftmark}{Problem Set \thesection}
+\setenumerate[1]{leftmargin=4em}
+\setenumerate[2]{label={(\arabic*)}}
+\setcounter{section}{3}
+
+\begin{document}
+
+
+
+
+\section{Integration of Forms}
+\emph{From \textcite{bib:DifferentialForms}.}
+\subsection*{Chapter 3}
+\begin{enumerate}[label={\textbf{3.2.\roman*.}}]
+    \item \marginnote{5/17:}Let $f:\R\to\R$ be a compactly supported function of class $C^r$ with support on the interval $(a,b)$. Show that the following are equivalent.
+    \begin{enumerate}
+        \item $\int_a^bf(x)\dd{x}=0$.
+        \item There exists a function $g:\R\to\R$ of class $C^{r+1}$ with support on $(a,b)$ with $\dv*{g}{x}=f$.
+    \end{enumerate}
+    (Hint: Show that the function $g(x)=\int_a^xf(s)\dd{s}$ is compactly supported.)
+    \begin{proof}
+        Suppose first that $\int_a^bf(x)\dd{x}=0$. Let $g:\R\to\R$ be defined by
+        \begin{equation*}
+            x \mapsto \int_a^xf(s)\dd{s}
+        \end{equation*}
+        By the FTC, $\dv*{g}{x}=f$ and, hence, $g\in C^{r+1}(\R)$. Moreover, since $f$ is supported on $(a,b)$, we know that $f(x)=0$ for all $x\leq a$ and $x\geq b$. It follows that
+        \begin{equation*}
+            g(x) = \int_a^xf(x)\dd{x}
+            = \int_a^x0\dd{x}
+            = 0
+        \end{equation*}
+        for all $x\leq a$ and that
+        \begin{equation*}
+            g(x) = \int_a^xf(x)\dd{x}
+            = \int_a^bf(x)\dd{x}+\int_b^xf(x)\dd{x}
+            = 0+\int_b^x0\dd{x}
+            = 0
+        \end{equation*}
+        for all $x\geq b$. Thus, $g$ is supported on $(a,b)$. Moreover, since $\supp(g)\subset\R$ is closed by definition and bounded (as a subset of $(a,b)$), the Heine-Borel theorem proves that $g$ is compactly supported.\par
+        Now suppose that there exists a function $g:\R\to\R$ of class $C^{r+1}$ with support on $(a,b)$ and with $\dv*{g}{x}=f$. Then by the FTC,
+        \begin{equation*}
+            \int_a^bf(x)\dd{x} = g(b)-g(a)
+            = 0-0
+            = 0
+        \end{equation*}
+        as desired.
+    \end{proof}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{3.6.\roman*.}}]
+    \setcounter{enumi}{2}
+    \item Show that the Brouwer fixed point theorem isn't true if one replaces the closed unit ball by the open unit ball. (Hint: Let $U$ be the open unit ball (i.e., the interior of $B^n$). Show that the map $h:U\to\R^n$ defined by
+    \begin{equation*}
+        h(x) = \frac{x}{1-\norm{x}^2}
+    \end{equation*}
+    is a diffeomorphism of $U$ onto $\R^n$, and show that there are lots of mappings of $\R^n$ onto $\R^n$ which do not have fixed points.)
+    \begin{proof}
+        % Taking the hint, we will prove that $h:U\to\R^n$ is a diffeomorphism. Now, $h$ does have at least one fixed point, e.g., $h(0)=0$. However, composing $h$ with, for example, the continuous translation map $g:x\mapsto x+\hat{\textbf{\i}}$ ensures that $g\circ f$ 
+        % To prove that $h$ is a diffeomorphism, it will suffice to show that it is bijective with $h,h^{-1}$ differentiable.
+
+        It appears that taking the hint will not suffice to prove the claim. After all, proving that there exist continuous mappings $h:U\to\R^n$ with no fixed point will not negate the modified Brouwer fixed point theorem; we would need to find a continuous mapping $f:U\to U$ with no fixed points. Fortunately, this is not hard to do --- let $x=(1,0,\dots,0)\in\R^n$ and choose $f:U\to U$ defined by the rule "take every $p\in U$ to the midpoint of the line $\overline{px}$." This is clearly a continuous mapping of $U\to U$ with no fixed points.
+    \end{proof}
+    \item Show that the fixed point in the Brouwer theorem doesn't have to be an interior point of $B^n$, i.e., show that it can lie on the boundary.
+    \begin{proof}
+        Take the mapping $f$ from the proof of Exercise 3.6.iii. There, the fixed point is $x$.
+    \end{proof}
+    \item If we identify $\C$ with $\R^2$ via the mapping $(x,y)\mapsto x+iy$, we can think of a $\C$-linear mapping of $\C$ into itself, i.e., a mapping of the form $z\mapsto cz$ for a fixed $c\in\C$ as an $\R$-linear mapping of $\R^2$ into itself. Show that the determinant of this mapping is $|c|^2$.
+    \begin{proof}
+        Let $c=a+ib$. Let $f:\R^2\to\R^2$ be the real form of the described complex mapping, i.e.,
+        \begin{equation*}
+            f(x,y) = (\text{Re}\,(c\cdot(x+iy)),\text{Im}\,(c\cdot(x+iy)))
+        \end{equation*}
+        Then since
+        \begin{equation*}
+            (a+ib)(x+iy) = ax+aiy+ibx-by
+            = (ax-by)+i(bx+ay)
+        \end{equation*}
+        we have that
+        \begin{equation*}
+            f(x,y) = (ax-by,bx+ay)
+        \end{equation*}
+        It follows that the matrix of $f$ is
+        \begin{equation*}
+            \mathcal{M}(f) =
+            \begin{bmatrix}
+                a & -b\\
+                b & a\\
+            \end{bmatrix}
+        \end{equation*}
+        The determinant of $\mathcal{M}(f)$ is hence
+        \begin{equation*}
+            \det[\mathcal{M}(f)] = (a)(a)-(-b)(b)
+            = a^2+b^2
+            = \left( \sqrt{a^2+b^2} \right)^2
+            = |c|^2
+        \end{equation*}
+        as desired.
+    \end{proof}
+    \item 
+    \begin{enumerate}
+        \item Let $f:\C\to\C$ be the mapping $f(z)=z^n$. Show that $Df(z)$ is the linear map
+        \begin{equation*}
+            Df(z) = nz^{n-1}
+        \end{equation*}
+        given by multiplication by $nz^{n-1}$. (Hint: Argue from first principles. Show that for $h\in\C=\R^2$,
+        \begin{equation*}
+            \frac{(z+h)^n-z^n-nz^{n-1}h}{|h|}
+        \end{equation*}
+        tends to zero as $|h|\to 0$.)
+        \begin{proof}
+            We have that
+            \begin{align*}
+                0 &\stackrel{?}{=} \lim_{|h|\to 0}\frac{(z+h)^n-z^n-nz^{n-1}h}{|h|}\\
+                0 &\stackrel{?}{=} \lim_{|h|\to 0}\frac{\sum_{k=0}^n\binom{n}{k}z^{n-k}h^k-z^n-nz^{n-1}h}{|h|}\\
+                0 &\stackrel{?}{=} \lim_{|h|\to 0}\frac{z^n+nz^{n-1}h+\sum_{k=2}^n\binom{n}{k}z^{n-k}h^k-z^n-nz^{n-1}h}{|h|}\\
+                0 &\stackrel{?}{=} \lim_{|h|\to 0}\frac{\sum_{k=2}^n\binom{n}{k}z^{n-k}h^k}{|h|}\\
+                0 &\stackrel{?}{=} \lim_{|h|\to 0}\sum_{k=2}^n\binom{n}{k}z^{n-k}h^{k-1}\\
+                0 &\stackrel{?}{=} \sum_{k=2}^n\binom{n}{k}z^{n-k}0^{k-1}\\
+                0 &\stackrel{\checkmark}{=} 0
+            \end{align*}
+            as desired.
+        \end{proof}
+        \item Conclude from Exercise 3.6.v that
+        \begin{equation*}
+            \det(Df(z)) = n^2|z|^{2n-2}
+        \end{equation*}
+        \begin{proof}
+            By calling "$nz^{n-1}$" a linear map, we mean the linear map $x\mapsto nz^{n-1}\cdot x$ for $x\in\C$ and $\cdot:\C\times\C\to\C$ the multiplication operation on $\C$. Thus, in the context of Exercise 3.6.v, $c=nz^{n-1}$. It follows that
+            \begin{equation*}
+                \det(Df(z)) = |nz^{n-1}|^2
+                = n^2|z^{n-1}|^2
+                = n^2|z^{2n-2}|
+                = n^2|z|^{2n-2}
+            \end{equation*}
+            as desired.
+        \end{proof}
+        \item Show that at every point $z\in\C\setminus\{0\}$, $f$ is orientation preserving.
+        \begin{proof}
+            Let $z\in\C\setminus\{0\}$ be arbitrary. To prove that $f$ is orientation preserving at $z$, it will suffice to show that $\det[Df(z)]>0$. But since $n>0$ and $|z|>0$ for $z\neq 0$, we have by part (2) that
+            \begin{equation*}
+                \det[Df(z)] = n^2|z|^{2n-2}
+                > 0
+            \end{equation*}
+            as desired.
+        \end{proof}
+        \item Show that every point $w\in\C\setminus\{0\}$ is a regular value of $f$ and that
+        \begin{equation*}
+            f^{-1}(w) = \{z_1,\dots,z_n\}
+        \end{equation*}
+        with $\sigma_{z_i}=+1$.
+        \begin{proof}
+            By part (3), $\det[Df(z)]>0$ for all $z\in\C\setminus\{0\}$. Thus, no $z\in\C\setminus\{0\}$ is a critical point of $f$. Additionally,
+            \begin{equation*}
+                \det[Df(0)] = n^2|0|^{2n-2}
+                = 0
+            \end{equation*}
+            so 0 is the lone critical value of $f$ and element of $C_f$. Moreover, since $f(0)=0$, $f(C_f)=\{0\}$, so the set of regular values of $f$ is
+            \begin{equation*}
+                f(\C)\setminus f(C_f) = \C\setminus\{0\}
+            \end{equation*}
+            as desired.\par
+            Additionally, by DeMoivre's Theorem, there are exactly $n$ roots $z_1,\dots,z_n$ of the function $z^n$ for all $z$. Lastly, by part (3), $f$ is orientation preserving at all $z$, including $z_1,\dots,z_n$; therefore, $\sigma_{z_i}=+1$ for all $i=1,\dots,n$.
+        \end{proof}
+        \item Conclude that the degree of $f$ is $n$.
+        \begin{proof}
+            By part (4) and Theorem 3.6.4,
+            \begin{equation*}
+                \deg(f) = \sum_{i=1}^n\sigma_{z_i}
+                = \sum_{i=1}^n+1
+                = n
+            \end{equation*}
+            as desired.
+        \end{proof}
+    \end{enumerate}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{3.7.\roman*.}}]
+    \item What are the set of critical points and the image of the set of critical points for the following maps from $\R\to\R$?
+    \begin{enumerate}
+        \item The map $f_1(x)=(x^2-1)^2$.
+        \begin{proof}[Answer]
+            \begin{empheq}[box=\fbox]{align*}
+                \text{Critical points:} &  -1,0,1\\
+                \text{Critical values:} &\ 0,1
+            \end{empheq}
+        \end{proof}
+        \item The map $f_2(x)=\sin(x)+x$.
+        \begin{proof}[Answer]
+            \begin{empheq}[box=\fbox]{align*}
+                \text{Critical points:} &\ \pi+2\pi z,\ z\in\Z\\
+                \text{Critical values:} &\ \pi+2\pi z,\ z\in\Z
+            \end{empheq}
+        \end{proof}
+        \item The map
+        \begin{equation*}
+            f_3(x) =
+            \begin{cases}
+                0 & x\leq 0\\
+                \e[-1/x] & x>0
+            \end{cases}
+        \end{equation*}
+        \begin{proof}[Answer]
+            \begin{empheq}[box=\fbox]{align*}
+                \text{Critical point:} &\ 0\\
+                \text{Critical value:} &\ 0
+            \end{empheq}
+        \end{proof}
+    \end{enumerate}
+    \item (Sard's theorem for affine maps) Let $f:\R^n\to\R^n$ be an \textbf{affine map}, i.e., a map of the form $f(x)=A(x)+x_0$ where $A:\R^n\to\R^n$ is a linear map and $x_0\in\R^n$. Prove Sard's theorem for $f$.
+    \begin{proof}
+        We have that
+        \begin{equation*}
+            Df(x) = A
+        \end{equation*}
+        for all $x\in\R^n$. We divide into two cases ($\det A=0$ and $\det A\neq 0$). If $\det A=0$, $f(\R^n)\setminus f(C_f)=\emptyset$ which is open and dense in $\R^n$. If $\det A\neq 0$, $f(\R^n)\setminus f(C_f)=\R^n$ which is open and dense in $\R^n$.
+    \end{proof}
+\end{enumerate}
+
+
+
+
+\end{document}

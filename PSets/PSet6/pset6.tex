@@ -1,0 +1,806 @@
+\documentclass[../psets.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\leftmark}{Problem Set \thesection}
+\setenumerate[1]{leftmargin=4em}
+\setenumerate[2]{label={(\arabic*)}}
+\setcounter{section}{5}
+
+\begin{document}
+
+
+
+
+\section{Calculus on Manifolds}
+\emph{From \textcite{bib:DifferentialForms}.}
+\subsection*{Chapter 4}
+\begin{enumerate}[label={\textbf{4.3.\roman*.}}]
+    \stepcounter{enumi}
+    \item \marginnote{5/29:}Let $S^2$ be the unit 2-sphere $x_1^2+x_2^2+x_3^2=1$ in $\R^3$ and let $\bm{w}$ be the vector field
+    \begin{equation*}
+        \bm{w} = x_1\pdv{x_2}-x_2\pdv{x_1}
+    \end{equation*}
+    \begin{enumerate}
+        \item Show that $\bm{w}$ is tangent to $S^2$ and hence by restriction defines a vector field $\bm{v}$ on $S^2$.
+        \begin{proof}
+            To show that $\bm{w}$ is tangent to $S^2$, it will suffice to prove that for every $p\in S^2$, $\bm{w}(p)\in T_pS^2$. Let $p=(p_1,p_2,p_3)\in S^2$ be arbitrary. To prove that $\bm{w}(p)\in T_pS^2$, Exercise 4.2.ii tells us that it will suffice to check that $p\cdot\bm{w}(p)=0$. Indeed, we have that
+            \begin{equation*}
+                p\cdot\bm{w}(p) = (p_1)(-p_2)+(p_2)(p_1)+(p_3)(0)
+                = 0
+            \end{equation*}
+            as desired.
+        \end{proof}
+        \item What are the integral curves of $\bm{v}$?
+        \begin{proof}
+            Let $p=(p_1,p_2,p_3)\in S^2$ be arbitrary. Then
+            \begin{equation*}
+                \bm{v}(p) = -p_2\pdv{x_1}+p_1\pdv{x_2}+0\pdv{x_3}
+            \end{equation*}
+            Suppose there exists $\gamma:I\to S^2$, where $I$ is an open interval containing $t_0=0$, such that $\gamma(0)=p$ and $\dd\gamma_0(\vec{u})=\bm{v}(p)$. It follows from the second statement that
+            \begingroup
+            \NiceMatrixOptions{cell-space-limits=1pt}
+            \begin{align*}
+                (p,D\gamma(0)(1)) &= (p,(-p_2,p_1,0))\\
+                \begin{bNiceMatrix}
+                    \eval{\dv{\gamma_1}{t}}_0\\
+                    \eval{\dv{\gamma_2}{t}}_0\\
+                    \eval{\dv{\gamma_3}{t}}_0\\
+                \end{bNiceMatrix}
+                &=
+                \begin{bmatrix}
+                    -\gamma_2(0)\\
+                    \gamma_1(0)\\
+                    0\\
+                \end{bmatrix}\\
+                \begin{bNiceMatrix}
+                    \dv{\gamma_1}{t}\\
+                    \dv{\gamma_2}{t}\\
+                    \dv{\gamma_3}{t}\\
+                \end{bNiceMatrix}
+                &=
+                \begin{bmatrix}
+                    -\gamma_2\\
+                    \gamma_1\\
+                    0\\
+                \end{bmatrix}
+            \end{align*}
+            \endgroup
+            From the last line above, we can determine that
+            \begin{equation*}
+                \gamma_3(t) = C
+            \end{equation*}
+            for some $C\in\R$. We can also extract the coupled differential equations
+            \begin{align*}
+                \dv{\gamma_1}{t} &= -\gamma_2&
+                \dv{\gamma_2}{t} &= \gamma_1
+            \end{align*}
+            Differentiating the right equation above with respect to $t$ reveals via the transitive property that
+            \begin{equation*}
+                \dv[2]{\gamma_2}{t} = \dv{\gamma_1}{t} = -\gamma_2
+            \end{equation*}
+            We can recognize the above differential equation to be the one describing simple harmonic motion, i.e., the one having general solution
+            \begin{equation*}
+                \gamma_2(t) = A\e[irt]+B\e[-irt]
+            \end{equation*}
+            for some $A,B,r\in\R$. It follows since $\dv*{\gamma_2}{t}=\gamma_1$ that
+            \begin{equation*}
+                \gamma_1(t) = Air\e[irt]-Bir\e[-irt]
+            \end{equation*}
+            We now solve for $A,B,C,r$ using the initial conditions
+            \begin{align*}
+                \begin{bmatrix}
+                    \gamma_1(0)\\
+                    \gamma_2(0)\\
+                    \gamma_3(0)\\
+                \end{bmatrix}
+                &=
+                \begin{bmatrix}
+                    p_1\\
+                    p_2\\
+                    p_3\\
+                \end{bmatrix}&
+                \begin{bmatrix}
+                    \gamma_1'(0)\\
+                    \gamma_2'(0)\\
+                    \gamma_3'(0)\\
+                \end{bmatrix}
+                &=
+                \begin{bmatrix}
+                    -p_2\\
+                    p_1\\
+                    0\\
+                \end{bmatrix}
+            \end{align*}
+            First off, we have that
+            \begin{equation*}
+                C = \gamma_3(0) = p_3
+            \end{equation*}
+            We also have that
+            \begin{align*}
+                p_2 &= \gamma_2(0)&
+                    -p_2 &= \gamma_1'(0)\\
+                &= A\e[ir\cdot 0]+B\e[-ir\cdot 0]&
+                    &= -Ar^2\e[ir\cdot 0]-Br^2\e[-ir\cdot 0]\\
+                &= A+B&
+                    &= -r^2(A+B)
+            \end{align*}
+            It follows that $r=1$. Additionally, we have that
+            \begin{align*}
+                p_1 &= \gamma_1(0)\\
+                &= Ai\e[i\cdot 0]-Bi\e[-i\cdot 0]\\
+                &= (A-B)i
+            \end{align*}
+            Thus, we have the system of equations
+            \begin{align*}
+                A+B &= p_2\\
+                iA-iB &= p_1
+            \end{align*}
+            We can solve it to determine that
+            \begin{align*}
+                A &= \frac{p_2-ip_1}{2}&
+                B &= \frac{p_2+ip_1}{2}
+            \end{align*}
+            It follows that
+            \begin{align*}
+                \gamma_2(t) &= A\e[it]+B\e[-it]\\
+                &= \frac{p_2-ip_1}{2}(\cos(t)+i\sin(t))+\frac{p_2+ip_1}{2}(\cos(t)-i\sin(t))\\
+                &= p_2\cos(t)+p_1\sin(t)
+            \end{align*}
+            and thus that
+            \begin{align*}
+                \gamma_1(t) &= p_1\cos(t)-p_2\sin(t)
+            \end{align*}
+            Finally, we have a complete description of the integral curve $\gamma:\R\to S^2$ with $\gamma(0)=p$ of $\bm{v}$.
+            \begin{equation*}
+                \boxed{
+                    \gamma(t) =
+                    \begin{bmatrix}
+                        p_1\cos(t)-p_2\sin(t)\\
+                        p_2\cos(t)+p_1\sin(t)\\
+                        p_3\\
+                    \end{bmatrix}
+                }
+            \end{equation*}
+            Note that we can do one better by transforming our three equations into a form that could easily be found by inspection.\par
+            By inspecting the vector field, we can determine that the lack of $x_3$-component in any vector in $\bm{v}$ means that our integral curve must not vary with respect to $x_3$ either, i.e., $\gamma_3$ should just be the height of the integral curve above or below the $x_1x_2$-plane, i.e., $p_3$ (as it is via the above). On the other hand, $\gamma_1,\gamma_2$ should work together (this is why we got the \emph{coupled} system of differential equations above) to trace out a latitude line, i.e., a circular submanifold at $p_3$ above or below the $x_1x_2$-plane. Thus, they should be sinusoidal, with radius dictated by the height above the $x_1x_2$-plane and phase offset dictated by the position of $p$ relative to the $+x_1$-axis. Since $x_1^2+x_2^2+x_3^1=1$, trigonometric arguments show that the radius of this circle should be $\sqrt{1-x_3^2}$, i.e., the maximum possible radius ($\sqrt{1}=1$) less come correction factor based on the distance between the circle and the $x_1x_2$-plane. Similarly, trigonometric arguments show that the phase offset should be $\tan^{-1}(p_2/p_1)$. Thus, the final form should be
+            \begin{align*}
+                \gamma_1(t) &= \sqrt{1-x_3^2}\cos\left( t+\tan^{-1}\left( \frac{p_2}{p_1} \right) \right)&
+                \gamma_2(t) &= \sqrt{1-x_3^2}\sin\left( t+\tan^{-1}\left( \frac{p_2}{p_1} \right) \right)
+            \end{align*}
+            But since $a\cos x+b\sin x$ can be written as $R\cos(x-\alpha)$, where $R=\sqrt{a^2+b^2}$ and $\tan\alpha=b/a$, we have that
+            \begin{align*}
+                \gamma_1(t) &= p_1\cos(t)-p_2\sin(t)&
+                    \gamma_2(t) &= p_2\cos(t)+p_1\sin(t)\\
+                &= \sqrt{p_1^2+p_2^2}\cos\left( t-\tan^{-1}\left( \frac{-p_2}{p_1} \right) \right)&
+                    &= \sqrt{p_1^2+p_2^2}\cos\left( t-\tan^{-1}\left( \frac{p_1}{p_2} \right) \right)\\
+                &= \sqrt{1-p_3^2}\cos\left( t+\tan^{-1}\left( \frac{p_2}{p_1} \right) \right)&
+                    &= \sqrt{1-p_3^2}\sin\left( t+\tan^{-1}\left( \frac{p_2}{p_1} \right) \right)\\
+                &= \gamma_1(t)&
+                    &= \gamma_2(t)
+            \end{align*}
+            as desired.
+        \end{proof}
+    \end{enumerate}
+\end{enumerate}
+Note from Dr. Klug: For the following problems you'll need to check back in Section 1.9 and maybe warm-up with the pointwise Exercise 1.9.xi. We are going to define a special top-dimensional form on a manifold (which for us is always inside a Euclidean space --- more generally this is where you would need to "fix a metric on your abstract manifold"\dots blah blah blah) called the (Riemannian) volume form --- see Theorem 4.4.9 in your book. An (admittedly fancy but agreeing with any pedestrian way of doing it) definition of the volume of a subset of $\R^N$ that is a manifold is then the integral over that manifold of the volume form.
+\subsection*{Chapter 1}
+\begin{enumerate}[label={\textbf{1.9.\roman*.}}]
+    \setcounter{enumi}{10}
+    \item Let $V$ be an $n$-dimensional vector space $B:V\times V\to\R$ an inner product, and $e_1,\dots,e_n$ a basis of $V$ which is positively oriented and orthonormal. Show that the \textbf{volume element}
+    \begin{equation*}
+        \vol = e_1^*\wedge\cdots\wedge e_n^* \in \lam[n]{V^*}
+    \end{equation*}
+    is intrinsically defined, independent of the choice of basis. (Hint: The equations
+    \begin{align*}
+        AA^\intercal &= \id_n&
+        A^*(f_1^*\wedge\cdots\wedge f_n^*) = \det(a_{i,j})e_1^*\wedge\cdots\wedge e_n^*
+    \end{align*}
+    may be of use. Note that in the left equation above, $A$ is a change of coordinate matrix between two orthonormal bases.)
+    \begin{proof}
+        To show that the volume element is defined independently of the choice of basis, let $e_1',\dots,e_n'$ be another basis of $V$ which is positively oriented and orthonormal; we wish to verify that the volume element
+        \begin{equation*}
+            \vol' = {e_1'}^*\wedge\cdots\wedge{e_n'}^*
+        \end{equation*}
+        with respect to this basis is equal to $\vol$. Let $A$ be the change of coordinates matrix which sends $e_i\mapsto e_i'$ ($i=1,\dots,n$). It follows that $AA^\intercal=\id_n$, so
+        \begin{align*}
+            \det(\id_n) &= \det(AA^\intercal)\\
+            1 &= \det(A)\cdot\det(A^\intercal)\\
+            &= \det(A)\cdot\det(A)\\
+            &= \det(A)^2\\
+            \det(A) &= \pm 1
+        \end{align*}
+        Additionally, we know that both $e_1,\dots,e_n$ and $e_1',\dots,e_n'$ are positively oriented, so by Proposition 1.9.7, $\det(A)>0$. Thus, $\det(A)=1$. Therefore, we have that
+        \begin{align*}
+            \vol &= e_1^*\wedge\cdots\wedge e_n^*\\
+            &= 1\cdot e_1^*\wedge\cdots\wedge e_n^*\\
+            &= \det(a_{i,j})e_1^*\wedge\cdots\wedge e_n^*\\
+            &= A^*({e_1'}^*\wedge\cdots\wedge{e_n'}^*)\\
+            &= \det(A){e_1'}^*\wedge\cdots\wedge{e_n'}^*\\
+            &= 1\cdot {e_1'}^*\wedge\cdots\wedge{e_n'}^*\\
+            &= {e_1'}^*\wedge\cdots\wedge{e_n'}^*\\
+            &= \vol'
+        \end{align*}
+        as desired.
+    \end{proof}
+\end{enumerate}
+\subsection*{Chapter 4}
+\begin{enumerate}[label={\textbf{4.4.\roman*.}}]
+    \item Let $V$ be an oriented $n$-dimensional vector space, $B$ an inner product on $V$, and $e_1,\dots,e_n\in V$ an oriented orthonormal basis. Given vectors $v_1,\dots,v_n\in V$, show that if
+    \begin{align*}
+        b_{i,j} &= B(v_i,v_j)&
+        v_i &= \sum_{j=1}^na_{j,i}e_j
+    \end{align*}
+    the matrices $\mathbf{A}=(a_{i,j})$ and $\mathbf{B}=(b_{i,j})$ satisfy the identity
+    \begin{equation*}
+        \mathbf{B} = \mathbf{A}^\intercal\mathbf{A}
+    \end{equation*}
+    and conclude that $\det(\mathbf{B})=\det(\mathbf{A})^2$. (In particular, conclude that $\det(\mathbf{B})>0$ if $v_1,\dots,v_n$ are linearly independent.)
+    \begin{proof}
+        % Additionally, since $e_1,\dots,e_n$ is an orthonormal basis of $V$, we have that
+        % \begin{equation*}
+        %     v_i = \sum_{j=1}^nB(e_j,v_i)e_j
+        % \end{equation*}
+        % for each $i=1,\dots,n$. Thus,
+        % \begin{equation*}
+        %     a_{j,i} = B(e_j,v_i)
+        % \end{equation*}
+        % for all $1\leq i,j\leq n$. 
+
+
+        To prove that $\mathbf{B}=\mathbf{A}^\intercal\mathbf{A}$, it will suffice to show that the corresponding entries of each matrix are equal. By the rules of matrix multiplication, we have that
+        \begin{equation*}
+            (a^\intercal a)_{i,j} = \sum_{k=1}^na_{k,i}a_{k,j}
+        \end{equation*}
+        It follows that
+        \begin{align*}
+            b_{i,j} &= B(v_i,v_j)\\
+            &= B\left( \sum_{k=1}^na_{k,i}e_k,\sum_{k'=1}^na_{k',j}e_{k'} \right)\\
+            &= \sum_{k=1}^n\sum_{k'=1}^na_{k,i}a_{k',j}B(e_k,e_{k'})\\
+            &= \sum_{k=1}^n\sum_{k'=1}^na_{k,i}a_{k',j}\delta_{k,k'}\\
+            &= \sum_{k=1}^na_{k,i}a_{k,j}\\
+            &= (a^\intercal a)_{i,j}
+        \end{align*}
+        as desired.\par
+        It follows that
+        \begin{equation*}
+            \det(\mathbf{B}) = \det(\mathbf{A}^\intercal\mathbf{A})
+            = \det(\mathbf{A}^\intercal)\det(\mathbf{A})
+            = \det(\mathbf{A})\det(\mathbf{A})
+            = \det(\mathbf{A})^2
+        \end{equation*}
+        Therefore, if $v_1,\dots,v_n$ are linearly independent, then $\det(\mathbf{A})\neq 0$, so $\det(\mathbf{B})>0$, as desired.
+    \end{proof}
+    \item Let $V,W$ be oriented $n$-dimensional vector spaces. Suppose that each of these spaces is equipped with an inner product, and let $e_1,\dots,e_n\in V$ and $f_1,\dots,f_n\in W$ be oriented orthonormal bases. Show that if $A:W\to V$ is an orientation preserving linear mapping and $Af_i=v_i$, then
+    \begin{equation*}
+        A^*\vol_V = \left( \det(b_{i,j}) \right)^{1/2}\vol_W
+    \end{equation*}
+    where $\vol_V=e_1^*\wedge\cdots\wedge e_n^*$, $\vol_W=f_1^*\wedge\cdots\wedge f_n^*$, and $(b_{i,j})$ is the matrix described in Exercise 4.4.i.
+    \begin{proof}
+        % $A$ is bijective.
+        % $\omega\in\lam[n]{V^*}_+$ implies $A^*\omega\in\lam[n](W^*)_+$.
+
+
+        We have that
+        \begin{align*}
+            A^*\vol_V &= A^*(e_1^*\wedge\cdots\wedge e_n^*)\\
+            &= \det(a_{i,j})(f_1^*\wedge\cdots\wedge f_n^*)\tag*{Equation 1.8.10}\\
+            &= \det(a_{i,j})\vol_W\\
+            &= \left( \det(b_{i,j}) \right)^{1/2}\vol_W\tag*{Exercise 4.4.i}
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Let $X$ be an oriented $n$-dimensional submanifold of $\R^n$, $U$ an open subset of $X$, $U_0$ an open subset of $\R^n$, and $\phi:U_0\to U$ an oriented parameterization. Let $\phi_1,\dots,\phi_N$ be the coordinates of the map
+    \begin{equation*}
+        U_0 \to U \hookrightarrow \R^n
+    \end{equation*}
+    the second map being the inclusion map. Show that if $\sigma$ is the Riemannian volume form on $X$, then
+    \begin{equation*}
+        \phi^*\sigma = \left( \det(\phi_{i,j}) \right)^{1/2}\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    where
+    \begin{equation*}
+        \phi_{i,j} = \sum_{k=1}^N\pdv{\phi_k}{x_i}\pdv{\phi_k}{x_j}
+    \end{equation*}
+    for $1\leq i,j\leq n$. Conclude that $\sigma$ is a smooth $n$-form and hence that it \emph{is} the volume form. (Hint: For $p\in U_0$ and $q=\phi(p)$, apply Exercise 4.4.ii with $V=T_qX$, $W=T_p\R^n$, $A=\dd\phi_p$, and $v_i=\dd\phi_p(\pdv*{x_i})_p$.)
+    \begin{proof}
+        As the Riemannian volume form on $X$, $\sigma\in\ome[n]{X}$ is the $n$-form defined by
+        \begin{equation*}
+            q \mapsto \sigma_q
+        \end{equation*}
+        where $\sigma_q=e_1^*\wedge\cdots\wedge e_n^*$, and $e_1,\dots,e_n$ is an orthonormal basis of $T_qX$. To prove the desired form equality, it will suffice to check equality at every point $p\in U_0$. Doing this, we obtain from Exercise 4.4.ii
+        \begin{align*}
+            (\phi^*\sigma)_p &= \dd\phi_p^*\sigma_p\\
+            &= (\det(\phi_{i,j}))^{1/2}(\vol_{U_0})_p
+        \end{align*}
+        where
+        \begin{equation*}
+            \phi_{i,j} = B(v_i,v_j)
+            = B(\dd\phi_p(\pdv*{x_i})_p,\dd\phi_p(\pdv*{x_j})_p)
+            = B\left(
+                \begin{bmatrix}
+                    \pdv{\phi_1}{x_i}\\
+                    \vdots\\
+                    \pdv{\phi_N}{x_i}\\
+                \end{bmatrix},
+                \begin{bmatrix}
+                    \pdv{\phi_1}{x_j}\\
+                    \vdots\\
+                    \pdv{\phi_N}{x_j}\\
+                \end{bmatrix}
+            \right)
+            = \sum_{k=1}^N\pdv{\phi_k}{x_i}\pdv{\phi_k}{x_j}
+        \end{equation*}
+        for $1\leq i,j\leq n$ and
+        \begin{equation*}
+            (\vol_{U_0})_p = x_1^*\wedge\cdots\wedge x_n^*
+            = (\dd{x_1}\wedge\cdots\wedge\dd{x_n})_p
+        \end{equation*}
+        as desired.\par
+        Since $\phi^*\sigma$ is clearly a smooth $n$-form on $\R^n$ by the above equality, $\sigma$ itself is smooth. It follows since $\phi^*\sigma$ is also non-vanishing and $\phi$ is orientation preserving that $\sigma$ itself is nonvanishing and strictly positive; hence $\sigma$ is, indeed, the volume form.
+    \end{proof}
+    \item Given a $C^\infty$ function $f:\R\to\R$, its graph $X=\Gamma_f$ is a submanifold of $\R^2$ and $\phi:\R\to X$ defined by
+    \begin{equation*}
+        x \mapsto (x,f(x))
+    \end{equation*}
+    is a diffeomorphism. Orient $X$ by requiring that $\phi$ be orientation preserving and show that if $\sigma$ is the Riemannian volume form on $X$, then
+    \begin{equation*}
+        \phi^*\sigma = \left( 1+\left( \dv{f}{x} \right)^2 \right)^{1/2}\dd{x}
+    \end{equation*}
+    (Hint: See Exercise 4.4.iii.)
+    \begin{proof}
+        In the language of Exercise 4.4.iii, let $U=X$ and $U_0=\R$ ($X=\Gamma_f$ and $\phi$ are already defined in the statement of this Exercise). Then by Exercise 4.4.iii, we have that
+        \begin{align*}
+            \phi^*\sigma &= (\det(\phi_{i,j}))^{1/2}\dd{x}\\
+            &= \left( \det\left[ \sum_{k=1}^2\dv{\phi_k}{x}\dv{\phi_k}{x} \right] \right)^{1/2}\dd{x}\\
+            &= \left( \det\left[ 1^2+\left( \dv{f}{x} \right)^2 \right] \right)^{1/2}\dd{x}\\
+            &= \left( 1+\left( \dv{f}{x} \right)^2 \right)^{1/2}\dd{x}
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Given a $C^\infty$ function $f:\R^n\to\R$, the graph $\Gamma_f$ of $f$ is a submanifold of $\R^{n+1}$ and $\phi:\R^n\to X$ defined by
+    \begin{equation*}
+        x \mapsto (x,f(x))
+    \end{equation*}
+    is a diffeomorphism. Orient $X$ by requiring that $\phi$ is orientation preserving and show that if $\sigma$ is the Riemannian volume form on $X$, then
+    \begin{equation*}
+        \phi^*\sigma = \left( 1+\sum_{i=1}^n\left( \pdv{f}{x_i} \right)^2 \right)^{1/2}\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    \emph{Hints}:
+    % \begin{itemize}[label={\scriptsize$\blacktriangleright$}]
+    %     \item Let $v=(c_1,\dots,c_n)\in\R^n$. Show that if $C:\R^n\to\R$ is the linear mapping defined by the matrix $(c_ic_j)$, then $Cv=(\sum_{i=1}^nc_i^2)v$ and $Cw=0$ if $w\cdot v=0$.
+    %     \item Conclude that the eigenvalues of $C$ are $\lambda_1=\sum c_i^2$ and $\lambda_2=\cdots=\lambda_n=0$.
+    %     \item Show that the determinant of $I+C$ is $1+\sum_{i=1}^nc_i^2$.
+    %     \item Compute the determinant of the matrix $(\phi_{i,j})$ from Exercise 4.4.iii where $\phi$ is the mapping defined at the beginning of this Exercise.
+    % \end{itemize}
+    \begin{itemize}[label={\scriptsize$\blacktriangleright$}]
+        \item Let $V$ be an $n$-dimensional vector space over the field $\mathbb{F}$, and let $v=(c_1,\dots,c_n)\in V$. Show that if $C:\R^n\to\R^n$ is the linear mapping defined by the $n\times n$ matrix $(c_ic_j)$, i.e., the matrix for which $c_i\cdot c_j$ is the entry in the $i^\text{th}$ row and $j^\text{th}$ column for $1\leq i,j\leq n$, then $Cv=(\sum_{i=1}^nc_i^2)v$ and $Cw=0$ if $w\cdot v=0$.
+        \item Conclude that the eigenvalues of $C$ are $\lambda_1=\sum_{i=1}^nc_i^2$ and $\lambda_2=\cdots=\lambda_n=0$.
+        \item Show that the determinant of $I+C$ is $1+\sum_{i=1}^nc_i^2$.
+        \item Compute the determinant of the matrix $(\phi_{i,j})$ from Exercise 4.4.iii where $\phi$ is the mapping defined at the beginning of this Exercise.
+    \end{itemize}
+    \begin{proof}
+        % Then by the above, the matrix $\mathcal{M}(C)$ of $C$ with respect to this basis is
+        % \begin{equation*}
+        %     \mathcal{M}(C) =
+        %     \begin{bmatrix}
+        %         \sum_{i=1}^nc_i^2 & 0 & \cdots & 0\\
+        %         0 & 0 & \cdots & 0\\
+        %         \vdots & \vdots & \ddots & \vdots\\
+        %         0 & 0 & \cdots & 0\\
+        %     \end{bmatrix}
+        % \end{equation*}
+        % It follows by reading down the diagonal of $\mathcal{M}(C)$ (a diagonal matrix) that the eigenvalues of $C$ are $\lambda_1=\sum_{i=1}^nc_i^2$ and $\lambda_2=\cdots=\lambda_n=0$, as desired.
+
+
+        We will begin as in Exercise 4.4.iv, motivating why we need to make use of the hints first. Next, we will prove the hints. Lastly, we will tie everything together.\par\smallskip
+        In the language of Exercise 4.4.iii, let $U=X$ and $U_0=\R^n$ ($X=\Gamma_f$ and $\phi$ are already defined in the statement of this Exercise). Then by Exercise 4.4.iii, we have that
+        \begin{equation*}
+            \phi^*\sigma = (\det(\phi_{i,j}))^{1/2}\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+        \end{equation*}
+        However, calculating $\det(\phi_{i,j})$ is not as easy a task here as it was for the $1\times 1$ matrix in Exercise 4.4.iv. To build up to calculating this quantity, let's investigate $(\phi_{i,j})$ to start. We know from Exercise 4.4.i-4.4.iii (or, alternately, from its definition) that
+        \begin{align*}
+            (\phi_{i,j}) &= (D\phi)^\intercal(D\phi)\\
+            &=
+            \begin{bmatrix}
+                \pdv{\phi_1}{x_1} & \cdots & \pdv{\phi_{n+1}}{x_1}\\
+                \vdots & \ddots & \vdots\\
+                \pdv{\phi_1}{x_n} & \cdots & \pdv{\phi_{n+1}}{x_n}\\
+            \end{bmatrix}
+            \begin{bmatrix}
+                \pdv{\phi_1}{x_1} & \cdots & \pdv{\phi_1}{x_n}\\
+                \vdots & \ddots & \vdots\\
+                \pdv{\phi_{n+1}}{x_1} & \cdots & \pdv{\phi_{n+1}}{x_n}\\
+            \end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                \sum_{k=1}^{n+1}\pdv{\phi_k}{x_1}\pdv{\phi_k}{x_1} & \cdots & \sum_{k=1}^{n+1}\pdv{\phi_k}{x_1}\pdv{\phi_k}{x_n}\\
+                \vdots & \ddots & \vdots\\
+                \sum_{k=1}^{n+1}\pdv{\phi_k}{x_n}\pdv{\phi_k}{x_1} & \cdots & \sum_{k=1}^{n+1}\pdv{\phi_k}{x_n}\pdv{\phi_k}{x_n}\\
+            \end{bmatrix}
+        \end{align*}
+        Furthermore, from the definition of the coordinates of $\phi$, we can determine that
+        \begin{align*}
+            \pdv{\phi_k}{x_\ell} &=
+            \begin{cases}
+                \pdv{\phi_k}{x_k} & k=\ell;\ k\leq n\\
+                \pdv{\phi_k}{x_\ell} & k\neq\ell;\ k\leq n\\
+                \pdv{\phi_k}{x_\ell} & k=n+1
+            \end{cases}\\
+            &=
+            \begin{cases}
+                \pdv{x_k}{x_k} & k=\ell;\ k\leq n\\
+                \pdv{x_k}{x_\ell} & k\neq\ell;\ k\leq n\\
+                \pdv{f}{x_\ell} & k=n+1
+            \end{cases}\\
+            &=
+            \begin{cases}
+                1 & k=\ell;\ k\leq n\\
+                0 & k\neq\ell;\ k\leq n\\
+                \pdv{f}{x_\ell} & k=n+1
+            \end{cases}
+        \end{align*}
+        where 1 denotes the identity function on $\R^n$ and 0 denotes the zero function on $\R^n$. It follows that
+        \begin{align*}
+            \phi_{i,j} &= \sum_{k=1}^{n+1}\pdv{\phi_k}{x_i}\pdv{\phi_k}{x_j}\\
+            &=
+            \begin{cases}
+                \displaystyle\sum_{k=1}^n\pdv{x_k}{x_i}\pdv{x_k}{x_i}+\pdv{f}{x_i}\pdv{f}{x_i} & i=j\\
+                \displaystyle\sum_{k=1}^n\pdv{x_k}{x_i}\pdv{x_k}{x_j}+\pdv{f}{x_i}\pdv{f}{x_j} & i\neq j
+            \end{cases}\\
+            &=
+            \begin{cases}
+                \displaystyle\sum_{\substack{k=1\\k\neq i,j}}^n\pdv{x_k}{x_i}\pdv{x_k}{x_i}+\pdv{x_i}{x_i}\pdv{x_i}{x_i}+\pdv{x_j}{x_i}\pdv{x_j}{x_i}+\left( \pdv{f}{x_i} \right)^2 & i=j\\
+                \displaystyle\sum_{\substack{k=1\\k\neq i,j}}^n\pdv{x_k}{x_i}\pdv{x_k}{x_j}+\pdv{x_i}{x_i}\pdv{x_i}{x_j}+\pdv{x_j}{x_i}\pdv{x_j}{x_j}+\pdv{f}{x_i}\pdv{f}{x_j} & i\neq j
+            \end{cases}\\
+            &=
+            \begin{cases}
+                \displaystyle\sum_{\substack{k=1\\k\neq i,j}}^n0\cdot 0+1\cdot 1+0\cdot 0+\left( \pdv{f}{x_i} \right)^2 & i=j\\
+                \displaystyle\sum_{\substack{k=1\\k\neq i,j}}^n0\cdot 0+1\cdot 0+0\cdot 1+\pdv{f}{x_i}\pdv{f}{x_j} & i\neq j
+            \end{cases}\\
+            &=
+            \begin{cases}
+                1+\left( \pdv{f}{x_i} \right)^2 & i=j\\
+                \pdv{f}{x_i}\pdv{f}{x_j} & i\neq j
+            \end{cases}
+        \end{align*}
+        Thus,
+        \begin{align*}
+            (\phi_{i,j}) &=
+            \begin{bmatrix}
+                1+\left( \pdv{f}{x_1} \right)^2 & \pdv{f}{x_1}\pdv{f}{x_2} & \cdots & \cdots & \pdv{f}{x_1}\pdv{f}{x_n}\\
+                \pdv{f}{x_2}\pdv{f}{x_1} & 1+\left( \pdv{f}{x_2} \right)^2 & \ddots &  & \vdots\\
+                \vdots & \ddots & \ddots & \ddots & \vdots\\
+                \vdots &  & \ddots & 1+\left( \pdv{f}{x_{n-1}} \right)^2 & \pdv{f}{x_{n-1}}\pdv{f}{x_n}\\
+                \pdv{f}{x_n}\pdv{f}{x_1} & \cdots & \cdots & \pdv{f}{x_n}\pdv{f}{x_{n-1}} & 1+\left( \pdv{f}{x_n} \right)^2\\
+            \end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                1 & \cdots & 0\\
+                \vdots & \ddots & \vdots\\
+                0 & \cdots & 1\\
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+                \pdv{f}{x_1}\pdv{f}{x_1} & \cdots & \pdv{f}{x_1}\pdv{f}{x_n}\\
+                \vdots & \ddots & \vdots\\
+                \pdv{f}{x_n}\pdv{f}{x_1} & \cdots & \pdv{f}{x_n}\pdv{f}{x_n}\\
+            \end{bmatrix}\\
+            &= I+(c_ic_j)
+        \end{align*}
+        where in the last step we have defined $c_i$ to be the function $\pdv*{f}{x_i}$ ($i=1,\dots,n$) and $(c_ic_j)$ to be the matrix which has entry $c_ic_j$ in the $i^\text{th}$ row and $j^\text{th}$ column. The reason for introducing the $c_i$ nomenclature is purely for notational simplicity.\par\smallskip
+        The reason why we need to prove the hints should now be clear: Rather than using the computationally complex permutation definition of the determinant to evaluate $\det(\phi_{i,j})$, we can use the computationally simple method laid out in the hints to calculate $\det(I+(c_ic_j))$ and then return the substitution $c_i=\pdv*{f}{x_i}$ to get our final answer. Let's now prove the hints.\par
+        Using the definitions provided in the hint, we have that
+        \begin{align*}
+            Cv &=
+            \begin{bmatrix}
+                c_1c_1 & \cdots & c_1c_n\\
+                \vdots & \ddots & \vdots\\
+                c_nc_1 & \cdots & c_nc_n\\
+            \end{bmatrix}
+            \begin{bmatrix}
+                c_1\\
+                \vdots\\
+                c_n\\
+            \end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                \left( \sum_{i=1}^nc_i^2  \right)c_1\\
+                \vdots\\
+                \left( \sum_{i=1}^nc_i^2  \right)c_n\\
+            \end{bmatrix}\\
+            &= \left( \sum_{i=1}^nc_i^2  \right)
+            \begin{bmatrix}
+                c_1\\
+                \vdots\\
+                c_n\\
+            \end{bmatrix}
+        \end{align*}
+        as desired. Now suppose that $w\in V$ satisfies $w\cdot v=0$. Then
+        \begin{align*}
+            Cw &=
+            \begin{bmatrix}
+                c_1c_1 & \cdots & c_1c_n\\
+                \vdots & \ddots & \vdots\\
+                c_nc_1 & \cdots & c_nc_n\\
+            \end{bmatrix}
+            \begin{bmatrix}
+                w_1\\
+                \vdots\\
+                w_n\\
+            \end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                \left( \sum_{i=1}^n w_ic_i \right)c_1\\
+                \vdots\\
+                \left( \sum_{i=1}^n w_ic_i \right)c_n\\
+            \end{bmatrix}\\
+            &= (w\cdot v)\cdot
+            \begin{bmatrix}
+                c_1\\
+                \vdots\\
+                c_n\\
+            \end{bmatrix}\\
+            &= 0
+        \end{align*}
+        as desired.\par
+        Consider the list of vectors $\{v\}\subset V$. Extend it to an orthogonal basis $\{v,w_2,\dots,w_n\}$ of $V$. Then $w_i\cdot v=0$ ($i=2,\dots,n$). It therefore follows from the above that $Cv=(\sum_{i=1}^nc_i^2)v$ and $Cw_i=0w_i$ ($i=2,\dots,n$). Thus, by the definition of eigenvalues, the eigenvalues of $C$ are $\lambda_1=\sum_{i=1}^nc_i^2$ and $\lambda_2=\cdots=\lambda_n=0$, as desired.\par
+        The matrix of the identity function $I$ is identical with respect to every basis of $V$. Thus, the matrix $\mathcal{M}(I+C)$ of $I+C$ with respect to the basis $\{v,w_2,\dots,w_n\}$ is
+        \begin{align*}
+            \mathcal{M}(I+C) &=
+            \begin{bmatrix}
+                1 & 0 & \cdots & 0\\
+                0 & 1 & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0 & 0 & \cdots & 1\\
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+                \sum_{i=1}^nc_i^2 & 0 & \cdots & 0\\
+                0 & 0 & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0 & 0 & \cdots & 0\\
+            \end{bmatrix}\\
+            &=
+            \begin{bmatrix}
+                1+\sum_{i=1}^nc_i^2 & 0 & \cdots & 0\\
+                0 & 1 & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0 & 0 & \cdots & 1\\
+            \end{bmatrix}
+        \end{align*}
+        It follows by reading down the diagonal of $\mathcal{M}(I+C)$ (a diagonal matrix) that the eigenvalues of $I+C$ are $\lambda_1=1+\sum_{i=1}^nc_i^2$ and $\lambda_2=\cdots=\lambda_n=1$. Thus, since the determinant of a linear transformation is equal to the product of its eigenvalues, we have that
+        \begin{align*}
+            \det(I+C) &= \prod_{i=1}^n\lambda_i\\
+            &= \left( 1+\sum_{i=1}^nc_i^2 \right)\cdot\prod_{i=2}^n1\\
+            &= 1+\sum_{i=1}^nc_i^2
+        \end{align*}
+        as desired.\par
+        Thus, we have that
+        \begin{equation*}
+            \det(\phi_{i,j}) = 1+\sum_{i=1}^n\left( \pdv{f}{x_i} \right)^2
+        \end{equation*}
+        via returning the substitution $c_i=\pdv*{f}{x_i}$\footnote{Strictly speaking, the linear functionals $\pdv*{f}{x_i}$ on $\R^n$ do not form a field over which we can take an $n$-dimensional vector space $V$, as we have thus far in working with the $c_i$. However, the results that we have proven still apply as if the $\pdv*{f}{x_i}$ did form a field.}\par\smallskip
+        Therefore, tying everything together, we have that
+        \begin{align*}
+            \phi^*\sigma &= (\det(\phi_{i,j}))^{1/2}\dd{x_1}\wedge\cdots\wedge\dd{x_n}\\
+            &= \left( 1+\sum_{i=1}^n\left( \pdv{f}{x_i} \right)^2 \right)^{1/2}\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+        \end{align*}
+        as desired.
+    \end{proof}
+    \stepcounter{enumi}
+    \item Let $U$ be an open subset of $\R^N$ and $f:U\to\R^k$ a $C^\infty$ map. If zero is a regular value of $f$, the set $X=f^{-1}(0)$ is a manifold of dimension $n=N-k$. Show that this manifold has a natural smooth orientation. \emph{Some suggestions}:
+    \begin{itemize}[label={\scriptsize$\blacktriangleright$}]
+        \item Let $f=(f_1,\dots,f_k)$ and let
+        \begin{equation*}
+            \dd{f_1}\wedge\cdots\wedge\dd{f_k} = \sum f_I\dd{x_I}
+        \end{equation*}
+        where the summation is taken over all strictly increasing multi-indices of $N$ of length $k$. Show that for every $p\in X$, $f_I(p)\neq 0$ for some strictly increasing multi-index of $N$ of length $k$.
+        \item Let $J$ (a strictly increasing multi-index of $N$ of length $n$) be the complementary multi-index to $I$, i.e., $j_r\neq i_s$ for all $r,s$. Show that
+        \begin{equation*}
+            \dd{f_1}\wedge\cdots\wedge\dd{f_k}\wedge\dd{x_J} = \pm f_I\dd{x_1}\wedge\cdots\wedge\dd{x_N}
+        \end{equation*}
+        and conclude that the $n$-form
+        \begin{equation*}
+            \mu = \pm\frac{1}{f_I}\dd{x_J}
+        \end{equation*}
+        is a $C^\infty$ $n$-form on a neighborhood of $p$ in $U$ and has the property
+        \begin{equation*}
+            \dd{f_1}\wedge\cdots\wedge\dd{f_k}\wedge\mu = \dd{x_1}\wedge\cdots\wedge\dd{x_N}
+        \end{equation*}
+        \item Let $\imath:X\to U$ be the inclusion map. Show that the assignment
+        \begin{equation*}
+            p \mapsto (\imath^*\mu)_p
+        \end{equation*}
+        defines an \emph{intrinsic} nowhere vanishing $n$-form $\sigma\in\ome[n]{X}$ on $X$.
+        \item Show that the orientation of $X$ defined by $\sigma$ coincides with the orientation that we described earlier in this section.
+    \end{itemize}
+    \begin{proof}
+        % For suggestion 1, perhaps a contradiction argument? Perhaps expand $\dd{f}_I$ to determine each $f_I$ individually (relation to the determinant?)? Perhaps use the regular value condition. Nonzero determinant and surjective $DF_p$ could well be related...
+
+        % For suggestion 2, again, determinants might help.
+
+        % For suggestion 3, do we have to show that for another function $g:U\to\R^k$ satisfying $X=g^{-1}(0)$ we get the same $\sigma\in\ome[n](X)$? Is this even true?
+
+
+        Let $p\in X$ be arbitrary. Consider the $k\times N$ matrix
+        \begin{equation*}
+            Df =
+            \begin{bmatrix}
+                \pdv{f_1}{x_1} & \cdots & \pdv{f_1}{x_N}\\
+                \vdots & \ddots & \vdots\\
+                \pdv{f_k}{x_1} & \cdots & \pdv{f_k}{x_N}\\
+            \end{bmatrix}
+        \end{equation*}
+        Since 0 is a regular value of $f$, $Df(p)$ is surjective for all $p\in X=f^{-1}(0)$. Thus, $Df$ contains a set of $k$ linearly independent columns, which we may call columns $i_1,\dots,i_k$. It follows by expanding $\dd{f_1}\wedge\cdots\wedge\dd{f_k}$ that $f_I=\det(Df_I)$, where $I=(i_1,\dots,i_k)$ and $Df_I$ is the $k\times k$ matrix containing columns $i_1,\dots,i_k$ of $Df$. Since $Df_I$ is therefore bijective, $f_I(p)\neq 0$ if $p\neq 0$. If $p=0$, it is not hard to find another submatrix $Df_J$ that yields $f_J\neq 0$.\par
+        Similarly to the above, the additional wedging of the complementary multi-index means that we can only now consider terms in the expansion of $\dd{f_1}\wedge\cdots\wedge\dd{f_k}$. But this is again just the expansion $f_I=\det(Df_I)$. The latter parts follow naturally.\par
+        Since at least one $f_I$ is always nonzero, then $\mu$ is nowhere vanishing, so the pullback of it onto its desired domain (i.e., $X$) is naturally nonzero too. Additionally, any other function $g:U\to\R^k$ satisfying the necessary hypotheses would lead to the same $\mu$, so $\mu$ is intrinsic, as desired.\par
+        Lastly, to prove that this orientation coincides with $\sigma_X$, it will suffice to prove that it does at an arbitrary $p\in X$. But it naturally does, as desired.
+    \end{proof}
+    \item Let $S^n$ be the $n$-sphere and $\imath:S^n\to\R^{n+1}$ the inclusion map. Show that if $\omega\in\ome[n]{\R^{n+1}}$ is the $n$-form
+    \begin{equation*}
+        \omega = \sum_{i=1}^{n+1}(-1)^{i-1}x_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_{n+1}}
+    \end{equation*}
+    then the $n$-form $\imath^*\omega\in\ome[n]{S^n}$ is the Riemannian volume form.
+    \begin{proof}
+        % Let $\bm{v}=\pdv*{x_1}+\cdots+\pdv*{x_{n+1}}$ and $\sigma=\dd{x_1}\wedge\cdots\wedge\dd{x_{n+1}}$. Then $\omega=\iota_{\bm{v}}\sigma$.
+
+        % $\imath^*\omega:p\mapsto\dd\imath_p^*\omega_p$.
+
+        % We have that
+        % \begin{align*}
+        %     \imath^*\omega &= \sum_{i=1}^{n+1}\imath^*((-1)^{i-1}x_i)\dd{\imath_1}\wedge\cdots\wedge\widehat{\dd{\imath_i}}\wedge\cdots\wedge\dd{\imath_{n+1}}
+        % \end{align*}
+
+        % Just go for it directly. Tie back into previous descriptions of the tangent space to the $n$-sphere.
+
+
+        To prove that $\imath^*\omega$ is the Riemannian volume form on $S^n$, it will suffice to show that at every $p\in S^n$, $(\imath^*\omega)_p=\sigma_p$ as defined in Theorem 4.4.9. Let $p=(p_1,\dots,p_{n+1})\in S^n$ be arbitrary. Extend the list of vectors $\{p\}$ to an orthonormal basis $\{p,e_1,\dots,e_n\}$ of $\R^{n+1}$. We now define some objects that will be helpful for the main argument.\par
+        Let each vector $e_i$ be represented by the matrix
+        \begin{equation*}
+            e_i =
+            \begin{bmatrix}
+                (e_i)_1\\
+                \vdots\\
+                (e_i)_{n+1}\\
+            \end{bmatrix}
+        \end{equation*}
+        with respect to the standard basis of $\R^{n+1}$. Let $E$ be the $(n+1)\times(n+1)$ change of coordinate matrix
+        \begin{equation*}
+            E =
+            \begin{bmatrix}
+                p_1 & (e_1)_1 & \cdots & (e_n)_1\\
+                p_2 & (e_1)_2 & \cdots & (e_n)_2\\
+                \vdots & \vdots & \ddots & \vdots\\
+                p_{n+1} & (e_1)_{n+1} & \cdots & (e_n)_{n+1}\\
+            \end{bmatrix}
+        \end{equation*}
+        Let $E_{i,j}$ be the $n\times n$ minor of $E$ created by removing the $i^\text{th}$ row and $j^\text{th}$ column of $E$. Note that since the matrix of $e_i^*$ with respect to the standard basis of $\R^{n+1}$ is
+        \begin{equation*}
+            e_i^* =
+            \begin{bmatrix}
+                (e_i)_1 & \cdots & (e_i)_{n+1}
+            \end{bmatrix}
+        \end{equation*}
+        the action of $(e_i^*)_p$ is equal to isolating the $j^\text{th}$ component of the vector on which it is acting and multiplying that component by $(e_i)_j$ for all $j=1,\dots,n+1$ and then summing the results. Another way of expressing this action is by
+        \begin{equation*}
+            (e_i^*)_p = (e_i)_1(\dd{x_1})_p+\cdots+(e_i)_{n+1}(\dd{x_{n+1}})_p
+        \end{equation*}
+        Thus, using all of these definitions, we can reduce the problem of showing that $\sigma_p=(\imath^*\omega)_p$ to a problem of showing the following equality.
+        \begin{align*}
+            \sigma_p &= (e_1^*)_p\wedge\cdots\wedge(e_n^*)_p\\
+            &= [(e_1)_1(\dd{x_1})_p+\cdots+(e_1)_{n+1}(\dd{x_{n+1}})_p]\wedge\cdots\wedge[(e_n)_1(\dd{x_1})_p+\cdots+(e_n)_{n+1}(\dd{x_{n+1}})_p]\\
+            &= \sum_{i=1}^{n+1}\det(E_{i,1})(\dd{x_1})_p\wedge\cdots\wedge\widehat{(\dd{x_i})_p}\wedge\cdots\wedge(\dd{x_{n+1}})_p\\
+            &\stackrel{?}{=} \sum_{i=1}^{n+1}(-1)^{i-1}p_i(\dd{x_1})_p\wedge\cdots\wedge\widehat{(\dd{x_i})_p}\wedge\cdots\wedge(\dd{x_{n+1}})_p\\
+            &= \sum_{i=1}^{n+1}(-1)^{i-1}x_i(p)(\dd{x_1})_p\wedge\cdots\wedge\widehat{(\dd{x_i})_p}\wedge\cdots\wedge(\dd{x_{n+1}})_p\\
+            &= (\imath^*\omega)_p
+        \end{align*}
+        In other words, we want to show that for each $i=1,\dots,n+1$, $(-1)^{i-1}p_i=\det(E_i,1)$. Define $\tilde{p}$ to be the vector
+        \begin{equation*}
+            \tilde{p} =
+            \begin{bmatrix}
+                (-1)^{1-1}\det(E_{1,1})\\
+                \vdots\\
+                (-1)^{(n+1)-1}\det(E_{n+1,1})\\
+            \end{bmatrix}
+        \end{equation*}
+        We can prove the desired result by making use of the fact that $p$ is completely characterized by the $n+1$ equations
+        \begin{align*}
+            p\cdot p &= 1\\
+            e_1\cdot p &= 0\\
+            &\vdots\\
+            e_n\cdot p &= 0
+        \end{align*}
+        Thus, if we can show that
+        \begin{align*}
+            p\cdot\tilde{p} &= 1\\
+            e_1\cdot\tilde{p} &= 0\\
+            &\vdots\\
+            e_n\cdot\tilde{p} &= 0
+        \end{align*}
+        we will have proven that $p=\tilde{p}$ as desired. Let's begin. We have that
+        \begin{equation*}
+            p\cdot\tilde{p} = (-1)^{1-1}p_1\cdot\det(E_{1,1})+\cdots+(-1)^{(n+1)-1}p_{n+1}\cdot\det(E_{n+1,1})\\
+            = \det
+            \begin{bmatrix}
+                p & e_1 & \cdots & e_n
+            \end{bmatrix}
+            = 1
+        \end{equation*}
+        where we have used the determinant expansion by minors to compress the second term above into the third term above, and the fact that $
+        \begin{bmatrix}
+            p & e_1 & \cdots & e_n
+        \end{bmatrix}
+        $ is an orthogonal matrix to show that it has determinant equal to one. Similarly, we have that
+        \begin{equation*}
+            e_i\cdot\tilde{p} = (-1)^{1-1}(e_i)_1\cdot\det(E_{1,1})+\cdots+(-1)^{(n+1)-1}(e_i)_{n+1}\cdot\det(E_{n+1,1})\\
+            = \det
+            \begin{bmatrix}
+                e_i & e_1 & \cdots & e_n
+            \end{bmatrix}
+            = 0
+        \end{equation*}
+        where we have again used the determinant expansion by minors, but this time, we have used the fact that there are repeat columns (the first and the $(i+1)^\text{th}$ will both equal $e_i$) to identify the matrix as singular and thus having determinant zero.\par
+        Therefore, we have proven that $p=\tilde{p}$, completing the proof.
+    \end{proof}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{4.5.\roman*.}}]
+    \item Let $f:\R^n\to\R$ be a $C^\infty$ function. Orient the graph $X=\Gamma_f$ of $f$ by requiring that the diffeomorphism $\phi:\R^n\to X$ defined by
+    \begin{equation*}
+        x \mapsto (x,f(x))
+    \end{equation*}
+    be orientation preserving. Given a bounded open set $U$ in $\R^n$, compute the Riemannian volume of the image
+    \begin{equation*}
+        X_U = \phi(U)
+    \end{equation*}
+    of $U$ in $X$ as an integral over $U$. (Hint: See Exercise 4.4.v.)
+    \begin{proof}
+        We have that
+        \begin{align*}
+            \vol(X_U) &= \int_U\phi^*\sigma\\
+            \Aboxed{\vol(X_U) &= \int_U\left( 1+\sum_{i=1}^n\left( \pdv{f}{x_i} \right)^2 \right)^{1/2}\dd{x_1}\cdots\dd{x_n}\tag*{Exercise 4.4.v}}
+        \end{align*}
+    \end{proof}
+    \item Evaluate this integral for the open subset $X_U$ of the paraboloid defined by $x_3=x_1^2+x_2^2$, where $U$ is the disk $x_1^2+x_2^2<2$.
+    \begin{proof}
+        We have that
+        \begin{align*}
+            \vol(X_U) &= \iint_U\left( 1+\sum_{i=1}^2\left( \pdv{f}{x_i} \right)^2 \right)^{1/2}\dd{x_1}\dd{x_2}\\
+            &= \int_{-2}^2\int_{-\sqrt{4-x_2^2}}^{\sqrt{4-x_2^2}}\sqrt{1+4x_1^2+4x_2^2}\dd{x_1}\dd{x_2}\\
+            \Aboxed{\vol(X_U) &\approx 36.18}
+        \end{align*}
+    \end{proof}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{4.6.\roman*.}}]
+    \item Let $B^n$ be the open unit ball in $\R^n$ and $S^{n-1}$ the unit $(n-1)$-sphere. Show that
+    \begin{equation*}
+        \vol(S^{n-1}) = n\vol(B^n)
+    \end{equation*}
+    (Hint: Apply Stokes' theorem to the $(n-1)$-form
+    \begin{equation*}
+        \mu = \sum_{i=1}^n(-1)^{i-1}x_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    and note by Exercise 4.4.viii that $\mu$ is the Riemannian volume form of $S^{n-1}$.)
+    \begin{proof}
+        Since
+        \begin{align*}
+            \dd\mu &= \sum_{i=1}^n(-1)^{i-1}\dd{x_i}\wedge\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}\\
+            &= \sum_{i=1}^n\dd{x_1}\wedge\cdots\wedge\dd{x_n}\\
+            &= n\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+        \end{align*}
+        we have that
+        \begin{align*}
+            \vol{S^{n-1}} &= \int_{S^{n-1}}\sigma_{S^{n-1}}\\
+            &= \int_{S^{n-1}}\mu\\
+            &= \int_{B^n}\dd\mu\tag*{Stokes' theorem}\\
+            &= n\int_{B^n}\dd{x_1}\wedge\cdots\wedge\dd{x_n}\\
+            &= n\int_{B^n}\sigma_{B^n}\\
+            &= n\vol(B^n)
+        \end{align*}
+        as desired.
+    \end{proof}
+\end{enumerate}
+
+
+
+
+\end{document}

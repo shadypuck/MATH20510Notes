@@ -10,6 +10,13 @@
 
 
 \chapter{Differentiation}
+\section[\texorpdfstring{$k$}{TEXT}-Forms]{\texorpdfstring{$\bm{k}$}{TEXT}-Forms}
+\begin{itemize}
+    \item \marginnote{4/25:}Definitions and examples of $k$-forms.
+\end{itemize}
+
+
+
 \section{Vector Calculus Operations}
 \begin{itemize}
     \item \marginnote{4/27:}Announcements.
@@ -72,7 +79,7 @@
                 \end{align*}
                 where we're summing over all $I$ such that $|I|=k$ and all $J$ such that $|J|=\ell$. Then
                 \begin{align*}
-                    \omega_1\wedge\omega_2 &= \sum_{I,J}f_Ig_J\dd{x_I}\wedge\dd{x_J}
+                    \omega_1\wedge\omega_2 &= \sum_{I,J}f_Ig_J\dd{x_I}\wedge\dd{x_J}\\
                     \dd{(\omega_1\wedge\omega_2)} &= \sum_{I,J}\dd{(f_Ig_J)}\wedge\dd{x_I}\wedge\dd{x_J}
                 \end{align*}
                 \item Note that
@@ -86,7 +93,7 @@
                 \item These identities allow us to take the previous equation to
                 \begin{align*}
                     \dd{(\omega_1\wedge\omega_2)} &= \sum_{I,J}g_J\dd{f_I}\wedge\dd{x_I}\wedge\dd{x_J}+(-1)^kf_I\dd{x_I}\wedge\dd{g_J}\wedge\dd{x_J}\\
-                    &= \sum_{I,J}(\dd{f_I}\wedge\dd{x_I})\wedge(g_J\dd{x_J})+\sum_{I,J}(f_I\dd{x_I})\wedge(dd{g_J}\wedge\dd{x_J})\\
+                    &= \sum_{I,J}(\dd{f_I}\wedge\dd{x_I})\wedge(g_J\dd{x_J})+\sum_{I,J}(f_I\dd{x_I})\wedge(\dd{g_J}\wedge\dd{x_J})\\
                     &= \dd{\omega_1}\wedge\omega_2+(-1)^k\omega_1\dd{\omega_2}
                 \end{align*}
             \end{itemize}
@@ -133,8 +140,10 @@
 \begin{itemize}
     \item \marginnote{5/5:}As we formed the $k^\text{th}$ exterior powers $\lam[k]{V^*}$, we can form the $k^\text{th}$ exterior powers $\lam[k]{T_p^*\R^n}$.
     \begin{itemize}
-        \item Since $\lam[1]{T_p^*\R^n}=T_p^*\R^n$, we can think of a one-form as a function which takes its value at $p$ in the space $\lam[1]{T_p^*\R^n}$.
+        \item In particular, we can take the vector space $\lin[k]{T_p\R^n}$ (of all $k$-tensors on the tangent space of $p$) and the span $\ide[k]{T_p\R^n}$ (of all redundant $k$-tensors on the tangent space of $p$) and form their quotient space $\lam[k]{T_p^*\R^n}$.
+        \item This quotient space will be isomorphic to the set $\alt[k]{T_p\R^n}$ of all alternating tensors on the tangent space of $p$. As such, elements of $\lam[k]{T_p^*\R^n}$ can be thought of as $k$-linear alternating tensors.
     \end{itemize}
+    \item Since $\lam[1]{T_p^*\R^n}=T_p^*\R^n$, we can think of a one-form as a function which takes as its value at $p$ an element of the space $\lam[1]{T_p^*\R^n}$.
     \item \textbf{$\bm{k}$-form} (on $U$): A function which assigns to each point $p\in U$ an element $\omega_p\in\lam[k]{T_p^*\R^n}$, where $U\subset\R^n$ is open.
     \item We can use the wedge product to construct $k$-forms.
     \begin{itemize}

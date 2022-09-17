@@ -1,0 +1,550 @@
+\documentclass[../psets.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\leftmark}{Problem Set \thesection}
+\setenumerate[1]{leftmargin=4em}
+\setenumerate[2]{label={(\arabic*)}}
+\setcounter{section}{2}
+
+\begin{document}
+
+
+
+
+\section{Operations on Forms}
+\emph{From \textcite{bib:DifferentialForms}.}
+\subsection*{Chapter 2}
+\begin{enumerate}[label={\textbf{2.4.\roman*.}}]
+    \item \marginnote{5/9:}Compute the exterior derivatives of the following differential forms.
+    \begin{enumerate}
+        \item $x_1\dd{x_2}\wedge\dd{x_3}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \dd(x_1\dd{x_2}\wedge\dd{x_3}) &= \dd(x_1\dd{x_2})\wedge\dd{x_3}+(-1)^1x_1\dd{x_2}\wedge\dd(\dd{x_3})\\
+                &= \dd{x_1}\wedge\dd{x_2}\wedge\dd{x_3}-x_1\dd{x_2}\wedge 0\\
+                \Aboxed{\dd(x_1\dd{x_2}\wedge\dd{x_3}) &= \dd{x_1}\wedge\dd{x_2}\wedge\dd{x_3}}
+            \end{align*}
+        \end{proof}
+        \item $x_1\dd{x_2}-x_2\dd{x_1}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \dd(x_1\dd{x_2}-x_2\dd{x_1}) &= \dd(x_1\dd{x_2})-\dd(x_2\dd{x_1})\\
+                &= \dd{x_1}\wedge\dd{x_2}-\dd{x_2}\wedge\dd{x_1}\\
+                &= \dd{x_1}\wedge\dd{x_2}+\dd{x_1}\wedge\dd{x_2}\\
+                \Aboxed{\dd(x_1\dd{x_2}-x_2\dd{x_1}) &= 2\dd{x_1}\wedge\dd{x_2}}
+            \end{align*}
+        \end{proof}
+        \item $\e[-f]\dd{f}$ where $f=\sum_{i=1}^nx_i^2$.
+        \begin{proof}
+            % We have that
+            % \begin{align*}
+            %     \dd(\e[-f]\dd{f}) &= \dd(\e[-f])\wedge\dd{f}\\
+            %     &= \dd(\e[-x_1^2]\times\cdots\times\e[-x_n^2])\wedge\sum_{i=1}^n\dd(x_i^2)\\
+            %     &= \left[ \sum_{i=1}^n\e[-x_1^2]\times\cdots\times\dd(\e[-x_i^2])\times\cdots\times\e[-x_n^2] \right]\wedge\left[ \sum_{i=1}^n(x_i\dd{x_i}+x_i\dd{x_i}) \right]\\
+            %     &= \left[ \sum_{i=1}^n\e[-x_1^2]\times\cdots\times\left( -2x_i\e[-x_i^2]\dd{x_i} \right)\times\cdots\times\e[-x_n^2] \right]\wedge\left[ \sum_{i=1}^n2x_i\dd{x_i} \right]\\
+            %     &= \left[ \sum_{i=1}^n-2x_i\e[-f]\dd{x_i} \right]\wedge\left[ \sum_{i=1}^n2x_i\dd{x_i} \right]
+            % \end{align*}
+
+
+            We state as a lemma first that
+            \begin{align*}
+                \dd{f} &= \sum_{i=1}^n\dd(x_i^2)\\
+                &= 2\sum_{i=1}^nx_i\dd{x_i}
+            \end{align*}
+            It follows that
+            \begin{align*}
+                \dd(\e[-f]\dd{f}) &= \dd(\e[-f])\wedge\dd{f}\\
+                &= \e[-f]\dd(-f)\wedge\dd{f}\\
+                &= -4\e[-f]\sum_{i=1}^nx_i\dd{x_i}\wedge\sum_{i=1}^nx_i\dd{x_i}\\
+                &= -4\e[-f]\sum_Ix_{i_1}x_{i_2}\dd{x_{i_1}}\wedge\dd{x_{i_2}}
+                \intertext{where we sum over the multi-indices $I$ of $n$ of length 2. However, since all repeating multi-indices equal zero, we can eliminate those terms from the sum. Additionally, we can pair up all strictly increasing and strictly decreasing terms with the same two numbers (e.g., $(1,2)\sim(2,1)$, $(1,3)\sim(3,1)$, etc.). Invoking the anticommutative property, we can rewrite the sum such that we only sum over the non-repeating, strictly increasing multi-indices of $n$ of length 2.}
+                \Aboxed{\dd(\e[-f]\dd{f}) &= -4\e[-f]\sum_{1\leq i_1<i_2\leq n}(x_{i_1}x_{i_2}-x_{i_2}x_{i_1})\dd{x_{i_1}}\wedge\dd{x_{i_2}}}
+            \end{align*}
+        \end{proof}
+        \item $\sum_{i=1}^nx_i\dd{x_i}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \dd(\sum_{i=1}^nx_i\dd{x_i}) &= \sum_{i=1}^n\dd(x_i\dd{x_i})\\
+                \Aboxed{\dd(\sum_{i=1}^nx_i\dd{x_i}) &= \sum_{i=1}^n\dd{x_i}\wedge\dd{x_i}}
+            \end{align*}
+        \end{proof}
+        \item $\sum_{i=1}^n(-1)^ix_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}$.
+        \begin{proof}
+            % By comparison with Example 2.5.6, we can discover that
+            % \begin{align*}
+            %     \bm{v} &= \sum_{i=1}^n-x_i\pdv{x_i}&
+            %     \omega &= \dd{x_1}\wedge\cdots\wedge\dd{x_n}
+            % \end{align*}
+            % make
+            % \begin{align*}
+            %     \iota_{\bm{v}}\omega &= \sum_{i=1}^n(-1)^{i-1}\cdot -x_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}\\
+            %     &= \sum_{i=1}^n(-1)^ix_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}
+            % \end{align*}
+            % Let $\phi=x_1\dd{x_2}\wedge\cdots\wedge\dd{x_n}$. Then $\omega=\dd{\phi}$ by an argument similar to that used in Exercise 2.4.i(1). It follows that
+            % \begin{align*}
+            %     \iota_{\bm{v}}\omega=\iota_{\bm{v}}\dd\phi=L_{\bm{v}}\phi
+            % \end{align*}
+            % Thus,
+            % \begin{align*}
+            %     \dd{L_{\bm{v}}\phi} &= L_{\bm{v}}\dd\phi\\
+            %     &= 
+            % \end{align*}
+
+            % But wait! $L_{\bm{v}}\phi=\iota_{\bm{v}}\dd\phi$ holds only for $\phi\in\ome[0]{U}\cong C^\infty(U)$. The Lie derivative for $k$-forms is only discussed beyond section 2.4. We could use $\dd(\iota_{\bm{v}}\omega)=L_{\bm{v}}\omega-\iota_{\bm{v}}\dd\omega$, but this would probably just get us into circular formulas as the Lie derivative on $k$-forms is defined using a rearrangement of that formula. Perhaps this finding is more of just an interesting coincidence\dots
+
+
+            We have that
+            \begin{align*}
+                \dd(\sum_{i=1}^n(-1)^ix_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}) &= \sum_{i=1}^n(-1)^i\dd(x_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n})\\
+                &= \sum_{i=1}^n(-1)^i\dd{x_i}\wedge\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}\\
+                \Aboxed{\dd(\sum_{i=1}^n(-1)^ix_i\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_i}}\wedge\cdots\wedge\dd{x_n}) &= -n\dd{x_1}\wedge\cdots\wedge\dd{x_n}}
+            \end{align*}
+            Note that we get from the second to the third line as follows: The $i=1$ term is
+            \begin{equation*}
+                (-1)^1\dd{x_1}\wedge\widehat{\dd{x_1}}\wedge\dd{x_2}\wedge\cdots\wedge\dd{x_n} = -\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+            \end{equation*} 
+            The $i=2$ term is
+            \begin{align*}
+                (-1)^2\dd{x_2}\wedge\dd{x_1}\wedge\widehat{\dd{x_2}}\wedge\dd{x_3}\wedge\cdots\wedge\dd{x_n} &= (1)\cdot(-1)^\tau_{1,2}\dd{x_1}\wedge\cdots\wedge\dd{x_n}\\
+                &= -\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+            \end{align*}
+            where we have used Claim 1.6.8\footnote{Technically, we use the natural extension of Claim 1.6.8 to the wedge product of one-forms.} and the odd permutation $\tau_{1,2}$ to rearrange the term. The $i=3$ term is
+            \begin{align*}
+                (-1)^3\dd{x_3}\wedge\dd{x_1}\wedge\dd{x_2}\wedge\widehat{\dd{x_3}}\wedge\dd{x_4}\wedge\cdots\wedge\dd{x_n} &= (-1)\cdot(-1)^{\tau_{1,2}\tau_{2,3}}\dd{x_1}\wedge\cdots\wedge\dd{x_n}\\
+                &= -\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+            \end{align*}
+            From here, we should be able to see that all $n$ terms will evaluate to $-\dd{x_1}\wedge\cdots\wedge\dd{x_n}$, so we can simply add them up and stick $n$ out front as a coefficient. This intuitive justification can be formalized with an induction argument.
+        \end{proof}
+    \end{enumerate}
+    \item Solve the equation $\dd\mu=\omega$ for $\mu\in\ome[1]{\R^3}$, where $\omega$ is the 2-form\dots
+    \begin{proof}[General Solution]
+        The following is a derivation of the general solution to the equation $\dd\mu=\omega$, where $\omega$ is a two-form with the structure
+        \begin{equation*}
+            \omega = f\dd{x_i}\wedge\dd{x_j}
+        \end{equation*}
+        Let $\omega\in\ome[2]{U}$ be a two-form on $U$ with the above structure. Notice that if we take $\mu=g\dd{x_j}$ by inspection, then $\dd\mu=\dd{g}\wedge\dd{x_j}$. By comparing this equation with the definition of $\omega$, we can determine that
+        \begin{align*}
+            \dd{g} &= f\dd{x_i}\\
+            g &= \int f\dd{x_i}
+        \end{align*}
+        Therefore, the solution to $\dd\mu=\omega$ is the one-form
+        \begin{equation*}
+            \mu = \left( \int f\dd{x_i} \right)\dd{x_j}
+        \end{equation*}
+    \end{proof}
+    \begin{enumerate}
+        \item $\dd{x_2}\wedge\dd{x_3}$.
+        \begin{proof}
+            Using the above formula, we have
+            \begin{align*}
+                \mu &= \left( \int\dd{x_2} \right)\dd{x_3}\\
+                \Aboxed{\mu &= x_2\dd{x_3}}
+            \end{align*}
+        \end{proof}
+        \item $x_2\dd{x_2}\wedge\dd{x_3}$.
+        \begin{proof}
+            Using the above formula, we have
+            \begin{align*}
+                \mu &= \left( \int x_2\dd{x_2} \right)\dd{x_3}\\
+                \Aboxed{\mu &= \frac{1}{2}x_2^2\dd{x_3}}
+            \end{align*}
+        \end{proof}
+        \item $(x_1^2+x_2^2)\dd{x_1}\wedge\dd{x_2}$.
+        \begin{proof}
+            Using the above formula, we have
+            \begin{align*}
+                \mu &= \left( \int(x_1^2+x_2^2)\dd{x_1} \right)\dd{x_2}\\
+                \Aboxed{\mu &= \left( \frac{1}{3}x_1^3+x_1x_2^2 \right)\dd{x_2}}
+            \end{align*}
+        \end{proof}
+        \item $\cos(x_1)\dd{x_1}\wedge\dd{x_3}$.
+        \begin{proof}
+            Using the above formula, we have
+            \begin{align*}
+                \mu &= \left( \int\cos(x_1)\dd{x_1} \right)\dd{x_3}\\
+                \Aboxed{\mu &= \sin(x_1)\dd{x_3}}
+            \end{align*}
+        \end{proof}
+    \end{enumerate}
+    \item Let $U$ be an open subset of $\R^n$.
+    \begin{enumerate}
+        \item Show that if $\mu\in\ome[k]{U}$ is exact and $\omega\in\ome[\ell]{U}$ is closed then $\mu\wedge\omega$ is exact. \emph{Hint}: See the second desired property of the exterior derivative.
+        \begin{proof}
+            To prove that $\mu\wedge\omega$ is exact, it will suffice to show that there exists some $\eta\in\ome[k+\ell-1]{U}$ such that $\dd\eta=\mu\wedge\omega$. Since $\mu$ is exact, we know that there exists $\tilde{\mu}\in\ome[k-1]{U}$ such that $\dd\tilde{\mu}=\mu$. Since $\omega$ is closed, we know that $\dd\omega=0$. Working off of a principle similar to the general proof in Exercise 2.4.ii, we can discover by inspection that taking
+            \begin{equation*}
+                \eta = \tilde{\mu}\wedge\omega
+            \end{equation*}
+            makes it so that
+            \begin{align*}
+                \dd\eta &= \dd(\tilde{\mu}\wedge\omega)\\
+                &= \dd\tilde{\mu}\wedge\omega+(-1)^{k-1}\tilde{\mu}\wedge\dd\omega\\
+                &= \mu\wedge\omega+(-1)^{k-1}\tilde{\mu}\wedge 0\\
+                &= \mu\wedge\omega
+            \end{align*}
+            as desired.
+        \end{proof}
+        \item In particular, $\dd{x_1}$ is exact, so if $\omega\in\ome[\ell]{U}$ is closed, then $\dd{x_1}\wedge\omega=\dd{\mu}$. What is $\mu$?
+        \begin{proof}
+            Since $\dd{x_1}=\dd(x_1)$, we have by part (1) that
+            \begin{equation*}
+                \boxed{\mu = x_1\omega}
+            \end{equation*}
+        \end{proof}
+    \end{enumerate}
+    \item Let $Q$ be the rectangle $(a_1,b_1)\times\cdots\times(a_n,b_n)$. Show that if $\omega$ is in $\ome[n]{Q}$, then $\omega$ is exact. \emph{Hint}: Let $\omega=f\dd{x_1}\wedge\cdots\wedge\dd{x_n}$ with $f\in C^\infty(Q)$ and let $g$ be the function defined by
+    \begin{equation*}
+        g(x_1,\dots,x_n) = \int_{a_1}^{x_1}f(t,x_2,\dots,x_n)\dd{t}
+    \end{equation*}
+    Show that $\omega=\dd(g\dd{x_2}\wedge\cdots\wedge\dd{x_n})$.
+    \begin{proof}
+        Let $\omega\in\ome[n]{Q}$ be arbitrary. Then $\omega=f\dd{x_1}\wedge\cdots\wedge\dd{x_n}$ for some $f\in C^\infty(Q)$. To prove that $\omega$ is exact, it will suffice to show that $\omega=\dd\mu$ for some $\mu\in\ome[n-1]{Q}$.\par
+        Let $g$ be defined as in the hint. If we take $\mu=g\dd{x_2}\wedge\cdots\wedge\dd{x_n}$, then
+        \begin{align*}
+            \dd\mu &= \dd(g\dd{x_2}\wedge\cdots\wedge\dd{x_n})\\
+            &= \dd{g}\wedge\dd{x_2}\wedge\cdots\wedge\dd{x_n}\\
+            &= f(x_1,x_2,\dots,x_n)\dd{x_1}\wedge\dd{x_2}\wedge\cdots\wedge\dd{x_n}\\
+            &= f\dd{x_1}\wedge\cdots\wedge\dd{x_n}\\
+            &= \omega
+        \end{align*}
+        as desired, where we get from the second to the third line above with the Fundamental Theorem of Calculus.
+    \end{proof}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{2.5.\roman*.}}]
+    \item Verify the following properties of the interior product, where $U\subset\R^n$ open, $\bm{v},\bm{w}$ are vector fields on $U$, $\omega_1,\omega_2,\omega\in\ome[k]{U}$, and $\mu\in\ome[\ell]{U}$.
+    \begin{enumerate}
+        \item \emph{Linearity in the form}: We have
+        \begin{equation*}
+            \iota_{\bm{v}}(\omega_1+\omega_2) = \iota_{\bm{v}}\omega_1+\iota_{\bm{v}}\omega_2
+        \end{equation*}
+        \begin{proof}
+            To prove that the above two forms are equal, it will suffice to show that they evaluate to identical elements of $\lam[k-1]{V^*}$ for all $p\in U$. Let $p\in U$ be arbitrary. Then
+            \begin{align*}
+                [\iota_{\bm{v}}(\omega_1+\omega_2)]_p &= \iota_{\bm{v}(p)}[(\omega_1+\omega_2)_p]\\
+                &= \iota_{\bm{v}(p)}[(\omega_1)_p+(\omega_2)_p]\\
+                &= \iota_{\bm{v}(p)}(\omega_1)_p+\iota_{\bm{v}(p)}(\omega_2)_p\\
+                &= (\iota_{\bm{v}}\omega_1+\iota_{\bm{v}}\omega_2)_p
+            \end{align*}
+            where we get from the first to the second line and the third to the fourth line using the definition of the interior product, and from the second to the third line using the linearity of the interior product operation.
+        \end{proof}
+        \item \emph{Linearity in the vector field}: We have
+        \begin{equation*}
+            \iota_{\bm{v}+\bm{w}}\omega = \iota_{\bm{v}}\omega+\iota_{\bm{w}}\omega
+        \end{equation*}
+        \begin{proof}
+            As in the previous part, we have that
+            \begin{align*}
+                [\iota_{\bm{v}+\bm{w}}\omega]_p &= \iota_{(\bm{v}+\bm{w})(p)}\omega_p\\
+                &= \iota_{\bm{v}(p)+\bm{w}(p)}\omega_p\\
+                &= \iota_{\bm{v}(p)}\omega_p+\iota_{\bm{w}(p)}\omega_p\\
+                &= [\iota_{\bm{v}}\omega]_p+[\iota_{\bm{w}}\omega]_p\\
+                &= [\iota_{\bm{v}}\omega+\iota_{\bm{w}}\omega]_p
+            \end{align*}
+        \end{proof}
+        \item \emph{Derivation property}: We have
+        \begin{equation*}
+            \iota_{\bm{v}}(\omega\wedge\mu) = \iota_{\bm{v}}\omega\wedge\mu+(-1)^k\omega\wedge\iota_{\bm{v}}\mu
+        \end{equation*}
+        \begin{proof}
+            As in the previous parts, we have that
+            \begin{align*}
+                [\iota_{\bm{v}}(\omega\wedge\mu)]_p &= \iota_{\bm{v}(p)}(\omega\wedge\mu)_p\\
+                &= \iota_{\bm{v}(p)}(\omega_p\wedge\mu_p)\\
+                &= \iota_{\bm{v}(p)}\omega_p\wedge\mu_p+(-1)^k\omega_p\wedge\iota_{\bm{v}(p)}\mu_p\\
+                &= (\iota_{\bm{v}}\omega)_p\wedge\mu_p+(-1)^k\omega_p\wedge(\iota_{\bm{v}}\mu)_p\\
+                &= (\iota_{\bm{v}}\omega\wedge\mu)_p+(-1)^k(\omega_p\wedge\iota_{\bm{v}}\mu)_p\\
+                &= [\iota_{\bm{v}}\omega\wedge\mu+(-1)^k\omega_p\wedge\iota_{\bm{v}}\mu]_p
+            \end{align*}
+        \end{proof}
+        \item The identity
+        \begin{equation*}
+            \iota_{\bm{v}}(\iota_{\bm{w}}\omega) = -\iota_{\bm{w}}(\iota_{\bm{v}}\omega)
+        \end{equation*}
+        \begin{proof}
+            As in the previous parts, we have that
+            \begin{align*}
+                [\iota_{\bm{v}}(\iota_{\bm{w}}\omega)]_p &= \iota_{\bm{v}(p)}(\iota_{\bm{w}}\omega)_p\\
+                &= \iota_{\bm{v}(p)}(\iota_{\bm{w}(p)}\omega_p)\\
+                &= -\iota_{\bm{v}(p)}(\iota_{\bm{w}(p)}\omega_p)\\
+                &= -\iota_{\bm{v}(p)}(\iota_{\bm{w}}\omega)_p\\
+                &= -[\iota_{\bm{v}}(\iota_{\bm{w}}\omega)]_p\\
+                &= [-\iota_{\bm{v}}(\iota_{\bm{w}}\omega)]_p
+            \end{align*}
+        \end{proof}
+        \item The identity, as a special case of (4),
+        \begin{equation*}
+            \iota_{\bm{v}}(\iota_{\bm{v}}\omega) = 0
+        \end{equation*}
+        \begin{proof}
+            We have that
+            \begin{align*}
+                \iota_{\bm{v}}(\iota_{\bm{v}}\omega) &= -\iota_{\bm{v}}(\iota_{\bm{v}}\omega)\\
+                2\iota_{\bm{v}}(\iota_{\bm{v}}\omega) &= 0\\
+                \iota_{\bm{v}}(\iota_{\bm{v}}\omega) &= 0
+            \end{align*}
+        \end{proof}
+        \item If $\omega=\mu_1\wedge\cdots\wedge\mu_k$ (i.e., if $\omega$ is \textbf{decomposable}), then
+        \begin{equation*}
+            \iota_{\bm{v}}\omega = \sum_{r=1}^k(-1)^{r-1}\iota_{\bm{v}}(\mu_r)\mu_1\wedge\cdots\wedge\widehat{\mu_r}\wedge\cdots\wedge\mu_k
+        \end{equation*}
+        \begin{proof}
+            % To prove that the above two forms are equal, it will suffice to show that at each $p\in U$, they evaluate identically on all vectors $(v_1,\dots,v_{k-1})\in V^{k-1}$. Let $p\in U$ and $(v_1,\dots,v_{k-1})\in V^{k-1}$ be arbitrary. Then
+            % \begin{align*}
+            %     \left[ \iota_{\bm{v}}\omega \right]_p(v_1,\dots,v_{k-1}) ={}& \left[ \iota_{\bm{v}(p)}\omega_p \right](v_1,\dots,v_{k-1})\\
+            %     ={}& \left[ \iota_{\bm{v}(p)}(\mu_1\wedge\cdots\wedge\mu_k)_p \right](v_1,\dots,v_{k-1})\\
+            %     ={}& \left[ \iota_{\bm{v}(p)}[(\mu_1)_p\wedge\cdots\wedge(\mu_k)_p] \right](v_1,\dots,v_{k-1})\\
+            %     ={}& \sum_{r=1}^k(-1)^{r-1}[(\mu_1)_p\wedge\cdots\wedge(\mu_k)_p](v_1,\dots,v_{r-1},\bm{v}(p),v_r,\dots,v_{k-1})\\
+            %     \begin{split}
+            %         ={}& \sum_{r=1}^k(-1)^{r-1}(\mu_1)_p(v_1)\times\cdots\times(\mu_{r-1})_p(v_{r-1})\\
+            %         &\times(\mu_r)_p(\bm{v}(p))\times(\mu_{r+1})_p(v_r)\times\cdots\times(\mu_k)_p(v_{k-1})
+            %     \end{split}\\
+            %     \begin{split}
+            %         ={}& \sum_{r=1}^k(-1)^{r-1}(\mu_r)_p(\bm{v}(p))\times(\mu_1)_p(v_1)\times\cdots\times(\mu_{r-1})_p(v_{r-1})\\
+            %         &\times\widehat{(\mu_r)_p(\bm{v}(p))}\times(\mu_{r+1})_p(v_r)\times\cdots\times(\mu_k)_p(v_{k-1})
+            %     \end{split}\\
+            %     \begin{split}
+            %         ={}& \sum_{r=1}^k(-1)^{r-1}(\mu_r)_p(\bm{v}(p))\left[ (\mu_1)_p\wedge\cdots\wedge(\mu_{r-1})_p \vphantom{\widehat{(\mu_r)_p}}\right.\\
+            %         &\left. \wedge\widehat{(\mu_r)_p}\wedge(\mu_{r+1})_p\wedge\cdots\wedge(\mu_k)_p \right](v_1,\dots,v_{k-1})
+            %     \end{split}\\
+            %     \begin{split}
+            %         ={}& \sum_{r=1}^k(-1)^{r-1}\left( \sum_{s=1}^1(-1)^{s-1}(\mu_r)_p(\bm{v}(p)) \right)\left[ \mu_1\wedge\cdots\wedge\mu_{r-1}\right.\\
+            %         &\left. \wedge\widehat{\mu_r}\wedge\mu_{r+1}\wedge\cdots\wedge\mu_k \right]_p(v_1,\dots,v_{k-1})
+            %     \end{split}\\
+            %     ={}& \sum_{r=1}^k(-1)^{r-1}\iota_{\bm{v}(p)}(\mu_r)_p\left[ \mu_1\wedge\cdots\wedge\widehat{\mu_r}\wedge\cdots\wedge\mu_k \right]_p(v_1,\dots,v_{k-1})\\
+            %     ={}& \sum_{r=1}^k(-1)^{r-1}[\iota_{\bm{v}}(\mu_r)]_p\left[ \mu_1\wedge\cdots\wedge\widehat{\mu_r}\wedge\cdots\wedge\mu_k \right]_p(v_1,\dots,v_{k-1})\\
+            %     ={}& \left[ \sum_{r=1}^k(-1)^{r-1}\iota_{\bm{v}}(\mu_r)\mu_1\wedge\cdots\wedge\widehat{\mu_r}\wedge\cdots\wedge\mu_k \right]_p(v_1,\dots,v_{k-1})
+            % \end{align*}
+            % as desired.
+
+
+            To prove that the above two forms are equal, it will suffice to show that they evaluate to identical elements of $\lam[k-1]{V^*}$ for all $p\in U$. Let $p\in U$ be arbitrary. Also let $(\mu_i)_p=\pi(\ell_i)$ for $i=1,\dots,k$ and, thus, $\omega_p=\pi(\ell_1\otimes\cdots\otimes\ell_k)$. Then
+            \begin{align*}
+                [\iota_{\bm{v}}\omega]_p &= \iota_{\bm{v}(p)}\omega_p\\
+                &= \pi\left[ \iota_{\bm{v}(p)}(\ell_1\otimes\cdots\otimes\ell_k) \right]\\
+                &= \pi\left[ \sum_{r=1}^k(-1)^{r-1}\ell_r(\bm{v}(p))\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k \right]\tag*{Lemma 1.7.4}\\
+                &= \sum_{r=1}^k(-1)^{r-1}\pi\left[ \iota_{\bm{v(p)}}(\ell_r)\ell_1\otimes\cdots\otimes\hat{\ell}_r\otimes\cdots\otimes\ell_k \right]\\
+                &= \sum_{r=1}^k(-1)^{r-1}\iota_{\bm{v(p)}}(\mu_r)_p(\mu_1)_p\wedge\cdots\wedge\widehat{(\mu_r)_p}\wedge\cdots\wedge(\mu_k)_p\\
+                &= \left[ \sum_{r=1}^k(-1)^{r-1}\iota_{\bm{v}}(\mu_r)\mu_1\wedge\cdots\wedge\widehat{\mu_r}\wedge\cdots\wedge\mu_k \right]_p
+            \end{align*}
+            as desired.
+        \end{proof}
+    \end{enumerate}
+    \item Show that if $\omega$ is the $k$-form $\dd{x_I}$ and $\bm{v}$ is the vector field $\pdv*{x_r}$, then $\iota_{\bm{v}}\omega$ is given by
+    \begin{equation*}
+        \iota_{\bm{v}}\omega = \sum_{j=1}^k(-1)^{j-1}\delta_{r,i_j}\dd{x_{I_j}}
+    \end{equation*}
+    where
+    \begin{align*}
+        \delta_{r,i_j} &=
+        \begin{cases}
+            1 & r = i_j\\
+            0 & r \neq i_j
+        \end{cases}&
+        I_j &= (i_1,\dots,\widehat{i_j},\dots,i_k)
+    \end{align*}
+    In the above, 1 represents the identity function on $U$, and 0 represents the zero function on $U$.
+    \begin{proof}
+        We have that $\omega=\dd{x_I}=\dd{x_{i_1}}\wedge\cdots\wedge\dd{x_{i_k}}$. Therefore, by Properties 2.5.3(6),
+        \begin{align*}
+            \iota_{\bm{v}}\omega &= \sum_{j=1}^k(-1)^{j-1}\iota_{\bm{v}}(\dd{x_{i_j}})\dd{x_{i_1}}\wedge\cdots\wedge\widehat{\dd{x_{i_j}}}\wedge\cdots\wedge\dd{x_{i_k}}\\
+            &= \sum_{j=1}^k(-1)^{j-1}\dd{x_{i_j}}(\pdv*{x_r})\dd{x_{i_1}}\wedge\cdots\wedge\widehat{\dd{x_{i_j}}}\wedge\cdots\wedge\dd{x_{i_k}}\\
+            &= \sum_{j=1}^k(-1)^{j-1}\delta_{r,i_j}\dd{x_{I_j}}
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Show that if $\omega$ is the $n$-form $\dd{x_1}\wedge\cdots\wedge\dd{x_n}$ and $\bm{v}$ is the vector field $\sum_{i=1}^nf_i\pdv*{x_i}$, then $\iota_{\bm{v}}\omega$ is given by
+    \begin{equation*}
+        \iota_{\bm{v}}\omega = \sum_{r=1}^n(-1)^{r-1}f_r\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_r}}\wedge\cdots\wedge\dd{x_n}
+    \end{equation*}
+    \begin{proof}
+        Let $I_j=(1,\dots,\hat{j},\dots,n)$. Then we have that
+        \begin{align*}
+            \iota_{\bm{v}}\omega &= \sum_{r=1}^nf_r\iota_{\pdv*{x_r}}\omega\tag*{Properties 2.5.3(2)}\\
+            &= \sum_{r=1}^nf_r\left( \sum_{j=1}^n(-1)^{j-1}\delta_{r,j}\dd{x_{I_j}} \right)\tag*{Exercise 2.5.ii}\\
+            &= \sum_{r=1}^nf_r\left( (-1)^{r-1}\delta_{r,r}\dd{x_{I_r}} \right)\\
+            &= \sum_{r=1}^n(-1)^{r-1}f_r\dd{x_1}\wedge\cdots\wedge\widehat{\dd{x_r}}\wedge\cdots\wedge\dd{x_n}
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Let $U\subset\R^n$ open and $\bm{v}$ a $C^\infty$ vector field on $U$. Show that for $\omega\in\ome[k]{U}$,
+    \begin{align*}
+        \dd(L_{\bm{v}}\omega) &= L_{\bm{v}}(\dd\omega)&
+        \iota_{\bm{v}}(L_{\bm{v}}\omega) = L_{\bm{v}}(\iota_{\bm{v}}\omega)
+    \end{align*}
+    \emph{Hint}: Deduce the first of these identities using the identity $\dd(\dd\mu)=0$ and the second using the identity $\iota_{\bm{v}}(\iota_{\bm{v}}\mu)=0$.
+    \begin{proof}
+        Let $\omega\in\ome[k]{U}$ be arbitrary. Then
+        \begin{align*}
+            \dd(L_{\bm{v}}\omega) &= \dd(\iota_{\bm{v}}(\dd\omega)+\dd(\iota_{\bm{v}}\omega))&
+                \iota_{\bm{v}}(L_{\bm{v}}\omega) &= \iota_{\bm{v}}(\iota_{\bm{v}}(\dd\omega)+\dd(\iota_{\bm{v}}\omega))\\
+            &= \dd(\iota_{\bm{v}}(\dd\omega))+\dd(\dd(\iota_{\bm{v}}\omega))&
+                &= \iota_{\bm{v}}(\iota_{\bm{v}}(\dd\omega))+\iota_{\bm{v}}(\dd(\iota_{\bm{v}}\omega))\\
+            &= \dd(\iota_{\bm{v}}(\dd\omega))+0&
+                &= 0+\iota_{\bm{v}}(\dd(\iota_{\bm{v}}\omega))\\
+            &= 0+\dd(\iota_{\bm{v}}(\dd\omega))&
+                &= \iota_{\bm{v}}(\dd(\iota_{\bm{v}}\omega))+0\\
+            &= \iota_{\bm{v}}(0)+\dd(\iota_{\bm{v}}(\dd\omega))&
+                &= \iota_{\bm{v}}(\dd(\iota_{\bm{v}}\omega))+\dd(0)\\
+            &= \iota_{\bm{v}}(\dd(\dd\omega))+\dd(\iota_{\bm{v}}(\dd\omega))&
+                &= \iota_{\bm{v}}(\dd(\iota_{\bm{v}}\omega))+\dd(\iota_{\bm{v}}(\iota_{\bm{v}}\omega))\\
+            &= L_{\bm{v}}(\dd\omega)&
+                &= L_{\bm{v}}(\iota_{\bm{v}}\omega)
+        \end{align*}
+        as desired.
+    \end{proof}
+    \item Given $\omega_i\in\ome[k_i]{U}$ for $i=1,2$, show that
+    \begin{equation*}
+        L_{\bm{v}}(\omega_1\wedge\omega_2) = L_{\bm{v}}\omega_1\wedge\omega_2+\omega_1\wedge L_{\bm{v}}\omega_2
+    \end{equation*}
+    \emph{Hint}: Plug $\omega=\omega_1\wedge\omega_2$ into the definition of the Lie derivative and use the second desired property of exterior differentiation along with the derivation property of the interior product to evaluate the resulting expression.
+    \begin{proof}
+        Let $\omega=\omega_1\wedge\omega_2$. Then
+        \begin{align*}
+            L_{\bm{v}}(\omega_1\wedge\omega_2) ={}& L_{\bm{v}}\omega\\
+            ={}& \iota_{\bm{v}}(\dd\omega)+\dd(\iota_{\bm{v}}\omega)\\
+            ={}& \iota_{\bm{v}}(\dd(\omega_1\wedge\omega_2))+\dd(\iota_{\bm{v}}(\omega_1\wedge\omega_2))\\
+            ={}& \iota_{\bm{v}}(\dd\omega_1\wedge\omega_2+(-1)^{k_1}\omega_1\wedge\dd\omega_2)+\dd(\iota_{\bm{v}}(\omega_1\wedge\omega_2))\\
+            ={}& \iota_{\bm{v}}(\dd\omega_1\wedge\omega_2+(-1)^{k_1}\omega_1\wedge\dd\omega_2)+\dd(\iota_{\bm{v}}\omega_1\wedge\omega_2+(-1)^{k_1}\omega_1\wedge\iota_{\bm{v}}\omega_2)\\
+            \begin{split}
+                ={}& \iota_{\bm{v}}(\dd\omega_1\wedge\omega_2)\\
+                &+(-1)^{k_1}\iota_{\bm{v}}(\omega_1\wedge\dd\omega_2)\\
+                &+\dd(\iota_{\bm{v}}\omega_1\wedge\omega_2)\\
+                &+(-1)^{k_1}\dd(\omega_1\wedge\iota_{\bm{v}}\omega_2)
+            \end{split}\\
+            \begin{split}
+                ={}& \iota_{\bm{v}}(\dd\omega_1)\wedge\omega_2+(-1)^{k_1+1}\dd\omega_1\wedge\iota_{\bm{v}}\omega_2\\
+                &+(-1)^{k_1}(\iota_{\bm{v}}\omega_1\wedge\dd\omega_2+(-1)^{k_1}\omega_1\wedge\iota_{\bm{v}}(\dd\omega_2))\\
+                &+\dd(\iota_{\bm{v}}\omega_1)\wedge\omega_2+(-1)^{k_1-1}\iota_{\bm{v}}\omega_1\wedge\dd\omega_2\\
+                &+(-1)^{k_1}(\dd\omega_1\wedge\iota_{\bm{v}}\omega_2+(-1)^{k_1}\omega_1\wedge\dd(\iota_{\bm{v}}\omega_2))
+            \end{split}\\
+            \begin{split}
+                ={}& \iota_{\bm{v}}(\dd\omega_1)\wedge\omega_2+(-1)^{k_1+1}\dd\omega_1\wedge\iota_{\bm{v}}\omega_2\\
+                &+(-1)^{k_1}\iota_{\bm{v}}\omega_1\wedge\dd\omega_2+(-1)^{2k_1}\omega_1\wedge\iota_{\bm{v}}(\dd\omega_2)\\
+                &+\dd(\iota_{\bm{v}}\omega_1)\wedge\omega_2+(-1)^{k_1-1}\iota_{\bm{v}}\omega_1\wedge\dd\omega_2\\
+                &+(-1)^{k_1}\dd\omega_1\wedge\iota_{\bm{v}}\omega_2+(-1)^{2k_1}\omega_1\wedge\dd(\iota_{\bm{v}}\omega_2)
+            \end{split}\\
+            \begin{split}
+                ={}& \iota_{\bm{v}}(\dd\omega_1)\wedge\omega_2-(-1)^{k_1}\dd\omega_1\wedge\iota_{\bm{v}}\omega_2\\
+                &+(-1)^{k_1}\iota_{\bm{v}}\omega_1\wedge\dd\omega_2+\omega_1\wedge\iota_{\bm{v}}(\dd\omega_2)\\
+                &+\dd(\iota_{\bm{v}}\omega_1)\wedge\omega_2-(-1)^{k_1}\iota_{\bm{v}}\omega_1\wedge\dd\omega_2\\
+                &+(-1)^{k_1}\dd\omega_1\wedge\iota_{\bm{v}}\omega_2+\omega_1\wedge\dd(\iota_{\bm{v}}\omega_2)
+            \end{split}\\
+            \begin{split}
+                ={}& \iota_{\bm{v}}(\dd\omega_1)\wedge\omega_2\\
+                &+\omega_1\wedge\iota_{\bm{v}}(\dd\omega_2)\\
+                &+\dd(\iota_{\bm{v}}\omega_1)\wedge\omega_2\\
+                &+\omega_1\wedge\dd(\iota_{\bm{v}}\omega_2)
+            \end{split}\\
+            ={}& \iota_{\bm{v}}(\dd\omega_1)\wedge\omega_2+\dd(\iota_{\bm{v}}\omega_1)\wedge\omega_2+\omega_1\wedge\iota_{\bm{v}}(\dd\omega_2)+\omega_1\wedge\dd(\iota_{\bm{v}}\omega_2)\\
+            ={}& (\iota_{\bm{v}}(\dd\omega_1)+\dd(\iota_{\bm{v}}\omega_1))\wedge\omega_2+\omega_1\wedge(\iota_{\bm{v}}(\dd\omega_2)+\dd(\iota_{\bm{v}}\omega_2))\\
+            ={}& L_{\bm{v}}\omega_1\wedge\omega_2+\omega_1\wedge L_{\bm{v}}\omega_2
+        \end{align*}
+        as desired.
+    \end{proof}
+\end{enumerate}
+\begin{enumerate}[label={\textbf{2.6.\roman*.}}]
+    \item Let $f:\R^3\to\R^3$ be the map
+    \begin{equation*}
+        f(x_1,x_2,x_3) = (x_1x_2,x_2x_3^2,x_3^3)
+    \end{equation*}
+    Compute the pullback $f^*\omega$ for the following forms.
+    \begin{enumerate}
+        \item $\omega=x_2\dd{x_3}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                f^*\omega &= f^*x_2\cdot\dd{f_3}\\
+                &= x_2(x_1x_2,x_2x_3^2,x_3^3)\cdot 3x_3^2\dd{x_3}\\
+                \Aboxed{f^*\omega &= 3x_2x_3^4\dd{x_3}}
+            \end{align*}
+        \end{proof}
+        \item $\omega=x_1\dd{x_1}\wedge\dd{x_3}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                f^*\omega &= f^*x_1\cdot\dd{f_1}\wedge\dd{f_3}\\
+                &= x_1(x_1x_2,x_2x_3^2,x_3^3)\cdot(x_1\dd{x_2}+x_2\dd{x_1})\wedge 3x_3^2\dd{x_3}\\
+                \Aboxed{f^*\omega &= 3x_1^2x_2x_3^2\dd{x_2}\wedge\dd{x_3}+3x_1x_2^2x_3^2\dd{x_1}\wedge\dd{x_3}}
+            \end{align*}
+        \end{proof}
+        \item $\omega=x_1\dd{x_1}\wedge\dd{x_2}\wedge\dd{x_3}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                f^*\omega &= f^*x_1\cdot\dd f_1\wedge\dd f_2\wedge\dd f_3\\
+                &= x_1(x_1x_2,x_2x_3^2,x_3^3)\cdot(x_1\dd{x_2}+x_2\dd{x_1})\wedge(2x_2x_3\dd{x_3}+x_3^2\dd{x_2})\wedge 3x_3^2\dd{x_3}\\
+                \Aboxed{f^*\omega &= 3x_1x_2^2x_3^4\dd{x_1}\wedge\dd{x_2}\wedge\dd{x_3}}
+            \end{align*}
+            where, from the second to the third line, we cancel all wedge products with repeats.
+        \end{proof}
+    \end{enumerate}
+    \item Let $f:\R^2\to\R^3$ be the map
+    \begin{equation*}
+        f(x_1,x_2) = (x_1^2,x_2^2,x_1x_2)
+    \end{equation*}
+    Compute the pullback $f^*\omega$ for the following forms.
+    \begin{enumerate}
+        \item $\omega=x_2\dd{x_2}+x_3\dd{x_3}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                f^*\omega &= f^*x_2\cdot\dd{f_2}+f^*x_3\cdot\dd{f_3}\\
+                &= x_2(x_1^2,x_2^2,x_1x_2)\cdot 2x_2\dd{x_2}+x_3(x_1^2,x_2^2,x_1x_2)\cdot(x_1\dd{x_2}+x_2\dd{x_1})\\
+                \Aboxed{f^*\omega &= x_1x_2^2\dd{x_1}+(2x_2^3+x_1^2x_2)\dd{x_2}}
+            \end{align*}
+        \end{proof}
+        \item $\omega=x_1\dd{x_2}\wedge\dd{x_3}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                f^*\omega &= f^*x_1\cdot\dd{f_2}\wedge\dd{f_3}\\
+                &= x_1(x_1^2,x_2^2,x_1x_2)\cdot 2x_2\dd{x_2}\wedge(x_1\dd{x_2}+x_2\dd{x_1})\\
+                &= 2x_1^2x_2^2\dd{x_2}\wedge\dd{x_1}\\
+                \Aboxed{f^*\omega &= -2x_1^2x_2^2\dd{x_1}\wedge\dd{x_2}}
+            \end{align*}
+        \end{proof}
+        \item $\omega=\dd{x_1}\wedge\dd{x_2}\wedge\dd{x_3}$.
+        \begin{proof}
+            We have that
+            \begin{align*}
+                f^*\omega &= \dd{f_1}\wedge\dd{f_2}\wedge\dd{f_3}\\
+                &= 2x_1\dd{x_1}\wedge 2x_2\dd{x_2}\wedge(x_1\dd{x_2}+x_2\dd{x_1})\\
+                \Aboxed{f^*\omega &= 0}
+            \end{align*}
+            where 0 denotes the zero element of $\ome[3]{\R^2}$.
+        \end{proof}
+    \end{enumerate}
+    \item Let $U\subset\R^n$ open, $V\subset\R^m$ open, $f:U\to V$ a $C^\infty$ map, and $\gamma:[a,b]\to U$ a $C^\infty$ curve. Show that for $\omega\in\ome[1]{V}$,
+    \begin{equation*}
+        \int_\gamma f^*\omega = \int_{\eta}\omega
+    \end{equation*}
+    where $\eta:[a,b]\to V$ is the curve $\eta(t)=f(\gamma(t))$. (See Exercise 2.1.vii.)
+    \begin{proof}
+        Since $\omega\in\ome[1]{V}$, we know that
+        \begin{equation*}
+            \omega = \sum_{j=1}^mg_j\dd{x_j}
+        \end{equation*}
+        for some $g_i\in C^\infty(V)$. It follows that
+        \begin{align*}
+            f^*\omega &= \sum_{j=1}^mf^*g_j\dd{f_j}\\
+            &= \sum_{j=1}^mf^*g_j\left( \sum_{i=1}^n\pdv{f_j}{x_i}\dd{x_i} \right)\\
+            &= \sum_{i=1}^n\left( \sum_{j=1}^mf^*g_j\pdv{f_j}{x_i} \right)\dd{x_i}
+        \end{align*}
+        Additionally, let $\gamma_1,\dots,\gamma_n$ be the coordinate functions of $\gamma$, let $\eta_1,\dots,\eta_m$ be the coordinate functions of $\eta$, and let $f_1,\dots,f_m$ be the coordinate functions of $f$. It follows that
+        \begin{align*}
+            \int_\gamma f^*\omega &= \sum_{i=1}^n\int_a^b\left[ \sum_{j=1}^mf^*g_j\pdv{f_j}{x_i} \right](\gamma(t))\dv{\gamma_i}{t}\dd{t}\\
+            &= \sum_{i=1}^n\sum_{j=1}^m\int_a^b[f^*g_j](\gamma(t))\pdv{f_j}{x_i}\dv{\gamma_i}{t}\dd{t}\\
+            &= \sum_{j=1}^m\int_a^b[g_j\circ f](\gamma(t))\left( \sum_{i=1}^n\pdv{f_j}{x_i}\dv{\gamma_i}{t} \right)\dd{t}\\
+            &= \sum_{j=1}^m\int_a^bg_j(f(\gamma(t)))\dv{(f_j\circ\gamma)}{t}\dd{t}\\
+            &= \sum_{j=1}^m\int_a^bg_j(\eta(t))\dv{\eta_j}{t}\dd{t}\\
+            &= \int_\eta\omega
+        \end{align*}
+    \end{proof}
+\end{enumerate}
+
+
+
+
+\end{document}

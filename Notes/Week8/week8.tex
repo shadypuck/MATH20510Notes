@@ -1,0 +1,944 @@
+\documentclass[../notes.tex]{subfiles}
+
+\pagestyle{main}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter\ (#1)}{}}
+\setcounter{chapter}{7}
+
+\begin{document}
+
+
+
+
+\chapter{Manifolds and Relevant Tools}
+\section{Homotopy Invariance and Applications; Manifold Definitions}
+\begin{itemize}
+    \item \marginnote{5/16:}Weekly plan:
+    \begin{itemize}
+        \item Finish up Chapter 3.
+        \begin{itemize}
+            \item Homotopy invariance.
+            \item Application: Brouwer fixed-point theorem.
+        \end{itemize}
+        \item Manifolds (in $\R^n$).
+        \begin{itemize}
+            \item Definition of a manifold $X^n$.
+            \item Tangent spaces $T_pX^n$ for $p\in X$.
+            \item (Total) derivatives of functions $f:X^n\to Y^n$. In particular, if $f:X\to Y$ sends $p\mapsto q$, then $DF_p:T_pX\to T_qY$.
+        \end{itemize}
+        \item Forms $\ome[k]{X^n}$.
+        \item Integrals $\int_X\omega$ and improving Stokes' theorem.
+    \end{itemize}
+    \item Homotopy invariance of degree.
+    \item \textbf{Homotopic} (functions $F_0,F_1$): Two maps $F_0,F_1:X\to Y$ for which there exists some continuous map $H:X\times I\to Y$ such that
+    \begin{align*}
+        H(x,0) &= F_0(x)&
+        H(x,1) &= F_1(x)
+    \end{align*}
+    for all $x\in X$ where $I=[0,1]$. \emph{Denoted by} $\bm{F_0\cong F_1}$.
+    \item \textbf{Homotopy}: The map $H$ in the above definition.
+    \item Example: A homotopy between two functions $F_0,F_1:\R\to\R$.
+    \begin{figure}[h!]
+        \centering
+        \footnotesize
+        \begin{tikzpicture}[
+            z={(3.85mm,3.85mm)},
+            every node/.style={black}
+        ]
+            \fill [brx,opacity=0.1] plot[domain=0:2,smooth] (0,{(\x)^2},\x) -- (2,4,2) -- (2,0,0) -- cycle;
+            \foreach \x in {0,0.2,...,2} {
+                \draw [brx,dotted] (0,{(\x)^2},\x) -- (2,{2*\x},\x);
+            }
+    
+            \draw [-stealth] (-0.5,0,0) -- (2.5,0,0) node[right]{$I$};
+            \draw [-stealth] (0,-0.5,0) -- (0,4.5,0) node[above]{$Y$};
+            \draw [-stealth] (0,0,-0.5) -- (0,0,2.5) node[above right]{$X$};
+    
+            \node [below left,xshift=-1.5mm] {0};
+            \draw (2,-0.1,0) node[below]{1} -- ++(0,0.2,0);
+            \foreach \x in {1,2} {
+                \draw (0,-0.1,\x) -- ++(0,0.2,0);
+            }
+            \foreach \y in {1,...,4} {
+                \draw (0,\y,-0.1) -- ++(0,0,0.2);
+            }
+    
+            \draw [brx,thick] plot[domain=0:2,smooth] (0,{(\x)^2},\x);
+            \draw [brx,thick] (2,0,0) -- ++(0,4,2);
+        \end{tikzpicture}
+        \caption{Homotopic maps.}
+        \label{fig:homotopy}
+    \end{figure}
+    \begin{itemize}
+        \item Let $X,Y=\R$. Consider the functions $F_0,F_1:X\to Y$ described by the relations
+        \begin{align*}
+            F_0(x) &= x^2&
+            F_1(x) &= 2x
+        \end{align*}
+        \item Let $H:X\times I\to Y$ be described by the relation
+        \begin{equation*}
+            H(x,t) = (1-t)\cdot x^2+t\cdot 2x
+        \end{equation*}
+        \begin{itemize}
+            \item Note that $x^2$ and $2x$ are the relations describing $F_0$ and $F_1$, respectively, and the $t$ terms simply provide a linear interpolation. In particular,
+            \begin{align*}
+                H(x,0) &= (1-0)\cdot x^2+0\cdot 2x&
+                    H(x,0.5) &= x^2\cdot(1-0.5)+2x\cdot 0.5&
+                        H(x,1) &= (1-1)\cdot x^2+1\cdot 2x\\
+                &= x^2&
+                    &= 0.5\cdot x^2+0.5\cdot 2x&
+                        &= 2x\\
+                &= F_0(x)&
+                    &= 0.5F_0(x)+0.5F_1(x)&
+                        &= F_1(x)
+            \end{align*}
+            Indeed, we can see from the above that $H(x,0)=F_0(x)$, as desired; $H(x,1)=F_1(x)$, as desired; and $H(x,0.5)$, for example, indicates the linear combination of a point that is "half $F_0(x)$ and half $F_1(x)$."
+        \end{itemize}
+        \item In Figure \ref{fig:homotopy}, the parabolic brown line depicts a portion of the graph $G(F_0)$ of $F_0$. Similarly, the linear brown line depicts a portion of the graph $G(F_1)$ of $F_1$ but translated one unit along the $I$-axis. Lastly, the brown surface depicts a portion of the graph $G(H)$ of $H$.
+        \item As we would expect for a homotopy, $H$ is clearly continuous and interpolates between $F_0$ and $F_1$ as $t$ moves from 0 to 1. The lines of dots indicate how several specific values of $F_0(x)$ and $F_1(x)$ are matched in bijective correspondence.
+    \end{itemize}
+    \item \textbf{Proper} (homotopy): A homotopy such that for all $t\in I$, $H(\cdot,t):X\to Y$ defined by $x\to H(x,t)$ is proper, where $X,Y\subset\R^n$.
+    \item \textbf{Properly homotopic} (functions $F_0,F_1$): Two homotopic functions whose homotopy is proper.
+    \item Claim: If $F_0,F_1:U\to V$ where $U,V\subset\R^n$ such that $F_0,F_1$ are properly homotopic, then
+    \begin{equation*}
+        \deg(F_0) = \deg(F_1)
+    \end{equation*}
+    \item (Bad) example.
+    \begin{itemize}
+        \item Consider $F_0:\R^2\to\R^2$ and $F_1:\R^2\to\R^2$ where $F_0$ is the constant 0 function and $F_1(z)=z^2$.
+        \item Then $H:\R^2\times I\to\R^2$ may be defined by $H(z,t)=tz^2$. Clearly, this function is continuous.
+        \item But $\deg(F_0)=0$ and $\deg(F_1)=2$. This is because $F_0,F_1$ are not \emph{properly} homotopic.
+    \end{itemize}
+    \item Proof.
+    \begin{itemize}
+        \item Let $H$ be a proper homotopy from $F_0\to F_1$. Let $H_t:U\to V$ send $x\to H(x,t)$ for all $t\in[0,1]$.
+        \item Let $\omega\in\Omega_c^n(V)$ with $\int\omega=1$. Then
+        \begin{equation*}
+            \deg(H_t) = \int(H_t)^*\omega
+            = \int\varphi(H(x,t))\det DH_t(x,t)\dd{x_1}\wedge\cdots\wedge\dd{x_n}
+        \end{equation*}
+        with $\omega=\varphi\dd{x_1}\wedge\cdots\wedge\dd{x_n}$ where the rightmost integrand is a continuously varying set of functions.
+        \item Since $\deg(H_t)\in\Z$, $\deg(H_0)=\deg(F_0)$, and $\deg(H_1)=\deg(F_1)$, then $\deg(H_t)$ is constant and the result follows.
+    \end{itemize}
+    \item Theorem (Brouwer fixed-point theorem): Let $B^n=\{x\in\R^n\mid |x|\leq 1\}$ be the closed unit ball in $\R^n$. Let $F:B^n\to B^n$ be continuous. Then $F$ has a fixed point.
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \footnotesize
+            \draw [name path=S] circle (2cm);
+    
+            \draw [name path=ray] (-0.4,0.3) node[circle,fill,inner sep=1pt,label={above:$F(x)$}]{} -- ++(-20:1) node[circle,fill,inner sep=1pt,label={above:$x$}]{} -- ++(-20:2);
+            \node [name intersections={of=S and ray},circle,fill,inner sep=1pt,label={[yshift=-1mm]above right:$\gamma(x)$}] at (intersection-1) {};
+        \end{tikzpicture}
+        \caption{Defining $\gamma$ for the Brouwer fixed point theorem.}
+        \label{fig:Brouwer}
+    \end{figure}
+    \begin{itemize}
+        \item Assume we have no fixed point and (trick!) consider the map $\gamma:B^n\to S^{n-1}$ which sends $x\mapsto\text{the unique point on }S^{n-1}\text{ that intersects the ray from }F(x)\text{ to }x$ where $S^{n-1}=\{x\in\R^n\mid |x|=1\}$.
+        \item Check:
+        \begin{enumerate}
+            \item $\gamma$ is continuous.
+            \item For all $x\in S^{n-1}$, $\gamma(x)=x$.
+        \end{enumerate}
+        \item Now we extend this to a map $\Gamma:\R^n\to\R^n$ such that
+        \begin{equation*}
+            x \mapsto
+            \begin{cases}
+                \gamma(x) & x\in B^n\\
+                x & |x|>1
+            \end{cases}
+        \end{equation*}
+        \item Now for the contradiction. Notice that $\deg(\Gamma)=1$. But $\Gamma$ is not surjective (for example, $0\notin\Gamma(\R^n)$). Recall that we proved earlier that degree nonzero functions are surjective.
+    \end{itemize}
+    \item Manifolds (the rest of today and next time).
+    \begin{itemize}
+        \item Definition of manifolds.
+        \item Definition of tangent spaces.
+        \item We want to be able to take a map $F:X\to Y$ and write $DF_p:T_pX\to T_{F(p)}Y$.
+    \end{itemize}
+    \item Manifolds will have a dimension $n$ (hence, we denote them $X^n$). We will now have them sit inside of some bigger thing, though, i.e., $X^n\subset\R^N$. For example, we'll have $S^2\subset\R^3$ (the two-sphere lives most naturally in 3-space).
+    \begin{itemize}
+        \item We'll also have functions $X^n\to Y^m$ where $X^n\subset\R^N$ and $Y^m\subset\R^M$.
+        \item We still have $\omega\in\ome[k]{X}$.
+    \end{itemize}
+    \item \textbf{Smooth} (function $F:X\to Y$): A function $F:X\to Y$ where $X\subset\R^N$ and $Y\subset\R^M$ such that for all $p\in X$, there is some neighborhood $U_p\subset\R^N$ of $p$ and a map $g_p:U_p\to\R^M$ that is smooth and agrees with $F$ on $X\cap U_p$.
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \footnotesize
+            \begin{scope}
+                \draw [brx,thick] (0,0)
+                    to[out=80,in=-170] (1,1.2)
+                    to[out=10,in=93,out looseness=1.3] (1.4,0.7) coordinate (p)
+                    to[out=-87,in=180] (2,0.1)
+                    to[out=0,in=-110] (3,1.1)
+                ;
+                \node at (2,-0.2) {$X$};
+    
+                \begin{scope}
+                    \clip (p) circle (4mm);
+                    \draw [orx,ultra thick] (0,0)
+                        to[out=80,in=-170] (1,1.2)
+                        to[out=10,in=93,out looseness=1.3] (1.4,0.7) coordinate (p)
+                        to[out=-87,in=180] (2,0.1)
+                        to[out=0,in=-110] (3,1.1)
+                    ;
+                \end{scope}
+                \fill (p) circle (2pt) node[right]{$p$};
+                \draw (p) circle (4mm) node[below left=2mm]{$U_p$};
+                \node [inner sep=1pt] at ($(p)+(0.3,1)$) {$X\cap U_p$}
+                    edge [out=-90,in=30,->,shorten >=1pt] ($(p)+(0,0.2)$)
+                ;
+            \end{scope}
+    
+            \draw [-stealth] (3.3,0.8) to[bend right=20,looseness=0.8] node[below]{$F$} ++(2.3,0);
+            \draw [-stealth] (2,1) to[bend left=20,looseness=0.8] node[above]{$g_p$} ++(4,0);
+    
+            \begin{scope}[xshift=6cm]
+                \draw [brx,thick] (-0.1,0.1)
+                    to[out=-70,in=180] (0,0)
+                    to[out=0,in=-105] (0.55,0.7) coordinate (q)
+                    to[out=75,in=180,out looseness=0.7] (1,1.2)
+                    to[out=0,in=180,out looseness=0.8] (2.3,0.1)
+                    to[out=0,in=-100,out looseness=0.7] (3,1)
+                ;
+                \node at (2.3,-0.2) {$Y$};
+    
+    
+                \begin{scope}
+                    \clip (q) circle (4mm);
+                    \draw [orx,ultra thick] (-0.1,0.1)
+                        to[out=-70,in=180] (0,0)
+                        to[out=0,in=-105] (0.55,0.7) coordinate (q)
+                        to[out=75,in=180,out looseness=0.7] (1,1.2)
+                        to[out=0,in=180,out looseness=0.8] (2.3,0)
+                        to[out=0,in=-100,out looseness=0.7] (3,1)
+                    ;
+                \end{scope}
+                \fill (q) circle (2pt) node[right]{$q$};
+                \draw (q) circle (4mm) node[below right=2mm,xshift=-2mm,yshift=-1mm]{$g_p(U_p)$};
+                \node [inner sep=1pt] at ($(q)+(-0.3,1)$) {$F(X\cap U_p)=g_p(X\cap U_p)$}
+                    edge [out=-90,in=150,->,shorten >=1pt] ($(q)+(0,0.2)$)
+                ;
+            \end{scope}
+        \end{tikzpicture}
+        \caption{Smooth function of manifolds.}
+        \label{fig:manifoldSmoothf}
+    \end{figure}
+    \item \textbf{Diffeomorphism}: A function $F$ that is bijective with $F,F^{-1}$ smooth.
+    \item \textbf{$\bm{n}$-manifold}: A subset $X^n\subset\R^N$ (where $n\leq N$ are natural numbers) such that for all $p\in X$, there is a neighborhood $V$ of $p$ in $\R^N$, an open set $U\subset\R^n$, and a diffeomorphism $\varphi:U\to X\cap V$. \emph{Also known as} \textbf{$\bm{n}$-dimensional manifold}.
+    \begin{itemize}
+        \item By convention, we indicate the dimension of our manifold with a superscript the first time we write it but not on subsequent writings. So $X^n$ and $X$ are the same thing here; we just write $X^n$ on the first occurrence.
+    \end{itemize}
+    \item \textbf{Chart}: The map $\varphi$ in the above definition. \emph{Also known as} \textbf{coordinate}, \textbf{parameterization}.
+    \item Examples.
+    \begin{enumerate}
+        \item $S^1=\{x\in\R^2\mid |x|=1\}$.
+        \begin{itemize}
+            \item For every point $p$ on the unit circle, there is a neighborhood $V$ such that $V\cap S^1$ maps bijectively onto $U\subset\R^1$ via some function $\varphi$.
+        \end{itemize}
+    \end{enumerate}
+\end{itemize}
+
+
+
+\section{Manifold Examples and Tangent Spaces}
+\begin{itemize}
+    \item \marginnote{5/18:}Plan.
+    \begin{itemize}
+        \item Examples of manifolds.
+        \item Total derivative of smooth maps between manifolds.
+        \begin{itemize}
+            \item So we'll have $F:X\to Y$, $p\in X$, $DF_p=\dd{F_p}:T_pX\to T_{F(p)}Y$
+            \item If this is surjective, we get local properties of the map $F$.
+            \item Injective?
+            \item Bijective?
+        \end{itemize}
+        \item We'll then take $\dd{F_p}$ and make $F^*:\ome[k]{X}\leftarrow\ome[k]{Y}$.
+        \item More on $\lam[k]{T_p^*X}$ and $\omega\in\ome[k]{X}$.
+    \end{itemize}
+    \item Examples of manifolds.
+    \begin{enumerate}
+        \item $S^2\subset\R^3$ is the two-sphere.
+        \item $U\subset\R^n$ open.
+        \begin{itemize}
+            \item The identity map $\id:U\to U$ is a parameterization.
+        \end{itemize}
+        \item Given $f:\R\to\R$ smooth, its graph $\Gamma_f=\{(x,f(x))\in\R^2\}$.
+        \begin{itemize}
+            \item We can generalize this to graphs of functions $f:\R^k\to\R$ smooth, $\Gamma_f\subset\R^k$. This is a $k$-manifold.
+        \end{itemize}
+        \item The torus or any other higher-genus surface in $\R^3$.
+        \item $X_1\subset\R^{N_1}$ and $X_2\subset\R^{N_1}$ manifolds imply that $X_1\times X_2\subset\R^{N_1+N_2}$ is a manifold. Products of parameterizations.
+        \begin{itemize}
+            \item Consider $S^1\times S^1\subset\R^4$.
+            \item The 2-torus $T^2$ is also $S^1\times S^1$.
+            \item All such sets are diffeomorphic.
+        \end{itemize}
+        \item More product manifolds.
+        \begin{itemize}
+            \item $S^2\times S^1$ (concentric spheres with the innermost glued to the outermost through the fourth dimension).
+            \item $S^1\times S^1\times S^1=T^2\times S^1$ where $T^2$ is the 2-torus.
+            \item Klug discusses unknotting the trefoil knot in $S^2\times S^1$!
+        \end{itemize}
+    \end{enumerate}
+    \item Note that according to our definition of $n$-manifolds as \emph{subsets} of $N$-space, a subset $X^n\subset\R^n$ of Euclidean space is \emph{not} a manifold, even if it may be isomorphic to a manifold.
+    \begin{itemize}
+        \item For example, the 2-torus $T^2\subset\R^3$ is isomorphic to the unit square $[0,1]\times[0,1]\subset\R^2$, but we would not call the latter a manifold. To see the isomorphism, think about cutting a torus once meridionally to create a cylinder and then again longitudinally to create a plane; this plane can then be stretched or squeezed as necessary to fit atop $[0,1]^2$.
+    \end{itemize}
+    \item \textbf{Cross product} (of $X_1,X_2$): The Cartesian product of $X_1,X_2$ as sets.
+    \item We can glue together two genus 2 surfaces with an isomorphism $\varphi:S\to S$ (there are many).
+    \begin{itemize}
+        \item In other words, all genus 2 surfaces are isomorphic. Thus, we can divide 2-manifolds into isomorphism classes based on their genus, which also serves as a kind of "manifold invariant."
+    \end{itemize}
+    \item Manifolds as solutions to equations.
+    \item \textbf{Submersion} (at $p$): A smooth function $F:U\to\R^k$ such that $DF_p$ is surjective, where $U\subset\R^N$ is open, $N\geq k$, and $p\in\R^N$.
+    \item \textbf{Regular value}: A point $q\in\R^k$ such that for all $p\in F^{-1}(q)$, $F$ is a submersion at $p$ ($F$ being defined as above).
+    \item Theorem: If $F:U\to\R^k$ smooth where $U\subset\R^N$ is open and $q\in\R^k$ is a regular value, then $F^{-1}(q)\subset U$ is an $(N-k)$-manifold.
+    \item Example:
+    \begin{enumerate}
+        \item Let $F:\R^3\to\R$ be defined by $(x,y,z)\mapsto x^2+y^2+z^2-1$.
+        \begin{itemize}
+            \item $F$ is smooth and $\R^3\subset\R^3$ is open.
+            \item 0 is a regular value.
+            \begin{itemize}
+                \item Proof: Suppose (contradiction) that 0 is not a regular value. Then there exists $p\in F^{-1}(0)$ such that $F$ is not a submersion at $p$. If $F$ is not a submersion at $p$, then $DF_p:\R^3\to\R$ is not surjective. Since $DF_p$ is linear, this must mean that $DF_p$ is the zero map. Thus, since
+                \begin{equation*}
+                    DF_{(x,y,z)} =
+                    \begin{bmatrix}
+                        2x & 2y & 2z\\
+                    \end{bmatrix}
+                \end{equation*}
+                we must have that $p=(0,0,0)$. But $F(0,0,0)=-1\neq 0$, a contradiction.
+            \end{itemize}
+            \item Thus, by the theorem, $S^2=F^{-1}(q)\subset\R^3$ is a $(3-1)$-manifold or 2-manifold.
+            \item This theorem therefore provides a nice way of proving that a manifold is a manifold without having to find a chart for each point, as we would need to using the definition of an $n$-manifold alone to determine whether or not an object is a manifold.
+        \end{itemize}
+        \item Consider $O(n)$, the set of orthogonal square $n\times n$ matrices. We have that $O(n)\subset\R^{n^2}$, where the latter set is the set of all $n\times n$ matrices.
+        \begin{itemize}
+            \item We can find a suitable function $F$ and check regular values so that $O(n)=F^{-1}(0)$ where $0\in\R^n$.
+            \item Something about the dimension?
+            \item Is it the determinant?
+        \end{itemize}
+    \end{enumerate}
+    \item Tangent spaces and derivatives.
+    \item Goal:
+    \begin{itemize}
+        \item Define $T_pX$ given $X^n\subset\R^N$.
+        \item Define the induced derivative $\dd{F_p}:T_pX\to T_{F(p)}Y$ where $F:X^n\to Y^m$ for $X\subset\R^N$ and $Y\subset\R^M$.
+    \end{itemize}
+    \item \textbf{Tangent space} (to $X$ at $p$): If $\varphi:U\to X\cap V$ is a parameterization of $X$ at $p$ and sends $p_0\mapsto p$, then we have a map $\dd\varphi_{p_0}:T_{p_0}\R^n\to T_p\R^N$ where we define $T_pX=\im(\dd\varphi_{p_0})$.
+    \begin{itemize}
+        \item Essentially, the tangent space to an $n$-manifold should be $n$-dimensional, but it should be tilted, rotated, placed, etc. such that it is \emph{tangent} to the $n$-manifold at the point in question.
+    \end{itemize}
+    \item Example: Tangent space to $S^2$.
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[
+            every node/.style={black}
+        ]
+            \footnotesize
+            \begin{scope}
+                \draw [help lines] (-1.9,-1.9) grid (2.9,2.9);
+                \node at (0.5,-2.3) {$U$};
+                
+                \fill [rex] circle (2pt) node[below left]{$p^{}_0$};
+                \draw [rex,thick,->] (0,0) -- node[pos=0.65,right]{$v$} (1,2);
+            \end{scope}
+    
+            \begin{scope}[xshift=10cm]
+                \fill [ball color=yellow,opacity=1] circle (2cm);
+                \node at (0,-2.3) {$X$};
+    
+                \foreach \x in {130,140,150,160} {
+                    \path (\x:2) arc[start angle=-180,end angle=-170,x radius={-2*cos(\x)*1cm},y radius={cos(\x)/cos(180)*5mm}] coordinate (\x);
+                    \draw [help lines] (\x) arc[start angle=-170,end angle=-120,x radius={-2*cos(\x)*1cm},y radius={cos(\x)/cos(180)*5mm}];
+                }
+                \foreach \aph in {20,30,40,50} {
+                    \draw [help lines] plot[domain=0.174:0.866,smooth,variable=\z] ({2*-1*((1-(\z)^2)/(1/cos(\aph))^2)^0.5},{2*(0.25*-1*((1-(\z)^2)/(1/sin(\aph))^2)^0.5+0.968*\z)});
+                }
+            \end{scope}
+            \begin{scope}[
+                xshift=8.5cm,yshift=0.751cm,
+                plane x={(0.151,-0.066)},
+                plane y={(0.151,0.314)},
+                canvas is plane
+            ]
+                \fill [rex] circle (6pt);
+                \draw [rex,thick,->] (0,0) -- (1,2);
+    
+                \fill [opacity=0.1] (-5,-5) rectangle (5,5);
+                \draw [black!60] (-5,-5) rectangle (5,5);
+            \end{scope}
+            \begin{scope}[
+                xshift=8.5cm,yshift=0.751cm,
+                x={(0.151cm,-0.066cm)},y={(0.151cm,0.314cm)}
+            ]
+                \node at (1pt,-5.5pt) {$p$};
+                \node at (2.5,-2.5) {$X\cap V$};
+                \node at (0,-6) {$T_pX$};
+            \end{scope}
+    
+            % \draw [-stealth] (3.1,0) to[bend right=20,looseness=0.9] node[below]{$\varphi$} ++(5.15,0.85);
+            \draw [-stealth] (0.1,-0.1) to[bend right=20,looseness=0.9] node[below]{$\varphi$} ++(8.3,0.85);
+            \draw [-stealth] (0.9,1.7) to[bend left=20,looseness=0.9] node[above]{$\dd\varphi_{p^{}_0}$} ++(7.9,-0.4);
+    
+            % \draw [-stealth] (3.2,-1.3) to[bend right=20,looseness=0.9] node[below]{$\varphi$} ++(5.1,0);
+            % \draw [-stealth] (0.9,1.7) to[bend left=20,looseness=0.9] node[above]{$\dd\varphi_{p^{}_0}$} ++(6.8,0);
+    
+            % \draw [-stealth] (3.5,1) to[bend left=20,looseness=0.9] node[above]{$\varphi$} node[below]{$\dd\varphi_{p^{}_0}$} ++(3.5,0);
+        \end{tikzpicture}
+        \caption{Tangent space to a manifold.}
+        \label{fig:TpX}
+    \end{figure}
+    \begin{itemize}
+        \item Consider the two-sphere $S^2\subset\R^3$. We will call this manifold $X$.
+        \item As a 2-manifold, $X$ is locally diffeomorphic to $\R^2$. In this specific instance, we focus in on the point $p\in X$. $X$ is surrounded by some neighborhood $V\subset\R^3$ (not shown) such that $X\cap V$ may be depicted by the area on the surface of $X$ covered in grid lines. The diffeomorphism $\varphi$ maps $U\subset\R^2$ to $X\cap V\subset\R^3$ and, in particular, maps $p_0\mapsto p$.
+        \item As before, we may easily define $T_{p_0}\R^2$ and $T_p\R^3$. However, neither of these spaces particularly well describe describe the set $T_pX$ of tangent vectors to $p$. We may notice that $T_pX$ is of the same dimension as $T_{p_0}\R^2$, and that $T_pX$ is a subset of $T_p\R^3$. In fact, this is the key: We can use $\dd\varphi_{p_0}$ to map $T_p\R^2$ into $T_p\R^3$, and the set of all vectors in the range is equal to $T_pX$; in particular, $T_pX=\im(\dd\varphi_{p_0})$.
+        \item Lastly, we give a specific example of several of the objects in this picture.
+        \begin{itemize}
+            \item Let $p=(2,7\pi/6,\pi/3)$ in spherical coordinates (note that this implies that $S^2$ has radius 2), and $p_0=(0,0)$ in Cartesian coordinates. Also let $U=(-2,3)^2$.
+            \item Map one unit in $\R^2$ to $\pi/18$ radians (\ang{10}) of longitude or lattitude across $X$. Then $\varphi:U\to X\cap V$ is given by
+            \begin{equation*}
+                \varphi(x,y) = \left( 2,\tfrac{7\pi}{6}+\tfrac{\pi}{18}x,\tfrac{\pi}{3}-\tfrac{\pi}{18}y \right)
+            \end{equation*}
+            \item If we convert from spherical to Cartesian coordinates, then
+            \begin{equation*}
+                \varphi(x,y) =
+                \begin{bmatrix}
+                    2\sin(\frac{\pi}{3}-\frac{\pi}{18}y)\cos(\frac{7\pi}{6}+\frac{\pi}{18}x)\\
+                    2\sin(\frac{\pi}{3}-\frac{\pi}{18}y)\sin(\frac{7\pi}{6}+\frac{\pi}{18}x)\\
+                    2\cos(\frac{\pi}{3}-\frac{\pi}{18}y)\\
+                \end{bmatrix}
+            \end{equation*}
+            \item It follows that
+            \begin{equation*}
+                D\varphi(x,y) =
+                \begin{bmatrix}
+                    -2\sin(\frac{\pi}{3}-\frac{\pi}{18}y)\sin(\frac{7\pi}{6}+\frac{\pi}{18}x)\cdot\frac{\pi}{18} &
+                        2\cos(\frac{\pi}{3}-\frac{\pi}{18}y)\cdot -\frac{\pi}{18}\cos(\frac{7\pi}{6}+\frac{\pi}{18}x)\\
+                    2\sin(\frac{\pi}{3}-\frac{\pi}{18}y)\cos(\frac{7\pi}{6}+\frac{\pi}{18}x)\cdot\frac{\pi}{18} &
+                        2\cos(\frac{\pi}{3}-\frac{\pi}{18}y)\cdot -\frac{\pi}{18}\sin(\frac{7\pi}{6}+\frac{\pi}{18}x)\\
+                    0 &
+                        -2\sin(\frac{\pi}{3}-\frac{\pi}{18}y)\cdot -\frac{\pi}{18}\\
+                \end{bmatrix}
+            \end{equation*}
+            \item In particular, we have
+            \begin{align*}
+                \varphi(0,0) &=
+                \begin{bmatrix}
+                    -1.5\\
+                    -\sqrt{3}/2\\
+                    1\\
+                \end{bmatrix}&
+                D\varphi(0,0) &\approx
+                \begin{bmatrix}
+                    0.151 & 0.151\\
+                    -0.262 & 0.087\\
+                    0 & 0.302\\
+                \end{bmatrix}
+            \end{align*}
+            \item Thus,
+            \begin{align*}
+                p &=
+                \begin{bmatrix}
+                    -1.5\\
+                    -\sqrt{3}/2\\
+                    1\\
+                \end{bmatrix}&
+                T_pX &\approx \text{span}\,\left\{
+                    \begin{bmatrix}
+                        0.151\\
+                        -0.262\\
+                        0\\
+                    \end{bmatrix},
+                    \begin{bmatrix}
+                        0.151\\
+                        0.087\\
+                        0.302\\
+                    \end{bmatrix}
+                \right\}
+            \end{align*}
+        \end{itemize}
+        \item One last note with respect to the drawing of Figure \ref{fig:TpX}.
+        \begin{itemize}
+            \item All elements of the right side of the diagram are a legitimate orthogonal projection of the elements described above.
+            \item To begin, we are viewing the sphere such that if the equator were to be drawn, it would have $x$-radius equal to \SI{2}{\centi\meter} and $y$-radius equal to \SI{0.5}{\centi\meter}. In other words, we are viewing the sphere from an angle of $\arcsin(0.5/2)=\arcsin(1/4)\approx\ang{14.48}=\theta$ above the equatorial plane.
+            \item We define the 3-space axes as follows: The $x$-axis points 1 unit toward the right of the page, the $z$-axis points 1 unit toward the top of the sphere, and the $y$-axis is the cross product $z\times x$ of these (pointing into the page). We define the axes in the plane of the page as follows: The $x$ axis points \SI{1}{\centi\meter} toward the right of the page and the $y$-axis points \SI{1}{\centi\meter} toward the top of the page.
+            \item With these axis definitions, trigonometric arguments show that the projection operator $P$ should map
+            \begin{align*}
+                \begin{bmatrix}
+                    1\\
+                    0\\
+                    0\\
+                \end{bmatrix}
+                &\mapsto
+                \begin{bmatrix}
+                    1\\
+                    0\\
+                \end{bmatrix}&
+                \begin{bmatrix}
+                    0\\
+                    1\\
+                    0\\
+                \end{bmatrix}
+                &\mapsto
+                \begin{bmatrix}
+                    0\\
+                    \sin\theta\\
+                \end{bmatrix}&
+                \begin{bmatrix}
+                    0\\
+                    0\\
+                    1\\
+                \end{bmatrix}
+                &\mapsto
+                \begin{bmatrix}
+                    0\\
+                    \cos\theta\\
+                \end{bmatrix}
+            \end{align*}
+            It follows that
+            \begin{equation*}
+                \mathcal{M}(P) =
+                \begin{bmatrix}
+                    1 & 0 & 0\\
+                    0 & 0.25 & 0.968
+                \end{bmatrix}
+            \end{equation*}
+            \item Thus, to display $p$, the tangent vector, and the tangent plane, we need only feed $p$, $D\varphi(p_0)(v)$, and the basis of $T_pX$, respectively, into $P$.
+            \item The longitude and latitude lines are a bit trickier, since these are \emph{functions} that need to be passed through $P$.\par
+            \item We'll start with longitude. Again using trigonometric arguments, we can determine that if $\alpha$ is the angle between the $x$-axis and the vertical plane containing a longitude line, then the path of the longitude line across the surface of the sphere as a function of $h=z/2$ is given by
+            \begin{equation*}
+                h \mapsto
+                \begin{bmatrix}
+                    -\cos\alpha\sqrt{1-h^2}\\
+                    -\sin\alpha\sqrt{1-h^2}\\
+                    h\\
+                \end{bmatrix}
+            \end{equation*}
+            \item Latitude can be done similarly, but it's easier to take the equator ellipse (with half-axes 2 and 0.5) and move, scale, and shrink it upwards.
+            \item See handwritten pages for more info.
+        \end{itemize}
+    \end{itemize}
+    \item An alternate definition of $T_pX$, assuming $X=f^{-1}(0)$ where $f:\R^N\to\R^k$ is a $C^\infty$ map: The kernel of the surjective map $\dd{f}_p:T_p\R^N\to T_0\R^k$.
+    \begin{itemize}
+        \item In terms of Figure \ref{fig:TpX}, we can use $f:\R^3\to\R$ defined by $x\mapsto x_1^2+x_2^2+x_3^2-1$. Then since $f$ only has nonzero change in directions normal to $X=S^2$, every $(p,v)\in T_p\R^3$ with $v$ having no component normal to $X$ at $p$ will be mapped to zero by $\dd{f}_p$. And these are exactly the tangent vectors.
+    \end{itemize}
+    \item Guaranteeing that $T_pX$ does not depend on $\varphi$.
+    \begin{itemize}
+        \item If $\dd{\varphi_{p_0}}$ is injective, then $\dim T_pX=n$.
+        \item No, it does not depend on the choice of parameterization; yes, $\dd{\varphi_{p_0}}$ is injective.
+        \item We check both of these assertions by stating and proving that all manifolds are locally given as solutions to equations.
+        \item We then use this to get a clearly well-defined definition of $T_pX$ --- this check agrees with our definition for all $\varphi$.
+    \end{itemize}
+    \item Given $F:X\to Y$ smooth and $p\in X$, we define $\dd{F_p}:T_pX\to T_{F(p)}Y$ as follows: There is some neighborhood $U$ of $p\in\R^N$ and a smooth function $\tilde{F}:U\to\R^M$ that agrees with $F$ on $X\cap U$. This implies $\dd{\tilde{F}_p}:T_p\R^n\to T_{F(p)}\R^M$. We have $T_pX\subset T_p\R^N$ and $T_{F(p)}Y\subset T_{F(p)}\R^M$. We now define $\dd{F_p}$ as the restriction of $\dd{\tilde{F}_p}$ to $T_pX$.
+    \item Check.
+    \begin{enumerate}
+        \item Image of $\dd{F_p}$ is indeed inside $T_{F(p)}Y$.
+        \item Does not depend on $\tilde{F}$ or $U$.
+    \end{enumerate}
+\end{itemize}
+
+
+
+\section{Objects on Manifolds}
+\begin{itemize}
+    \item \marginnote{5/20:}Today:
+    \begin{itemize}
+        \item Bring all of our favorite gadgets to manifold land.
+        \item Tangent spaces (done).
+        \item (Total) derivatives $\dd F_p:T_pX\to T_{F(p)}Y$.
+        \item Vector fields, integral curves, and flows.
+        \item Differential forms $\omega\in\ome[k]{X}$.
+        \item Differential forms package $\dd$, $\wedge$, $L_v$, maps $\cdots\xrightarrow{d}\ome[k]{X}\xrightarrow{d}\ome[k+1]{X}\xrightarrow{d}\cdots$, pullbacks.
+    \end{itemize}
+    \item Next time:
+    \begin{itemize}
+        \item $\int\omega$ (integration of forms on manifolds).
+        \item Relationship between $\int$, $\dd$. This implies Stokes' Theorem.
+    \end{itemize}
+    \item Let $X^n\subset\R^N$ be a manifold\footnote{Thinking of our manifold as a subset of Euclidean space is a crutch. We should think of ourselves standing on the isolated manifold, of existing in its space. We can think of having our little Euclidean charts to navigate in the viscinity of every point, but we are in/on the manifold.}.
+    \item \textbf{Vector field} (on $X$): A function that to every $p\in X$ assigns some tangent vector $v_p\in T_pX$. \emph{Denoted by} $\bm{v}$.
+    \item Examples.
+    \begin{itemize}
+        \item Consider a circular vector field on the unit circle $S^1\subset\R^2$.
+        \begin{itemize}
+            \item The integral curves follow the vector field around $S^1$.
+            \item If we take the vectors to be longer, then we'll go around faster.
+        \end{itemize}
+        \item Consider a meridional vector field on a torus $T\subset\R^3$.
+        \begin{itemize}
+            \item The integral curves go around the donut.
+        \end{itemize}
+        \item Consider a vector field on the unit sphere $S^2\subset\R^3$ that creeps out from the south pole, reaching unit length by the equator and then getting shorter and shorter towards the north pole.
+        \begin{itemize}
+            \item The integral curves are the half lines of longitudes.
+        \end{itemize}
+    \end{itemize}
+    \item Theorem (Hairy ball theorem): There is no smooth nonvanishing vector field on $S^2$.
+    \begin{itemize}
+        \item "No matter how you comb the hair on a ball, you get some cowlicks somewhere."
+    \end{itemize}
+    \item \textbf{Integral curve} (of $\bm{v}$ on $X$): A map $\gamma:(a,b)\to X$ for which $\gamma'(t_0)=\bm{v}_{\gamma(t_0)}$.
+    \item \textbf{$\bm{k}$-form} (on $X$): A function that to each $p\in X$ assigns some $\omega_p\in\lam[k]{T_p^*X}$.
+    \item Remember that $T_pX\subset T_p\R^N$, but $\lam[k]{T_p^*X}\not\subset\lam[k]{T_p^*\R^N}$.
+    \item \textbf{Support} (of $\omega\in\ome[k]{X}$): Defined similarly to before.
+    \item $\bm{\Omega_c^k(X)}$: The set of all compactly supported $k$-forms.
+    \item If $X$ is compact, then $\ome[k]{X}=\Omega_c^k(X)$.
+    \item An example noncompact manifold.
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \fill [rex!10!white,scale=0.3]
+                plot[domain=0:7*pi,samples=100,smooth] (\x,{-0.3*sin(\x r)+1.2}) --
+                plot[domain=7*pi:0,samples=100,smooth] (\x,{0.3*sin(\x r)-1.2})
+            ;
+            \fill [white,scale=0.3]
+                ({pi+0.5},-0.25) arc[start angle=120,end angle=60,radius=2.1cm] arc[start angle=-70,end angle=-110,radius=3.1cm]
+                ({3*pi+0.5},-0.25) arc[start angle=120,end angle=60,radius=2.1cm] arc[start angle=-70,end angle=-110,radius=3.1cm]
+                ({5*pi+0.5},-0.25) arc[start angle=120,end angle=60,radius=2.1cm] arc[start angle=-70,end angle=-110,radius=3.1cm]
+            ;
+    
+            \draw [rex,thick,scale=0.3]
+                plot[domain=0:7*pi,samples=100,smooth] (\x,{-0.3*sin(\x r)+1.2})
+                plot[domain=0:7*pi,samples=100,smooth] (\x,{0.3*sin(\x r)-1.2})
+            ;
+            \draw [rex,thick,scale=0.3]
+                (pi,0) arc[start angle=-120,end angle=-60,radius=3.1cm]
+                ({3*pi},0) arc[start angle=-120,end angle=-60,radius=3.1cm]
+                ({5*pi},0) arc[start angle=-120,end angle=-60,radius=3.1cm]
+            ;
+            \draw [rex,thick,scale=0.3]
+                ({pi+0.5},-0.25) arc[start angle=120,end angle=60,radius=2.1cm]
+                ({3*pi+0.5},-0.25) arc[start angle=120,end angle=60,radius=2.1cm]
+                ({5*pi+0.5},-0.25) arc[start angle=120,end angle=60,radius=2.1cm]
+            ;
+    
+            \node at (-0.5,0) {$\cdots$};
+            \node at ({0.3*7*pi+0.5},0) {$\cdots$};
+        \end{tikzpicture}
+        \caption{Noncompact manifold.}
+        \label{fig:noncompactManifold}
+    \end{figure}
+    \item \textbf{Pullback} (of $\omega$ to $X$): The $k$-form on $X$ which sends each $p\in X$ to $\dd{F}_p^*\omega_q$, where $X^n\subset\R^N$, $Y^m\subset\R^M$, $F:X\to Y$, $F(p)=q$, and $\omega\in\ome[k]{Y}$. \emph{Denoted by} $\bm{F^*\omega}$.
+    \begin{itemize}
+        \item Since $F$ is linear, we get a bunch (one for each $p\in X$) of maps $\dd F_p:T_pX\to T_{F(p)}Y$. But as a linear map, we can define its pullback $\dd F_p^*=(\dd F_p)^*:\lam[k]{T_p^*X}\leftarrow\lam[k]{T_{F(p)}^*Y}$. This can then transform the vectors fed into $\omega$.
+        \item This definition is entirely analogous to the definition of the pullback of forms on vector spaces.
+    \end{itemize}
+    \item \textbf{Smooth} ($k$-form on $X$): A $k$-form $\omega$ such that for all $p\in X$, there exists some open neighborhood $U$ of $p$ in $X$ and a parameterization $\varphi:U_0\to U$, where $U_0\subset\R^n$, such that $\varphi^*\omega|_U$ is a smooth form on $U_0$.
+    \item From now on, $\ome[k]{X}$ is the set of \emph{smooth} $k$-forms on $X$.
+    \item Examples of maps between manifolds.
+    \begin{enumerate}
+        \item Consider $S^1$ as a subset of the complex plane $\C$ instead of $\R^2$. Then the map $F:S^1\to S^1$ which sends each $z\in S^1$ to $z^2\in S^1$ rotates all points of $S^1$ about the origin to the point that is twice as far from the $+x$-axis.
+        \item Map $\C\cup\{\infty\}$ to $S^2$ such that 0 is the south pole, the equator is the unit circle, and the north pole is $\infty$. Then $F:S^2\to S^2$ defined by $z\mapsto z^2$ is again a curious type of rotation map.
+        \item Consider the 2-torus $T^2\subset\R^3$. A map from $T^2$ to the manifold $(a,b)\subset\R$ could be the height map of the torus.
+        \begin{itemize}
+            \item Preimages of points in $(a,b)$ are circular submanifolds.
+            \item Dots are critical values.
+        \end{itemize}
+    \end{enumerate}
+    \item Determining when a vector field $\bm{v}$ on $X$ is smooth.
+    \begin{itemize}
+        \item Way 1: If for all $p\in X$, there exists $V$ open in $\R^N$ and a smooth vector field $\tilde{\bm{v}}$ on $V$ that agrees with $\bm{v}$ on $V\cap X$.
+        \item Way 2: As with forms, pullbacks and check on the charts ($\varphi$ is a diffeomorphism).
+    \end{itemize}
+    \item \textbf{Exterior derivative} (for $k$-forms on manifolds): The function from $\ome[k]{X}\to\ome[k+1]{X}$ defined as follows, where $X$ is an $n$-manifold, $p\in X$, $p\in U\subset X$, $U_0\subset\R^n$, and $\varphi:U_0\to U$ is a diffeomorphism. \emph{Denoted by} $\pmb{\mathbf{d}}$. \emph{Given by}
+    \begin{equation*}
+        (\dd\omega)_p = [(\varphi^{-1})^*\dd(\varphi^*\omega)]_p
+    \end{equation*}
+    \begin{itemize}
+        \item Check: Well-defined, i.e., does not depend on the choice of $\varphi$.
+        \item All the familiar properties carry over.
+        \begin{align*}
+            \dd\circ F^* &= F^*\circ\dd&
+            \dd(\omega\wedge\eta) &= \cdots&
+            \dd^2 &= 0&
+            &\dd\text{ is linear}
+        \end{align*}
+    \end{itemize}
+\end{itemize}
+
+
+
+\section{Klug Meeting}
+\begin{itemize}
+    \item What are alternating tensors? Sure, I can define them. I also found the alternate definition of them as "two elements in the argument are the same implies $T(v_1,\dots,v_k)=0$." But I still have no concept of what they "look like intuitively," what to make of their basis (the alternatizations of the strictly increasing dual basis vectors), or why their dimension should transform as $\binom{n}{k}$.
+    \begin{itemize}
+        \item They're just an algebraic thing you need to make integration make sense.
+        \item We're gonna want to integrate things that are oriented, and when we change the orientation, we're gonna flip the sign. So alternating tensors capture how things change when you flip the signs.
+        \item We'll probably see this next week.
+        \item $\omega_p$ is an alternating tensor if $\omega$ is a form.
+        \item Covectors are 1-tensors, which makes them alternating automatically. But we don't have to worry about this with covectors because there's only one entry point.
+        \item Two forms use alternating 2-tensors.
+        \item Top dimensional forms.
+        \item Two forms are functions decorated by $\dd{x}\wedge\dd{y}$; you integrate them via the 2D integral.
+        \begin{equation*}
+            \int_U\omega = \int_Uf\dd{x}\wedge\dd{y}
+            = \iint f\dd{x}\dd{y}
+        \end{equation*}
+        \item Don't try to figure out every little piece; just sit back and watch the theory unfold and then it will make more sense on subsequent viewings.
+        \item $\Alt$ and $\pi$ are two isomorphisms between $\lam[k]{V^*}$ and $\alt[k]{V}$. The alternating guys are more natural to think about; the quotient is more weird. The advantage of $\lam[k]{V^*}$ is it makes defining $\wedge$ simpler.
+        \item Rep theory and algebra will introduce this stuff again in a different context and it will make more sense then.
+        \item We do have to deal with the nitty gritty on the homework still however. Making us suffer in a hopefully productive way. Choose things that come naturally to you, though. You'll come back later, you'll be better at learning (the ocean will rise), and it will often make so much more sense then.
+    \end{itemize}
+    \item How does the idea of "it suffices to check this for decomposable tensors" typically work? It seems to often appear in cases where linearity is a factor and we can decompose an arbitrary tensor into a linear combination of the basis, which is of course composed of decomposable tensors.
+    \item What is functoriality?
+    \begin{itemize}
+        \item A fancy word people use to obfuscate things.
+        \item If $X\xrightarrow{F}Y\xrightarrow{Z}$, then $(G\circ F)^*=F^*\circ G^*$.
+        \item Just something that happens really often in math.
+        \item Category theory is just a language for talking about certain phenomena that arise so often that you'd want to have a language, but it's just grammar. You would never actually use it.
+    \end{itemize}
+    \item What is $\lam[k]{V^*}$, and why is it the $k^\text{th}$ exterior power of $V^*$, and what does that even mean? The elements of it are $\ide[k]{V}$-cosets of tensors; what does one of these look like? The elements of it aren't even functions, right? They're just sets of functions?
+    \item What is the wedge product intuitively?
+    \item How does the tensor product we learned relate to the tensor product of two vectors and the tensor product of two vector spaces? And what are these latter quantities?
+    \item What properties intuitively characterize decomposable tensors?
+    \item What properties intuitively characterize redundant tensors?
+    \item What is the interior product?
+    \item What is the pullback?
+    \item How did we define the determinant in terms of exterior powers?
+    \item What are 1-forms?
+    \item How did all that stuff we did with tensors relate to forms? Is $\dd f$ a 2-tensor $\dd f:U\times\R^n\to T^*\R^n$?
+    \item On the integral: Doesn't the definition imply that the integral of $\pdv*{x}$ where $U=\R^2$ is the constant plane instead of the sloped plane? If we need the integral curves along it to be constant?
+    \item I've been thinking of one-forms as mathematical objects which assign to every point $p$ of a vector space a bundle of vectors. What are $k$-forms?
+    \item What is exterior differentiation?
+    \item PSet 2, 2.1.iii.
+    \item Thoughts on the degree?
+    \item How much multivariable calculus knowledge have you assumed for us? Do you believe there is value in knowing the more computational aspects of multi before looking into this?
+    \begin{itemize}
+        \item Klug has never taken a course on this stuff.
+        \item You wouldn't need any duals if you just stuck to Euclidean space.
+        \item We're unifying vector calculus and multivariable calculus while generalizing to $n$-dimensions.
+        \item Instead of looking for motivation now, you kinda need to finish the whole textbook first and then reread it. At the end, you'll have theorems that make it worth it, and then you can reverse engineer.
+        \item John Lee trilogy of books on this math with an eye toward stuff that people care about. Point set topology. Introduction to smooth manifolds is book 2.
+        \item Nobody cares about point-set topology, but it's helpful for writing proofs and practicing logic.
+        \item We won't get to de Rahm cohomology in this course, but we should see it.
+        \item Klug read Lee in kind of an anxious haze believing it was gonna be important but it largely hasn't been. Any book is a linearization of an organic bloby process.
+        \item All the Lee books get used as the language of general relativity. If your Einstein trying to express your thoughts, you're happy to know the people who have been developing this differential forms language.
+        \item You want to get in the full mindset of "I could have discovered this." But it's very hard to reach that level. You can often use the stuff short of being there. Using it enough will get you to back into expert knowledge. Use it, and then backfill your knowledge.
+    \end{itemize}
+    \item What do you want us to be getting out of this survey of the material?
+    \item What do you want us to be getting out of the homework?
+    \item How do you recommend we use the textbook? Where can we go for additional reference?
+    \item How are we supposed to learn/motivate this stuff? Will we get to the motivation part in this course? Because I'd really learn this stuff better than just memorizing a bunch of definitions for the final, but I have basically no idea what the definitions mean.
+    \item What resources do we have for help on homework problems we can't get?
+    \item What will the final look like?
+    \begin{itemize}
+        \item Probably just like the midterm, but he'll figure it out later.
+    \end{itemize}
+\end{itemize}
+
+
+
+\section{Chapter 3: Integration on Forms}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{5/28:}\textbf{Critical point} (of $f$): A point $x\in U$ such that the derivative $Df(x):\R^n\to\R^n$ fails to be bijective, i.e., $\det(Df(x))=0$.
+    \item $\bm{C_f}$: The set of critical points of $f$.
+    \begin{itemize}
+        \item Since $\det(Df):U\to\R$ is continuous ($f\in C^\infty$ by hypothesis must be \emph{continuously} differentiable) and $\{0\}$ is closed, $C_f=\det(Df)^{-1}(\{0\})$ is closed.
+        \item Consequently, $f(C_f)$ is a closed subset of $V$.
+    \end{itemize}
+    \item \textbf{Critical value} (of $f$): The image of a critical point under $f$, i.e., an element of $f(C_f)$.
+    \item \textbf{Regular value} (of $f$): An element of the range of $f$ that is not a critical value, i.e., an element of $f(U)\setminus f(C_f)$.
+    \begin{itemize}
+        \item Since $V\setminus f(U)\subset f(U)\setminus f(C_f)$, if $q\in V$ is not in the image of $f$, it is a regular value of $f$ by default. More precisely, since elements of $V\setminus f(U)$ do not contain values of $U$, let alone any critical points of $f$, in their preimage, $V\setminus f(U)$ cannot contain any critical values\footnote{I get the gist of this statement, but it makes no sense. It is in \textcite{bib:DifferentialForms}, regardless, though.}.
+    \end{itemize}
+    \item Theorem 3.6.2 (Sard): If $U,V\subset\R^n$ open and $f:U\to V$ a proper $C^\infty$ map, then the set of regular values of $f$ is an open dense subset of $V$.
+    \item \marginnote{6/1:}Theorem 3.6.3: If $q$ is a regular value of $f$ a proper function, the set $f^{-1}(q)$ is finite. Additionally, if we let $f^{-1}(q)=\{p_1,\dots,p_n\}$, then there exist connected open neighborhoods $U_i\subset U$ of all $p_i$ and an open neighborhood $W\subset V$ of $q$ such that\dots
+    \begin{enumerate}
+        \item For $i\neq j$, the sets $U_i,U_j$ are disjoint;
+        \item $f^{-1}(W)=U_1\cup\cdots\cup U_n$;
+        \item $f$ maps every $U_i$ diffeomorphically onto $W$.
+    \end{enumerate}
+    \begin{proof}
+        Let $p\in f^{-1}(q)$. Then $p$ is not a critical point of $f$, so the derivative $Df(p)$ of $f$ at $p$ is bijective. It follows by the inverse function theorem that there exists a neighborhood $U_p$ of $p$ that $f$ maps diffemorphically onto a neighborhood $V_q$ of $q$.\par
+        Since we can pick such an open subset for all $p\in f^{-1}(q)$, we know that the set $\{U_p\mid p\in f^{-1}(q)\}$ is an open cover of $f^{-1}(q)$. Additionally, since $f$ is proper and $\{q\}$ is compact, $f^{-1}(q)$ is compact. Thus, as an open cover of a compact set, $\{U_p\mid p\in f^{-1}(q)\}$ has a finite subcover (which we may call $\{U_{p_1},\dots,U_{p_N}\}$).\par
+        Now suppose for the sake of contradiction that $p_i,p_j$ are both elements of $U_{p_i}$. Then since $f(p_i)=f(p_j)=q$, $f$ does not map $U_{p_i}$ bijectively onto $V_{q_i}$. Thus, $f$ does not map $U_{p_i}$ diffeomorphically onto $U_{q_i}$, a contradiction. Therefore, every $U_{p_i}$ contains at most one element of $f^{-1}(q)$. In particular, since $U_{p_i}$ contains $p_i$ by definition, it must be that every $p_i$ is the one point in $U_i$. (For example, we could not have $p_1\in U_2$ and $p_2\in U_1$ since $p_1\in U_1$ and $p_2\in U_2$ by definition.) It follows that there is a bijective correspondence between the $\{U_{p_i}\}$ and the $\{p_i\}$, so it must be that $f^{-1}(q)=\{p_1,\dots,p_N\}$ is a finite set.\par
+        We now make the $\{U_{p_i}\}$ disjoint, if they are not already. Suppose, for instance, $U_{p_i}\cap U_{p_j}\neq\emptyset$. Then since there are only finitely many $p_i$ (i.e., $p_i,p_j$ are not infinitely close together), we may simply shrink the neighborhoods as needed. One way to do this is to redefine $U_{p_i}=U_{p_i}\cap N_r(p_i)$ and likewise for $p_j$, where $r=d(p_i,p_j)/2$.\par
+        Finally, by Theorem 3.4.7, there exists a connected open neighborhood $W\subset V$ of $q$ for which $f^{-1}(W)\subset U_{p_1}\cup\cdots\cup U_{p_N}$. We lastly define every $U_i=f^{-1}(W)\cap U_{p_i}$, and it will follow from the above that these $U_i$ have all the desired properties.
+    \end{proof}
+    \item Theorem 3.6.4: Let $q$ be a regular value of $f$, and let $f^{-1}(q)=\{p_1,\dots,p_N\}$, as above. Define $\sigma:f^{-1}(q)\to\{\pm 1\}$ by
+    \begin{equation*}
+        \sigma_{p_i} =
+        \begin{cases}
+            +1 & f:U_i\to W\text{ is orientation preserving}\\
+            -1 & f:U_i\to W\text{ is orientation reversing}
+        \end{cases}
+    \end{equation*}
+    Then
+    \begin{equation*}
+        \deg(f) = \sum_{i=1}^N\sigma_{p_i}
+    \end{equation*}
+    \begin{proof}
+        Let $\omega\in\Omega_c^n(W)$ such that $\int_W\omega=1$. Then
+        \begin{equation*}
+            \deg(f) = \int_Uf^*\omega
+            = \sum_{i=1}^N\int_{U_i}f^*\omega
+        \end{equation*}
+        where by Theorem 3.5.1,
+        \begin{equation*}
+            \int_{U_i}f^*\omega = \int_W\omega =
+            \begin{cases}
+                +1 & f\text{ is orientation preserving}\\
+                -1 & f\text{ is orientation reversing}
+            \end{cases}
+        \end{equation*}
+        Thus, we have the desired result.
+    \end{proof}
+    \item Theorem 3.6.6: If $f:U\to V$ is not surjective, then $\deg(f)=0$.
+    \begin{proof}
+        We first present a hand-wavey proof based on Theorem 3.6.4. Choose $q\in V\setminus f(U)$. Then $f^{-1}(q)=\emptyset$. It follows that
+        \begin{equation*}
+            \deg(f) = \sum_{i=1}^0\sigma_{p_i}
+            = 0
+        \end{equation*}
+        For a more rigorous proof, consider the following. By Exercise 3.4.iii, $V\setminus f(U)$ is open. This combined with the fact that it is nonempty reveals that there exists a compactly supported $n$-form $\omega$ with support in $V\setminus f(U)$ and $\int_{V\setminus f(U)}\omega=1$. Since $\omega(f(U))=\{0\}$ as a compactly supported form on a set of points outside $f(U)$, $f^*\omega=0$, so
+        \begin{equation*}
+            0 = \int_Uf^*\omega
+            = \deg(f)\int_V\omega
+            = \deg(f)
+        \end{equation*}
+    \end{proof}
+    \item Theorem 3.6.8: If $\deg(f)\neq 0$, then $f:U\twoheadrightarrow V$.
+    \begin{proof}
+        This is the contrapositive of Theorem 3.6.6.
+    \end{proof}
+    \item Note that we will use Theorem 3.6.8 far more often than Theorem 3.6.6.
+    \item \textbf{Proper homotopy}: A homotopy $F$ between $f_0,f_1$ for which $F^\sharp:U\times A\to V\times A$ defined by
+    \begin{equation*}
+        (x,t) \mapsto (F(x,t),t)
+    \end{equation*}
+    is proper.
+    \begin{itemize}
+        \item If $f_0,f_1$ are properly homotopic, then $f_t$ defined by $f_t(x)=F(x,t)$ is proper for all $t\in(0,1)$.
+    \end{itemize}
+    \item Theorem 3.6.10: If $f_0,f_1$ are properly homotopic, then $\deg(f_0)=\deg(f_1)$.
+    \item Theorem 3.6.13 (The Brouwer fixed point theorem): Let $B^n=\{x\in\R^n:\norm{x}\leq 1\}$ be the closed unit ball in $\R^n$. If $f:B^n\to B^n$ is continuous, then $f$ has a fixed point, i.e., there exists $x_0\in B^n$ for which
+    \begin{equation*}
+        f(x_0) = x_0
+    \end{equation*}
+    \item \textcite{bib:DifferentialForms} also proves the fundamental theorem of algebra.
+    \item \textcite{bib:DifferentialForms} proves Sard's theorem.
+\end{itemize}
+
+
+
+\section{Chapter 4: Manifolds and Forms on Manifolds}
+\emph{From \textcite{bib:DifferentialForms}.}
+\begin{itemize}
+    \item \marginnote{6/2:}In this section, we let $X\subset\R^N$, $Y\subset\R^n$, and $f:X\to Y$ continuous unless stated otherwise.
+    \item \textbf{$\bm{C^\infty}$ map}: A continuous map $f:X\to Y$, where $X\subset\R^N$ and $Y\subset\R^n$, such that for every $p\in X$, there exists a neighborhood $U_p\subset\R^N$ of $p$ and a $C^\infty$ map $g_p:U_p\to\R^n$ which coincides with $f$ on $U_p\cap X$.
+    \item Theorem 4.1.2: If $f:X\to Y$ is a $C^\infty$ map, then there exists a neighborhood $U\subset\R^N$ of $X$ and a $C^\infty$ map $g:U\to\R^n$ such that $g$ coincides with $f$ on $X$.
+    \item Intuitively, if $Y$ is an open subset, the set $X$ described by the above definitions is a \textbf{manifold}.
+    \item \textbf{$\bm{n}$-manifold}: A subset $X\subset\R^N$ such that for every $p\in X$, there exists a neighborhood $V\subset\R^N$ of $p$, an open subset $U\subset\R^n$, and a diffeomorphism $\phi:U\to X\cap V$, where $N,n\in\N_0$ satisfy $n\leq N$.
+    \begin{itemize}
+        \item An alternate interpretation is that $X$ is an $n$-manifold if, locally near every point $p$, $X$ "looks like" an open subset of $\R^n$.
+    \end{itemize}
+    \item Examples.
+    \begin{enumerate}
+        \item Graphs of functions $f:U\to\R$.
+        \item Graphs of mappings $f:U\to\R^k$.
+        \item Vector subspaces (of $\R^n$ or any abstract vector space $V$).
+        \item Affine subspaces of $\R^n$ (e.g., cosets; subsets of the form $p+V$ where $V\leq\R^n$).
+        \item Product manifolds.
+        \item The unit $n$-sphere.
+        \item The 2-torus.
+    \end{enumerate}
+    \item \textcite{bib:DifferentialForms} also gives diffeomorphisms for the above examples.
+    \begin{itemize}
+        \item Two important diffeomorphism that arise.
+        \item One arises in conjunction with vector subspaces. In particular, we define $\phi:\R^n\to V$ by
+        \begin{equation*}
+            (x_1,\dots,x_n) \mapsto \sum_{i=1}^nx_ie_i
+        \end{equation*}
+        where $\{e_i\}$ is a basis of $V$.
+        \item One arises in conjunction with affine subspaces. In particular, we define $\tau_p:\R^N\to\R^N$, where $p\in\R^N$, by
+        \begin{equation*}
+            x \mapsto p+x
+        \end{equation*}
+    \end{itemize}
+    \item We now build up to regarding manifolds as the solutions to systems of equations.
+    \item \textbf{Submersion} (at $p$): A $C^\infty$ map $f:U\to\R^k$, where $U\subset\R^N$, for which $Df(p):\R^N\to\R^k$ is surjective.
+    \begin{itemize}
+        \item Note that for this linear map to be surjective, we must have $k\leq N$.
+    \end{itemize}
+    \item \textbf{Regular value} (of $f$): A point $a\in\R^k$ such that for all $p\in f^{-1}(a)$, $f$ is a submersion at $p$.
+    \item \textbf{Canonical submersion}: The function defined as follows, which is a submersion at every point of its domain. \emph{Denoted by} $\bm{\pi}$. \emph{Given by}
+    \begin{equation*}
+        \pi(x_1,\dots,x_n) = (x_1,\dots,x_k)
+    \end{equation*}
+    \item Theorem B.17 (canonical submersion theorem): Let $U\subset\R^n$ open and $\phi:(U,p)\to(\R^k,0)$ a $C^\infty$ map plus a submersion at $p$. Then there exists a neighborhood $V\subset U$ of $p$, a neighborhood $U_0\subset\R^n$ of the origin, and a diffeomorphism $g:(U_0,0)\to(V,p)$ such that $\phi\circ g:(U_0,0)\to(\R^n,0)$ is the restriction to $U_0$ of the canonical submersion.
+    \item Theorem 4.1.7: Let $n=N-k$. If $a$ is a regular value of $f:U\to\R^k$, then $X=f^{-1}(a)$ is an $n$-manifold.
+    \begin{proof}
+        Instead of considering $f$, let's consider $\tau_{-a}\circ f$ so that $a=0$ WLOG. Indeed, when we say "$f$" from now on, we mean "$\tau_{-a}\circ f$."\par
+        To prove that $X=f^{-1}(0)$ is an $n$-manifold, it will suffice to show that for every $p\in X$, there exists a neighborhood $V\subset\R^N$ of $p$, an open subset $U\subset\R^n$, and a diffeomorphism $\phi:U\to X\cap V$. Let $p\in X$ be arbitrary. Then since 0 is a regular value of $f$, $f$ is a submersion at $p$. Thus, by the canonical submersion theorem, there exists a neighborhood $O\subset\R^N$ of 0, a neighborhood $U_0\subset U$ of $p$, and a diffeomorphism $g:O\to U_0$ such that $f\circ g=\pi$ where $\pi$ is the canonical submersion. Since $\R^N=\R^k\times\R^n$, it follows that $\pi^{-1}(0)=\{0\}\times\R^n\cong\R^n$ (where both zeros in the previous equation refer to the $0\in\R^k$). Consequently, by the definition of the diffeomorphism of vector subspaces, $g$ maps $O\cap\pi^{-1}(0)$ diffeomorphically onto $U_0\cap f^{-1}(0)$. However, $O\cap\pi^{-1}(0)\subset\R^n$ is a neighborhood of 0 and $U_0\cap f^{-1}(0)\subset X$ is a neighborhood of $p$ and these two neighborhoods are diffeomorphic.
+    \end{proof}
+    \item Examples of manifolds as the solution to equations.
+    \begin{enumerate}
+        \item $f:\R^{n+1}\to\R$ defined by $(x_1,\dots,x_{n+1})\mapsto x_1^2+\cdots+x_{n+1}^2-1$ and the $n$-sphere as $f^{-1}(0)$.
+        \item Graphs.
+        \item The space of orthogonal matrices.
+    \end{enumerate}
+    \item Note that it is not random that these manifolds arise as zero sets of submersions. In fact, "we will show that locally \emph{every} manifold arises this way" \parencite[115]{bib:DifferentialForms}.
+    \item \textcite{bib:DifferentialForms} goes about proving this fact.
+    \item Theorem 4.1.15: Let $X$ be an $n$-dimensional submanifold of $\R^N$ and let $\ell=N-n$. Then for every $p\in X$, there exists a neighborhood $V_p\subset\R^N$ of $p$ and a submersion $f:(V_p,p)\to(\R^\ell,0)$ such that $X\cap V_p$ is defined by ...
+    \item We interpret Theorem 4.1.15 as saying that $f^{-1}(a)$ is the set of solutions to the system $f_i(x)=a_i$ ($i=1,\dots,k$), and the regular value condition as guaranteeing that the system is an independent system of defining equations (e.g., no redundant information).
+    \item \textbf{Parameterization} (of $X$ at $p$): The function $\phi:U\to X\cap V$, where $U\subset\R^n$ is open, $V\subset\R^N$ is a neighborhood of $p$, and $X$ is an $n$-manifold.
+    \item \textbf{Tangent space} (to $X$ at $p$): The image of the linear map $(\dd\phi)_q:T_q\R^n\to T_p\R^N$, where $\phi$ is a parameterization of $X$ at $p$ and $\phi(q)=p$.
+    \begin{itemize}
+        \item The examples given make it clear that if $X^n\subset\R^N$, $T_pX$ is the subset of $T_p\R^N$ containing all vectors with tail at point $p$ that are tangent to $X$.
+    \end{itemize}
+    \item \textcite{bib:DifferentialForms} goes through the nitty gritty details of defining the tangent space properly.
+    \item \textbf{Vector field} (on $X$): A function which assigns to each $p\in X$ an element of $T_pX$. \emph{Denoted by} $\bm{\pmb{v}}$.
+    \item \textbf{$\bm{k}$-form} (on $X$): A function which assigns to each $p\in X$ an element of $\lam[k]{T_p^*X}$. \emph{Denoted by} $\bm{\omega}$.
+    \item \textbf{$\bm{f}$-related} (vector fields $\bm{v},\bm{w}$ on $X$): Two vector fields $\bm{v},\bm{w}$ on $X$ such that for all $p\in X$ and $q=f(p)$,
+    \begin{equation*}
+        (\dd f)_p\bm{v}(p) = \bm{w}(q)
+    \end{equation*}
+    \begin{itemize}
+        \item See Figure \ref{fig:fRelated} and the associated discussion.
+    \end{itemize}
+    \item \textbf{Pushforward} (of $\bm{v}$ by $f$): The unique vector field $\bm{w}$ such that $\bm{v},\bm{w}$ are $f$-related.
+    \item \textbf{Pullback} (of $\bm{w}$ by $f$): The unique vector field $\bm{v}$ such that $\bm{v},\bm{w}$ are $f$-related.
+    \item Proposition 4.3.4: Defining the chain rule/functoriality for the pushforward and pullback.
+    \item \textbf{Parameterizable open set}: An open subset $U$ of $X$ for which there exists a corresponding open set $U_0\subset\R^n$ and diffeomorphism $\phi_0:U_0\to U$.
+    \begin{itemize}
+        \item "Note that $X$ being a manifold means that every point is contained in a parameterizable open set" \parencite[126]{bib:DifferentialForms}.
+    \end{itemize}
+    \item \textbf{Smooth} ($k$-form on $U$): A $k$-form $\omega$ on $U\subset X$ for which there exists a parameterizable open set with parameterization $\phi_0$ such that $\phi_0^*\omega$ is $C^\infty$.
+    \item \textcite{bib:DifferentialForms} proves that this definition is independent of our choice of $\phi_0$.
+    \item \textbf{Smooth} ($k$-form on $X$): A $k$-form $\omega$ on $X$ such that for every $p\in X$, $\omega$ is smooth on a neighborhood of $p$.
+    \item Proposition 4.3.10: Let $X,Y$ manifolds and $f:X\to Y$ a $C^\infty$ map. If $\omega$ is a smooth $k$-form on $Y$, then the pullback $f^*\omega$ is a smooth $k$-form on $X$.
+    \item Proposition 4.3.11: An analogous result for vector fields.
+    \item \textbf{Unit vector} (in $T_{t_0}\R$): The vector $(t_0,1)\in T_{t_0}\R$. \emph{Denoted by} $\bm{\vec{u}}$.
+    \begin{itemize}
+        \item This vector arises when we have an integral curve $\gamma:I\to X$, where $t_0\in I\subset\R$, $I$ being an open interval. Specifically, we will use it to define the tangent vector to $\gamma$ at $t_0$, as follows.
+    \end{itemize}
+    \item \textbf{Tangent vector} (to $\gamma$ at $p$): The vector $\dd\gamma_{t_0}(\vec{u})\in T_pX$, where $p=\gamma(t_0)$.
+    \item \textbf{Integral curve} (of $\bm{v}$): A curve $\gamma:I\to X$ such that for all $t_0\in I$,
+    \begin{equation*}
+        \bm{v}(\gamma(t_0)) = \dd\gamma_{t_0}(\vec{u})
+    \end{equation*}
+    where $\bm{v}$ is a vector field on $X$.
+    \item Proposition 4.3.13: Integral curves get mapped from $X$ to $Y$ by $f$ for $f$-related vector fields.
+    \item Local existence, local uniqueness, and smooth dependence on initial data follow.
+    \item More integral curves stuff.
+    \item \textbf{Exterior derivative} (of $\omega$ on $X$): The $k$-form defined as follows, where $\omega$ is a smooth $k$-form on $X$, $U\subset X$ is a parameterizable open set, and $\phi_0:U_0\to U$ is a parameterization. \emph{Denoted by} $\bm{\textbf{d}\omega}$. \emph{Given by}
+    \begin{equation*}
+        \dd\omega = (\phi_0^{-1})^*(\dd(\phi_0^*(\omega)))
+    \end{equation*}
+    \begin{itemize}
+        \item Essentially, what we're doing here is pulling back our $k$-form on $X$ into $\R^n$, taking the exterior derivative there, and then pulling it back onto $X$.
+    \end{itemize}
+    \item Theorem 4.3.22: If $X,Y$ are manifolds and $f:X\to Y$ is smooth, then for $\omega\in\ome[k]{Y}$, we have
+    \begin{equation*}
+        f^*(\dd\omega) = \dd(f^*\omega)
+    \end{equation*}
+    \item \textcite{bib:DifferentialForms} covers the interior product and Lie derivative in manifold-land.
+\end{itemize}
+
+
+
+
+\end{document}

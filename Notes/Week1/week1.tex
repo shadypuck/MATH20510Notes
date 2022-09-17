@@ -22,43 +22,86 @@
     \begin{itemize}
         \item More (multi)linear algebra.
     \end{itemize}
-    \item Dual spaces.
     \item Let $V$ be an $n$-dimensional real vector space.
-    \item $\bm{\Hom(V,\pmb{\R})}$: The set of all homomorphisms (i.e., linear maps) from $V$ to $\R$. \emph{Also known as} $\bm{V^*}$.
+    \item \textbf{Dual space} (of $V$): The set of all homomorphisms from $V$ to $\R$. \emph{Also known as} $\bm{\Hom(V,\pmb{\R})}$, $\bm{V^*}$.
+    \begin{itemize}
+        \item A homomorphism of vector spaces (such as any $\varphi\in V^*$) is just a linear map or, specifically, a \textbf{linear functional}.
+    \end{itemize}
+    \item \textbf{Linear functional}: A linear map from a vector field to its field of scalars (often $\R$ or $\C$).
     \item \textbf{Dual basis} (for $V^*$): The set of linear transformations from $V$ to $\R$ defined by
     \begin{equation*}
-        \vec{e}_j \mapsto
+        e_j \mapsto
         \begin{cases}
             1 & j=i\\
             0 & j\neq i
         \end{cases}
     \end{equation*}
-    where $\vec{e}_1,\dots,\vec{e}_n$ is a basis of $V$. \emph{Denoted by} $\vec{e}_1^*,\dots,\vec{e}_n^*$.
-    \item Check: $\vec{e}_1^*,\dots,\vec{e}_n^*$ are a basis for $V^*$.
+    where $e_1,\dots,e_n$ is a basis of $V$. \emph{Denoted by} $e_1^*,\dots,e_n^*$.
+    \item Check: $e_1^*,\dots,e_n^*$ are a basis for $V^*$.
     \begin{itemize}
-        \item Are they linearly independent? Let $c_1\vec{e}_1^*+\cdots+c_n\vec{e}_n^*=0\in\Hom(V,\R)$. Then
+        \item Are they linearly independent? Let $c_1e_1^*+\cdots+c_ne_n^*=0\in\Hom(V,\R)$. Then
         \begin{equation*}
-            c_i = (c_1\vec{e}_1^*+\cdots+c_n\vec{e}_n^*)(\vec{e}_i) = 0\in\R
+            c_i = (c_1e_1^*+\cdots+c_ne_n^*)(e_i) = 0\in\R
         \end{equation*}
         as desired.
         \item Span? Let $\varphi\in\Hom(V,\R)$. Then we can verify that
         \begin{equation*}
-            \varphi(\vec{e}_1)\vec{e}_1^*+\cdots+\varphi(\vec{e}_n)\vec{e}_n^* = \varphi
+            \varphi(e_1)e_1^*+\cdots+\varphi(e_n)e_n^* = \varphi
         \end{equation*}
         \begin{itemize}
             \item We prove this by verifying the previous statement on the basis of $V$ (if two linear transformations have the same action on the basis of a vector space, they are equal).
         \end{itemize}
     \end{itemize}
-    \item With a choice of basis for $V$, we obtain an isomorphism $\varepsilon:V\to V^*$ with the mapping $\vec{e}_i\mapsto\vec{e}_i^*$ for all $i$.
-    \item The dual space is known as such because $(V^*)^*\cong V$, where $\cong$ is \textbf{canonical} (no choice of basis is needed).
-    \item One more property of dual spaces: \textbf{functoriality}.
+    \item With a choice of basis for $V$, we obtain an \textbf{isomorphism} $\varepsilon:V\to V^*$ defined by $e_i\mapsto e_i^*$ for all $i$.
+    \item \textbf{Isomorphism} (between $V,W$): A bijective (equiv., invertible) linear map between two vector spaces $V,W$. \emph{Denoted by} $\bm{V\cong W}$.
+    \item The dual space is known as such because $(V^*)^*\cong V$, where the isomorphism is \textbf{canonical}.
     \begin{itemize}
-        \item Given a linear transformation $A:V\to W$, we know that $A^*:W^*\to V^*$ where $A^*$ is the transpose of $A$. In particular, if $\varphi\in W^*$, then $\varphi\circ A:V\to\R$.
+        \item The canonical isomorphism $I:V\to(V^*)^*$ is given by $v\mapsto I_v$, where $I_v:V^*\to\R$ is the linear functional defined by
+        \begin{equation*}
+            I_v(\varphi) = \varphi(v)
+        \end{equation*}
+        for all $\varphi\in V^*$.
+        \item Some incomplete thoughts on the proof are commented out in the \verb|.tex| file. See also \href{https://math.stackexchange.com/q/763199/340652}{this link}.
+        % \begin{proof}
+        %     Let $V$ be a finite-dimensional vector space. Let $I$ be the isomorphism defined above. To prove that $I$ is canonical, it will suffice to show that $I$ does not depend on the choice of some basis (for either $V$ or $(V^*)^*$). In other words, we want to show that for any basis of $V$ in which we describe an arbitrary $v\in V$, $I(v)$ refers to the same element of $(V^*)^*$.\par
+        %     Let $\beta_1=\{e_1,\dots,e_n\}$ and $\beta_2=\{f_1,\dots,f_n\}$ be bases of $V$. Suppose
+        %     \begin{align*}
+        %         v &= a_1e_1+\cdots+a_ne_n\\
+        %         &= b_1f_1+\cdots+b_nf_n
+        %     \end{align*}
+        %     Then
+        %     \begin{align*}
+        %         [I(v)](\varphi) &= I_v(\varphi)\\
+        %         &= \varphi(v)
+        %     \end{align*}
+        % \end{proof}
+        % \item Let $e_1,\dots,e_n$ be a basis of $V$ and $f_1,\dots,f_n$ be a basis of $V^*$. Let $v=a_1e_1+\cdots+a_ne_n$ and $\varphi=b_1f_1+\cdots+b_nf_n$, where $a_1,\dots,a_n,b_1,\dots,b_n\in\R$. Then
+        % \begin{align*}
+        %     \varphi_v(\phi) &= b_1\varphi_v(f_1)+\cdots+b_n\varphi_v(f_n)\\
+        %     &= b_1f_1(v)+\cdots+b_nf_n(v)\\
+        %     &= b_1[a_1f_1(e_1)+\cdots+a_nf_1(e_n)]+\cdots+b_n[a_1f_n(e_1)+\cdots+a_nf_n(e_n)]\\
+        %     &= \sum_{i,j=1}^nb_ia_jf_i(e_j)
+        % \end{align*}
+        % \begin{align*}
+        %     \iota(v) = 
+        % \end{align*}
+    \end{itemize}
+    \item \textbf{Canonical} (map): A map between objects that arises naturally from the definition or construction of the objects.
+    \item \textbf{Canonical} (map of vector spaces): A map between vector spaces such that no choice of bases is needed to describe it.
+    \begin{itemize}
+        \item Equivalently, such a map as described on any choice of bases will be equal to the canonical map.
+    \end{itemize}
+    \item \textbf{Pullback} (of $A$): The linear transformation from $W^*\to V^*$, where $V,W$ are vector spaces and $A:V\to W$, defined as follows. \emph{Also known as} \textbf{transpose}. \emph{Denoted by} $\bm{A^*}$. \emph{Given by}
+    \begin{equation*}
+        A^*(\varphi) = \varphi\circ A
+    \end{equation*}
+    \begin{itemize}
+        \item This object is also known as the transpose because the matrix of $A^*$ is the transpose of the matrix of $A$, provided $V,W$ are real vector spaces.
         \item Claim: $A^*$ is linear.
     \end{itemize}
+    \item One more property of dual spaces: \textbf{functoriality}.
     \item \textbf{Functoriality}: If $A:V\to W$ and $B:W\to U$, then $B^*:U^*\to W^*$ and $A^*:W^*\to V^*$. The functoriality statement is that $(B\circ A)^*=A^*\circ B^*$.
-    \item $A^*$ is the \textbf{pullback} (or transpose) of $A$.
-    \item Let $\vec{v}_1,\dots,\vec{v}_n$ be a basis for $V$ and $\vec{w}_1,\dots,\vec{w}_m$ be a basis for $W$. Then $[A]_{\vec{v}_1,\dots,\vec{v}_n}^{\vec{w}_1,\dots,\vec{w}_m}=A$ is the matrix of the linear transformation $A$ with respect to these bases. Then if $\vec{v}_1^*,\dots,\vec{v}_n^*$ and $\vec{w}_1^*,\dots,\vec{w}_m^*$ are the corresponding dual bases, then $[A^*]_{\vec{v}_1^*,\dots,\vec{v}_n^*}^{\vec{w}_1^*,\dots,\vec{w}_m^*}=A^T$. We can and should verify this for ourselves.
+    \item Let $v_1,\dots,v_n$ be a basis for $V$ and $w_1,\dots,w_m$ be a basis for $W$. Then $[A]_{v_1,\dots,v_n}^{w_1,\dots,w_m}=A$ is the matrix of the linear transformation $A$ with respect to these bases. Then if $v_1^*,\dots,v_n^*$ and $w_1^*,\dots,w_m^*$ are the corresponding dual bases, then $[A^*]_{v_1^*,\dots,v_n^*}^{w_1^*,\dots,w_m^*}=A^T$. We can and should verify this for ourselves.
     \item This is over the real numbers, so $A^*$ is just the transpose because there are no complex numbers of which to take the conjugate!
     \item A generalization: Tensors.
     \item \textbf{$\bm{k}$-tensor}: A \textbf{multilinear} map
@@ -67,10 +110,10 @@
     \end{equation*}
     \item \textbf{Multilinear} (map $T$): A function $T$ such that
     \begin{align*}
-        T(\vec{v}_1,\dots,\vec{v}_i^1+\vec{v}_i^2,\dots,\vec{v}_k) &= T(\vec{v}_1,\dots,\vec{v}_i^1,\dots,\vec{v}_k)+T(\vec{v}_1,\dots,\vec{v}_i^2,\dots,\vec{v}_k)\\
-        T(\vec{v}_1,\dots,\lambda \vec{v}_i,\dots,\vec{v}_k) &= \lambda T(\vec{v}_1,\dots,\vec{v}_i,\dots,\vec{v}_k)
+        T(v_1,\dots,v_i^1+v_i^2,\dots,v_k) &= T(v_1,\dots,v_i^1,\dots,v_k)+T(v_1,\dots,v_i^2,\dots,v_k)\\
+        T(v_1,\dots,\lambda v_i,\dots,v_k) &= \lambda T(v_1,\dots,v_i,\dots,v_k)
     \end{align*}
-    for all $(\vec{v}_1,\dots,\vec{v}_k)\in V^k$.
+    for all $(v_1,\dots,v_k)\in V^k$.
     \item The determinant is an $n$-tensor!
     \item 1-tensors are just covectors.
     \item $\bm{\lin[k]{V}}$: The vector space of all $k$-tensors on $V$.
@@ -80,10 +123,10 @@
         \item Check $(A\circ B)^*=B^*\circ A^*$.
     \end{itemize}
     \item \textbf{Multi-index of $\bm{n}$ of length $\bm{k}$}: A $k$-tuple $(i_1,\dots,i_k)$ where each $i_j\in\N$ satisfies $1\leq i_j\leq n$ ($j=1,\dots,k$). \emph{Denoted by} $\bm{I}$.
-    \item Let $\vec{e}_1,\dots,\vec{e}_n$ be a basis for $V$.
+    \item Let $e_1,\dots,e_n$ be a basis for $V$.
     \item \textbf{Tensor product} (of $T_1\in \lin[k]{V}$, $T_2\in L^l(V)$): The function from $V^{k+l}$ to $\R$ defined by
     \begin{equation*}
-        (\vec{v}_1,\dots,\vec{v}_{k+l}) \mapsto T_1(\vec{v}_1,\dots,\vec{v}_k)T_2(\vec{v}_{k+1},\dots,\vec{v}_{k+l})
+        (v_1,\dots,v_{k+l}) \mapsto T_1(v_1,\dots,v_k)T_2(v_{k+1},\dots,v_{k+l})
     \end{equation*}
     \emph{Denoted by} $\bm{T_1\otimes T_2}$.
     \item Claims:
@@ -91,12 +134,12 @@
         \item $T_1\otimes T_2\in L^{k+l}(V)$.
         \item $A^*(T_1\otimes T_2)=A^*(T_1)\otimes A^*(T_2)$.
     \end{enumerate}
-    \item $\bm{\vec{e}_I^*}$: The function $\vec{e}_{i_1}^*\otimes\cdots\otimes\vec{e}_{i_k}^*$, where $I=(i_1,\dots,i_k)$ is a multi-index of $n$ of length $k$.
-    \item Claim: Letting $I$ range over all $n^k$ multi-indices of $n$ of length $k$, the $\vec{e}_I^*$ are a basis for $\lin[k]{V}$.
-    \item If $V=\R$, then $V=\R\vec{e}_1$. If $V=\R^2$, then $V=\R\vec{e}_1\oplus\R\vec{e}_2$.
-    \item We know that $L^1(V)=V^*=R\vec{e}_1^*$. Thus, $\vec{e}_1^*\otimes\vec{e}_2^*:V\times V\to\R$. Thus, for example,
+    \item $\bm{e_I^*}$: The function $e_{i_1}^*\otimes\cdots\otimes e_{i_k}^*$, where $I=(i_1,\dots,i_k)$ is a multi-index of $n$ of length $k$.
+    \item Claim: Letting $I$ range over all $n^k$ multi-indices of $n$ of length $k$, the $e_I^*$ are a basis for $\lin[k]{V}$.
+    \item If $V=\R$, then $V=\Re_1$. If $V=\R^2$, then $V=\Re_1\oplus\Re_2$.
+    \item We know that $L^1(V)=V^*=Re_1^*$. Thus, $e_1^*\otimes e_2^*:V\times V\to\R$. Thus, for example,
     \begin{equation*}
-        (\vec{e}_1^*\otimes\vec{e}_2^*)((1,2),(3,4)) = \vec{e}_1^*(1,2)\cdot \vec{e}_2^*(3,4)
+        (e_1^*\otimes e_2^*)((1,2),(3,4)) = e_1^*(1,2)\cdot e_2^*(3,4)
         = 1\cdot 4
         = 4
     \end{equation*}
@@ -170,9 +213,9 @@
     \begin{itemize}
         \item Thus, $S_n$ is a \textbf{group}.
     \end{itemize}
-    \item \textbf{Transposition}: A function $\tau\in S_n$ such that
+    \item \textbf{Transposition}: A function in $S_n$ such that
     \begin{equation*}
-        \tau(k) =
+        k \mapsto
         \begin{cases}
             j & k=i\\
             i & k=j\\
@@ -199,7 +242,7 @@
         &= -1\cdot -1\cdot 1\\
         &= +1
     \end{align*}
-    which squares with the fact that $\sigma=\tau_{1,2}\circ\tau_{2,3}$.
+    which checks out with the fact that $\sigma=\tau_{1,2}\circ\tau_{2,3}$.
     \item Claims to verify with the above formula:
     \begin{enumerate}
         \item $\sgn(\sigma)\in\{\pm 1\}$.
@@ -258,13 +301,14 @@
     \item Proposition 1.2.9: Let $A:V\to U$ be a linear map. If $W\subset\ker(A)$, then there exists a unique linear map $A^\sharp:V/W\to U$ with the property that $A=A^\sharp\circ\pi$, where $\pi:V\to V/W$ is the quotient map.
     \begin{itemize}
         \item This proposition rephrases in terms of quotient spaces the fact that if $w\in W$, then $A(v+w)=Av$.
+        \item Another way of thinking about it is that $\pi$ cuts out all of the information that $A$ will lose anyway, and $A^\sharp$ retains all information necessary to reconstruct $A$.
     \end{itemize}
     \item \textbf{Dual space} (of $V$): The set of all linear functions $\ell:V\to\R$, along with the following definitions of vector addition and scalar multiplication.
     \begin{align*}
         (\ell_1+\ell_2)(v) &= \ell_1(v)+\ell_2(v)&
         (\lambda\ell)(v) &= \lambda\cdot\ell(v)
     \end{align*}
-    \emph{Denoted by} $V^*$.
+    \emph{Denoted by} $\bm{V^*}$.
     \item \textbf{Dual basis} (of $e_1,\dots,e_n$ a basis of $V$): The basis of $V^*$ consisting of the $n$ functions that take every $v=c_1e_1+\cdots+c_ne_n$ to one of the $c_i$. \emph{Denoted by} $\bm{e_1^*,...,e_n^*}$. \emph{Given by}
     \begin{equation*}
         e_i^*(v) = c_i
@@ -322,7 +366,7 @@
     \begin{itemize}
         \item Since the sum $T_1+T_2$ of two $k$-linear functions $T_1,T_2:V^k\to\R$ is just another $k$-linear function, and $\lambda T_1$ is $k$-linear for all $\lambda\in\R$, we have that $\lin[k]{V}$ is a vector space.
     \end{itemize}
-    \item Convention: 0-tensors are just the real numbers. Mathematically, we define
+    \item Convention\footnote{See the definition of the tensor product and ensuing note for a justification of this convention (just a few lines down).}: 0-tensors are just the real numbers. Mathematically, we define
     \begin{equation*}
         \lin[0]{V} = \R
     \end{equation*}
